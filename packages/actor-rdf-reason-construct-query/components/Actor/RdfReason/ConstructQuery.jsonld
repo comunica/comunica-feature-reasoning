@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-construct-query/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rdf-reason-construct-query",
+  "components": [
+    {
+      "@id": "carrcq:Actor/RdfReason/ConstructQuery",
+      "@type": "Class",
+      "extends": "cbrr:Actor/RdfReason",
+      "requireElement": "ActorRdfReasonConstructQuery",
+      "comment": "A comunica Construct Query Reasoner RDF Reason Actor.",
+      "constructorArguments": [
+        {
+          "extends": "cbrr:Actor/RdfReason/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

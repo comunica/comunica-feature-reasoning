@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-construct-query/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/actor-rdf-reason-construct-query",
+  "@type": "Module",
+  "requireName": "@comunica/actor-rdf-reason-construct-query",
+  "import": [
+    "files-carrcq:components/Actor/RdfReason/ConstructQuery.jsonld"
+  ]
+}
