@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-hylar/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/actor-rdf-reason-hylar",
+  "@type": "Module",
+  "requireName": "@comunica/actor-rdf-reason-hylar",
+  "import": [
+    "files-carrh:components/Actor/RdfReason/Hylar.jsonld"
+  ]
+}

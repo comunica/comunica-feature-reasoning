@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-hylar/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rdf-reason-hylar",
+  "components": [
+    {
+      "@id": "carrh:Actor/RdfReason/Hylar",
+      "@type": "Class",
+      "extends": "cbrr:Actor/RdfReason",
+      "requireElement": "ActorRdfReasonHylar",
+      "comment": "A comunica Hylar Reasoner RDF Reason Actor.",
+      "constructorArguments": [
+        {
+          "extends": "cbrr:Actor/RdfReason/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}
