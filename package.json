@@ -1,0 +1,76 @@
+{
+  "private": true,
+  "repository": "https://github.com/comunica/comunica-feature-link-reasoning/",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=8.0"
+  },
+  "devDependencies": {
+    "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "jest": "^27.0.6",
+    "jest-rdf": "^1.6.0",
+    "lerna": "^4.0.0",
+    "pre-commit": "^1.2.2",
+    "ts-jest": "^27.0.3",
+    "typedoc": "^0.21.4",
+    "typescript": "^4.3.5"
+  },
+  "pre-commit": [
+    "build",
+    "lint",
+    "test"
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "setupFilesAfterEnv": [
+      "./setup-jest.js"
+    ],
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/mocks/",
+      "index.js"
+    ],
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  },
+  "scripts": {
+    "test-changed": "lerna run test --since HEAD",
+    "build-changed": "lerna run build --since HEAD",
+    "test": "jest",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "test-ci": "jest --ci --maxWorkers=4 --coverage",
+    "coveralls-ci": "cat ./coverage/lcov.info | coveralls",
+    "lint": "eslint . --ext .ts --cache",
+    "clean": "rm -rf ./node_modules && rm -rf ./packages/*/node_modules",
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "publish": "yarn run build",
+    "publish-release": "lerna publish",
+    "publish-bare": "lerna exec -- npm publish --silent",
+    "publish-canary": "yarn run build && lerna version prerelease --preid alpha.$(git rev-parse --short HEAD) --ignore-scripts --force-publish --no-push --no-git-tag-version --yes && git update-index --assume-unchanged $(git ls-files | tr '\\n' ' ') && lerna publish from-package --no-git-reset --pre-dist-tag next --force-publish --no-push --no-git-tag-version --yes && git update-index --no-assume-unchanged $(git ls-files | tr '\\n' ' ') && git checkout .",
+    "doc": "typedoc",
+    "postinstall": "yarn run build && lerna run prepare",
+    "version": "manual-git-changelog onversion"
+  }
+}
