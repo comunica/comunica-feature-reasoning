@@ -1,0 +1,50 @@
+{
+  "name": "@comunica/actor-init-reasoning",
+  "version": "0.0.1",
+  "description": "A Comunica engine for link traversal-based query evaluation",
+  "lsd:module": true,
+  "main": "index.js",
+  "typings": "index",
+  "repository": "https://github.com/comunica/comunica-feature-reasoning/tree/master/packages/actor-init-sparql-reasoning",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "comunica",
+    "actor",
+    "init",
+    "sparql",
+    "link-traversal"
+  ],
+  "license": "MIT",
+  "bin": {
+    "comunica-sparql-link-traversal": "./bin/query.js",
+    "comunica-sparql-link-traversal-http": "./bin/http.js",
+    "comunica-dynamic-sparql-link-traversal": "./bin/query-dynamic.js"
+  },
+  "bugs": {
+    "url": "https://github.com/comunica/comunica/issues"
+  },
+  "homepage": "https://comunica.dev/",
+  "files": [
+    "config",
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "index.js",
+    "index.d.ts",
+    "index-browser.d.ts",
+    "index-browser.js",
+    "engine-default.js"
+  ],
+  "dependencies": {
+    "@comunica/actor-init-sparql": "1.21.3",
+    "@comunica/runner": "1.21.1",
+    "@comunica/runner-cli": "1.21.1"
+  },
+  "scripts": {
+    "lint": "node \"../../node_modules/tslint/bin/tslint\" lib/**/*.ts test/**/*.ts --exclude '**/*.d.ts'",
+    "build": "node \"../../node_modules/typescript/bin/tsc\"",
+    "validate": "npm ls",
+    "prepare": "comunica-compile-config config/config-default.json > engine-default.js"
+  }
+}

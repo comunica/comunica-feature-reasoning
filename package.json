@@ -8,6 +8,7 @@
     "node": ">=8.0"
   },
   "devDependencies": {
+    "@comunica/core": "^1.21.1",
     "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.0",
