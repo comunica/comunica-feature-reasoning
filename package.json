@@ -15,7 +15,7 @@
     "@typescript-eslint/parser": "4.28.5",
     "jest": "^27.0.6",
     "jest-rdf": "^1.6.0",
-    "lerna": "^4.0.0",
+    "lerna": "4.0.0",
     "pre-commit": "^1.2.2",
     "ts-jest": "27.0.4",
     "typedoc": "^0.21.4",
