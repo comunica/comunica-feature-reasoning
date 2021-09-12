@@ -2,8 +2,8 @@ import { ActorRdfReason, IActionRdfReason, IActorRdfReasonOutput, IReason, IReas
 import type { IQuadSource } from '@comunica/bus-rdf-resolve-quad-pattern'
 import { IActorArgs, IActorTest } from '@comunica/core';
 import { incremental, factsToQuads, quadsToFacts } from 'hylar-core';
-import type { AsyncIterator } from 'asynciterator';
-import { fromArray } from 'asynciterator';
+import type { AsyncIterator, ArrayIterator } from 'asynciterator';
+import { fromArray, wrap } from 'asynciterator';
 import { DataFactory } from 'rdf-data-factory';
 import * as RDF from 'rdf-js';
 
@@ -57,6 +57,25 @@ export class ActorRdfReasonHylar extends ActorRdfReason {
   }
 
   public reason(params: IReason): IReasonOutput {
+    const reasoned = hylarReason(params)
+
+    function getWrapped(name: `${'implicit' | 'explicit'}${'Additions' | 'Deletions'}` ) {
+      return wrap<RDF.Quad>(new Promise<ArrayIterator<RDF.Quad>>(async (resolve, reject) => { 
+        try {
+          resolve((await reasoned)[name])
+        } catch (e) {
+          reject(e);
+        }
+      }))
+    }
+
+    return {
+      implicitInsertions: getWrapped('implicitAdditions'),
+      implicitDeletions:  getWrapped('implicitDeletions'),
+      explicitInsertions: getWrapped('explicitAdditions'),
+      explicitDeletions:  getWrapped('explicitDeletions'),
+    }
+    
     // const insertions = params.insertions ? quadsToFacts(await toArray(params.insertions)) : [];
     // return hylarReason(params);
   }
