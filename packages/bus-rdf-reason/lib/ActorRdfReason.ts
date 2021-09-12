@@ -74,14 +74,10 @@ export interface IReason {
 }
 
 export interface IReasonOutput {
-  /**
-   * Quads which are being added to the source
-   */
   implicitInsertions?: AsyncIterator<RDF.Quad>;
-  /**
-    * Quads which are being deleted from the source
-    */
   implicitDeletions?: AsyncIterator<RDF.Quad>;
+  explicitInsertions?: AsyncIterator<RDF.Quad>;
+  explicitDeletions?: AsyncIterator<RDF.Quad>;
 }
 
 /**
