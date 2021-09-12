@@ -10,6 +10,7 @@ export class ActorRdfReasonConstructQuery extends ActorRdfReason {
   }
 
   public async test(action: IActionRdfReason): Promise<IActorTest> {
+    action.context.
     return true; // TODO implement
   }
 
