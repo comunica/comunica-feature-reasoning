@@ -44,14 +44,14 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
     // await store.import(data.insertions);
     // const hash = await toHash(data.deletions.map(termToString))
   }
-
+  // Consider adding option to use context rather than IQuadSource to enable better construct query type operations
   public abstract reason(data: QuadUpdates, source: IQuadSource): void
 
   
 }
 
 export interface IActionRdfReason extends IAction {
-
+  
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {

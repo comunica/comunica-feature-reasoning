@@ -16,12 +16,13 @@ describe('ActorRdfReasonHylar', () => {
       actor = new ActorRdfReasonHylar({ name: 'actor', bus });
     });
 
+    // TODO: Implement this
     it('should test', () => {
-      return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
+      return expect(actor.test({ })).resolves.toEqual(true); // TODO
     });
 
     it('should run', () => {
-      return expect(actor.run({ todo: true })).resolves.toMatchObject({ todo: true }); // TODO
+      return expect(actor.run({ })).resolves.toMatchObject(true); // TODO
     });
   });
 });

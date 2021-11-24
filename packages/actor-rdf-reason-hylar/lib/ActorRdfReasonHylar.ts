@@ -15,6 +15,9 @@ export class ActorRdfReasonHylar extends ActorRdfReason {
   }
 
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
+    action.context?.asImmutable
     return true; // TODO implement
   }
+
+  reason() {}
 }

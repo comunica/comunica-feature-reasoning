@@ -16,4 +16,6 @@ export class ActorRdfReasonConstructQuery extends ActorRdfReason {
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return true; // TODO implement
   }
+
+  reason() {}
 }

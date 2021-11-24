@@ -45,5 +45,8 @@
   "scripts": {
     "build": "node \"../../node_modules/typescript/bin/tsc\"",
     "validate": "npm ls"
+  },
+  "dependencies": {
+    "@rdfjs/parser-n3": "^1.1.4"
   }
 }

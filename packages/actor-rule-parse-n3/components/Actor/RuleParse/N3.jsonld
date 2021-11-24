@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-n3/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rule-parse-n3",
+  "components": [
+    {
+      "@id": "carpn:Actor/RuleParse/N3",
+      "@type": "Class",
+      "extends": "cbrlp:Actor/RuleParse",
+      "requireElement": "ActorRuleParseN3",
+      "comment": "A comunica N3 Rule Parse Actor.",
+      "constructorArguments": [
+        {
+          "extends": "cbrlp:Actor/RuleParse/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}
