@@ -62,7 +62,6 @@
     "validate": "npm ls"
   },
   "dependencies": {
-    "@rdfjs/parser-n3": "^1.1.4",
     "hylar-core": "^1.1.3"
   }
 }

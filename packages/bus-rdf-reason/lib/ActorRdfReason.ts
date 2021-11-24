@@ -44,10 +44,54 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
     // await store.import(data.insertions);
     // const hash = await toHash(data.deletions.map(termToString))
   }
-  // Consider adding option to use context rather than IQuadSource to enable better construct query type operations
-  public abstract reason(data: QuadUpdates, source: IQuadSource): void
 
-  
+  public abstract reason(params: IReason): IReasonOutput
+
+
+}
+
+/**
+ * 
+ */
+export interface IReason {
+  /**
+   * Implicit Quads that have already been generated for the
+   * source
+   */
+  implicitQuads: IQuadSource;
+  /**
+   * 
+   */
+  source: IQuadSource;
+  /**
+   * Quads which are being added to the source
+   */
+  insertions?: AsyncIterator<RDF.Quad>;
+  /**
+   * Quads which are being deleted from the source
+   */
+  deletions?: AsyncIterator<RDF.Quad>;
+}
+
+export interface IReasonOutput {
+  implicitInsertions?: AsyncIterator<RDF.Quad>;
+  implicitDeletions?: AsyncIterator<RDF.Quad>;
+  explicitInsertions?: AsyncIterator<RDF.Quad>;
+  explicitDeletions?: AsyncIterator<RDF.Quad>;
+}
+
+/**
+ * Updates to the implicit sources
+ */
+interface ImplicitUpdates {
+  /**
+   * Addition to the implicit source
+   */
+  additions: AsyncIterator<RDF.Quad>;
+  /**
+   * 
+   */
+  deletions: AsyncIterator<RDF.Quad>;
 }
 
 export interface IActionRdfReason extends IAction {
@@ -59,6 +103,12 @@ export interface IActorRdfReasonOutput extends IActorOutput {
 }
 
 interface QuadUpdates {
+  /**
+   * Quads which are being added to the source
+   */
   insertions: AsyncIterator<RDF.Quad>;
+  /**
+   * Quads which are being deleted from the source
+   */
   deletions: AsyncIterator<RDF.Quad>;
 }
