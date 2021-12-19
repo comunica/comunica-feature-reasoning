@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-hylar/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rule-parse-hylar",
+  "components": [
+    {
+      "@id": "carph:Actor/RuleParse/HyLAR",
+      "@type": "Class",
+      "extends": "cbrp:Actor/RuleParse",
+      "requireElement": "ActorRuleParseHyLAR",
+      "comment": "A comunica HyLAR Rule Parse Actor.",
+      "constructorArguments": [
+        {
+          "extends": "cbrp:Actor/RuleParse/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

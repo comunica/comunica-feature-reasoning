@@ -61,6 +61,10 @@ export class ActorRdfReasonHylar extends ActorRdfReason {
     return true; // TODO implement
   }
 
+  public async test(action: IActionRdfReason): Promise<IActorTest> {
+    return true; // TODO implement
+  }
+
   public reason(params: IReason): IReasonOutput {
     const reasoned = hylarReason(params)
 

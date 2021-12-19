@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-hylar/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/actor-rule-parse-hylar",
+  "@type": "Module",
+  "requireName": "@comunica/actor-rule-parse-hylar",
+  "import": [
+    "files-carph:components/Actor/RuleParse/HyLAR.jsonld"
+  ]
+}

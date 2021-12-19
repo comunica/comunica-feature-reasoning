@@ -1,6 +1,7 @@
 import { Actor, IAction, IActorArgs, IActorOutput, IActorTest } from '@comunica/core';
 import EventEmitter = require('events');
 import type * as RDF from 'rdf-js';
+import { Readable } from 'stream';
 
 /**
  * A comunica actor for parsing reasoning rules
@@ -20,28 +21,48 @@ export abstract class ActorRuleParse extends Actor<IActionRuleParse, IActorTest,
 }
 
 export interface IActionRuleParse extends IAction {
-    /**
-     * A readable string stream in a certain rule serialization that needs to be parsed.
-     */
-     input: NodeJS.ReadableStream;
+  /**
+   * A readable string stream in a certain rule serialization that needs to be parsed.
+   */
+  input: NodeJS.ReadableStream;
 }
 
 export interface IActorRuleParseOutput extends IActorOutput {
-    /**
-     * The resulting rule stream.
-     */
-    rules: Stream<Rule>
+  /**
+   * The resulting rule stream.
+   */
+  rules: Stream<Rule> & Readable
 }
 
-export interface Rule {
-    /**
-     * Antecedents for the rule
-     */
-    antecedents: RDF.Quad[];
-    /**
-     * Consequent(s) for the rule
-     */
-    consequences: RDF.Quad[];
+function rule(...args: ConstructorParameters<typeof Rule>) {
+  return new Rule(...args);
+}
+
+export class Rule {
+  public constructor(premise: RDF.Quad[], conclusion: RDF.Quad[] | false) {
+    this.premise = premise;
+    this.conclusion = conclusion;
+  };
+  /**
+   * Antecedents for the rule
+   */
+  premise: RDF.Quad[];
+  /**
+   * Consequent(s) for the rule
+   */
+  conclusion: RDF.Quad[] | false;
+
+  public equals(other: Rule): boolean {
+    if (this.conclusion === false) {
+      return other.conclusion === false && quadEq(this.premise, other.premise)
+    } else {
+      return other.conclusion !== false && quadEq(this.premise, other.premise) && quadEq(this.conclusion, other.conclusion)
+    }
+  }
+}
+
+function quadEq(a: RDF.Quad[], b: RDF.Quad[]): boolean {
+  return a.length === b.length && a.every((quad, index) => quad.equals(b[index]));
 }
 
 /**
@@ -57,7 +78,8 @@ export interface Rule {
  * Optional events:
  * * prefix(prefix: string, iri: RDF.NamedNode): This event is emitted every time a prefix is mapped to some IRI.
  */
- export interface Stream<T> extends EventEmitter {
+
+export interface Stream<T> extends EventEmitter {
   /**
    * This method pulls a rule out of the internal buffer and returns it.
    * If there is no quad available, then it will return null.

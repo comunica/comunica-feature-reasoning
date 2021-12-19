@@ -1,4 +1,4 @@
-import { ActorRdfReason, IActionRdfReason, IActorRdfReasonOutput } from '@comunica/bus-rdf-reason';
+import { ActorRdfReason, IActionRdfReason, IActorRdfReasonOutput, IReason, IReasonOutput } from '@comunica/bus-rdf-reason';
 import { IActorArgs, IActorTest } from '@comunica/core';
 
 /**
@@ -17,5 +17,7 @@ export class ActorRdfReasonConstructQuery extends ActorRdfReason {
     return true; // TODO implement
   }
 
-  reason() {}
+  reason(params: IReason): IReasonOutput {
+    return {}
+  }
 }
