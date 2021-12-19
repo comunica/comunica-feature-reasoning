@@ -21,6 +21,9 @@ function toHash(iterator: AsyncIterator<string>): Promise<Record<string, boolean
   })
 }
 
+// Possibly create a couple of "convenience" abstract classes for Eager v. Lazy reasoners
+
+
 /**
  * A comunica actor for RDF reasoners
  *
@@ -126,6 +129,7 @@ export interface IReason {
 
 // TODO: Work out if these are better suited to come from the 'context'
 // or if they should be passed in as parameters
+//
 export interface IReasonSettings {
   /**
    * Whether the original data source has been fully reasoned over
@@ -222,7 +226,6 @@ interface QuadUpdates {
 // Get basic reasoning working
 // Get support for a variety of reasoning 'flavours' (lazy, eager, incremental, etc)
 // "Compartmentalize" reasoners to allow for actor-mediator-bus type builds 
-
 
 // Design:
 // As already is the case have a 'reasoning' source - however most of the time this should *already*
