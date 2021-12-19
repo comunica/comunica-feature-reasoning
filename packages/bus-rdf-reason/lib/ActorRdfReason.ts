@@ -9,7 +9,7 @@ import { KeysRdfReason } from './Keys';
 // import { Map } from 'immutable';
 import { ActionContext } from '@comunica/types'
 import { Dataset } from '@rdfjs/types'
-
+import type { Algebra } from 'sparqlalgebrajs';
 // Development notes - the "apply reasoning results"
 
 function toHash(iterator: AsyncIterator<string>): Promise<Record<string, boolean>> {
@@ -41,17 +41,17 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
   }
 
   // TODO [FUTURE]: Implement this using rdf-update-quads mediator
-  private updateImplicit(data: QuadUpdates, store: Store): Promise<Store> {
-    return new Promise((resolve, reject) => {
-      store.remove(data.deletions).on('end', () => {
-        store.import(data.insertions).on('end', () => {
-          resolve(store);
-        })
-      })
-    })
-    // await store.import(data.insertions);
-    // const hash = await toHash(data.deletions.map(termToString))
-  }
+  // private updateImplicit(data: QuadUpdates, store: Store): Promise<Store> {
+  //   return new Promise((resolve, reject) => {
+  //     store.remove(data.deletions).on('end', () => {
+  //       store.import(data.insertions).on('end', () => {
+  //         resolve(store);
+  //       })
+  //     })
+  //   })
+  //   // await store.import(data.insertions);
+  //   // const hash = await toHash(data.deletions.map(termToString))
+  // }
 
   public abstract reason(params: IReason): IReasonOutput
 
@@ -140,19 +140,19 @@ export interface IReasonSettings {
    */
   rules?: Rule[];
   /**
- * True if the reasoner should be lazy, false otherwise
- */
+   * True if the reasoner should be lazy, false otherwise
+   */
   lazy: boolean;
   /**
    * Patterns which are being lazily matched against
    * Should be defined if lazy is true
    */
-  patterns?: RDF.Quad[];
+  patterns?: Algebra.Pattern[];
   /**
  * Patterns which *have already*
  * Should be defined if lazy is true *and* sourceReasoned is true
  */
-  completedPatterns?: RDF.Quad[];
+  completedPatterns?: Algebra.Pattern[];
 }
 
 // export interface EagerReasonSettings extends IReasonSettings {
@@ -198,6 +198,7 @@ interface ImplicitUpdates {
 
 export interface IActionRdfReason extends IAction {
   updates: QuadUpdates
+  settings: IReasonSettings 
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {
@@ -208,11 +209,11 @@ interface QuadUpdates {
   /**
    * Quads which are being added to the source
    */
-  insertions: AsyncIterator<RDF.Quad>;
+  insertions?: AsyncIterator<RDF.Quad>;
   /**
    * Quads which are being deleted from the source
    */
-  deletions: AsyncIterator<RDF.Quad>;
+  deletions?: AsyncIterator<RDF.Quad>;
 }
 
 // TODO: Use context keys to specify the destination of inferenced quads rather than using
