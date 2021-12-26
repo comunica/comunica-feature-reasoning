@@ -7,6 +7,8 @@ import * as RDF from '@rdfjs/types'
 import { quad } from '@rdfjs/data-model'
 import { wrap } from 'asynciterator'
 
+function get 
+
 /**
  * A comunica Reasoned RDF Resolve Quad Pattern Actor.
  */
@@ -40,6 +42,8 @@ export class ActorRdfResolveQuadPatternReasoned extends ActorRdfResolveQuadPatte
   
     // this.mediatorRdfReason.publish
 
+
+
     this.mediatorRdfReason.mediate({
       context: newContext.set(KeysRD),
       updates: {},
@@ -48,14 +52,16 @@ export class ActorRdfResolveQuadPatternReasoned extends ActorRdfResolveQuadPatte
         lazy: false,
         sourceReasoned: false,
         patterns: [ action.pattern ],
+        // This *definitely* needs to be fixed
+        rules: [],
       },
     })
 
-    const newContext = (context ?? ActionContext({}))
+    const newContext = (context ?? ActionContext({}));
     
-    .remove(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, [...sources);
+    // .remove(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, [...sources);
 
-    this.mediatorResolveQuadPattern.mediate({
+    return this.mediatorResolveQuadPattern.mediate({
       context: newContext,
       pattern: action.pattern,
     })

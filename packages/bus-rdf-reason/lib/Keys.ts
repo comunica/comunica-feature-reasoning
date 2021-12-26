@@ -14,6 +14,11 @@ export enum KeysRdfReason {
    * @range {IReasonerOptions}
    */
   reasonerOptions = '@comunica/bus-rdf-reason:reasonerOptions',
+  /**
+   * TODO: See if these rules should have more structure - or be passed down differently
+   * @range {Rule[]}
+   */
+  rules = '@comunica/bus-rdf-reason:rules',
 }
 
 
