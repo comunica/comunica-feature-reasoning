@@ -7,7 +7,7 @@ import * as RDF from '@rdfjs/types'
 import { quad } from '@rdfjs/data-model'
 import { wrap } from 'asynciterator'
 
-function get 
+// function get 
 
 /**
  * A comunica Reasoned RDF Resolve Quad Pattern Actor.

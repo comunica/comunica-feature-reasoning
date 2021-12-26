@@ -11,18 +11,17 @@ import { KeysRdfReason } from './Keys';
 import { type ActionContext } from '@comunica/types'
 import { Dataset } from '@rdfjs/types'
 import type { Algebra } from 'sparqlalgebrajs';
-import { KeysRdfUpdateQuads } from '@comunica/context-entries'
-import { Map } from
-// Development notes - the "apply reasoning results"
+import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries'
+  // Development notes - the "apply reasoning results"
 
-function toHash(iterator: AsyncIterator<string>): Promise<Record<string, boolean>> {
-  return new Promise((resolve, reject) => {
-    const hash: Record<string, boolean> = {};
-    iterator.on('data', data => { hash[data] = true });
-    iterator.on('error', err => { reject(err) });
-    iterator.on('end', () => { resolve(hash) });
-  })
-}
+  // function toHash(iterator: AsyncIterator<string>): Promise<Record<string, boolean>> {
+  //   return new Promise((resolve, reject) => {
+  //     const hash: Record<string, boolean> = {};
+  //     iterator.on('data', data => { hash[data] = true });
+  //     iterator.on('error', err => { reject(err) });
+  //     iterator.on('end', () => { resolve(hash) });
+  //   })
+  // }
 
 // Possibly create a couple of "convenience" abstract classes for Eager v. Lazy reasoners
 
@@ -40,41 +39,31 @@ function toHash(iterator: AsyncIterator<string>): Promise<Record<string, boolean
  */
 export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest, IActorRdfReasonOutput> {
   public readonly mediatorRdfUpdateQuads: Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
-  IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>;
+    IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>;
   public readonly mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
-  IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
-  
+    IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+
   public constructor(args: IActorArgs<IActionRdfReason, IActorTest, IActorRdfReasonOutput>) {
     super(args);
   }
 
-  // TODO [FUTURE]: Implement this using rdf-update-quads mediator
-  // private async updateImplicit(data: QuadUpdates, context: ActionContext): Promise<void> {
-  //   const { updateResult } = await this.mediatorRdfUpdateQuads.mediate({
-  //     quadStreamInsert: data.insertions,
-  //     quadStreamDelete: data.deletions,
-  //     context: context.set(KeysRdfUpdateQuads.destination, context.get(KeysRdfReason.dataset))
-  //   })
-  //   return updateResult;
-  // }
-
-  public abstract reason(params: IReason): IReasonOutput
-
-  // /**
-  //  * Get the sources from the given context.
-  //  * @param {ActionContext} context An optional context.
-  //  * @return {IDataSource[]} The array of sources or undefined.
-  //  */
-  // protected getContextSources(context?: ActionContext): DataSources | undefined {
-  //   return context ? context.get(KeysRdfResolveQuadPattern.sources) : undefined;
-  // }
+  public abstract reason(params: IReason): Promise<IReasonOutput>
 
   // TODO: Extend this to other types of source (potentially?)
-  protected getImplicitSource(context?: ActionContext): Dataset {
-    return context?.get(KeysRdfReason.dataset) ?? new Store();
+  protected getImplicitSource(context: ActionContext): IQuadSource {
+    return context.get(KeysRdfReason.dataset);
   }
 
-  protected async runExplicitUpdate(changes: IQuadChanges, context: ActionContext) {
+  protected setImplicitDestination(context: ActionContext): ActionContext {
+    return context.set(KeysRdfUpdateQuads.destination, context.get(KeysRdfReason.dataset));
+  }
+
+  protected setImplicitSource(context: ActionContext): ActionContext {
+    // TODO: Check if sources need to be handled
+    return context.set(KeysRdfResolveQuadPattern.source, context.get(KeysRdfReason.dataset));
+  }
+
+  protected async runExplicitUpdate(changes: IQuadUpdates, context: ActionContext) {
     const { updateResult } = await this.mediatorRdfUpdateQuads.mediate({
       quadStreamInsert: changes.insert,
       quadStreamDelete: changes.delete,
@@ -83,18 +72,14 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
     return updateResult;
   }
 
-  protected setImplicitSource(context: ActionContext): ActionContext {
-    return context.set(KeysRdfUpdateQuads.destination, context.get(KeysRdfReason.dataset));
+  protected async runImplicitUpdate(changes: IQuadUpdates, context: ActionContext) {
+    return this.runExplicitUpdate(changes, this.setImplicitDestination(context));
   }
 
-  protected async runImplicitUpdate(changes: IQuadChanges, context: ActionContext) {
-    return this.runExplicitUpdate(changes, this.setImplicitSource(context));
-  }
-
-  protected async runUpdates(changes: IReasonOutput, context: ActionContext) {
+  protected async runUpdates({ updates }: IReasonOutput, context: ActionContext) {
     return Promise.all([
-      this.runExplicitUpdate(changes.explicit, context),
-      this.runImplicitUpdate(changes.implicit, context)
+      this.runExplicitUpdate(updates.explicit, context),
+      this.runImplicitUpdate(updates.implicit, context)
     ])
   }
 
@@ -111,58 +96,65 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
     return this.explicitQuadSource(this.setImplicitSource(context));
   }
 
-  public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
-    let context = action.context ?? ActionContextConstructor({});
-    
-    // const implicitDataset = this.getImplicitSource(action.context);
-    
-    // let context = action.context ?? ActionContext({});
-    // context = context.has(KeysRdfReason.dataset) ? context : context.set(KeysRdfReason.dataset, new Store());
-
-    // context.get(KeysRdfReason.dataset)
-    
-    
-    // const dataset = context.has(KeysRdfReason.dataset);
-    const match = () => {
-      this.mediatorRdfResolveQuadPattern.mediate({
-        context,
-
-      });
+  protected quadSources(context: ActionContext): IReasonSources {
+    return {
+      explicit: this.explicitQuadSource(context),
+      implicit: this.implicitQuadSource(context)
     }
-
-    
-    // @ts-ignore
-    const result = this.reason(action.params);
-
-    return this.runUpdates(result, context);
   }
+
+  protected getContext(context?: ActionContext) {
+    const _context = context ?? ActionContextConstructor({});
+    return _context.has(KeysRdfReason.dataset) ? _context : _context.set(KeysRdfReason.dataset, new Store());
+  }
+
+  public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
+    const context = this.getContext(action.context);
+    const result = this.reason({
+      sources: this.quadSources(context),
+      updates: action.updates,
+      settings: action.settings,
+      context
+    });
+    await this.runUpdates(result, context);
+    return { implicitSource: this.getImplicitSource(context) };
+  }
+}
+
+export interface IReasonSources {
+  /**
+   * Implicit Quads that have already been generated for the
+   * source
+   */
+  implicit: IQuadSource;
+  /**
+    * The source of the quads to be reasoned over
+    */
+  explicit: IQuadSource;
+}
+
+export interface IQuadUpdates {
+  /**
+   * Quads which are being added to the source
+   */
+  insert: AsyncIterator<RDF.Quad>;
+  /**
+   * Quads which are being deleted from the source
+   */
+  delete: AsyncIterator<RDF.Quad>;
 }
 
 /**
  * 
  */
 export interface IReason {
-  /**
-   * Implicit Quads that have already been generated for the
-   * source
-   */
-  implicitQuads: IQuadSource;
-  /**
-   * The source of the quads to be reasoned over
-   */
-  source: IQuadSource;
-  /**
-   * Quads which are being added to the source
-   */
-  insertions?: AsyncIterator<RDF.Quad>;
-  /**
-   * Quads which are being deleted from the source
-   */
-  deletions?: AsyncIterator<RDF.Quad>;
+  sources: IReasonSources;
+  updates: IQuadUpdates;
   /**
    * Settings for reasoning
    */
   settings: IReasonSettings;
+  context: ActionContext;
 }
 
 // Note: The parameters relating to lazy evaluation are *highly* experimental at the moment.
@@ -213,15 +205,17 @@ export interface IReasonSettings {
 // patterns: RDF.Quad[];
 // }
 
-export interface IQuadChanges {
+export interface IQuadUpdates {
   insert: AsyncIterator<RDF.Quad>;
   delete: AsyncIterator<RDF.Quad>;
 }
 
 
 export interface IReasonOutput {
-  implicit: IQuadChanges;
-  explicit: IQuadChanges;
+  updates: {
+    implicit: IQuadUpdates;
+    explicit: IQuadUpdates;
+  }
 }
 
 /**
@@ -239,12 +233,12 @@ interface ImplicitUpdates {
 }
 
 export interface IActionRdfReason extends IAction {
-  updates: QuadUpdates
-  settings: IReasonSettings 
+  updates: IQuadUpdates
+  settings: IReasonSettings
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {
-
+  implicitSource: IQuadSource;
 }
 
 interface QuadUpdates {
