@@ -6,7 +6,8 @@ import { Dataset } from '@rdfjs/types'
 
 export enum KeysRdfReason {
   /**
-   * @range {Dataset}
+  //  * @range {Dataset}
+   * @range {IDataDestination & IDataSource}
    */
   dataset = '@comunica/bus-rdf-reason:dataset',
   /**

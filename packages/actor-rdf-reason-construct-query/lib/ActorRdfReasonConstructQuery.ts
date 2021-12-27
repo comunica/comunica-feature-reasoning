@@ -1,11 +1,15 @@
-import { ActorRdfReason, IActionRdfReason, IActorRdfReasonOutput, IReason, IReasonOutput } from '@comunica/bus-rdf-reason';
+import { ActorRdfReason, ActorRdfReasonMediated, IActionRdfReason, IActorRdfReasonMediatedArgs, IActorRdfReasonOutput, IReason, IReasonOutput } from '@comunica/bus-rdf-reason';
 import { IActorArgs, IActorTest } from '@comunica/core';
+import { empty } from 'asynciterator'
 
 /**
  * A comunica Construct Query Reasoner RDF Reason Actor.
  */
-export class ActorRdfReasonConstructQuery extends ActorRdfReason {
-  public constructor(args: IActorArgs<IActionRdfReason, IActorTest, IActorRdfReasonOutput>) {
+export class ActorRdfReasonConstructQuery extends ActorRdfReasonMediated {
+  // public constructor(args: IActorArgs<IActionRdfReason, IActorTest, IActorRdfReasonOutput>) {
+  //   super(args);
+  // }
+  public constructor(args: IActorRdfReasonMediatedArgs) {
     super(args);
   }
 
@@ -13,11 +17,18 @@ export class ActorRdfReasonConstructQuery extends ActorRdfReason {
     return true; // TODO implement
   }
 
-  public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
-    return true; // TODO implement
-  }
-
-  reason(params: IReason): IReasonOutput {
-    return {}
-  }
+  // async reason(params: IReason): Promise<IReasonOutput> {
+  //   return {
+  //     updates: {
+  //       implicit: {
+  //         insert: empty(),
+  //         delete: empty(),
+  //       },
+  //       explicit: {
+  //         insert: empty(),
+  //         delete: empty(),
+  //       },
+  //     }
+  //   }
+  // }
 }

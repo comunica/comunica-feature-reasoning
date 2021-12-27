@@ -1,7 +1,7 @@
 import { ActionContext as ActionContextConstructor, Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
 import * as RDF from 'rdf-js';
 import { type AsyncIterator, wrap } from 'asynciterator'
-import type { IActionRdfResolveQuadPattern, IQuadSource, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern'
+import type { IActionRdfResolveQuadPattern, IQuadSource, IActorRdfResolveQuadPatternOutput, IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern'
 import { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, IDataDestination } from '@comunica/bus-rdf-update-quads';
 import { termToString } from 'rdf-string'
 import { Store } from 'n3';
@@ -24,7 +24,7 @@ import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context
   // }
 
 // Possibly create a couple of "convenience" abstract classes for Eager v. Lazy reasoners
-
+type D = IDataDestination & IDataSource
 
 /**
  * A comunica actor for RDF reasoners
@@ -38,86 +38,44 @@ import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context
  * @see IActorRdfReasonOutput
  */
 export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest, IActorRdfReasonOutput> {
-  public readonly mediatorRdfUpdateQuads: Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
-    IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>;
-  public readonly mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
-    IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+  // public readonly mediatorRdfUpdateQuads: Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
+  //   IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>;
+  // public readonly mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
+  //   IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
 
   public constructor(args: IActorArgs<IActionRdfReason, IActorTest, IActorRdfReasonOutput>) {
     super(args);
   }
 
-  public abstract reason(params: IReason): Promise<IReasonOutput>
-
   // TODO: Extend this to other types of source (potentially?)
-  protected getImplicitSource(context: ActionContext): IQuadSource {
+  static getImplicitSource(context: ActionContext): IQuadSource {
     return context.get(KeysRdfReason.dataset);
   }
 
-  protected setImplicitDestination(context: ActionContext): ActionContext {
+  static getExplicitSources(context: ActionContext): IQuadSource[] {
+    return context.get(KeysRdfResolveQuadPattern.source) ? [context.get(KeysRdfResolveQuadPattern.source)] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
+  }
+
+  static getUnionSources(context: ActionContext): IQuadSource[] {
+    return [...this.getExplicitSources(context), this.getImplicitSource(context)];
+  }
+
+  static setImplicitDestination(context: ActionContext): ActionContext {
     return context.set(KeysRdfUpdateQuads.destination, context.get(KeysRdfReason.dataset));
   }
 
-  protected setImplicitSource(context: ActionContext): ActionContext {
+  static setImplicitSource(context: ActionContext): ActionContext {
     // TODO: Check if sources need to be handled
     return context.set(KeysRdfResolveQuadPattern.source, context.get(KeysRdfReason.dataset));
   }
 
-  protected async runExplicitUpdate(changes: IQuadUpdates, context: ActionContext) {
-    const { updateResult } = await this.mediatorRdfUpdateQuads.mediate({
-      quadStreamInsert: changes.insert,
-      quadStreamDelete: changes.delete,
-      context: context
-    });
-    return updateResult;
+  static setUnionSource(context: ActionContext): ActionContext {
+    return context.delete(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, this.getUnionSources(context));
   }
 
-  protected async runImplicitUpdate(changes: IQuadUpdates, context: ActionContext) {
-    return this.runExplicitUpdate(changes, this.setImplicitDestination(context));
-  }
-
-  protected async runUpdates({ updates }: IReasonOutput, context: ActionContext) {
-    return Promise.all([
-      this.runExplicitUpdate(updates.explicit, context),
-      this.runImplicitUpdate(updates.implicit, context)
-    ])
-  }
-
-  protected explicitQuadSource(context: ActionContext): IQuadSource {
-    const match = (pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> => {
-      const data = this.mediatorRdfResolveQuadPattern.mediate({ context, pattern })
-        .then(({ data }) => data);
-      return wrap(data);
-    }
-    return { match };
-  }
-
-  protected implicitQuadSource(context: ActionContext): IQuadSource {
-    return this.explicitQuadSource(this.setImplicitSource(context));
-  }
-
-  protected quadSources(context: ActionContext): IReasonSources {
-    return {
-      explicit: this.explicitQuadSource(context),
-      implicit: this.implicitQuadSource(context)
-    }
-  }
-
-  protected getContext(context?: ActionContext) {
+  static getContext(context?: ActionContext) {
     const _context = context ?? ActionContextConstructor({});
     return _context.has(KeysRdfReason.dataset) ? _context : _context.set(KeysRdfReason.dataset, new Store());
-  }
-
-  public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
-    const context = this.getContext(action.context);
-    const result = this.reason({
-      sources: this.quadSources(context),
-      updates: action.updates,
-      settings: action.settings,
-      context
-    });
-    await this.runUpdates(result, context);
-    return { implicitSource: this.getImplicitSource(context) };
   }
 }
 
@@ -137,11 +95,11 @@ export interface IQuadUpdates {
   /**
    * Quads which are being added to the source
    */
-  insert: AsyncIterator<RDF.Quad>;
+   quadStreamInsert?: AsyncIterator<RDF.Quad>;
   /**
    * Quads which are being deleted from the source
    */
-  delete: AsyncIterator<RDF.Quad>;
+   quadStreamDelete?: AsyncIterator<RDF.Quad>;
 }
 
 /**
@@ -206,8 +164,8 @@ export interface IReasonSettings {
 // }
 
 export interface IQuadUpdates {
-  insert: AsyncIterator<RDF.Quad>;
-  delete: AsyncIterator<RDF.Quad>;
+  quadStreamInsert?: AsyncIterator<RDF.Quad>;
+  quadStreamDelete?: AsyncIterator<RDF.Quad>;
 }
 
 
@@ -238,7 +196,7 @@ export interface IActionRdfReason extends IAction {
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {
-  implicitSource: IQuadSource;
+  implicitSource: IDataSource;
 }
 
 interface QuadUpdates {

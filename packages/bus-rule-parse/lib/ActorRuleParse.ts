@@ -39,7 +39,11 @@ function rule(...args: ConstructorParameters<typeof Rule>) {
 }
 
 export class Rule {
-  public constructor(premise: RDF.Quad[], conclusion: RDF.Quad[] | false) {
+  public constructor(
+    premise: RDF.Quad[],
+    conclusion: RDF.Quad[] | false
+    // conclusion: RDF.Quad[]
+    ) {
     this.premise = premise;
     this.conclusion = conclusion;
   };
@@ -50,15 +54,16 @@ export class Rule {
   /**
    * Consequent(s) for the rule
    */
+  // conclusion: RDF.Quad[] | false;
   conclusion: RDF.Quad[] | false;
 
-  public equals(other: Rule): boolean {
-    if (this.conclusion === false) {
-      return other.conclusion === false && quadEq(this.premise, other.premise)
-    } else {
-      return other.conclusion !== false && quadEq(this.premise, other.premise) && quadEq(this.conclusion, other.conclusion)
-    }
-  }
+  // public equals(other: Rule): boolean {
+  //   if (this.conclusion === false) {
+  //     return other.conclusion === false && quadEq(this.premise, other.premise)
+  //   } else {
+  //     return other.conclusion !== false && quadEq(this.premise, other.premise) && quadEq(this.conclusion, other.conclusion)
+  //   }
+  // }
 }
 
 function quadEq(a: RDF.Quad[], b: RDF.Quad[]): boolean {
