@@ -1,5 +1,5 @@
 {
-  "name": "@comunica/actor-init-reasoning",
+  "name": "@comunica/actor-init-sparql-reasoning",
   "version": "0.0.1",
   "description": "A Comunica engine for link traversal-based query evaluation",
   "lsd:module": true,
@@ -46,6 +46,6 @@
     "lint": "node \"../../node_modules/tslint/bin/tslint\" lib/**/*.ts test/**/*.ts --exclude '**/*.d.ts'",
     "build": "node \"../../node_modules/typescript/bin/tsc\"",
     "validate": "npm ls",
-    "prepare-": "comunica-compile-config config/config-default.json > engine-default.js"
+    "prepare": "comunica-compile-config config/config-default.jsonld > engine-default.js"
   }
 }

@@ -15,9 +15,7 @@ function quadsToPatterns(quads: RDF.Quad[]): Algebra.Pattern[] {
   })
 }
 
-function ruleToConstruct(rule: Rule): Algebra.DeleteInsert {
-  const { premise, conclusion } = rule;
-
+function ruleToConstruct({ premise, conclusion }: Rule): Algebra.DeleteInsert {
   if (conclusion === false) {
     throw new Error('False conclusion in rule not handled')
   }

@@ -1,3 +1,0 @@
-SELECT * WHERE {
-  <http://example.org#Jesse> a ?o
-}

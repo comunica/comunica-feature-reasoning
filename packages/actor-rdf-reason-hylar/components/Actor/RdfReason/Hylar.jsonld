@@ -8,12 +8,12 @@
     {
       "@id": "carrh:Actor/RdfReason/Hylar",
       "@type": "Class",
-      "extends": "cbrr:Actor/RdfReason",
+      "extends": "cbrr:Actor/RdfReasonMediated",
       "requireElement": "ActorRdfReasonHylar",
       "comment": "A comunica Hylar Reasoner RDF Reason Actor.",
       "constructorArguments": [
         {
-          "extends": "cbrr:Actor/RdfReason/constructorArgumentsObject"
+          "extends": "cbrr:Actor/RdfReasonMediated/constructorArgumentsObject"
         }
       ]
     }

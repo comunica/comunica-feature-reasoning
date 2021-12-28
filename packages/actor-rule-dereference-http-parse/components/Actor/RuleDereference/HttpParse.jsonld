@@ -15,7 +15,7 @@
         {
           "@id": "carlhp:Actor/RuleDereference/HttpParse",
           "@type": "Class",
-          "extends": "cbrd:Actor/RuleDereferenceMediaMappings",
+          "extends": "cbrld:Actor/RuleDereferenceMediaMappings",
           "requireElement": "ActorRuleDereferenceHttpParse",
           "comment": "An actor that listens on the 'rule-dereference' bus that uses the 'http' and 'Rule-parse' buses.",
           "parameters": [

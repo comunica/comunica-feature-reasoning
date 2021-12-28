@@ -8,12 +8,12 @@
     {
       "@id": "carph:Actor/RuleParse/HyLAR",
       "@type": "Class",
-      "extends": "cbrp:Actor/RuleParse",
+      "extends": "cbrlp:Actor/RuleParse",
       "requireElement": "ActorRuleParseHyLAR",
       "comment": "A comunica HyLAR Rule Parse Actor.",
       "constructorArguments": [
         {
-          "extends": "cbrp:Actor/RuleParse/constructorArgumentsObject"
+          "extends": "cbrlp:Actor/RuleParse/constructorArgumentsObject"
         }
       ]
     }

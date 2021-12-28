@@ -5,6 +5,7 @@
   "requireName": "@comunica/bus-rdf-reason",
   "import": [
     "files-cbrr:components/Bus/RdfReason.jsonld",
-    "files-cbrr:components/Actor/RdfReason.jsonld"
+    "files-cbrr:components/Actor/RdfReason.jsonld",
+    "files-cbrr:components/Actor/RdfReasonMediated.jsonld"
   ]
 }

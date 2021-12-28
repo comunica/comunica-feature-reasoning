@@ -5,6 +5,7 @@
   "requireName": "@comunica/bus-rule-dereference",
   "import": [
     "files-cbrld:components/Bus/RuleDereference.jsonld",
-    "files-cbrld:components/Actor/RuleDereference.jsonld"
+    "files-cbrld:components/Actor/RuleDereference.jsonld",
+    "files-cbrld:components/Actor/RuleDereferenceMediaMappings.jsonld"
   ]
 }

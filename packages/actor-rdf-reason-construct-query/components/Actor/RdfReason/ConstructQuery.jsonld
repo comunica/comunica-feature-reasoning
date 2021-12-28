@@ -1,7 +1,9 @@
 {
   "@context": [
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-construct-query/^1.0.0/components/context.jsonld",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-query-operation/^1.0.0/components/context.jsonld"
   ],
   "@id": "npmd:@comunica/actor-rdf-reason-construct-query",
   "components": [
@@ -11,9 +13,21 @@
       "extends": "cbrr:Actor/RdfReason",
       "requireElement": "ActorRdfReasonConstructQuery",
       "comment": "A comunica Construct Query Reasoner RDF Reason Actor.",
+      "parameters": [
+        {
+          "@id": "cbqo:mediatorQueryOperation",
+          "comment": "The query operation mediator",
+          "required": true,
+          "unique": true
+        }
+      ],
       "constructorArguments": [
         {
-          "extends": "cbrr:Actor/RdfReason/constructorArgumentsObject"
+          "extends": "cbrr:Actor/RdfReason/constructorArgumentsObject",
+          "fields": {
+            "keyRaw": "mediatorQueryOperation",
+            "value": "cbqo:mediatorQueryOperation"
+          }
         }
       ]
     }

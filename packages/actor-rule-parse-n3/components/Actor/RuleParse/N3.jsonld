@@ -1,7 +1,9 @@
 {
   "@context": [
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-n3/^1.0.0/components/context.jsonld",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/context.jsonld"
   ],
   "@id": "npmd:@comunica/actor-rule-parse-n3",
   "components": [
@@ -11,9 +13,23 @@
       "extends": "cbrlp:Actor/RuleParse",
       "requireElement": "ActorRuleParseN3",
       "comment": "A comunica N3 Rule Parse Actor.",
+      "parameters": [
+        {
+          "@id": "cbrp:mediatorRdfParse",
+          "comment": "The RDF parse mediator",
+          "required": true,
+          "unique": true
+        }
+      ],
       "constructorArguments": [
         {
-          "extends": "cbrlp:Actor/RuleParse/constructorArgumentsObject"
+          "extends": "cbrlp:Actor/RuleParse/constructorArgumentsObject",
+          "fields": [
+            {
+              "keyRaw": "mediatorRdfParse",
+              "value": "cbrp:mediatorRdfParse"
+            }
+          ]
         }
       ]
     }

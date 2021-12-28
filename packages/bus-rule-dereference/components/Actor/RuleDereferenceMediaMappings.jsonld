@@ -1,0 +1,69 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-rule-dereference",
+  "components": [
+    {
+      "@id": "cbrld:Actor/RuleDereferenceMediaMappings",
+      "@type": "AbstractClass",
+      "extends": "cbrld:Actor/RuleDereference",
+      "requireElement": "ActorRuleDereferenceMediaMappings",
+      "comment": "A base actor for handling Rule dereference events that has default media type mappings for file extensions.",
+      "parameters": [
+        {
+          "@id": "cbrld:mediaMappingEntry",
+          "comment": "Maps an extension to a file type",
+          "required": true,
+          "default": [
+            { "cbrld:extension": "ttl",      "cbrld:mediaType": "text/turtle" },
+            { "cbrld:extension": "turtle",   "cbrld:mediaType": "text/turtle" },
+            { "cbrld:extension": "nt",       "cbrld:mediaType": "application/n-triples" },
+            { "cbrld:extension": "ntriples", "cbrld:mediaType": "application/n-triples" },
+            { "cbrld:extension": "nq",       "cbrld:mediaType": "application/n-quads" },
+            { "cbrld:extension": "nquads",   "cbrld:mediaType": "application/n-quads" },
+            { "cbrld:extension": "rdf",      "cbrld:mediaType": "application/rdf+xml" },
+            { "cbrld:extension": "rdfxml",   "cbrld:mediaType": "application/rdf+xml" },
+            { "cbrld:extension": "owl",      "cbrld:mediaType": "application/rdf+xml" },
+            { "cbrld:extension": "n3",       "cbrld:mediaType": "text/n3" },
+            { "cbrld:extension": "trig",     "cbrld:mediaType": "application/trig" },
+            { "cbrld:extension": "jsonld",   "cbrld:mediaType": "application/ld+json" },
+            { "cbrld:extension": "json",     "cbrld:mediaType": "application/json" },
+            { "cbrld:extension": "html",     "cbrld:mediaType": "text/html" },
+            { "cbrld:extension": "htm",      "cbrld:mediaType": "text/html" },
+            { "cbrld:extension": "xhtml",    "cbrld:mediaType": "application/xhtml+xml" },
+            { "cbrld:extension": "xht",      "cbrld:mediaType": "application/xhtml+xml" },
+            { "cbrld:extension": "xml",      "cbrld:mediaType": "application/xml" },
+            { "cbrld:extension": "svg",      "cbrld:mediaType": "image/svg+xml" },
+            { "cbrld:extension": "svgz",     "cbrld:mediaType": "image/svg+xml" }
+          ]
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "cbrld:Actor/RuleDereferenceMediaMappings/constructorArgumentsObject",
+          "extends": "cc:Actor/constructorArgumentsObject",
+          "fields": [
+            {
+              "keyRaw": "mediatorRuleParse",
+              "value": "cbrld:mediatorRuleParse"
+            },
+            {
+              "keyRaw": "mediaMappings",
+              "value": {
+                "fields": [
+                  {
+                    "collectEntries": "cbrld:mediaMappingEntry",
+                    "key": "cbrld:extension",
+                    "value": "cbrld:mediaType"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
