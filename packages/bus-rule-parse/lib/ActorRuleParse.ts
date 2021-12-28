@@ -1,4 +1,12 @@
 import { Actor, IAction, IActorArgs, IActorOutput, IActorTest } from '@comunica/core';
+import type { IActionAbstractMediaTyped,
+  IActionAbstractMediaTypedHandle, IActionAbstractMediaTypedMediaTypes,
+  IActorArgsMediaTyped,
+  IActorOutputAbstractMediaTyped,
+  IActorOutputAbstractMediaTypedHandle, IActorOutputAbstractMediaTypedMediaTypes,
+  IActorTestAbstractMediaTyped,
+  IActorTestAbstractMediaTypedHandle,
+  IActorTestAbstractMediaTypedMediaTypes } from '@comunica/actor-abstract-mediatyped';
 import EventEmitter = require('events');
 import type * as RDF from 'rdf-js';
 import { Readable } from 'stream';
@@ -20,11 +28,31 @@ export abstract class ActorRuleParse extends Actor<IActionRuleParse, IActorTest,
   }
 }
 
+export type IActionRootRuleParse = IActionAbstractMediaTyped<IActionRuleParse>;
+export type IActorTestRootRuleParse = IActorTestAbstractMediaTyped<IActorTest>;
+export type IActorOutputRootRuleParse = IActorOutputAbstractMediaTyped<IActorRuleParseOutput>;
+
+export type IActionHandleRuleParse = IActionAbstractMediaTypedHandle<IActionRuleParse>;
+export type IActorTestHandleRuleParse = IActorTestAbstractMediaTypedHandle<IActorTest>;
+export type IActorOutputHandleRuleParse = IActorOutputAbstractMediaTypedHandle<IActorRuleParseOutput>;
+
+export type IActionMediaTypesRuleParse = IActionAbstractMediaTypedMediaTypes;
+export type IActorTestMediaTypesRuleParse = IActorTestAbstractMediaTypedMediaTypes;
+export type IActorOutputMediaTypesRuleParse = IActorOutputAbstractMediaTypedMediaTypes;
+
 export interface IActionRuleParse extends IAction {
   /**
    * A readable string stream in a certain rule serialization that needs to be parsed.
    */
   input: NodeJS.ReadableStream;
+  /**
+   * The base IRI for parsed rules encoded in rdf file.
+   */
+  baseIRI: string;
+  /**
+   * The headers with which the Rule document should be parsed.
+   */
+  headers?: Headers;
 }
 
 export interface IActorRuleParseOutput extends IActorOutput {

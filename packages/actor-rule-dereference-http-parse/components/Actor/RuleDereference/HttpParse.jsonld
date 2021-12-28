@@ -1,0 +1,88 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-dereference-http-parse/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rule-dereference-http-parse",
+  "components": [
+    {
+      "@id": "carlhp:Actor/RuleDereference/HttpParse",
+      "@type": "Class",
+      "extends": "cbrld:Actor/RuleDereference",
+      "requireElement": "ActorRuleDereferenceHttpParse",
+      "comment": "An Rule Dereference actor implementation for Comunica that resolves the URL using the HTTP bus and parses it using the Rule parse bus.",
+      "components": [
+        {
+          "@id": "carlhp:Actor/RuleDereference/HttpParse",
+          "@type": "Class",
+          "extends": "cbrd:Actor/RuleDereferenceMediaMappings",
+          "requireElement": "ActorRuleDereferenceHttpParse",
+          "comment": "An actor that listens on the 'rule-dereference' bus that uses the 'http' and 'Rule-parse' buses.",
+          "parameters": [
+            {
+              "@id": "carlhp:mediatorHttp",
+              "comment": "The HTTP mediator",
+              "required": true,
+              "unique": true
+            },
+            {
+              "@id": "carlhp:mediatorRuleParseMediatypes",
+              "comment": "The Rule Parse mediator for collecting media types",
+              "required": true,
+              "unique": true
+            },
+            {
+              "@id": "carlhp:mediatorRuleParseHandle",
+              "comment": "The Rule Parse mediator for handling parsing",
+              "required": true,
+              "unique": true
+            },
+            {
+              "@id": "carlhp:maxAcceptHeaderLength",
+              "comment": "The maximum allowed accept header value length for non-browser environments.",
+              "required": true,
+              "unique": true,
+              "default": 1024,
+              "range": "xsd:integer"
+            },
+            {
+              "@id": "carlhp:maxAcceptHeaderLengthBrowser",
+              "comment": "The maximum allowed accept header value length for browser environments.",
+              "required": true,
+              "unique": true,
+              "default": 128,
+              "range": "xsd:integer"
+            }
+          ]
+        }
+      ],
+      "constructorArguments": [
+        {
+          "extends": "cbrld:Actor/RuleDereference/constructorArgumentsObject",
+          "fields": [
+            {
+              "keyRaw": "mediatorHttp",
+              "value": "carlhp:mediatorHttp"
+            },
+            {
+              "keyRaw": "mediatorRuleParseMediatypes",
+              "value": "carlhp:mediatorRuleParseMediatypes"
+            },
+            {
+              "keyRaw": "mediatorRuleParseHandle",
+              "value": "carlhp:mediatorRuleParseHandle"
+            },
+            {
+              "keyRaw": "maxAcceptHeaderLength",
+              "value": "carlhp:maxAcceptHeaderLength"
+            },
+            {
+              "keyRaw": "maxAcceptHeaderLengthBrowser",
+              "value": "carlhp:maxAcceptHeaderLengthBrowser"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

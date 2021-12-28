@@ -1,0 +1,6 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-resolve-rule/^1.0.0/components/context.jsonld",
+  "@id": "cbrrr:Bus/RuleResolveRule",
+  "@type": "cc:Bus",
+  "comment": "A comunica bus for rule-resolve-rule events."
+}

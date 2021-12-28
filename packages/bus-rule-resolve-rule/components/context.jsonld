@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "cbrrr": "npmd:@comunica/bus-rule-resolve-rule/",
+      "files-cbrrr": "cbrrr:^1.0.0/",
+
+      "BusRuleResolveRule": "cbrrr:Bus/RuleResolveRule",
+      "ActorRuleResolveRule": "cbrrr:Actor/RuleResolveRule"
+    }
+  ]
+}

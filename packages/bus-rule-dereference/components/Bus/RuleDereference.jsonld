@@ -1,0 +1,6 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
+  "@id": "cbrld:Bus/RuleDereference",
+  "@type": "cc:Bus",
+  "comment": "A bus for dereferencing a path or URL into a stream of Rules."
+}

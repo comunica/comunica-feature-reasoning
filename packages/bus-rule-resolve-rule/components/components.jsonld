@@ -1,0 +1,10 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-resolve-rule/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/bus-rule-resolve-rule",
+  "@type": "Module",
+  "requireName": "@comunica/bus-rule-resolve-rule",
+  "import": [
+    "files-cbrrr:components/Bus/RuleResolveRule.jsonld",
+    "files-cbrrr:components/Actor/RuleResolveRule.jsonld"
+  ]
+}

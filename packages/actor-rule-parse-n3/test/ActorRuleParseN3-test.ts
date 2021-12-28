@@ -1,5 +1,6 @@
 // import { ActorRuleParse } from '@comunica/bus-rule-parse';
 import { ActorRuleParse, IActionRuleParse, IActorRuleParseOutput, Rule } from '@comunica/bus-rule-parse';
+import { IActionRdfParse, IActorRdfParseOutput } from '@comunica/bus-rdf-parse';
 import { Bus } from '@comunica/core';
 import { fromArray } from 'asynciterator';
 import { ActorRuleParseN3, streamToArray } from '../lib/ActorRuleParseN3';
@@ -7,9 +8,9 @@ import { quad, namedNode, blankNode, variable } from '@rdfjs/data-model'
 // @ts-ignore
 import stringToStream = require('streamify-string');
 import arrayifyStream = require('arrayify-stream');
+import { StreamParser } from 'n3';
 import 'jest-rdf'
-
-// jest.addMatchers(require('jest-rdf'))
+import exp = require('constants');
 
 const rule1 = `
 @prefix : <dpe#>.
@@ -41,10 +42,9 @@ const rule2 = `
     }.
 }.
 `
-
-
 describe('ActorRuleParseN3', () => {
   let bus: any;
+  let mediatorRdfParse: any;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
@@ -54,69 +54,69 @@ describe('ActorRuleParseN3', () => {
     let actor: ActorRuleParseN3;
 
     beforeEach(() => {
-      actor = new ActorRuleParseN3({ name: 'actor', bus });
+      mediatorRdfParse = {
+        async mediate(action: IActionRdfParse): Promise<IActorRdfParseOutput> {
+          const parser = new StreamParser({
+            baseIRI: action.baseIRI,
+            format: 'text/n3'
+          });
+
+          return {
+            quads: parser.import(action.input),
+          }
+        },
+        async mediateActor(action: IActionRdfParse) {
+          return;
+        }
+      }
+      actor = new ActorRuleParseN3({
+        name: 'actor',
+        bus,
+        mediatorRdfParse
+      })
+      
     });
 
     // TODO: IMPLEMENT THIS
     it('should test', () => {
       expect(actor.test({ 
-        input: stringToStream(rule1)
+        input: stringToStream(rule1),
+        baseIRI: 'http://example.org#'
       })).resolves.toEqual(true);
 
       expect(actor.test({ 
-        input: stringToStream(rule2)
+        input: stringToStream(rule2),
+        baseIRI: 'http://example.org#'
       })).resolves.toEqual(true);
     });
 
     it('should run', async () => {
       const { rules } = await actor.run({
-        input: stringToStream(rule1)
+        input: stringToStream(rule1),
+        baseIRI: 'http://example.org#'
        })
 
        const arr = await arrayifyStream(rules);
 
        expect(arr).toHaveLength(1);
-       console.log('rule array is', arr)
 
        const rule: Rule = arr[0]
-       expect(rule).toBeTruthy()
-       if (rule === null) {
-          return;
-       }
-       
-       const { premise, conclusion } = rule;
-       console.log(premise, conclusion)
-       expect(conclusion).toBeInstanceOf(Array);
-       if (conclusion === false) {
-         return;
-       }
 
-       expect(premise).toHaveLength(1)
-       expect(conclusion).toHaveLength(1)
-
-       expect(conclusion).toEqualRdfTermArray([
+       expect(rule.premise).toEqualRdfQuadArray([
         quad(
-          namedNode('dpe#c'),
-          namedNode('dpe#not_re'),
+          namedNode('http://dpe#b'),
+          namedNode('http://dpe#re'),
           variable('X'),
          )
-       ]);
+       ])
 
-       expect(rule.equals(new Rule([
+       expect(rule.conclusion).toEqualRdfQuadArray([
         quad(
-          namedNode('dpe#b'),
-          namedNode('dpe#re'),
+          namedNode('http://dpe#c'),
+          namedNode('http://dpe#not_re'),
           variable('X'),
          )
-       ],[
-        quad(
-          namedNode('dpe#c'),
-          namedNode('dpe#not_re'),
-          variable('X'),
-         )
-       ]))).toBeTruthy()
-
-      //  expect(true).to
+       ])
     });
   });
 });

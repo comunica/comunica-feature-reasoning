@@ -1,0 +1,3 @@
+@prefix : <dpe#>.
+
+{:b :re ?X} => {:c :not_re ?X}.

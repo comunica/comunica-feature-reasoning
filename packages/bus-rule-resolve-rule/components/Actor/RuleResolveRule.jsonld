@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-resolve-rule/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-rule-resolve-rule",
+  "components": [
+    {
+      "@id": "cbrrr:Actor/RuleResolveRule",
+      "@type": "AbstractClass",
+      "extends": "cc:Actor",
+      "requireElement": "ActorRuleResolveRule",
+      "comment": "A comunica actor for rule-resolve-rule events.",
+      "parameters": [
+        {
+          "@id": "cc:Actor/bus",
+          "defaultScoped": {
+            "defaultScope": "cbrrr:Actor/RuleResolveRule",
+            "defaultScopedValue": { "@id": "cbrrr:Bus/RuleResolveRule" }
+          }
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "cbrrr:Actor/RuleResolveRule/constructorArgumentsObject",
+          "@type": "https://linkedsoftwaredependencies.org/vocabularies/object-oriented#Object",
+          "extends": "cc:Actor/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}
