@@ -1,9 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/components/context.jsonld",
-  "@id": "npmd:@comunica/actor-init-sparql-reasoning",
-  "@type": "Module",
-  "requireName": "@comunica/actor-init-sparql-reasoning",
-  "import": [
-    "files-caisrs:components/Actor/Init/SparqlReasoning.jsonld"
-  ]
-}
