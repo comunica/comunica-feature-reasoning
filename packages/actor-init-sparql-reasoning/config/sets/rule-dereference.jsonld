@@ -3,7 +3,11 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld",
 
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld",
+
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-dereference-fallback/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-dereference-http-parse/^1.0.0/components/context.jsonld",
 
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-combine-union/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^1.0.0/components/context.jsonld"
@@ -11,8 +15,28 @@
   "@id": "urn:comunica:my",
   "actors": [
     {
-      "@id": "config-sets:rdf-dereference.json#myRdfDereferencerFallback",
-      "@type": "ActorRdfDereferenceFallback"
+      "@id": "config-sets:rule-dereference.json#myRuleDereferencer",
+      "@type": "ActorRuleDereferenceHttpParse",
+      "beforeActor": "config-sets:rule-dereference.json#myRuleDereferencerFallback",
+      "mediatorHttp": {
+        "@id": "config-sets:http.json#mediatorHttp"
+      },
+      "mediatorRuleParseMediatypes": {
+        "@id": "config-sets:rule-dereference.json#mediatorRuleParseMediatypes",
+        "@type": "MediatorCombineUnion",
+        "cc:Mediator/bus": { "@id": "cbrlp:Bus/RuleParse" },
+        "cmcu:Mediator/CombineUnion/field": "mediaTypes"
+      },
+      "mediatorRuleParseHandle": {
+        "@id": "config-sets:rule-dereference.json#mediatorRuleParseHandle",
+        "@type": "MediatorRace",
+        "cc:Mediator/bus": { "@id": "cbrlp:Bus/RuleParse" }
+      }
+    },
+
+    {
+      "@id": "config-sets:rule-dereference.json#myRuleDereferencerFallback",
+      "@type": "ActorRuleDereferenceFallback"
     }
   ]
 }

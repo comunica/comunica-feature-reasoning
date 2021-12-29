@@ -16,7 +16,7 @@
         {
           "@id": "caam:Actor/AbstractMediaTypedFixed/mediaTypeEntry",
           "defaultScoped": {
-            "defaultScope": "carlph:Actor/RdfParse/HyLAR",
+            "defaultScope": "carph:Actor/RdfParse/HyLAR",
             "defaultScopedValue": [
               { "mediaTypeKey": "text/hylar",               "priorityValue": "1.0", "mediaTypeFormat": "http://www.w3.org/ns/formats/hylar" }
             ]
