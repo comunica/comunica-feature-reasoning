@@ -30,6 +30,7 @@
     "files-cais:config/sets/sparql-serializers.json",
 
     "files-caisr:config/sets/rdf-reasoners.jsonld",
-    "files-caisr:config/sets/rule-dereference.jsonld"
+    "files-caisr:config/sets/rule-dereference.jsonld",
+    "files-caisr:config/sets/rule-parsers.jsonld"
   ]
 }

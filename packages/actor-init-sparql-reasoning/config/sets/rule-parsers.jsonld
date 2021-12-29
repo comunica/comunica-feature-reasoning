@@ -1,0 +1,31 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-hylar/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-n3/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-combine-union/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "urn:comunica:my",
+  "actors": [
+    {
+      "@id": "config-sets:rdf-reasoners.json#myRuleParseHyLAR",
+      "@type": "ActorRuleParseHyLAR"
+    },
+    {
+      "@id": "config-sets:rdf-reasoners.json#myRuleParseN3",
+      "@type": "ActorRuleParseN3",
+      "cbrp:mediatorRdfParseHandle": {
+        "@id": "config-sets:rdf-dereference.json#mediatorRdfParseHandle",
+        "@type": "MediatorRace",
+        "cc:Mediator/bus": { "@id": "cbrp:Bus/RdfParse" }
+      }
+    }
+  ]
+}

@@ -5,6 +5,7 @@
   "requireName": "@comunica/bus-rule-parse",
   "import": [
     "files-cbrlp:components/Bus/RuleParse.jsonld",
-    "files-cbrlp:components/Actor/RuleParse.jsonld"
+    "files-cbrlp:components/Actor/RuleParse.jsonld",
+    "files-cbrlp:components/Actor/RuleParseFixedMediaTypes.jsonld"
   ]
 }

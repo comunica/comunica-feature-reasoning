@@ -1,37 +1,38 @@
-import { ActorRuleParse, IActionRuleParse, IActorRuleParseOutput, Rule } from '@comunica/bus-rule-parse';
-import { IActionRdfParse, IActorRdfParseOutput } from '@comunica/bus-rdf-parse'
-import { IActorArgs, IActorTest, Mediator, Actor, IAction, IActorOutput } from '@comunica/core';
+import { ActorRuleParse, IActionRuleParse, IActorRuleParseOutput, ActorRuleParseFixedMediaTypes, IActorRuleParseFixedMediaTypesArgs, Rule } from '@comunica/bus-rule-parse';
+import { IActionRdfParse, IActorRdfParseOutput, IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse } from '@comunica/bus-rdf-parse'
+import { IActorArgs, IActorTest, Mediator, Actor, IAction, IActorOutput, ActionContext } from '@comunica/core';
 import { quad } from '@rdfjs/data-model';
 import * as RDF from '@rdfjs/types';
 import { wrap } from 'asynciterator';
 import { NamedNode, Quad, Store, Quad_Object } from 'n3';
 import arrayifyStream = require('stream-to-array');
+import { Readable } from 'stream';
 
 // Test suite https://github.com/w3c/N3/blob/16d1eec49048f87a97054540f4e1301e73a12130/tests/N3Tests/cwm_syntax/this-quantifiers-ref2.n3
 
 /**
  * A comunica N3 Rule Parse Actor.
  */
-export class ActorRuleParseN3 extends ActorRuleParse {
-  public readonly mediatorRdfParse: Mediator<Actor<IActionRdfParse, IActorTest, IActorRdfParseOutput>,
-  IActionRdfParse, IActorTest, IActorRdfParseOutput>;
+export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
+  public readonly mediatorRdfParseHandle: Mediator<
+  Actor<IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>,
+  IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>;
 
   public constructor(args: IActorParseN3Args) {
     super(args);
   }
 
-  public async test(action: IActionRuleParse): Promise<IActorTest> {
-    // TODO: Double check
-    await this.mediatorRdfParse.mediateActor(action);
-    return true;
-  }
-
-  public async run(action: IActionRuleParse): Promise<IActorRuleParseOutput> {
-    const { quads } = await this.mediatorRdfParse.mediate(action);
+  public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
+  Promise<IActorRuleParseOutput> {
+    const { handle } = await this.mediatorRdfParseHandle.mediate({
+      handle: action,
+      context,
+      handleMediaType: mediaType
+    })
     const store = new Store();
 
     await new Promise((resolve, reject) => {
-      store.import(quads)
+      store.import(handle.quads)
         .on('end', resolve)
         .on('error', reject);
     });
@@ -46,9 +47,40 @@ export class ActorRuleParseN3 extends ActorRuleParse {
         done();
       }
     });
+    
     // @ts-ignore
-    return { rules };
+    return { rules: new Readable(rules) };
   }
+
+  // public async test(action: IActionRuleParse): Promise<IActorTest> {
+  //   // TODO: Double check
+  //   await this.mediatorRdfParse.mediateActor(action);
+  //   return true;
+  // }
+
+  // public async run(action: IActionRuleParse): Promise<IActorRuleParseOutput> {
+    // const { quads } = await this.mediatorRdfParse.mediate(action);
+    // const store = new Store();
+
+    // await new Promise((resolve, reject) => {
+    //   store.import(quads)
+    //     .on('end', resolve)
+    //     .on('error', reject);
+    // });
+
+    // const matches = wrap<Quad>(store.match(null, new NamedNode('http://www.w3.org/2000/10/swap/log#implies'), null))
+
+    // const rules = matches.transform<Rule>({
+    //   transform: async (qd, done, push) => {
+    //     if (qd.subject.termType === 'BlankNode' && qd.object.termType === 'BlankNode') {
+    //       push(new Rule(await match(store, qd.subject), await match(store, qd.object)));
+    //     }
+    //     done();
+    //   }
+    // });
+    // // @ts-ignore
+    // return { rules };
+  // }
 }
 
 // Function that converts a stream to an array
@@ -70,7 +102,7 @@ function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
   )
 }
 
-export interface IActorParseN3Args extends IActorArgs<IActionRuleParse, IActorTest, IActorRuleParseOutput> {
-  mediatorRdfParse: Mediator<Actor<IActionRdfParse, IActorTest, IActorRdfParseOutput>,
-  IActionRdfParse, IActorTest, IActorRdfParseOutput>;
+export interface IActorParseN3Args extends IActorRuleParseFixedMediaTypesArgs {
+  mediatorRdfParse: Mediator<Actor<IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>,
+  IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>;
 }

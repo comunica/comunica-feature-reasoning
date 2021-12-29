@@ -1,5 +1,5 @@
-import { ActorRuleParse, IActionRuleParse, IActorRuleParseOutput, Rule } from '@comunica/bus-rule-parse';
-import { IActorArgs, IActorTest } from '@comunica/core';
+import { ActorRuleParse, ActorRuleParseFixedMediaTypes, IActionRuleParse, IActorRuleParseOutput, Rule, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
+import { ActionContext, IActorArgs, IActorTest } from '@comunica/core';
 import { stringToTerm } from 'rdf-string';
 import { termAsQuad } from 'is-quad';
 import * as RDF from '@rdfjs/types';
@@ -11,24 +11,15 @@ import streamify = require('streamify-array');
 /**
  * A comunica HyLAR Rule Parse Actor.
  */
-export class ActorRuleParseHyLAR extends ActorRuleParse {
-  public constructor(args: IActorArgs<IActionRuleParse, IActorTest, IActorRuleParseOutput>) {
+export class ActorRuleParseHyLAR extends ActorRuleParseFixedMediaTypes {
+  public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
   }
 
-  public async test(action: IActionRuleParse): Promise<IActorTest> {
-    try {
-      await this.run(action);
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
-    return true; // TODO implement (properly)
-  }
-
-  public async run(action: IActionRuleParse): Promise<IActorRuleParseOutput> {
+  public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
+  Promise<IActorRuleParseOutput> {
     const str = await toString(action.input);
-    return { rules: streamify(str.split('\n').filter(x => x !== '').map(parseRule)) }; // TODO implement (properly)
+    return { rules: streamify(str.split('\n').filter(x => x !== '').map(parseRule)) };
   }
 }
 
