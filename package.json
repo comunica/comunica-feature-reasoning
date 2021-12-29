@@ -1,6 +1,6 @@
 {
   "private": true,
-  "repository": "https://github.com/comunica/comunica-feature-link-reasoning/",
+  "repository": "https://github.com/comunica/comunica-feature-reasoning/",
   "workspaces": [
     "packages/*"
   ],
