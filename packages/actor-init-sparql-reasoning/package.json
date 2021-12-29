@@ -59,7 +59,8 @@
     "test": "node \"../../node_modules/jest/bin/jest.js\" ${1}",
     "test-watch": "node \"../../node_modules/jest/bin/jest.js\" ${1} --watch",
     "build": "node \"../../node_modules/typescript/bin/tsc\"",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "prepare": "comunica-compile-config config/config-default.json > engine-default.js"
   },
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.22.3",

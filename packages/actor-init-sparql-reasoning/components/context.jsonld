@@ -1,0 +1,11 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+    {
+      "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+      "caisr": "npmd:@comunica/actor-init-sparql-reasoning/",
+      "files-caisr": "caisr:^1.0.0/",
+      "config-setsr": "files-caisr:config/sets/"
+    }
+  ]
+}
