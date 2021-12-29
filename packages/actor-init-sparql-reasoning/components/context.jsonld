@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+      "caisrs": "npmd:@comunica/actor-init-sparql-reasoning/",
+      "files-caisrs": "caisrs:^1.0.0/",
+
+      "ActorInitSparqlReasoning": "caisrs:Actor/Init/SparqlReasoning"
+    }
+  ]
+}
