@@ -1,14 +1,14 @@
 {
-  "name": "@comunica/actor-rdf-resolve-quad-pattern-reasoned",
+  "name": "@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned",
   "version": "1.0.0",
-  "description": "A reasoned rdf-resolve-quad-pattern actor",
+  "description": "A reasoned rdf-resolve-quad-pattern-intercept actor",
   "lsd:module": true,
   "main": "index.js",
   "typings": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica/comunica.git",
-    "directory": "packages/actor-rdf-resolve-quad-pattern-reasoned"
+    "directory": "packages/actor-rdf-resolve-quad-pattern-intercept-reasoned"
   },
   "publishConfig": {
     "access": "public"
@@ -16,7 +16,7 @@
   "keywords": [
     "comunica",
     "actor",
-    "rdf-resolve-quad-pattern",
+    "rdf-resolve-quad-pattern-intercept",
     "reasoned"
   ],
   "license": "MIT",
@@ -33,11 +33,11 @@
   ],
   "peerDependencies": {
     "@comunica/core": "^1.22.0",
-    "@comunica/bus-rdf-resolve-quad-pattern": "^1.22.0"
+    "@comunica/bus-rdf-resolve-quad-pattern-intercept": "^1.0.0"
   },
   "devDependencies": {
     "@comunica/core": "^1.22.0",
-    "@comunica/bus-rdf-resolve-quad-pattern": "^1.22.0"
+    "@comunica/bus-rdf-resolve-quad-pattern-intercept": "^1.0.0"
   },
   "jest": {
     "globals": {

@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned",
+  "@type": "Module",
+  "requireName": "@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned",
+  "import": [
+    "files-carrqpir:components/Actor/RdfResolveQuadPatternIntercept/Reasoned.jsonld"
+  ]
+}

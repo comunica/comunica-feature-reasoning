@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "cbrrqpi": "npmd:@comunica/bus-rdf-resolve-quad-pattern-intercept/",
+      "files-cbrrqpi": "cbrrqpi:^1.0.0/",
+
+      "BusRdfResolveQuadPatternIntercept": "cbrrqpi:Bus/RdfResolveQuadPatternIntercept",
+      "ActorRdfResolveQuadPatternIntercept": "cbrrqpi:Actor/RdfResolveQuadPatternIntercept"
+    }
+  ]
+}
