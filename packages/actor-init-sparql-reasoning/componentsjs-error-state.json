@@ -11,34 +11,34 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-http-proxy/Actor/Http/Proxy",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/Actor/Init/Sparql",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-query-operation-join-bgp/Actor/OptimizeQueryOperation/JoinBgp",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty/Actor/QueryOperation/BgpEmpty",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-ask/Actor/QueryOperation/Ask",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty/Actor/QueryOperation/BgpEmpty",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-left-deep-smallest/Actor/QueryOperation/BgpLeftDeepSmallest",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-single/Actor/QueryOperation/BgpSingle",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-construct/Actor/QueryOperation/Construct",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-describe-subject/Actor/QueryOperation/DescribeSubject",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-distinct-hash/Actor/QueryOperation/DistinctHash",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend/Actor/QueryOperation/Extend",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-filter-sparqlee/Actor/QueryOperation/FilterSparqlee",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-from-quad/Actor/QueryOperation/FromQuad",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend/Actor/QueryOperation/Extend",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-group/Actor/QueryOperation/Group",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-join/Actor/QueryOperation/Join",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-left-deep/Actor/QueryOperation/LeftJoinLeftDeep",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus/Actor/QueryOperation/Minus",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-nestedloop/Actor/QueryOperation/LeftJoinNestedLoop",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee/Actor/QueryOperation/OrderBySparqlee",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus/Actor/QueryOperation/Minus",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-nop/Actor/QueryOperation/Nop",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee/Actor/QueryOperation/OrderBySparqlee",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-alt/Actor/QueryOperation/PathAlt",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-inv/Actor/QueryOperation/PathInv",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-link/Actor/QueryOperation/PathLink",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more/Actor/QueryOperation/PathOneOrMore",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-nps/Actor/QueryOperation/PathNps",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more/Actor/QueryOperation/PathOneOrMore",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-seq/Actor/QueryOperation/PathSeq",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-zero-or-more/Actor/QueryOperation/PathZeroOrMore",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-zero-or-one/Actor/QueryOperation/PathZeroOrOne",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project/Actor/QueryOperation/Project",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-quadpattern/Actor/QueryOperation/Quadpattern",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-reduced-hash/Actor/QueryOperation/ReducedHash",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project/Actor/QueryOperation/Project",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-service/Actor/QueryOperation/Service",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-slice/Actor/QueryOperation/Slice",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-sparql-endpoint/Actor/QueryOperation/SparqlEndpoint",
@@ -46,8 +46,8 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-add-rewrite/Actor/QueryOperation/AddRewrite",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-clear/Actor/QueryOperation/Clear",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-compositeupdate/Actor/QueryOperation/UpdateCompositeUpdate",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create/Actor/QueryOperation/Create",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-copy-rewrite/Actor/QueryOperation/CopyRewrite",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create/Actor/QueryOperation/Create",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-deleteinsert/Actor/QueryOperation/UpdateDeleteInsert",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-drop/Actor/QueryOperation/Drop",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-load/Actor/QueryOperation/Load",
@@ -55,59 +55,60 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-values/Actor/QueryOperation/Values",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-dereference-fallback/Actor/RdfDereference/Fallback",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-dereference-http-parse/Actor/RdfDereference/HttpParse",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash/Actor/RdfJoin/SymmetricHash",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-multi-smallest/Actor/RdfJoin/MultiSmallest",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-nestedloop/Actor/RdfJoin/NestedLoop",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash/Actor/RdfJoin/SymmetricHash",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-all/Actor/RdfMetadata/All",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods/Actor/RdfMetadataExtract/AllowHttpMethods",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-hydra-controls/Actor/RdfMetadataExtract/HydraControls",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-hydra-count/Actor/RdfMetadataExtract/HydraCount",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods/Actor/RdfMetadataExtract/AllowHttpMethods",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-patch-sparql-update/Actor/RdfMetadataExtract/PatchSparqlUpdate",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-put-accepted/Actor/RdfMetadataExtract/PutAccepted",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-sparql-service/Actor/RdfMetadataExtract/SparqlService",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html/Actor/RdfParse/Html",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata/Actor/RdfParseHtml/Microdata",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-primary-topic/Actor/RdfMetadata/PrimaryTopic",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata/Actor/RdfParseHtml/Microdata",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-rdfa/Actor/RdfParseHtml/Rdfa",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/Actor/RdfParse/JsonLd",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-script/Actor/RdfParse/HtmlScript",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/Actor/RdfParse/JsonLd",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-rdfxml/Actor/RdfParse/RdfXml",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-n3/Actor/RdfParse/N3",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next/Actor/RdfResolveHypermediaLinks/Next",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-xml-rdfa/Actor/RdfParse/XmlRdfa",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next/Actor/RdfResolveHypermediaLinks/Next",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-queue-fifo/Actor/RdfResolveHypermediaLinksQueue/Fifo",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-none/Actor/RdfResolveHypermedia/None",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql/Actor/RdfResolveHypermedia/Sparql",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-qpf/Actor/RdfResolveHypermedia/Qpf",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql/Actor/RdfResolveHypermedia/Sparql",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-federated/Actor/RdfResolveQuadPattern/Federated",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-hypermedia/Actor/RdfResolveQuadPattern/Hypermedia",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned/Actor/RdfResolveQuadPatternIntercept/Reasoned",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source/Actor/RdfResolveQuadPattern/RdfJsSource",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-reasoned/Actor/RdfResolveQuadPattern/Reasoned",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-serialize-jsonld/Actor/RdfSerialize/JsonLd",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-serialize-n3/Actor/RdfSerialize/N3",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-patch-sparql-update/Actor/RdfUpdateHypermedia/PatchSparqlUpdate",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-put-ldp/Actor/RdfUpdateHypermedia/PutLdp",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia/Actor/RdfUpdateQuads/Hypermedia",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-sparql/Actor/RdfUpdateHypermedia/Sparql",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia/Actor/RdfUpdateQuads/Hypermedia",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-rdfjs-store/Actor/RdfUpdateQuads/RdfJsStore",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-parse-algebra/Actor/SparqlParse/Algebra",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-parse-graphql/Actor/SparqlParse/Graphql",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf/Actor/SparqlSerialize/Rdf",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-json/Actor/SparqlSerialize/Json",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf/Actor/SparqlSerialize/Rdf",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-simple/Actor/SparqlSerialize/Simple",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-csv/Actor/SparqlSerialize/SparqlCsv",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-json/Actor/SparqlSerialize/SparqlJson",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv/Actor/SparqlSerialize/SparqlTsv",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-xml/Actor/SparqlSerialize/SparqlXml",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-stats/ActionObserver/Http/Stats",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-stats/Actor/SparqlSerialize/Stats",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv/Actor/SparqlSerialize/SparqlTsv",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-table/Actor/SparqlSerialize/Table",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-tree/Actor/SparqlSerialize/Tree",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-context-preprocess/Actor/ContextPreprocess",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/Actor/Http",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http-invalidate/Actor/HttpInvalidate",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http-invalidate/Actor/HttpInvalidateListenable",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-init/Actor/Init",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/Actor/Http",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-query-operation/Actor/OptimizeQueryOperation",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-query-operation/Actor/QueryOperation",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-query-operation/Actor/QueryOperationTypedMediated",
@@ -118,15 +119,16 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata/Actor/RdfMetadata",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata-extract/Actor/RdfMetadataExtract",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata-extract/Actor/RdfMetadataExtractQuery",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html/Actor/RdfParseHtml",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/Actor/RdfParse",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/Actor/RdfParseFixedMediaTypes",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html/Actor/RdfParseHtml",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia/Actor/RdfResolveHypermedia",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links/Actor/RdfResolveHypermediaLinks",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links-queue/Actor/RdfResolveHypermediaLinksQueue",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/Actor/RdfResolveQuadPattern",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern-intercept/Actor/RdfResolveQuadPatternIntercept",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize/Actor/RdfSerialize",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize/Actor/RdfSerializeFixedMediaTypes",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/Actor/RdfResolveQuadPattern",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-hypermedia/Actor/RdfUpdateHypermedia",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads/Actor/RdfUpdateQuads",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-sparql-parse/Actor/SparqlParse",
@@ -163,34 +165,34 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-http-proxy": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-http-proxy/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-init-sparql/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-query-operation-join-bgp": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-optimize-query-operation-join-bgp/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-empty/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-ask": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-ask/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-empty/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-left-deep-smallest": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-left-deep-smallest/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-single": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-single/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-construct": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-construct/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-describe-subject": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-describe-subject/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-distinct-hash": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-distinct-hash/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-extend/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-filter-sparqlee": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-filter-sparqlee/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-from-quad": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-from-quad/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-extend/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-group": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-group/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-join": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-join/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-left-deep": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-leftjoin-left-deep/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-minus/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-nestedloop": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-leftjoin-nestedloop/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-orderby-sparqlee/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-minus/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-nop": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-nop/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-orderby-sparqlee/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-alt": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-alt/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-inv": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-inv/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-link": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-link/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-one-or-more/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-nps": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-nps/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-one-or-more/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-seq": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-seq/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-zero-or-more": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-zero-or-more/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-zero-or-one": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-zero-or-one/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-project/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-quadpattern": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-quadpattern/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-reduced-hash": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-reduced-hash/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-project/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-service": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-service/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-slice": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-slice/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-sparql-endpoint": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-sparql-endpoint/components/components.jsonld",
@@ -198,8 +200,8 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-add-rewrite": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-add-rewrite/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-clear": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-clear/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-compositeupdate": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-compositeupdate/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-create/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-copy-rewrite": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-copy-rewrite/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-create/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-deleteinsert": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-deleteinsert/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-drop": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-drop/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-load": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-load/components/components.jsonld",
@@ -207,57 +209,58 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-values": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-values/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-dereference-fallback": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-dereference-fallback/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-dereference-http-parse": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-dereference-http-parse/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-symmetrichash/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-multi-smallest": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-multi-smallest/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-nestedloop": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-nestedloop/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-symmetrichash/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-all": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-all/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-allow-http-methods/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-hydra-controls": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-hydra-controls/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-hydra-count": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-hydra-count/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-allow-http-methods/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-patch-sparql-update": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-patch-sparql-update/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-put-accepted": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-put-accepted/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-sparql-service": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-sparql-service/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-microdata/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-primary-topic": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-primary-topic/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-microdata/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-rdfa": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-rdfa/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-jsonld/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-script": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-script/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-jsonld/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-rdfxml": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-rdfxml/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-n3": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-n3/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-links-next/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-xml-rdfa": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-xml-rdfa/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-links-next/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-queue-fifo": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-links-queue-fifo/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-none": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-none/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-sparql/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-qpf": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-qpf/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-sparql/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-federated": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-federated/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-hypermedia": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-hypermedia/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/actor-rdf-resolve-quad-pattern-intercept-reasoned/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-reasoned": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/actor-rdf-resolve-quad-pattern-reasoned/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-serialize-jsonld": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-jsonld/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-serialize-n3": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-n3/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-patch-sparql-update": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-patch-sparql-update/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-put-ldp": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-put-ldp/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-quads-hypermedia/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-sparql": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-sparql/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-quads-hypermedia/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-rdfjs-store": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-quads-rdfjs-store/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-parse-algebra": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-parse-algebra/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-parse-graphql": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-parse-graphql/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-rdf/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-json": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-json/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-rdf/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-simple": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-simple/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-csv": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-csv/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-json": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-json/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-tsv/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-xml": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-xml/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-stats": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-stats/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-tsv/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-table": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-table/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-tree": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-tree/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-context-preprocess": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-context-preprocess/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-http/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http-invalidate": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-http-invalidate/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-init": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-init/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-http/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-query-operation": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-optimize-query-operation/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-query-operation": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-query-operation/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-dereference": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-dereference/components/components.jsonld",
@@ -265,13 +268,14 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-join": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-join/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-metadata/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata-extract": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-metadata-extract/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-parse-html/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-parse/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-parse-html/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia-links/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links-queue": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia-links-queue/components/components.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-serialize/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-quad-pattern/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern-intercept": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/bus-rdf-resolve-quad-pattern-intercept/components/components.jsonld",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-serialize/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-hypermedia": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-update-hypermedia/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-update-quads/components/components.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-sparql-parse": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-sparql-parse/components/components.jsonld",
@@ -299,34 +303,34 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-http-proxy/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-http-proxy/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-init-sparql/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-query-operation-join-bgp/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-optimize-query-operation-join-bgp/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-empty/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-ask/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-ask/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-empty/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-left-deep-smallest/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-left-deep-smallest/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-single/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-single/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-construct/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-construct/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-describe-subject/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-describe-subject/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-distinct-hash/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-distinct-hash/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-extend/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-filter-sparqlee/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-filter-sparqlee/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-from-quad/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-from-quad/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-extend/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-group/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-group/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-join/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-join/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-left-deep/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-leftjoin-left-deep/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-minus/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-nestedloop/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-leftjoin-nestedloop/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-orderby-sparqlee/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-minus/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-nop/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-nop/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-orderby-sparqlee/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-alt/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-alt/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-inv/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-inv/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-link/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-link/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-one-or-more/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-nps/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-nps/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-one-or-more/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-seq/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-seq/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-zero-or-more/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-zero-or-more/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-zero-or-one/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-path-zero-or-one/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-project/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-quadpattern/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-quadpattern/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-reduced-hash/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-reduced-hash/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-project/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-service/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-service/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-slice/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-slice/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-sparql-endpoint/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-sparql-endpoint/components/",
@@ -334,8 +338,8 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-add-rewrite/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-add-rewrite/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-clear/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-clear/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-compositeupdate/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-compositeupdate/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-create/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-copy-rewrite/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-copy-rewrite/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-create/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-deleteinsert/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-deleteinsert/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-drop/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-drop/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-load/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-update-load/components/",
@@ -343,57 +347,58 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-values/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-values/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-dereference-fallback/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-dereference-fallback/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-dereference-http-parse/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-dereference-http-parse/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-symmetrichash/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-multi-smallest/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-multi-smallest/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-nestedloop/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-nestedloop/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-join-symmetrichash/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-all/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-all/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-allow-http-methods/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-hydra-controls/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-hydra-controls/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-hydra-count/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-hydra-count/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-allow-http-methods/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-patch-sparql-update/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-patch-sparql-update/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-put-accepted/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-put-accepted/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-sparql-service/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-sparql-service/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-microdata/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-primary-topic/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-primary-topic/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-microdata/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-rdfa/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-rdfa/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-jsonld/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-script/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-script/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-jsonld/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-rdfxml/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-rdfxml/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-n3/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-n3/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-links-next/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-xml-rdfa/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-xml-rdfa/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-links-next/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-queue-fifo/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-links-queue-fifo/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-none/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-none/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-sparql/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-qpf/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-qpf/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-sparql/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-federated/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-federated/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-hypermedia/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-hypermedia/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/actor-rdf-resolve-quad-pattern-intercept-reasoned/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-reasoned/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/actor-rdf-resolve-quad-pattern-reasoned/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-serialize-jsonld/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-jsonld/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-serialize-n3/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-n3/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-patch-sparql-update/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-patch-sparql-update/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-put-ldp/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-put-ldp/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-quads-hypermedia/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-sparql/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-sparql/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-quads-hypermedia/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-rdfjs-store/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-quads-rdfjs-store/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-parse-algebra/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-parse-algebra/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-parse-graphql/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-parse-graphql/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-rdf/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-json/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-json/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-rdf/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-simple/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-simple/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-csv/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-csv/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-json/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-json/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-tsv/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-xml/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-xml/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-stats/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-stats/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-sparql-tsv/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-table/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-table/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-tree/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-sparql-serialize-tree/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-context-preprocess/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-context-preprocess/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-http/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http-invalidate/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-http-invalidate/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-init/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-init/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-http/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-query-operation/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-optimize-query-operation/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-query-operation/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-query-operation/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-dereference/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-dereference/components/",
@@ -401,13 +406,14 @@
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-join/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-join/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-metadata/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-metadata-extract/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-metadata-extract/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-parse-html/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-parse/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-parse-html/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia-links/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links-queue/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia-links-queue/components/",
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-serialize/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-quad-pattern/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern-intercept/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/bus-rdf-resolve-quad-pattern-intercept/components/",
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-serialize/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-hypermedia/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-update-hypermedia/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-update-quads/components/",
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-sparql-parse/^1.0.0/components/": "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-sparql-parse/components/",
@@ -564,17 +570,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqobe": "npmd:@comunica/actor-query-operation-bgp-empty/",
-            "files-caqobe": "caqobe:^1.0.0/",
-            "ActorQueryOperationBgpEmpty": "caqobe:Actor/QueryOperation/BgpEmpty"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-ask/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -583,6 +578,17 @@
             "caqoa": "npmd:@comunica/actor-query-operation-ask/",
             "files-caqoa": "caqoa:^1.0.0/",
             "ActorQueryOperationAsk": "caqoa:Actor/QueryOperation/Ask"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-bgp-empty/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caqobe": "npmd:@comunica/actor-query-operation-bgp-empty/",
+            "files-caqobe": "caqobe:^1.0.0/",
+            "ActorQueryOperationBgpEmpty": "caqobe:Actor/QueryOperation/BgpEmpty"
           }
         ]
       },
@@ -641,6 +647,17 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caqoe": "npmd:@comunica/actor-query-operation-extend/",
+            "files-caqoe": "caqoe:^1.0.0/",
+            "ActorQueryOperationExtend": "caqoe:Actor/QueryOperation/Extend"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-filter-sparqlee/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -660,17 +677,6 @@
             "caqof": "npmd:@comunica/actor-query-operation-from-quad/",
             "files-caqof": "caqof:^1.0.0/",
             "ActorQueryOperationFromQuad": "caqof:Actor/QueryOperation/FromQuad"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-extend/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqoe": "npmd:@comunica/actor-query-operation-extend/",
-            "files-caqoe": "caqoe:^1.0.0/",
-            "ActorQueryOperationExtend": "caqoe:Actor/QueryOperation/Extend"
           }
         ]
       },
@@ -707,17 +713,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqom": "npmd:@comunica/actor-query-operation-minus/",
-            "files-caqom": "caqom:^1.0.0/",
-            "ActorQueryOperationMinus": "caqom:Actor/QueryOperation/Minus"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-leftjoin-nestedloop/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -729,14 +724,14 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee/^1.0.0/components/context.jsonld": {
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-minus/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
           {
             "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqood": "npmd:@comunica/actor-query-operation-orderby-sparqlee/",
-            "files-caqood": "caqood:^1.0.0/",
-            "ActorQueryOperationOrderBySparqlee": "caqood:Actor/QueryOperation/OrderBySparqlee"
+            "caqom": "npmd:@comunica/actor-query-operation-minus/",
+            "files-caqom": "caqom:^1.0.0/",
+            "ActorQueryOperationMinus": "caqom:Actor/QueryOperation/Minus"
           }
         ]
       },
@@ -748,6 +743,17 @@
             "caqon": "npmd:@comunica/actor-query-operation-nop/",
             "files-caqon": "caqon:^1.0.0/",
             "ActorQueryOperationNop": "caqon:Actor/QueryOperation/Nop"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-orderby-sparqlee/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caqood": "npmd:@comunica/actor-query-operation-orderby-sparqlee/",
+            "files-caqood": "caqood:^1.0.0/",
+            "ActorQueryOperationOrderBySparqlee": "caqood:Actor/QueryOperation/OrderBySparqlee"
           }
         ]
       },
@@ -784,17 +790,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqopoom": "npmd:@comunica/actor-query-operation-path-one-or-more/",
-            "files-caqopoom": "caqopoom:^1.0.0/",
-            "ActorQueryOperationPathOneOrMore": "caqopoom:Actor/QueryOperation/PathOneOrMore"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-nps/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -803,6 +798,17 @@
             "caqopn": "npmd:@comunica/actor-query-operation-path-nps/",
             "files-caqopn": "caqopn:^1.0.0/",
             "ActorQueryOperationPathNps": "caqopn:Actor/QueryOperation/PathNps"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-path-one-or-more/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caqopoom": "npmd:@comunica/actor-query-operation-path-one-or-more/",
+            "files-caqopoom": "caqopoom:^1.0.0/",
+            "ActorQueryOperationPathOneOrMore": "caqopoom:Actor/QueryOperation/PathOneOrMore"
           }
         ]
       },
@@ -839,6 +845,17 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caqop": "npmd:@comunica/actor-query-operation-project/",
+            "files-caqop": "caqop:^1.0.0/",
+            "ActorQueryOperationProject": "caqop:Actor/QueryOperation/Project"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-quadpattern/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -860,17 +877,6 @@
             "files-caqorh": "caqorh:^1.0.0/",
             "ActorQueryOperationReducedHash": "caqorh:Actor/QueryOperation/ReducedHash",
             "cacheSize": "caqorh:Actor/QueryOperation/ReducedHash/cacheSize"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-project/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqop": "npmd:@comunica/actor-query-operation-project/",
-            "files-caqop": "caqop:^1.0.0/",
-            "ActorQueryOperationProject": "caqop:Actor/QueryOperation/Project"
           }
         ]
       },
@@ -951,17 +957,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caqoucr": "npmd:@comunica/actor-query-operation-update-create/",
-            "files-caqoucr": "caqoucr:^1.0.0/",
-            "ActorQueryOperationCreate": "caqoucr:Actor/QueryOperation/Create"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-copy-rewrite/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -970,6 +965,17 @@
             "caqouco": "npmd:@comunica/actor-query-operation-update-copy-rewrite/",
             "files-caqouco": "caqouco:^1.0.0/",
             "ActorQueryOperationCopyRewrite": "caqouco:Actor/QueryOperation/CopyRewrite"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-update-create/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caqoucr": "npmd:@comunica/actor-query-operation-update-create/",
+            "files-caqoucr": "caqoucr:^1.0.0/",
+            "ActorQueryOperationCreate": "caqoucr:Actor/QueryOperation/Create"
           }
         ]
       },
@@ -1054,6 +1060,17 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "carjs": "npmd:@comunica/actor-rdf-join-symmetrichash/",
+            "files-carjs": "carjs:^1.0.0/",
+            "ActorRdfJoinSymmetricHash": "carjs:Actor/RdfJoin/SymmetricHash"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-multi-smallest/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1076,17 +1093,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-join-symmetrichash/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "carjs": "npmd:@comunica/actor-rdf-join-symmetrichash/",
-            "files-carjs": "carjs:^1.0.0/",
-            "ActorRdfJoinSymmetricHash": "carjs:Actor/RdfJoin/SymmetricHash"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-all/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1095,6 +1101,17 @@
             "carma": "npmd:@comunica/actor-rdf-metadata-all/",
             "files-carma": "carma:^1.0.0/",
             "ActorRdfMetadataAll": "carma:Actor/RdfMetadata/All"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "carmeahm": "npmd:@comunica/actor-rdf-metadata-extract-allow-http-methods/",
+            "files-carmeahm": "carmeahm:^1.0.0/",
+            "ActorRdfMetadataExtractAllowHttpMethods": "carmeahm:Actor/RdfMetadataExtract/AllowHttpMethods"
           }
         ]
       },
@@ -1119,17 +1136,6 @@
             "ActorRdfMetadataExtractHydraCount": "carmehco:Actor/RdfMetadataExtract/HydraCount",
             "hydraCountPredicate": "carmehco:Actor/RdfMetadataExtract/HydraCount/predicate",
             "hydraCountPredicates": "carmehco:Actor/RdfMetadataExtract/HydraCount/predicate"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-extract-allow-http-methods/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "carmeahm": "npmd:@comunica/actor-rdf-metadata-extract-allow-http-methods/",
-            "files-carmeahm": "carmeahm:^1.0.0/",
-            "ActorRdfMetadataExtractAllowHttpMethods": "carmeahm:Actor/RdfMetadataExtract/AllowHttpMethods"
           }
         ]
       },
@@ -1177,17 +1183,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "carphm": "npmd:@comunica/actor-rdf-parse-html-microdata/",
-            "files-carphm": "carphm:^1.0.0/",
-            "ActorRdfParseHtmlMicrodata": "carphm:Actor/RdfParseHtml/Microdata"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-metadata-primary-topic/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -1196,6 +1191,17 @@
             "carmpt": "npmd:@comunica/actor-rdf-metadata-primary-topic/",
             "files-carmpt": "carmpt:^1.0.0/",
             "ActorRdfMetadataPrimaryTopic": "carmpt:Actor/RdfMetadata/PrimaryTopic"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-microdata/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "carphm": "npmd:@comunica/actor-rdf-parse-html-microdata/",
+            "files-carphm": "carphm:^1.0.0/",
+            "ActorRdfParseHtmlMicrodata": "carphm:Actor/RdfParseHtml/Microdata"
           }
         ]
       },
@@ -1210,17 +1216,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "crpjl": "npmd:@comunica/actor-rdf-parse-jsonld/",
-            "files-crpjl": "crpjl:^1.0.0/",
-            "ActorRdfParseJsonLd": "crpjl:Actor/RdfParse/JsonLd"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-html-script/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -1229,6 +1224,17 @@
             "carphs": "npmd:@comunica/actor-rdf-parse-html-script/",
             "files-carphs": "carphs:^1.0.0/",
             "ActorRdfParseHtmlScript": "carphs:Actor/RdfParse/HtmlScript"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-jsonld/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "crpjl": "npmd:@comunica/actor-rdf-parse-jsonld/",
+            "files-crpjl": "crpjl:^1.0.0/",
+            "ActorRdfParseJsonLd": "crpjl:Actor/RdfParse/JsonLd"
           }
         ]
       },
@@ -1254,17 +1260,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "carrhln": "npmd:@comunica/actor-rdf-resolve-hypermedia-links-next/",
-            "files-carrhln": "carrhln:^1.0.0/",
-            "ActorRdfResolveHypermediaLinksNext": "carrhln:Actor/RdfResolveHypermediaLinks/Next"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-parse-xml-rdfa/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1273,6 +1268,17 @@
             "carpxr": "npmd:@comunica/actor-rdf-parse-xml-rdfa/",
             "files-carpxr": "carpxr:^1.0.0/",
             "ActorRdfParseXmlRdfa": "carpxr:Actor/RdfParse/XmlRdfa"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-links-next/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "carrhln": "npmd:@comunica/actor-rdf-resolve-hypermedia-links-next/",
+            "files-carrhln": "carrhln:^1.0.0/",
+            "ActorRdfResolveHypermediaLinksNext": "carrhln:Actor/RdfResolveHypermediaLinks/Next"
           }
         ]
       },
@@ -1298,17 +1304,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "carrhs": "npmd:@comunica/actor-rdf-resolve-hypermedia-sparql/",
-            "files-carrhs": "carrhs:^1.0.0/",
-            "ActorRdfResolveHypermediaSparql": "carrhs:Actor/RdfResolveHypermedia/Sparql"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-qpf/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -1321,6 +1316,17 @@
             "predicateUri": "carrhq:Actor/RdfResolveHypermedia/Qpf/predicateUri",
             "objectUri": "carrhq:Actor/RdfResolveHypermedia/Qpf/objectUri",
             "graphUri": "carrhq:Actor/RdfResolveHypermedia/Qpf/graphUri"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-hypermedia-sparql/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "carrhs": "npmd:@comunica/actor-rdf-resolve-hypermedia-sparql/",
+            "files-carrhs": "carrhs:^1.0.0/",
+            "ActorRdfResolveHypermediaSparql": "carrhs:Actor/RdfResolveHypermedia/Sparql"
           }
         ]
       },
@@ -1347,6 +1353,17 @@
             "predicateUri": "carrqph:Actor/RdfResolveQuadPattern/Hypermedia/predicateUri",
             "objectUri": "carrqph:Actor/RdfResolveQuadPattern/Hypermedia/objectUri",
             "graphUri": "carrqph:Actor/RdfResolveQuadPattern/Hypermedia/graphUri"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "carrqpir": "npmd:@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned/",
+            "files-carrqpir": "carrqpir:^1.0.0/",
+            "ActorRdfResolveQuadPatternInterceptReasoned": "carrqpir:Actor/RdfResolveQuadPatternIntercept/Reasoned"
           }
         ]
       },
@@ -1417,17 +1434,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "caruqh": "npmd:@comunica/actor-rdf-update-quads-hypermedia/",
-            "files-caruqh": "caruqh:^1.0.0/",
-            "ActorRdfUpdateQuadsHypermedia": "caruqh:Actor/RdfUpdateQuads/Hypermedia"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-hypermedia-sparql/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1436,6 +1442,17 @@
             "caruhs": "npmd:@comunica/actor-rdf-update-hypermedia-sparql/",
             "files-caruhs": "caruhs:^1.0.0/",
             "ActorRdfUpdateHypermediaSparql": "caruhs:Actor/RdfUpdateHypermedia/Sparql"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-update-quads-hypermedia/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "caruqh": "npmd:@comunica/actor-rdf-update-quads-hypermedia/",
+            "files-caruqh": "caruqh:^1.0.0/",
+            "ActorRdfUpdateQuadsHypermedia": "caruqh:Actor/RdfUpdateQuads/Hypermedia"
           }
         ]
       },
@@ -1475,6 +1492,17 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-json/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "cassj": "npmd:@comunica/actor-sparql-serialize-json/",
+            "files-cassj": "cassj:^1.0.0/",
+            "ActorSparqlSerializeJson": "cassj:Actor/SparqlSerialize/Json"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-rdf/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -1486,17 +1514,6 @@
             "mediatorRdfSerialize": "cassr:Actor/SparqlSerialize/Rdf/mediatorRdfSerialize",
             "mediatorRdfSerializeMediaTypeCombiner": "cassr:Actor/SparqlSerialize/Rdf/mediatorRdfSerializeMediaTypeCombiner",
             "mediatorRdfSerializeMediaTypeFormatCombiner": "cassr:Actor/SparqlSerialize/Rdf/mediatorRdfSerializeMediaTypeFormatCombiner"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-json/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "cassj": "npmd:@comunica/actor-sparql-serialize-json/",
-            "files-cassj": "cassj:^1.0.0/",
-            "ActorSparqlSerializeJson": "cassj:Actor/SparqlSerialize/Json"
           }
         ]
       },
@@ -1533,6 +1550,17 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+            "cassst": "npmd:@comunica/actor-sparql-serialize-sparql-tsv/",
+            "files-cassst": "cassst:^1.0.0/",
+            "ActorSparqlSerializeSparqlTsv": "cassst:Actor/SparqlSerialize/SparqlTsv"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-xml/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^4.0.0/components/context.jsonld",
@@ -1553,17 +1581,6 @@
             "files-cassst": "cassst:^1.0.0/",
             "ActionObserverHttpStats": "cassst:ActionObserver/Http/Stats",
             "ActorSparqlSerializeStats": "cassst:Actor/SparqlSerialize/Stats"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-sparql-serialize-sparql-tsv/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
-            "cassst": "npmd:@comunica/actor-sparql-serialize-sparql-tsv/",
-            "files-cassst": "cassst:^1.0.0/",
-            "ActorSparqlSerializeSparqlTsv": "cassst:Actor/SparqlSerialize/SparqlTsv"
           }
         ]
       },
@@ -1601,6 +1618,17 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "cbh": "npmd:@comunica/bus-http/",
+            "files-cbh": "cbh:^1.0.0/",
+            "BusHttp": "cbh:Bus/Http",
+            "ActorHttp": "cbh:Actor/Http"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http-invalidate/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1621,17 +1649,6 @@
             "files-cbi": "cbi:^1.0.0/",
             "BusInit": "cbi:Bus/Init",
             "ActorInit": "cbi:Actor/Init"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "cbh": "npmd:@comunica/bus-http/",
-            "files-cbh": "cbh:^1.0.0/",
-            "BusHttp": "cbh:Bus/Http",
-            "ActorHttp": "cbh:Actor/Http"
           }
         ]
       },
@@ -1714,17 +1731,6 @@
           }
         ]
       },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "cbrph": "npmd:@comunica/bus-rdf-parse-html/",
-            "files-cbrph": "cbrph:^1.0.0/",
-            "BusRdfParseHtml": "cbrph:Bus/RdfParseHtml",
-            "ActorRdfParseHtml": "cbrph:Actor/RdfParseHtml"
-          }
-        ]
-      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1734,6 +1740,17 @@
             "BusRdfParse": "cbrp:Bus/RdfParse",
             "ActorRdfParse": "cbrp:Actor/RdfParse",
             "ActorRdfParseFixedMediaTypes": "cbrp:Actor/RdfParseFixedMediaTypes"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-parse-html/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "cbrph": "npmd:@comunica/bus-rdf-parse-html/",
+            "files-cbrph": "cbrph:^1.0.0/",
+            "BusRdfParseHtml": "cbrph:Bus/RdfParseHtml",
+            "ActorRdfParseHtml": "cbrph:Actor/RdfParseHtml"
           }
         ]
       },
@@ -1770,6 +1787,28 @@
           }
         ]
       },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "cbrrqp": "npmd:@comunica/bus-rdf-resolve-quad-pattern/",
+            "files-cbrrqp": "cbrrqp:^1.0.0/",
+            "BusRdfResolveQuadPattern": "cbrrqp:Bus/RdfResolveQuadPattern",
+            "ActorRdfResolveQuadPattern": "cbrrqp:Actor/RdfResolveQuadPattern"
+          }
+        ]
+      },
+      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern-intercept/^1.0.0/components/context.jsonld": {
+        "@context": [
+          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+          {
+            "cbrrqpi": "npmd:@comunica/bus-rdf-resolve-quad-pattern-intercept/",
+            "files-cbrrqpi": "cbrrqpi:^1.0.0/",
+            "BusRdfResolveQuadPatternIntercept": "cbrrqpi:Bus/RdfResolveQuadPatternIntercept",
+            "ActorRdfResolveQuadPatternIntercept": "cbrrqpi:Actor/RdfResolveQuadPatternIntercept"
+          }
+        ]
+      },
       "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-serialize/^1.0.0/components/context.jsonld": {
         "@context": [
           "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
@@ -1779,17 +1818,6 @@
             "BusRdfSerialize": "cbrs:Bus/RdfSerialize",
             "ActorRdfSerialize": "cbrs:Actor/RdfSerialize",
             "ActorRdfSerializeFixedMediaTypes": "cbrs:Actor/RdfSerializeFixedMediaTypes"
-          }
-        ]
-      },
-      "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/^1.0.0/components/context.jsonld": {
-        "@context": [
-          "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
-          {
-            "cbrrqp": "npmd:@comunica/bus-rdf-resolve-quad-pattern/",
-            "files-cbrrqp": "cbrrqp:^1.0.0/",
-            "BusRdfResolveQuadPattern": "cbrrqp:Bus/RdfResolveQuadPattern",
-            "ActorRdfResolveQuadPattern": "cbrrqp:Actor/RdfResolveQuadPattern"
           }
         ]
       },
@@ -2134,16 +2162,16 @@
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/code-frame",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/compat-data",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/core",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/eslint-parser",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/generator",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/eslint-parser",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-compilation-targets",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-environment-visitor",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-function-name",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-get-function-arity",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-hoist-variables",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-module-imports",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-module-transforms",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-plugin-utils",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-module-imports",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-simple-access",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-split-export-declaration",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-validator-identifier",
@@ -2167,8 +2195,8 @@
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/traverse",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/types",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/core/node_modules/json5",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/eslint-parser/node_modules/semver",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/generator/node_modules/source-map",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/eslint-parser/node_modules/semver",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/helper-compilation-targets/node_modules/semver",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/highlight/node_modules/ansi-styles",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@babel/traverse/node_modules/globals",
@@ -2189,8 +2217,8 @@
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-http-proxy",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-init-sparql",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-optimize-query-operation-join-bgp",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-empty",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-ask",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-empty",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-left-deep-smallest",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-bgp-single",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-query-operation-construct",
@@ -2243,12 +2271,12 @@
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-patch-sparql-update",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-put-accepted",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-extract-sparql-service",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-primary-topic",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-metadata-primary-topic",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-microdata",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-rdfa",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-jsonld",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-html-script",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-jsonld",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-n3",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-rdfxml",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-parse-xml-rdfa",
@@ -2259,9 +2287,10 @@
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-hypermedia-sparql",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-federated",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-hypermedia",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/actor-rdf-resolve-quad-pattern-intercept-reasoned",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source",
-      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-jsonld",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/actor-rdf-resolve-quad-pattern-reasoned",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-jsonld",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-serialize-n3",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-patch-sparql-update",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/actor-rdf-update-hypermedia-put-ldp",
@@ -2297,6 +2326,7 @@
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia-links",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-hypermedia-links-queue",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-resolve-quad-pattern",
+      "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/packages/bus-rdf-resolve-quad-pattern-intercept",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-serialize",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-update-hypermedia",
       "/home/jeswr/Documents/GitHub/comunica-feature-reasoning/node_modules/@comunica/bus-rdf-update-quads",

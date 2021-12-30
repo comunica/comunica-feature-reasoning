@@ -15,19 +15,19 @@
     "config-sets:rdf-serializers.json",
     "config-sets:rdf-update-hypermedia.json",
     "config-sets:rdf-update-rdfjs.json",
-    "config-sets:resolve-federated.json",
-    "config-sets:resolve-hypermedia.json",
-    "config-sets:resolve-rdfjs.json",
     "config-sets:resolve-sparql.json",
     "config-sets:sparql-init.json",
     "config-sets:graphql-parsers.json",
     "config-sets:sparql-optimize.json",
     "config-sets:sparql-parsers.json",
-    "config-sets:sparql-queryoperators.json",
+    "config-setsr:sparql-queryoperators.json",
     "config-sets:sparql-queryoperators-path.json",
     "config-sets:sparql-queryoperators-update.json",
     "config-sets:sparql-serializers.json",
 
-    "config-setsr:resolve-reasoned.json"
+    "config-setsr:resolve-reasoned.json",
+    "config-sets:resolve-hypermedia.json",
+    "config-sets:resolve-federated.json",
+    "config-sets:resolve-rdfjs.json"
   ]
 }
