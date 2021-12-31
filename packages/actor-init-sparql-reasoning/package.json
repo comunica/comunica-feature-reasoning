@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "@comunica/bus-init": "^1.22.0",
-    "@comunica/core": "^1.22.0"
+    "@comunica/core": "^1.22.0",
+    "@rdfjs/types": "^1.0.1"
   },
   "jest": {
     "globals": {

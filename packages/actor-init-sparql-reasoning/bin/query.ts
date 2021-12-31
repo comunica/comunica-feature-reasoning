@@ -1,4 +1,36 @@
 #!/usr/bin/env node
 // Tslint:disable:no-var-requires
+import { KeysRdfReason } from '@comunica/bus-rdf-reason';
+import { ActionContext } from '@comunica/core';
 import { runArgsInProcessStatic } from '@comunica/runner-cli';
-runArgsInProcessStatic(require('../engine-default.js'));
+import { defaultGraph, namedNode, quad, variable } from '@rdfjs/data-model';
+// runArgsInProcessStatic(require('../engine-default.js'));
+
+runArgsInProcessStatic(require('../engine-default.js'), { context: ActionContext({
+  [KeysRdfReason.rules]: [
+    {
+      premise: [
+        quad(
+          variable('?s'),
+          namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+          variable('?o'),
+          defaultGraph()
+        ),
+        quad(
+          variable('?o'),
+          namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
+          variable('?o2'),
+          defaultGraph()
+        ),
+      ],
+      conclusion: [
+        quad(
+          variable('?s'),
+          namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+          variable('?o2'),
+          defaultGraph()
+        ),
+      ]
+    },
+  ]
+})});

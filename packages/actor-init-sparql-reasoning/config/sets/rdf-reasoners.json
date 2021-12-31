@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-rule-restriction/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "urn:comunica:my",
+  "actors": [
+    {
+      "@id": "config-sets:rdf-reasoners.json#myRdfReasonRuleRestriction",
+      "@type": "ActorRdfReasonRuleRestriction",
+      "cbrr:mediatorRdfUpdateQuads": {
+        "@id": "config-setsr:resolve-reasoned.json#mediatorRdfUpdateQuads",
+        "@type": "MediatorRace",
+        "cc:Mediator/bus": { "@id": "cbruq:Bus/RdfUpdateQuads" }
+      },
+      "cbrr:mediatorRdfResolveQuadPattern": {
+        "@id": "config-setsr:resolve-reasoned.json#mediatorRdfResolveQuadPattern",
+        "@type": "MediatorRace",
+        "cc:Mediator/bus": { "@id": "cbrrqp:Bus/RdfResolveQuadPattern" }
+      }
+    }
+  ]
+}

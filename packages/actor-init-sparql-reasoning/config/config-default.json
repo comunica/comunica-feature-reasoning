@@ -26,6 +26,7 @@
     "config-sets:sparql-serializers.json",
 
     "config-setsr:resolve-reasoned.json",
+    "config-setsr:rdf-reasoners.json",
     "config-sets:resolve-hypermedia.json",
     "config-sets:resolve-federated.json",
     "config-sets:resolve-rdfjs.json"
