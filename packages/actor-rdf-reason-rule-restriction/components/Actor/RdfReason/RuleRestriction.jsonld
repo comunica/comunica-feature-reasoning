@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-rule-restriction/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rdf-reason-rule-restriction",
+  "components": [
+    {
+      "@id": "carrrr:Actor/RdfReason/RuleRestriction",
+      "@type": "Class",
+      "extends": "cbrr:Actor/RdfReasonMediated",
+      "requireElement": "ActorRdfReasonRuleRestriction",
+      "comment": "A comunica actor that reasons by applying rule restrictions",
+      "constructorArguments": [
+        {
+          "extends": "cbrr:Actor/RdfReasonMediated/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

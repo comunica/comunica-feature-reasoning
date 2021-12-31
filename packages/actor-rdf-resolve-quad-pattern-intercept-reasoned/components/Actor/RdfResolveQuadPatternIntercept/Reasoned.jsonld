@@ -11,9 +11,21 @@
       "extends": "cbrrqpi:Actor/RdfResolveQuadPatternIntercept",
       "requireElement": "ActorRdfResolveQuadPatternInterceptReasoned",
       "comment": "A comunica Reasoned RDF Resolve Quad Pattern Intercept Actor.",
+      "parameters": [
+        {
+          "@id": "carrqpir:mediatorRdfReason",
+          "comment": "The RDF Reasoner",
+          "required": true,
+          "unique": true
+        }
+      ],
       "constructorArguments": [
         {
-          "extends": "cbrrqpi:Actor/RdfResolveQuadPatternIntercept/constructorArgumentsObject"
+          "extends": "cbrrqpi:Actor/RdfResolveQuadPatternIntercept/constructorArgumentsObject",
+          "fields": {
+            "keyRaw": "mediatorRdfReason",
+            "value": "carrqpir:mediatorRdfReason"
+          }
         }
       ]
     }
