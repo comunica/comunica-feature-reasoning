@@ -1,4 +1,4 @@
-const df_309_0 = new (require('@comunica/logger-void').LoggerVoid)(undefined);
+const df_311_0 = new (require('@comunica/logger-void').LoggerVoid)(undefined);
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_init_Bus_Init = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-init/Bus/Init'
 });
@@ -59,11 +59,11 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_reaso
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_resolve_quad_pattern_Bus_RdfResolveQuadPattern = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/Bus/RdfResolveQuadPattern'
 });
-const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_parse_Bus_RuleParse = new (require('@comunica/core').Bus)({
-  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/Bus/RuleParse'
-});
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_dereference_Bus_RuleDereference = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/Bus/RuleDereference'
+});
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_parse_Bus_RuleParse = new (require('@comunica/core').Bus)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/Bus/RuleParse'
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_resolve_hypermedia_links_Bus_RdfResolveHypermediaLinks = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links/Bus/RdfResolveHypermediaLinks'
@@ -492,6 +492,14 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/resolve-rdfjs.json#myRdfRdfJsSourceQuadPatternResolver',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_resolve_quad_pattern_Bus_RdfResolveQuadPattern
 });
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_resolve_reasoned_json_mediatorRuleDereference = new (require('@comunica/mediator-race').MediatorRace)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/resolve-reasoned.json#mediatorRuleDereference',
+  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_dereference_Bus_RuleDereference
+});
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rule_dereference_json_myRuleDereferencerFallback = new (require('@comunica/actor-rule-dereference-fallback').ActorRuleDereferenceFallback)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rule-dereference.json#myRuleDereferencerFallback',
+  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_dereference_Bus_RuleDereference
+});
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rule_dereference_json_mediatorRuleParseMediatypes = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
   'field': 'mediaTypes',
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rule-dereference.json#mediatorRuleParseMediatypes',
@@ -506,10 +514,6 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'mediaTypeFormats': {},
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rdf-reasoners.json#myRuleParseHyLAR',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_parse_Bus_RuleParse
-});
-const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rule_dereference_json_myRuleDereferencerFallback = new (require('@comunica/actor-rule-dereference-fallback').ActorRuleDereferenceFallback)({
-  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rule-dereference.json#myRuleDereferencerFallback',
-  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_dereference_Bus_RuleDereference
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_mediatorRdfResolveHypermediaLinks = new (require('@comunica/mediator-race').MediatorRace)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/resolve-hypermedia.json#mediatorRdfResolveHypermediaLinks',
@@ -665,6 +669,50 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_resolve_quad_pattern_Bus_RdfResolveQuadPattern
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rdf_reasoners_json_myRdfReasonRuleRestriction = new (require('@comunica/actor-rdf-reason-rule-restriction').ActorRdfReasonRuleRestriction)({
+  'mediatorRuleDereference': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_resolve_reasoned_json_mediatorRuleDereference,
+  'mediaMappings': {
+  'ttl': 'text/turtle',
+  'turtle': 'text/turtle',
+  'nt': 'application/n-triples',
+  'ntriples': 'application/n-triples',
+  'nq': 'application/n-quads',
+  'nquads': 'application/n-quads',
+  'rdf': 'application/rdf+xml',
+  'rdfxml': 'application/rdf+xml',
+  'owl': 'application/rdf+xml',
+  'n3': 'text/n3',
+  'trig': 'application/trig',
+  'jsonld': 'application/ld+json',
+  'json': 'application/json',
+  'html': 'text/html',
+  'htm': 'text/html',
+  'xhtml': 'application/xhtml+xml',
+  'xht': 'application/xhtml+xml',
+  'xml': 'application/xml',
+  'svg': 'image/svg+xml',
+  'svgz': 'image/svg+xml',
+  'hylar': 'text/hylar',
+  'ttl': 'text/turtle',
+  'turtle': 'text/turtle',
+  'nt': 'application/n-triples',
+  'ntriples': 'application/n-triples',
+  'nq': 'application/n-quads',
+  'nquads': 'application/n-quads',
+  'rdf': 'application/rdf+xml',
+  'rdfxml': 'application/rdf+xml',
+  'owl': 'application/rdf+xml',
+  'n3': 'text/n3',
+  'trig': 'application/trig',
+  'jsonld': 'application/ld+json',
+  'json': 'application/json',
+  'html': 'text/html',
+  'htm': 'text/html',
+  'xhtml': 'application/xhtml+xml',
+  'xht': 'application/xhtml+xml',
+  'xml': 'application/xml',
+  'svg': 'image/svg+xml',
+  'svgz': 'image/svg+xml'
+},
   'mediatorRdfUpdateQuads': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_resolve_reasoned_json_mediatorRdfUpdateQuads,
   'mediatorRdfResolveQuadPattern': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_resolve_reasoned_json_mediatorRdfResolveQuadPattern,
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rdf-reasoners.json#myRdfReasonRuleRestriction',
@@ -682,17 +730,17 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/resolve-hypermedia.json#myQuadPatternHypermediaResolver',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_resolve_quad_pattern_Bus_RdfResolveQuadPattern
 });
-const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_myHttpProxy = new (require('@comunica/actor-http-proxy').ActorHttpProxy)({
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_memento_json_myHttpFetcher = new (require('@comunica/actor-http-memento').ActorHttpMemento)({
   'mediatorHttp': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_mediatorHttp,
-  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/http.json#myHttpProxy',
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/http-memento.json#myHttpFetcher',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_http_Bus_Http,
   'beforeActors': [
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_myHttpFetcher
 ]
 });
-const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_memento_json_myHttpFetcher = new (require('@comunica/actor-http-memento').ActorHttpMemento)({
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_myHttpProxy = new (require('@comunica/actor-http-proxy').ActorHttpProxy)({
   'mediatorHttp': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_mediatorHttp,
-  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/http-memento.json#myHttpFetcher',
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/http.json#myHttpProxy',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_http_Bus_Http,
   'beforeActors': [
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_myHttpFetcher
@@ -741,7 +789,7 @@ const urn_comunica_sparqlinit = new (require('@comunica/actor-init-sparql').Acto
   'mediatorSparqlSerializeMediaTypeFormatCombiner': df_689_1,
   'mediatorContextPreprocess': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_init_json_mediatorContextPreprocess,
   'mediatorHttpInvalidate': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_init_json_mediatorHttpInvalidate,
-  'logger': df_309_0,
+  'logger': df_311_0,
   'contextKeyShortcuts': {
   'source': '@comunica/bus-rdf-resolve-quad-pattern:source',
   'sources': '@comunica/bus-rdf-resolve-quad-pattern:sources',
@@ -973,9 +1021,9 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
 const urn_comunica_my = ({
   'busInit': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_init_Bus_Init,
   'actors': [
+  https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_memento_json_myHttpFetcher,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_myHttpProxy,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_json_myHttpFetcher,
-  https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_http_memento_json_myHttpFetcher,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_join_json_myRdfJoinMultiActor,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_join_json_myRdfJoinActorSymmetricHash,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_join_json_myRdfJoinActorNestedLoop,

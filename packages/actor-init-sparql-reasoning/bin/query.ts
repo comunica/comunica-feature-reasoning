@@ -7,30 +7,6 @@ import { defaultGraph, namedNode, quad, variable } from '@rdfjs/data-model';
 // runArgsInProcessStatic(require('../engine-default.js'));
 
 runArgsInProcessStatic(require('../engine-default.js'), { context: ActionContext({
-  [KeysRdfReason.rules]: [
-    {
-      premise: [
-        quad(
-          variable('?s'),
-          namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-          variable('?o'),
-          defaultGraph()
-        ),
-        quad(
-          variable('?o'),
-          namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
-          variable('?o2'),
-          defaultGraph()
-        ),
-      ],
-      conclusion: [
-        quad(
-          variable('?s'),
-          namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-          variable('?o2'),
-          defaultGraph()
-        ),
-      ]
-    },
-  ]
+  // [KeysRdfReason.rules]: 'https://bit.ly/subclass-hylar'
+  [KeysRdfReason.rules]: 'https://gist.githubusercontent.com/jeswr/e914df85df0b3d39cfc42f462770ed87/raw/1460e12f875ee48791f25a06dadf9b52c6edc8bb/hylar'
 })});

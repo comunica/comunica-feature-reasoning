@@ -9,6 +9,7 @@
 
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
 
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^1.0.0/components/context.jsonld"
   ],
@@ -26,6 +27,11 @@
         "@id": "config-setsr:resolve-reasoned.json#mediatorRdfResolveQuadPattern",
         "@type": "MediatorRace",
         "cc:Mediator/bus": { "@id": "cbrrqp:Bus/RdfResolveQuadPattern" }
+      },
+      "carrrr:mediatorRuleDereference": {
+        "@id": "config-setsr:resolve-reasoned.json#mediatorRuleDereference",
+        "@type": "MediatorRace",
+        "cc:Mediator/bus": { "@id": "cbrld:Bus/RuleDereference" }
       }
     }
   ]
