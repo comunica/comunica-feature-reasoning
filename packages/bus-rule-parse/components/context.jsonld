@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "cbrlp": "npmd:@comunica/bus-rule-parse/",
+      "files-cbrlp": "cbrlp:^1.0.0/",
+
+      "BusRuleParse": "cbrlp:Bus/RuleParse",
+      "ActorRuleParse": "cbrlp:Actor/RuleParse"
+    }
+  ]
+}

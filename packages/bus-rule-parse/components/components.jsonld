@@ -1,0 +1,11 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/bus-rule-parse",
+  "@type": "Module",
+  "requireName": "@comunica/bus-rule-parse",
+  "import": [
+    "files-cbrlp:components/Bus/RuleParse.jsonld",
+    "files-cbrlp:components/Actor/RuleParse.jsonld",
+    "files-cbrlp:components/Actor/RuleParseFixedMediaTypes.jsonld"
+  ]
+}

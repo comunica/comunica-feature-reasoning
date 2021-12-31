@@ -1,0 +1,33 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-abstract-mediatyped/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-hylar/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-rule-parse-hylar",
+  "components": [
+    {
+      "@id": "carph:Actor/RuleParse/HyLAR",
+      "@type": "Class",
+      "extends": "cbrlp:Actor/RuleParseFixedMediaTypes",
+      "requireElement": "ActorRuleParseHyLAR",
+      "comment": "A comunica HyLAR Rule Parse Actor.",
+      "parameters": [
+        {
+          "@id": "caam:Actor/AbstractMediaTypedFixed/mediaTypeEntry",
+          "defaultScoped": {
+            "defaultScope": "carph:Actor/RdfParse/HyLAR",
+            "defaultScopedValue": [
+              { "mediaTypeKey": "text/hylar",               "priorityValue": "1.0", "mediaTypeFormat": "http://www.w3.org/ns/formats/hylar" }
+            ]
+          }
+        }
+      ],
+      "constructorArguments": [
+        {
+          "extends": "cbrlp:Actor/RuleParseFixedMediaTypes/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

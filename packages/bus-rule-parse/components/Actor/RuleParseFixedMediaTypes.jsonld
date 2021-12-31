@@ -1,0 +1,23 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-abstract-mediatyped/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-rule-parse",
+  "components": [
+    {
+      "@id": "cbrlp:Actor/RuleParseFixedMediaTypes",
+      "@type": "AbstractClass",
+      "extends": [ "cbrlp:Actor/RuleParse", "caam:Actor/AbstractMediaTypedFixed" ],
+      "requireElement": "ActorRuleParseFixedMediaTypes",
+      "comment": "A base actor for listening to Rule parse events that has fixed media types.",
+      "constructorArguments": [
+        {
+          "@id": "cbrlp:Actor/RuleParseFixedMediaTypes/constructorArgumentsObject",
+          "extends": "caam:Actor/AbstractMediaTypedFixed/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

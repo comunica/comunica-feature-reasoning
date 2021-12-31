@@ -1,0 +1,11 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/bus-rule-dereference",
+  "@type": "Module",
+  "requireName": "@comunica/bus-rule-dereference",
+  "import": [
+    "files-cbrld:components/Bus/RuleDereference.jsonld",
+    "files-cbrld:components/Actor/RuleDereference.jsonld",
+    "files-cbrld:components/Actor/RuleDereferenceMediaMappings.jsonld"
+  ]
+}

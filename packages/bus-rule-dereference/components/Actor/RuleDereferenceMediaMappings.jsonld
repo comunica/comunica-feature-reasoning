@@ -1,24 +1,17 @@
 {
   "@context": [
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-rule-restriction/^1.0.0/components/context.jsonld",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
   ],
-  "@id": "npmd:@comunica/actor-rdf-reason-rule-restriction",
+  "@id": "npmd:@comunica/bus-rule-dereference",
   "components": [
     {
-      "@id": "carrrr:Actor/RdfReason/RuleRestriction",
-      "@type": "Class",
-      "extends": "cbrr:Actor/RdfReasonMediated",
-      "requireElement": "ActorRdfReasonRuleRestriction",
-      "comment": "A comunica actor that reasons by applying rule restrictions",
+      "@id": "cbrld:Actor/RuleDereferenceMediaMappings",
+      "@type": "AbstractClass",
+      "extends": "cbrld:Actor/RuleDereference",
+      "requireElement": "ActorRuleDereferenceMediaMappings",
+      "comment": "A base actor for handling Rule dereference events that has default media type mappings for file extensions.",
       "parameters": [
-        {
-          "@id": "carrrr:mediatorRuleDereference",
-          "comment": "The RDF parse mediator",
-          "required": true,
-          "unique": true
-        },
         {
           "@id": "cbrld:mediaMappingEntry",
           "comment": "Maps an extension to a file type",
@@ -43,18 +36,18 @@
             { "cbrld:extension": "xht",      "cbrld:mediaType": "application/xhtml+xml" },
             { "cbrld:extension": "xml",      "cbrld:mediaType": "application/xml" },
             { "cbrld:extension": "svg",      "cbrld:mediaType": "image/svg+xml" },
-            { "cbrld:extension": "svgz",     "cbrld:mediaType": "image/svg+xml" },
-            { "cbrld:extension": "hylar",     "cbrld:mediaType": "text/hylar" }
+            { "cbrld:extension": "svgz",     "cbrld:mediaType": "image/svg+xml" }
           ]
         }
       ],
       "constructorArguments": [
         {
-          "extends": "cbrr:Actor/RdfReasonMediated/constructorArgumentsObject",
+          "@id": "cbrld:Actor/RuleDereferenceMediaMappings/constructorArgumentsObject",
+          "extends": "cc:Actor/constructorArgumentsObject",
           "fields": [
             {
-              "keyRaw": "mediatorRuleDereference",
-              "value": "carrrr:mediatorRuleDereference"
+              "keyRaw": "mediatorRuleParse",
+              "value": "cbrld:mediatorRuleParse"
             },
             {
               "keyRaw": "mediaMappings",

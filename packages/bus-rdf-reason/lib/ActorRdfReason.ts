@@ -12,7 +12,7 @@ export enum KeysRdfReason {
    */
   dataset = '@comunica/bus-rdf-reason:dataset',
   /**
-   * @range {Rule[]}
+   * @range {IDataSource?} // TODO: FIX
    */
   rules = '@comunica/bus-rdf-reason:rules',
 }
