@@ -33,7 +33,7 @@ export abstract class ActorRuleDereferenceMediaMappings extends ActorRuleDerefer
     if (dotIndex >= 0) {
       const ext = path.slice(dotIndex);
       // Ignore dot
-      console.log(this.mediaMappings)
+      // console.log(this.mediaMappings)
       // TODO: FIX CONFIGS SO THIS IS DEFIENE
       return this.mediaMappings?.[ext.slice(1)] || '';
     }
