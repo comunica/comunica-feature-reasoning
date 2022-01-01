@@ -1,5 +1,5 @@
 import type * as RDF from '@rdfjs/types';
-import { quad, blankNode, namedNode } from '@rdfjs/data-model';
+import { quad, blankNode, namedNode, defaultGraph } from '@rdfjs/data-model';
 import { type AsyncIterator, single, union, fromArray, wrap, empty, UnionIterator } from 'asynciterator';
 import type { IQuadSource, ActorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern'
 import type { IQuadDestination } from '@comunica/bus-rdf-update-quads'
@@ -133,7 +133,7 @@ export function getMappings(rule: Rule, match: Match) {
 
 export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
   // TODO: See if this is necessary
-  if (elem.termType === 'BlankNode') return blankNode();
+  // if (elem.termType === 'BlankNode') return blankNode();
   if (elem.termType === 'Variable') {
     if (!(elem.value in mapping)) {
       return elem;

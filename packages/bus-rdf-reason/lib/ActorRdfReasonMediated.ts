@@ -8,7 +8,19 @@ import * as RDF from 'rdf-js';
 import type { Algebra } from 'sparqlalgebrajs';
 import { KeysRdfReason } from '..';
 import { IActionRdfReason, IActorRdfReasonOutput, ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';
-import { KeysRdfUpdateQuads } from '@comunica/context-entries'
+import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries'
+import { FederatedQuadSource } from '@comunica/actor-rdf-resolve-quad-pattern-federated';
+import { quad } from '@rdfjs/data-model';
+
+function deskolemizeQuad(term: RDF.Quad, sourceId: string) {
+  return quad(
+    // @ts-ignore
+    FederatedQuadSource.deskolemizeTerm(term.subject, sourceId),
+    FederatedQuadSource.deskolemizeTerm(term.predicate, sourceId),
+    FederatedQuadSource.deskolemizeTerm(term.object, sourceId),
+    FederatedQuadSource.deskolemizeTerm(term.graph, sourceId),
+  )
+}
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
   public readonly mediatorRdfUpdateQuads: Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
@@ -22,8 +34,9 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
   protected async runExplicitUpdate(changes: IActionRdfUpdateQuads, context: ActionContext) {
     const { updateResult } = await this.mediatorRdfUpdateQuads.mediate({
-      quadStreamInsert: changes.quadStreamInsert,
-      quadStreamDelete: changes.quadStreamDelete,
+      // NOTE: THE DESKOLEMISATION HERE IS A TEMPORARY WORKAROUND AND NEEDS TO BE FIXED
+      quadStreamInsert: changes.quadStreamInsert?.map(quad => deskolemizeQuad(quad, context.get(KeysRdfResolveQuadPattern.sources)?.length ?? 1)),
+      quadStreamDelete: changes.quadStreamDelete?.map(quad => deskolemizeQuad(quad, context.get(KeysRdfResolveQuadPattern.sources)?.length ?? 1)),
       context: context
     });
     return updateResult;

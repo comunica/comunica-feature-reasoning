@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+      "caorpr": "npmd:@comunica/actor-optimize-rule-pattern-restriction/",
+      "files-caorpr": "caorpr:^1.0.0/",
+
+      "ActorOptimizeRulePatternRestriction": "caorpr:Actor/OptimizeRule/PatternRestriction"
+    }
+  ]
+}

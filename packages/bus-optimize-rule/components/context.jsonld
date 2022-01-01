@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "cbor": "npmd:@comunica/bus-optimize-rule/",
+      "files-cbor": "cbor:^1.0.0/",
+
+      "BusOptimizeRule": "cbor:Bus/OptimizeRule",
+      "ActorOptimizeRule": "cbor:Actor/OptimizeRule"
+    }
+  ]
+}

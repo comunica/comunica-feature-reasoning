@@ -6,6 +6,7 @@ import { Store } from 'n3'
 import { evaluateRuleSet, RestrictableRule } from './reasoner';
 import streamifyArray = require('streamify-array');
 import arrayifyStream = require('arrayify-stream');
+import { defaultGraph, quad } from '@rdfjs/data-model';
 
 /**
  * A comunica actor that 
@@ -43,12 +44,22 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
 
     do {
       size = store.size;
+      let reset = true
       const quadStreamInsert = evaluateRuleSet(r, this.unionQuadSource(context).match)
         .map(data => {
-          store.addQuad(data);
-          return data;
+          // WORKAROUND For triple only sources
+          const q = quad(data.subject, data.predicate, data.object, defaultGraph())
+          
+          if (!store.has(q) && reset){
+            console.log(JSON.stringify(q, null, 2));
+            reset = false;
+          }
+          store.addQuad(q);
+          return q;
         });
       await this.runImplicitUpdate({ quadStreamInsert }, context);
+      console.log('implicit size', store.size)
+      // console.log(JSON.stringify(store.getQuads(null, null, null, null)))
     } while (store.size > size);
 
     return {

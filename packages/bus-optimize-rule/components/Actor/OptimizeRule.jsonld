@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-optimize-rule",
+  "components": [
+    {
+      "@id": "cbor:Actor/OptimizeRule",
+      "@type": "AbstractClass",
+      "extends": "cc:Actor",
+      "requireElement": "ActorOptimizeRule",
+      "comment": "A comunica actor for optimizing reasoning rules",
+      "parameters": [
+        {
+          "@id": "cc:Actor/bus",
+          "defaultScoped": {
+            "defaultScope": "cbor:Actor/OptimizeRule",
+            "defaultScopedValue": { "@id": "cbor:Bus/OptimizeRule" }
+          }
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "cbor:Actor/OptimizeRule/constructorArgumentsObject",
+          "@type": "https://linkedsoftwaredependencies.org/vocabularies/object-oriented#Object",
+          "extends": "cc:Actor/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}
