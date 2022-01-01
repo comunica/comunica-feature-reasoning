@@ -3,6 +3,7 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rdf-reason-rule-restriction/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-dereference/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule/^1.0.0/components/context.jsonld"
   ],
   "@id": "npmd:@comunica/actor-rdf-reason-rule-restriction",
   "components": [
@@ -13,6 +14,12 @@
       "requireElement": "ActorRdfReasonRuleRestriction",
       "comment": "A comunica actor that reasons by applying rule restrictions",
       "parameters": [
+        {
+          "@id": "carrrr:mediatorOptimizeRule",
+          "comment": "The Rule Optimizer",
+          "required": true,
+          "unique": true
+        },
         {
           "@id": "carrrr:mediatorRuleDereference",
           "comment": "The RDF parse mediator",
@@ -67,6 +74,9 @@
                   }
                 ]
               }
+            },{
+              "keyRaw": "mediatorOptimizeRule",
+              "value": "carrrr:mediatorOptimizeRule"
             }
           ]
         }

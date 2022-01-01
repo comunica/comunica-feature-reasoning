@@ -22,10 +22,10 @@
       "constructorArguments": [
         {
           "extends": "cbrrqpi:Actor/RdfResolveQuadPatternIntercept/constructorArgumentsObject",
-          "fields": {
+          "fields": [{
             "keyRaw": "mediatorRdfReason",
             "value": "carrqpir:mediatorRdfReason"
-          }
+          }]
         }
       ]
     }

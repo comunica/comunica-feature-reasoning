@@ -7,12 +7,14 @@ import { evaluateRuleSet, RestrictableRule } from './reasoner';
 import streamifyArray = require('streamify-array');
 import arrayifyStream = require('arrayify-stream');
 import { defaultGraph, quad } from '@rdfjs/data-model';
+import { MediatorOptimizeRule } from '@comunica/bus-optimize-rule'
 
 /**
  * A comunica actor that 
  */
 export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
   public readonly mediatorRuleDereference: MediatorRuleDereference;
+  public readonly mediatorOptimizeRule: MediatorOptimizeRule;
   public constructor(args: IActorRdfReasonRuleRestrictionArgs) {
     super(args);
   }
@@ -35,8 +37,10 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     let size = 0;
     // console.log('rule dereference', this.mediatorRuleDereference)
     const d = await this.mediatorRuleDereference.mediate({ url: context.get(KeysRdfReason.rules) })
-    // console.log('---', d, '---')
-    const r = await arrayifyStream(d.rules);
+    const originalRules = await arrayifyStream(d.rules);
+    const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern })
+
+    // console.log(rules.length, originalRules.length)
     // console.log(r)
     // console.log(r[0].premise)
     // console.log(r[0].conclusion)
@@ -44,13 +48,13 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
 
     do {
       size = store.size;
-      let reset = true
-      const quadStreamInsert = evaluateRuleSet(r, this.unionQuadSource(context).match)
+      const quadStreamInsert = evaluateRuleSet(rules as RestrictableRule[], this.unionQuadSource(context).match)
         .map(data => {
           store.addQuad(data);
           return data;
         });
       await this.runImplicitUpdate({ quadStreamInsert }, context);
+      // console.log('implicit size', size)
     } while (store.size > size);
 
     return {
@@ -61,4 +65,5 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
 
 interface IActorRdfReasonRuleRestrictionArgs extends IActorRdfReasonMediatedArgs {
   mediatorRuleDereference: MediatorRuleDereference;
+  mediatorOptimizeRule: MediatorOptimizeRule;
 }

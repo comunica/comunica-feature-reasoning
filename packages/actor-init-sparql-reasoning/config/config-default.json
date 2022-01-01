@@ -29,6 +29,7 @@
     "config-setsr:rdf-reasoners.json",
     "config-setsr:rule-dereference.json",
     "config-setsr:rule-parsers.json",
+    "config-setsr:optimize-rule.json",
 
     "config-sets:resolve-hypermedia.json",
     "config-sets:resolve-federated.json",

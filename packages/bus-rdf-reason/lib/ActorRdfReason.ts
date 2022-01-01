@@ -5,6 +5,7 @@ import type { IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern'
 import { Store } from 'n3';
 // TODO: FIX
 import { RestrictableRule, Rule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
+import { Algebra } from 'sparqlalgebrajs';
 
 export enum KeysRdfReason {
   /**
@@ -76,6 +77,7 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
 
 export interface IActionRdfReason extends IAction {
   // rules?: RestrictableRule[]
+  pattern?: Algebra.Pattern;
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {

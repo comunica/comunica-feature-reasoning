@@ -2,6 +2,7 @@ import { ActorOptimizeRule, IActionOptimizeRule, IActorOptimizeRuleOutput } from
 import { Rule } from '@comunica/bus-rule-parse';
 import { IActorArgs, IActorTest } from '@comunica/core';
 import * as RDF from '@rdfjs/types';
+import { Algebra } from 'sparqlalgebrajs';
 import { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
 
 /**
@@ -13,6 +14,8 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
   }
 
   public async test(action: IActionOptimizeRule): Promise<IActorTest> {
+    // console.log(action)
+    
     const { pattern } = action;
     
     if (!pattern) {
@@ -37,11 +40,18 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
       throw new Error('Cannot optimise a pattern with all distinct variables');
     }
 
+    if (action.rules.some(rule => rule.conclusion === false)) {
+      throw new Error('Cannot restrict rules with a false conclusion');
+    }
+
     return true;
   }
 
   public async run(action: IActionOptimizeRule): Promise<IActorOptimizeRuleOutput> {
-    return action;
+    if (!action.pattern) {
+      throw new Error('Pattern expected')
+    }
+    return { ...action, rules: restrictNaive(action.rules as RestrictableRule[], [action.pattern]) };
     // return true; // TODO implement
   }
 }
@@ -55,7 +65,7 @@ function termMatches(value: RDF.Term, pattern: RDF.Term) {
 
 // This can be improved by ensuring that variable occurences
 // match each other similar to in in the HyLAR reasoner
-function matches(value: RDF.Quad, pattern: RDF.Quad) {
+function matches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.Pattern) {
   return termMatches(value.subject, pattern.subject)
     && termMatches(value.predicate, pattern.predicate)
     && termMatches(value.object, pattern.object)
@@ -66,7 +76,7 @@ function matches(value: RDF.Quad, pattern: RDF.Quad) {
  * @param rules The full rule set to be reasoned over
  * @param patterns The patterns that we are to match against in the rule set
  */
-function restrictNaive(rules: RestrictableRule[], patterns: RDF.Quad[]): RestrictableRule[] {
+function restrictNaive(rules: RestrictableRule[], patterns: (Algebra.Pattern | RDF.Quad)[]): RestrictableRule[] {
   let allPatterns = [...patterns];
   let unusedRules = [...rules];
   let unusedRulesNew: RestrictableRule[] = [];
