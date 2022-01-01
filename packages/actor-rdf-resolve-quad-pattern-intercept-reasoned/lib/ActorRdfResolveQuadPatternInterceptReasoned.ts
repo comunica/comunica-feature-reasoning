@@ -14,6 +14,7 @@ export class ActorRdfResolveQuadPatternInterceptReasoned extends ActorRdfResolve
 
   async runIntercept(action: IActionRdfResolveQuadPatternIntercept): Promise<IActionRdfResolveQuadPatternIntercept> {
     const context = getContextWithImplicitDataset(action.context);
+    // TODO: Work out how to emit results from other sources while still reasoning
     await this.mediatorRdfReason.mediate({ context });
     return { ...action, context: setUnionSource(context) };
   }
