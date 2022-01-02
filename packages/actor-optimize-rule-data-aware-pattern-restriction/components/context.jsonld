@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
+    {
+      "npmd": "https://linkedsoftwaredependencies.org/bundles/npm/",
+      "caordapr": "npmd:@comunica/actor-optimize-rule-data-aware-pattern-restriction/",
+      "files-caordapr": "caordapr:^1.0.0/",
+
+      "ActorOptimizeRuleDataAwarePatternRestriction": "caordapr:Actor/OptimizeRuleDataAware/PatternRestriction"
+    }
+  ]
+}

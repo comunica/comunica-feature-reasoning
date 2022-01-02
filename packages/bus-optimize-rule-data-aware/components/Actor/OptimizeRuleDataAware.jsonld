@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule-data-aware/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-optimize-rule-data-aware",
+  "components": [
+    {
+      "@id": "cborda:Actor/OptimizeRuleDataAware",
+      "@type": "AbstractClass",
+      "extends": "cc:Actor",
+      "requireElement": "ActorOptimizeRuleDataAware",
+      "comment": "A comunica actor for optimize-rule-data-aware events.",
+      "parameters": [
+        {
+          "@id": "cc:Actor/bus",
+          "defaultScoped": {
+            "defaultScope": "cborda:Actor/OptimizeRuleDataAware",
+            "defaultScopedValue": { "@id": "cborda:Bus/OptimizeRuleDataAware" }
+          }
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "cborda:Actor/OptimizeRuleDataAware/constructorArgumentsObject",
+          "@type": "https://linkedsoftwaredependencies.org/vocabularies/object-oriented#Object",
+          "extends": "cc:Actor/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

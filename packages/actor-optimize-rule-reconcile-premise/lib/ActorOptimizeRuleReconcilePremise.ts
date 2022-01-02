@@ -3,6 +3,7 @@ import { IActorArgs, IActorTest } from '@comunica/core';
 import { Writer } from 'n3';
 import * as RDF from '@rdfjs/types'
 import { Rule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
+import { MediatorNormalizeRule } from '@comunica/bus-normalize-rule';
 
 function toString(quads: RDF.Quad[]) {
   const writer = new Writer();
@@ -13,6 +14,7 @@ function toString(quads: RDF.Quad[]) {
  * A comunica Actor that Optimizes rules by merging those rules that have a shared premise
  */
 export class ActorOptimizeRuleReconcilePremise extends ActorOptimizeRule {
+  public readonly mediatorNormalizeRule: MediatorNormalizeRule;
   public constructor(args: IActorArgs<IActionOptimizeRule, IActorTest, IActorOptimizeRuleOutput>) {
     super(args);
   }
@@ -23,11 +25,13 @@ export class ActorOptimizeRuleReconcilePremise extends ActorOptimizeRule {
   }
 
   public async run(action: IActionOptimizeRule): Promise<IActorOptimizeRuleOutput> {
+    const normalized = await this.mediatorNormalizeRule.mediate(action);
+
     const writer = new Writer();
     
     const map: { [key: string]: Rule[] } = {};
 
-    for (const rule of action.rules) {
+    for (const rule of normalized.rules) {
       (map[writer.quadsToString(rule.premise)] ??= []).push(rule);
     }
 
@@ -53,4 +57,8 @@ export class ActorOptimizeRuleReconcilePremise extends ActorOptimizeRule {
     // This assumes that 
     return { ...action, rules }; // TODO implement
   }
+}
+
+export interface IActorOptimizeRuleReconcilePremiseArgs extends IActorArgs<IActionOptimizeRule, IActorTest, IActorOptimizeRuleOutput> {
+  mediatorNormalizeRule: MediatorNormalizeRule;
 }

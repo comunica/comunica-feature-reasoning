@@ -5,8 +5,12 @@
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld",
 
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-normalize-rule/^1.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-pattern-restriction/^1.0.0/components/context.jsonld",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-remove-false-conclusion/^1.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-remove-false-conclusion/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-reconcile-premise/^1.0.0/components/context.jsonld",
+
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-combine-pipeline/^1.0.0/components/context.jsonld"
   ],
   "@id": "urn:comunica:my",
   "actors": [
@@ -16,6 +20,14 @@
     },{
       "@id": "config-setsr:optimize-rule.json#myOptimizeRulePatternRestriction",
       "@type": "ActorOptimizeRulePatternRestriction"
+    },{
+      "@id": "config-setsr:optimize-rule.json#myOptimizeRuleReconcilePremise",
+      "@type": "ActorOptimizeRuleReconcilePremise",
+      "caorrp:mediatorNormalizeRule": {
+        "@id": "config-setsr:normalize-rule.json#myNormalizeRule",
+        "@type": "MediatorCombinePipeline",
+        "cc:Mediator/bus": { "@id": "cbnr:Bus/NormalizeRule" }
+      }
     }
   ]
 }

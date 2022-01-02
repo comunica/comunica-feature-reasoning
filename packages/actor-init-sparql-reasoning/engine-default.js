@@ -1,4 +1,4 @@
-const df_325_0 = new (require('@comunica/logger-void').LoggerVoid)(undefined);
+const df_329_0 = new (require('@comunica/logger-void').LoggerVoid)(undefined);
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_init_Bus_Init = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-init/Bus/Init'
 });
@@ -244,9 +244,9 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/sparql-serializers.json#mediatorRdfSerialize',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_serialize_Bus_RdfSerialize
 });
-const df_735_0 = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
+const df_745_0 = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
   'field': 'mediaTypeFormats',
-  'name': 'df_735_0',
+  'name': 'df_745_0',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_serialize_Bus_RdfSerialize
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_mediatorMetadata = new (require('@comunica/mediator-race').MediatorRace)({
@@ -376,14 +376,14 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/sparql-init.json#mediatorSparqlSerialize',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_sparql_serialize_Bus_SparqlSerialize
 });
-const df_721_0 = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
+const df_731_0 = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
   'field': 'mediaTypes',
-  'name': 'df_721_0',
+  'name': 'df_731_0',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_sparql_serialize_Bus_SparqlSerialize
 });
-const df_721_1 = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
+const df_731_1 = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
   'field': 'mediaTypeFormats',
-  'name': 'df_721_1',
+  'name': 'df_731_1',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_sparql_serialize_Bus_SparqlSerialize
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_serializers_json_myJsonSparqlSerializer = new (require('@comunica/actor-sparql-serialize-json').ActorSparqlSerializeJson)({
@@ -515,6 +515,10 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/optimize-rule.json#myOptimizeRulePatternRestriction',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_optimize_rule_Bus_OptimizeRule
 });
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleReconcilePremise = new (require('@comunica/actor-optimize-rule-reconcile-premise').ActorOptimizeRuleReconcilePremise)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/optimize-rule.json#myOptimizeRuleReconcilePremise',
+  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_optimize_rule_Bus_OptimizeRule
+});
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rule_dereference_json_mediatorRuleParseMediatypes = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
   'field': 'mediaTypes',
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rule-dereference.json#mediatorRuleParseMediatypes',
@@ -641,7 +645,7 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_serializers_json_myRdfSparqlSerializer = new (require('@comunica/actor-sparql-serialize-rdf').ActorSparqlSerializeRdf)({
   'mediatorRdfSerialize': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_serializers_json_mediatorRdfSerialize,
   'mediatorMediaTypeCombiner': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_serializers_json_mediatorRdfSerializeMediatypes,
-  'mediatorMediaTypeFormatCombiner': df_735_0,
+  'mediatorMediaTypeFormatCombiner': df_745_0,
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/sparql-serializers.json#myRdfSparqlSerializer',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_sparql_serialize_Bus_SparqlSerialize
 });
@@ -801,11 +805,11 @@ const urn_comunica_sparqlinit = new (require('@comunica/actor-init-sparql').Acto
   'mediatorQueryOperation': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_queryoperators_json_mediatorQueryOperation,
   'mediatorSparqlParse': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_init_json_mediatorSparqlParse,
   'mediatorSparqlSerialize': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_init_json_mediatorSparqlSerialize,
-  'mediatorSparqlSerializeMediaTypeCombiner': df_721_0,
-  'mediatorSparqlSerializeMediaTypeFormatCombiner': df_721_1,
+  'mediatorSparqlSerializeMediaTypeCombiner': df_731_0,
+  'mediatorSparqlSerializeMediaTypeFormatCombiner': df_731_1,
   'mediatorContextPreprocess': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_init_json_mediatorContextPreprocess,
   'mediatorHttpInvalidate': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_sparql_init_json_mediatorHttpInvalidate,
-  'logger': df_325_0,
+  'logger': df_329_0,
   'contextKeyShortcuts': {
   'source': '@comunica/bus-rdf-resolve-quad-pattern:source',
   'sources': '@comunica/bus-rdf-resolve-quad-pattern:sources',
@@ -1129,6 +1133,7 @@ const urn_comunica_my = ({
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rdf_reasoners_json_myRuleParseN3,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleRemoveFalseConclusion,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRulePatternRestriction,
+  https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleReconcilePremise,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myHypermediaQpfResolver,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myHypermediaNoneResolver,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myQuadPatternHypermediaResolver,
