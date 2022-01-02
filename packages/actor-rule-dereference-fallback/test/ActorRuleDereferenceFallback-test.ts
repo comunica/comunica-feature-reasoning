@@ -1,4 +1,3 @@
-import { ActorRuleDereference } from '@comunica/bus-rule-dereference';
 import { Bus } from '@comunica/core';
 import { ActorRuleDereferenceFallback } from '../lib/ActorRuleDereferenceFallback';
 

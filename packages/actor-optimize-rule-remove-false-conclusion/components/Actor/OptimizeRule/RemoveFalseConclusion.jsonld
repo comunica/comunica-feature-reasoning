@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-remove-false-conclusion/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-optimize-rule-remove-false-conclusion",
+  "components": [
+    {
+      "@id": "caorrfc:Actor/OptimizeRule/RemoveFalseConclusion",
+      "@type": "Class",
+      "extends": "cbor:Actor/OptimizeRule",
+      "requireElement": "ActorOptimizeRuleRemoveFalseConclusion",
+      "comment": "A comunica actor that optimizes rules by filtering out those with false conclusions",
+      "constructorArguments": [
+        {
+          "extends": "cbor:Actor/OptimizeRule/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

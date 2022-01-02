@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-reconcile-premise/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-optimize-rule-reconcile-premise",
+  "components": [
+    {
+      "@id": "caorrp:Actor/OptimizeRule/ReconcilePremise",
+      "@type": "Class",
+      "extends": "cbor:Actor/OptimizeRule",
+      "requireElement": "ActorOptimizeRuleReconcilePremise",
+      "comment": "A comunica Actor that Optimizes rules by merging those rules that have a shared premise",
+      "constructorArguments": [
+        {
+          "extends": "cbor:Actor/OptimizeRule/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

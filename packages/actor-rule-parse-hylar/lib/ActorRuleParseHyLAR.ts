@@ -1,14 +1,14 @@
-import { ActorRuleParse, ActorRuleParseFixedMediaTypes, IActionRuleParse, IActorRuleParseOutput, Rule, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
-import { IActorArgs, IActorTest } from '@comunica/core';
-import { stringToTerm } from 'rdf-string';
-import { termAsQuad } from 'is-quad';
-import * as RDF from '@rdfjs/types';
+import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
+import { ActorRuleParseFixedMediaTypes, Rule } from '@comunica/bus-rule-parse';
+import type { IActorTest } from '@comunica/core';
+import type { ActionContext } from '@comunica/types';
 import { defaultGraph, quad } from '@rdfjs/data-model';
+import type * as RDF from '@rdfjs/types';
+import { termAsQuad } from 'is-quad';
+import { stringToTerm } from 'rdf-string';
 // TODO: Remove this dependency
 import toString = require('stream-to-string');
 import streamify = require('streamify-array');
-import { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediatyped';
-import { ActionContext } from '@comunica/types';
 
 /**
  * A comunica HyLAR Rule Parse Actor.
@@ -19,7 +19,7 @@ export class ActorRuleParseHyLAR extends ActorRuleParseFixedMediaTypes {
   }
 
   async testHandle(action: IActionRuleParse, mediaType: string, context: ActionContext): Promise<IActorTest> {
-      return true;
+    return true;
   }
 
   public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
@@ -29,35 +29,35 @@ export class ActorRuleParseHyLAR extends ActorRuleParseFixedMediaTypes {
   }
 }
 
-const TRIPLE = /((?<=\()[^\s]+?\s[^\s]+?\s[^\s]+?(?=\)))|false/gi;
+const TRIPLE = /((?<=\()\S+?\s\S+?\s\S+?(?=\)))|false/gi;
 
 export function parseRule(strRule: string) {
   // TODO: Handle the following bugs:
   // 1. Will not parse correctly if '->', '^', '(' or ')' occurs in a string or url
   // Consider stream parsing like the N3 package instead
   // console.log('rule', strRule)
-  const [premise, conclusion] = strRule.split('->');
+  const [ premise, conclusion ] = strRule.split('->');
   const premiseQuads = premise.match(TRIPLE);
   const conclusionQuads = conclusion.match(TRIPLE);
 
   if (premiseQuads === null || conclusionQuads === null) {
-    throw new Error('Invalid rule: ' + strRule);
+    throw new Error(`Invalid rule: ${strRule}`);
   }
 
   return new Rule(parseTriples(premiseQuads), conclusionQuads[0] === 'false' ? false : parseTriples(conclusionQuads));
 }
 
 export function parseTriples(triples: string[]): RDF.Quad[] {
-  return triples.map((triple) => parseTriple(triple));
+  return triples.map(triple => parseTriple(triple));
 }
 
 export function parseTriple(triple: string): RDF.Quad {
-  const [s, p, o] = triple.split(' ');
+  const [ s, p, o ] = triple.split(' ');
   // TODO: Handle non-default graph cases
   return termAsQuad(quad(myStringToTerm(s), myStringToTerm(p), myStringToTerm(o), defaultGraph()));
 }
 
-const prefixes: {[key: string]: string} = {
+const prefixes: Record<string, string> = {
   owl: 'http://www.w3.org/2002/07/owl#',
   rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
   rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
@@ -65,7 +65,7 @@ const prefixes: {[key: string]: string} = {
 };
 
 function myStringToTerm(value: string): RDF.Term {
-  const [prefix] = value.split(':');
+  const [ prefix ] = value.split(':');
   if (prefix in prefixes) {
     return stringToTerm(value.replace(new RegExp(`^${prefix}:`), prefixes[prefix]));
   }

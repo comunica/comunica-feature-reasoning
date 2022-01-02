@@ -1,0 +1,6 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-normalize-rule/^1.0.0/components/context.jsonld",
+  "@id": "cbnr:Bus/NormalizeRule",
+  "@type": "cc:Bus",
+  "comment": "A comunica bus for normalizing reasoning rules"
+}

@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-pattern-substitution/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/actor-optimize-rule-pattern-substitution",
+  "@type": "Module",
+  "requireName": "@comunica/actor-optimize-rule-pattern-substitution",
+  "import": [
+    "files-caorps:components/Actor/OptimizeRule/PatternSubstitution.jsonld"
+  ]
+}

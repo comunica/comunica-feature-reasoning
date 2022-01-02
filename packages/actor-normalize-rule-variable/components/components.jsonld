@@ -1,0 +1,9 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-normalize-rule-variable/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/actor-normalize-rule-variable",
+  "@type": "Module",
+  "requireName": "@comunica/actor-normalize-rule-variable",
+  "import": [
+    "files-canrv:components/Actor/NormalizeRule/Variable.jsonld"
+  ]
+}

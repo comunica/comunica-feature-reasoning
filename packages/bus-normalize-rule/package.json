@@ -1,0 +1,43 @@
+{
+  "name": "@comunica/bus-normalize-rule",
+  "version": "1.0.0",
+  "description": "A comunica bus for normalizing reasoning rules",
+  "lsd:module": true,
+  "main": "index.js",
+  "typings": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/comunica/comunica.git",
+    "directory": "packages/bus-normalize-rule"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "comunica",
+    "bus",
+    "normalize-rule"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/comunica/comunica/issues"
+  },
+  "homepage": "https://comunica.dev/",
+  "files": [
+    "components",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "index.d.ts",
+    "index.js"
+  ],
+  "peerDependencies": {
+    "@comunica/core": "^1.22.0"
+  },
+  "devDependencies": {
+    "@comunica/core": "^1.22.0"
+  },
+  "scripts": {
+    "build": "node \"../../node_modules/typescript/bin/tsc\"",
+    "validate": "npm ls"
+  }
+}

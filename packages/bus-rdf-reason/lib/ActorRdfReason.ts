@@ -1,11 +1,11 @@
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, ActionContext as ActionContextConstructor, Mediator } from '@comunica/core';
+import type { IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern';
+import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import { Actor, ActionContext as ActionContextConstructor } from '@comunica/core';
 import type { ActionContext } from '@comunica/types';
-import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries'
-import type { IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern'
 import { Store } from 'n3';
 // TODO: FIX
-import { RestrictableRule, Rule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
-import { Algebra } from 'sparqlalgebrajs';
+import type { Algebra } from 'sparqlalgebrajs';
 
 export enum KeysRdfReason {
   /**
@@ -23,11 +23,11 @@ export function getImplicitSource(context: ActionContext): IDataSource {
 }
 
 export function getExplicitSources(context: ActionContext): IDataSource[] {
-  return context.get(KeysRdfResolveQuadPattern.source) ? [context.get(KeysRdfResolveQuadPattern.source)] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
+  return context.get(KeysRdfResolveQuadPattern.source) ? [ context.get(KeysRdfResolveQuadPattern.source) ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 }
 
 export function getUnionSources(context: ActionContext): IDataSource[] {
-  return [...getExplicitSources(context), getImplicitSource(context)];
+  return [ ...getExplicitSources(context), getImplicitSource(context) ];
 }
 
 export function setImplicitDestination(context: ActionContext): ActionContext {
@@ -53,7 +53,7 @@ export function getContextWithImplicitDataset(context?: ActionContext): ActionCo
  * @param {Object} orig Original Object
  * @returns Copy of original object with added props
  */
- function assign(props: Object, orig: Object) {
+function assign(props: Object, orig: Object) {
   // https://stackoverflow.com/questions/41474986/how-to-clone-a-javascript-es6-class-instance
   return Object.assign(Object.create(orig), { ...orig, ...props });
 }
@@ -76,13 +76,13 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
 }
 
 export interface IActionRdfReason extends IAction {
-  // rules?: RestrictableRule[]
+  // Rules?: RestrictableRule[]
   pattern?: Algebra.Pattern;
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {
-  reasoned: Promise<void>
+  reasoned: Promise<void>;
 }
 
 export type MediatorRdfReason = Mediator<Actor<IActionRdfReason, IActorTest,
-  IActorRdfReasonOutput>, IActionRdfReason, IActorTest, IActorRdfReasonOutput>;
+IActorRdfReasonOutput>, IActionRdfReason, IActorTest, IActorRdfReasonOutput>;

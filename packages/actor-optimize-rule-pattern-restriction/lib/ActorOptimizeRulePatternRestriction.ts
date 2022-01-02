@@ -1,9 +1,9 @@
-import { ActorOptimizeRule, IActionOptimizeRule, IActorOptimizeRuleOutput } from '@comunica/bus-optimize-rule';
-import { Rule } from '@comunica/bus-rule-parse';
-import { IActorArgs, IActorTest } from '@comunica/core';
-import * as RDF from '@rdfjs/types';
-import { Algebra } from 'sparqlalgebrajs';
-import { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
+import type { IActionOptimizeRule, IActorOptimizeRuleOutput } from '@comunica/bus-optimize-rule';
+import { ActorOptimizeRule } from '@comunica/bus-optimize-rule';
+import type { IActorArgs, IActorTest } from '@comunica/core';
+import type * as RDF from '@rdfjs/types';
+import type { Algebra } from 'sparqlalgebrajs';
+import type { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
 
 /**
  * A comunica actor that restricts rules to only those needed to produce data matching a particular pattern
@@ -14,17 +14,17 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
   }
 
   public async test(action: IActionOptimizeRule): Promise<IActorTest> {
-    // console.log(action)
-    
+    // Console.log(action)
+
     const { pattern } = action;
-    
+
     if (!pattern) {
-      throw new Error('A Pattern is required for ActorOptimizeRulePatternRestriction')
+      throw new Error('A Pattern is required for ActorOptimizeRulePatternRestriction');
     }
-    
+
     // This actor is not useful on the pattern ?s ?p ?o ?g
-    const hash: { [key: string]: boolean } = {}
-    
+    const hash: Record<string, boolean> = {};
+
     function uniqueVariable(term: RDF.Term) {
       if (term.termType === 'Variable') {
         if (hash[term.value]) {
@@ -35,41 +35,46 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
       }
       return false;
     }
-    
+
     if (uniqueVariable(pattern.subject) && uniqueVariable(pattern.predicate) && uniqueVariable(pattern.object) && uniqueVariable(pattern.graph)) {
       throw new Error('Cannot optimise a pattern with all distinct variables');
     }
 
-    if (action.rules.some(rule => rule.conclusion === false)) {
-      throw new Error('Cannot restrict rules with a false conclusion');
-    }
+    // TODO: ADD THIS BACK IN
+    // if (action.rules.some(rule => rule.conclusion === false)) {
+    //   throw new Error('Cannot restrict rules with a false conclusion');
+    // }
 
     return true;
   }
 
   public async run(action: IActionOptimizeRule): Promise<IActorOptimizeRuleOutput> {
     if (!action.pattern) {
-      throw new Error('Pattern expected')
+      throw new Error('Pattern expected');
     }
-    return { ...action, rules: restrictNaive(action.rules as RestrictableRule[], [action.pattern]) };
-    // return true; // TODO implement
+    let rules = action.rules
+    // TODO: REMOVE THIS IN FUTURE
+    rules = rules.filter(rule => rule.conclusion !== false)
+    rules = restrictNaive(rules as RestrictableRule[], [ action.pattern ])
+    return { ...action, rules };
+    // Return true; // TODO implement
   }
 }
 
 // TODO: Improve this
 function termMatches(value: RDF.Term, pattern: RDF.Term) {
-  return pattern.termType === 'Variable'
-    || value.termType === 'Variable'
-    || value.equals(pattern)
+  return pattern.termType === 'Variable' ||
+    value.termType === 'Variable' ||
+    value.equals(pattern);
 }
 
 // This can be improved by ensuring that variable occurences
 // match each other similar to in in the HyLAR reasoner
 function matches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.Pattern) {
-  return termMatches(value.subject, pattern.subject)
-    && termMatches(value.predicate, pattern.predicate)
-    && termMatches(value.object, pattern.object)
-    && termMatches(value.graph, pattern.graph)
+  return termMatches(value.subject, pattern.subject) &&
+    termMatches(value.predicate, pattern.predicate) &&
+    termMatches(value.object, pattern.object) &&
+    termMatches(value.graph, pattern.graph);
 }
 
 /**
@@ -77,26 +82,26 @@ function matches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.
  * @param patterns The patterns that we are to match against in the rule set
  */
 function restrictNaive(rules: RestrictableRule[], patterns: (Algebra.Pattern | RDF.Quad)[]): RestrictableRule[] {
-  let allPatterns = [...patterns];
-  let unusedRules = [...rules];
+  let allPatterns = [ ...patterns ];
+  let unusedRules = [ ...rules ];
   let unusedRulesNew: RestrictableRule[] = [];
-  let allRules: RestrictableRule[] = [];
+  const allRules: RestrictableRule[] = [];
   let size = -1;
   while (unusedRules.length > 0 && size < allRules.length) {
     size = allRules.length;
     for (const rule of unusedRules) {
       // Test to see if there is any match
       if (rule.conclusion.some(quad => patterns.some(pattern => matches(quad, pattern)))) {
-        allRules.push(rule)
-        allPatterns = allPatterns.concat(rule.premise)
+        allRules.push(rule);
+        allPatterns = allPatterns.concat(rule.premise);
       } else {
-        unusedRulesNew.push(rule)
+        unusedRulesNew.push(rule);
       }
     }
-    unusedRules = unusedRulesNew
-    unusedRulesNew = []
+    unusedRules = unusedRulesNew;
+    unusedRulesNew = [];
   }
-  return allRules
+  return allRules;
 }
 
 // Considering
@@ -131,15 +136,11 @@ function restrictNaive(rules: RestrictableRule[], patterns: (Algebra.Pattern | R
 // (?uuu rdf:type rdfs:ContainerMembershipProperty) -> (?uuu rdfs:subPropertyOf rdfs:member)
 // (?uuu rdf:type rdfs:Datatype) -> (?uuu rdfs:subClassOf rdfs:Literal)
 
-
-
-
 // Ok this is bad - finish later, however, lets now just consider 'abox' rdfs
 // (?aaa rdfs:domain ?xxx) ^ (?uuu ?aaa ?yyy) -> (?uuu rdf:type ?xxx)
 // (?aaa rdfs:range ?xxx) ^ (?uuu ?aaa ?vvv) -> (?vvv rdf:type ?xxx)
 // (?aaa rdfs:subPropertyOf ?bbb) ^ (?uuu ?aaa ?yyy) -> (?uuu ?bbb ?yyy)
 // (?uuu rdfs:subClassOf ?xxx) ^ (?vvv rdf:type ?uuu) -> (?vvv rdf:type ?xxx)
-
 
 // Round 1
 // (?aaa rdfs:domain ?xxx) ^ (t ?aaa ?yyy) -> (t rdf:type ?xxx)
@@ -147,12 +148,7 @@ function restrictNaive(rules: RestrictableRule[], patterns: (Algebra.Pattern | R
 // (?aaa rdfs:subPropertyOf rdf:type) ^ (t ?aaa ?yyy) -> (t rdf:type ?yyy)
 // (?uuu rdfs:subClassOf ?xxx) ^ (t rdf:type ?uuu) -> (t rdf:type ?xxx)
 
-
-
 // (?aaa rdfs:domain ?xxx) ^ (t ?aaa ?yyy) = ( (?aaa rdfs:domain ?xxx) || ((?xxx rdfs:subPropertyOf rdfs:domain) ^ (?aaa ?xxx ?yyy)) )
-
-
-
 
 // Round 2 [?aaa rdfs:domain ?xxx], [?aaa rdfs:range ?xxx], [t ?aaa ?yyy], [?uuu rdfs:subClassOf ?xxx]
 // (?aaa rdfs:domain ?xxx) ^ (t ?aaa ?yyy) -> (t rdf:type ?xxx)
@@ -160,15 +156,8 @@ function restrictNaive(rules: RestrictableRule[], patterns: (Algebra.Pattern | R
 // (?aaa rdfs:subPropertyOf rdf:type) ^ (t ?aaa ?yyy) -> (t rdf:type ?yyy)
 // (?uuu rdfs:subClassOf ?xxx) ^ (t rdf:type ?uuu) -> (t rdf:type ?xxx)
 
-
-
-
-
 // (?uuu ?aaa ?xxx) -> (?uuu rdf:type rdfs:Resource)
 // (?uuu ?aaa ?vvv) -> (?vvv rdf:type rdfs:Resource)
-
-
-
 
 // Round 1 [timbl a ?o]
 // (?uuu rdfs:subClassOf ?xxx) ^ (timbl rdf:type ?uuu) -> (timbl rdf:type ?xxx)

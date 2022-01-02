@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-normalize-rule-variable/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-normalize-rule/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-normalize-rule-variable",
+  "components": [
+    {
+      "@id": "canrv:Actor/NormalizeRule/Variable",
+      "@type": "Class",
+      "extends": "cbnr:Actor/NormalizeRule",
+      "requireElement": "ActorNormalizeRuleVariable",
+      "comment": "A comunica actor that normalizes variables in rules",
+      "constructorArguments": [
+        {
+          "extends": "cbnr:Actor/NormalizeRule/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

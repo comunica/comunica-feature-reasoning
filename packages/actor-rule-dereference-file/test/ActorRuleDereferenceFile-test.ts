@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Readable } from 'stream';
 import { ActorRuleDereference } from '@comunica/bus-rule-dereference';
-import { IActionHandleRuleParse, IActorOutputHandleRuleParse } from '@comunica/bus-rule-parse'
 import { ActionContext, Bus } from '@comunica/core';
 import { ActorRuleDereferenceFile } from '../lib/ActorRuleDereferenceFile';
 
@@ -18,7 +17,6 @@ function fileUrl(str: string): string {
 
   return encodeURI(`file://${pathName}`);
 }
-
 
 describe('ActorRuleDereferenceFile', () => {
   let bus: any;
@@ -62,7 +60,7 @@ describe('ActorRuleDereferenceFile', () => {
           const data = await arrayifyStream(action.handle.input);
           return {
             handle: {
-              rules: { data: data[0], mediaType: action.handleMediaType }
+              rules: { data: data[0], mediaType: action.handleMediaType },
             },
           };
         },
@@ -166,7 +164,7 @@ describe('ActorRuleDereferenceFile', () => {
       await expect(arrayifyStream(output.rules)).rejects.toThrow(new Error('Parse error'));
     });
 
-    // it('should run and ignore parse errors in lenient mode', async() => {
+    // It('should run and ignore parse errors in lenient mode', async() => {
     //   const p = path.join(__dirname, 'dummy.ttl');
     //   const context = ActionContext({ emitParseError: true, [KeysInitSparql.lenient]: true });
     //   const spy = jest.spyOn(actor, <any> 'logError');
@@ -183,7 +181,7 @@ describe('ActorRuleDereferenceFile', () => {
         .rejects.toThrow(new Error('Parse reject error'));
     });
 
-    // it('should run and ignore parse rejects in lenient mode', async() => {
+    // It('should run and ignore parse rejects in lenient mode', async() => {
     //   const p = path.join(__dirname, 'dummy.ttl');
     //   const context = ActionContext({ parseReject: true, [KeysInitSparql.lenient]: true });
     //   const spy = jest.spyOn(actor, <any> 'logError');

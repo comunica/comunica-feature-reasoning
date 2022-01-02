@@ -1,6 +1,7 @@
-import { ActorRdfResolveQuadPatternIntercept, IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptOutput, IActorRdfResolveQuadPatternInterceptArgs } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
-import { Actor, IActorTest, Mediator } from '@comunica/core';
-import { getContextWithImplicitDataset, IActionRdfReason, IActorRdfReasonOutput, MediatorRdfReason, setUnionSource } from '@comunica/bus-rdf-reason';
+import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
+import { getContextWithImplicitDataset, setUnionSource } from '@comunica/bus-rdf-reason';
+import type { IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptArgs } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
+import { ActorRdfResolveQuadPatternIntercept } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
 
 /**
  * A comunica Reasoned RDF Resolve Quad Pattern Intercept Actor.

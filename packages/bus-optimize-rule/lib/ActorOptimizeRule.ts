@@ -1,7 +1,8 @@
-import { Rule } from '@comunica/bus-rule-parse';
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
-import { Algebra } from 'sparqlalgebrajs';
-import { ActionContext } from '@comunica/types';
+import type { Rule } from '@comunica/bus-rule-parse';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import { Actor } from '@comunica/core';
+import type { ActionContext } from '@comunica/types';
+import type { Algebra } from 'sparqlalgebrajs';
 
 /**
  * A comunica actor for optimizing reasoning rules

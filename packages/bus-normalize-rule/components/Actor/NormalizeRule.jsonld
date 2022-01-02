@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-normalize-rule/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-normalize-rule",
+  "components": [
+    {
+      "@id": "cbnr:Actor/NormalizeRule",
+      "@type": "AbstractClass",
+      "extends": "cc:Actor",
+      "requireElement": "ActorNormalizeRule",
+      "comment": "A comunica actor that performs a normalizing action on reasoning rules",
+      "parameters": [
+        {
+          "@id": "cc:Actor/bus",
+          "defaultScoped": {
+            "defaultScope": "cbnr:Actor/NormalizeRule",
+            "defaultScopedValue": { "@id": "cbnr:Bus/NormalizeRule" }
+          }
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "cbnr:Actor/NormalizeRule/constructorArgumentsObject",
+          "@type": "https://linkedsoftwaredependencies.org/vocabularies/object-oriented#Object",
+          "extends": "cc:Actor/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

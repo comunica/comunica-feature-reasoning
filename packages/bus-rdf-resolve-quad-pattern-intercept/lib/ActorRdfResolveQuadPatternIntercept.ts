@@ -1,5 +1,6 @@
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
-import { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import { Actor } from '@comunica/core';
 
 /**
  * A comunica actor for rdf-resolve-quad-pattern-intercept events.
@@ -14,7 +15,8 @@ import { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from 
  */
 export abstract class ActorRdfResolveQuadPatternIntercept extends Actor<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
   public readonly mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
-    IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+  IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+
   public constructor(args: IActorRdfResolveQuadPatternInterceptArgs) {
     super(args);
   }
@@ -32,7 +34,7 @@ export abstract class ActorRdfResolveQuadPatternIntercept extends Actor<IActionR
 
 export interface IActorRdfResolveQuadPatternInterceptArgs extends IActorArgs<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
   mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
-    IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+  IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
 }
 
 export interface IActionRdfResolveQuadPatternIntercept extends IAction, IActionRdfResolveQuadPattern {

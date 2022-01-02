@@ -1,7 +1,9 @@
-import { Readable, EventEmitter, PassThrough } from 'stream';
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
-import * as RDF from '@rdfjs/types';
-import { KeysInitSparql } from '@comunica/context-entries'
+import type { EventEmitter } from 'stream';
+import { Readable, PassThrough } from 'stream';
+import { KeysInitSparql } from '@comunica/context-entries';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import { Actor } from '@comunica/core';
+import type * as RDF from '@rdfjs/types';
 
 /**
  * An actor for dereferencing a path or URL into a stream of Rules.
@@ -24,7 +26,7 @@ export abstract class ActorRuleDereference extends Actor<IActionRuleDereference,
    * @param {IActionRuleDereference} action An RDF dereference action.
    * @return {boolean} If hard errors are enabled.
    */
-   protected isHardError(action: IActionRuleDereference): boolean {
+  protected isHardError(action: IActionRuleDereference): boolean {
     return !action.context || !action.context.get(KeysInitSparql.lenient);
   }
 
@@ -72,40 +74,39 @@ export abstract class ActorRuleDereference extends Actor<IActionRuleDereference,
   }
 }
 
-
 export type MediatorRuleDereference = Mediator<Actor<IActionRuleDereference, IActorTest,
-  IActorRuleDereferenceOutput>, IActionRuleDereference, IActorTest, IActorRuleDereferenceOutput>;
+IActorRuleDereferenceOutput>, IActionRuleDereference, IActorTest, IActorRuleDereferenceOutput>;
 
-// export type MediatorRuleDereference = Mediator<Actor<IActionRuleDereference, 
+// Export type MediatorRuleDereference = Mediator<Actor<IActionRuleDereference,
 
 export interface IActionRuleDereference extends IAction {
   /**
    * The URL to dereference
    */
-   url: string;
+  url: string;
 
-   /**
+  /**
     * By default, actors will reject upon receiving non-200 HTTP responses.
     * If this option is true, then all HTTP responses will cause the action to resolve,
     * but some outputs may therefore contain empty quad streams.
     */
-   acceptErrors?: boolean;
- 
-   /**
+  acceptErrors?: boolean;
+
+  /**
     * The mediatype of the source (if it can't be inferred from the source)
     */
-   mediaType?: string;
+  mediaType?: string;
 
-   /**
+  /**
     * Optional HTTP method to use.
     * Defaults to GET.
     */
-   method?: string;
+  method?: string;
 
-   /**
+  /**
     * Optional HTTP headers to pass.
     */
-   headers?: Record<string, string>;
+  headers?: Record<string, string>;
 }
 
 export interface IActorRuleDereferenceOutput extends IActorOutput {
@@ -115,25 +116,25 @@ export interface IActorRuleDereferenceOutput extends IActorOutput {
    * This is not necessarily the same as the original input url,
    * as this may have changed due to redirects.
    */
-   url: string;
-   /**
+  url: string;
+  /**
     * The resulting quad stream.
     */
-   rules: Stream<Rule> & Readable;
-   /**
+  rules: Stream<Rule> & Readable;
+  /**
     * This will always be true, unless `acceptErrors` was set to true in the action and the dereferencing failed.
     */
-   exists: boolean;
-   /**
+  exists: boolean;
+  /**
     * The returned headers of the final URL.
     */
-   headers?: Record<string, string>;
+  headers?: Record<string, string>;
 }
 
 // TODO: CHECK BELOW
 
 enum KeysInitSparqlReasoning {
-  lenient = "lenient"
+  lenient = 'lenient'
 }
 
 interface Rule {
@@ -154,12 +155,12 @@ interface Rule {
  * Optional events:
  * * prefix(prefix: string, iri: RDF.NamedNode): This event is emitted every time a prefix is mapped to some IRI.
  */
- export interface Stream<Q> extends EventEmitter {
+export interface Stream<Q> extends EventEmitter {
   /**
    * This method pulls a quad out of the internal buffer and returns it.
    * If there is no quad available, then it will return null.
    *
    * @return A quad from the internal buffer, or null if none is available.
    */
-  read(): Q | null;
+  read: () => Q | null;
 }

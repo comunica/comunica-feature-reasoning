@@ -1,15 +1,15 @@
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest } from '@comunica/core';
+import EventEmitter = require('events');
+import type { Readable } from 'stream';
 import type { IActionAbstractMediaTyped,
   IActionAbstractMediaTypedHandle, IActionAbstractMediaTypedMediaTypes,
-  IActorArgsMediaTyped,
   IActorOutputAbstractMediaTyped,
   IActorOutputAbstractMediaTypedHandle, IActorOutputAbstractMediaTypedMediaTypes,
   IActorTestAbstractMediaTyped,
   IActorTestAbstractMediaTypedHandle,
   IActorTestAbstractMediaTypedMediaTypes } from '@comunica/actor-abstract-mediatyped';
-import EventEmitter = require('events');
+import type { IAction, IActorArgs, IActorOutput, IActorTest } from '@comunica/core';
+import { Actor } from '@comunica/core';
 import type * as RDF from 'rdf-js';
-import { Readable } from 'stream';
 
 /**
  * A comunica actor for parsing reasoning rules
@@ -59,7 +59,7 @@ export interface IActorRuleParseOutput extends IActorOutput {
   /**
    * The resulting rule stream.
    */
-  rules: Stream<Rule> & Readable
+  rules: Stream<Rule> & Readable;
 }
 
 function rule(...args: ConstructorParameters<typeof Rule>) {
@@ -69,12 +69,13 @@ function rule(...args: ConstructorParameters<typeof Rule>) {
 export class Rule {
   public constructor(
     premise: RDF.Quad[],
-    conclusion: RDF.Quad[] | false
-    // conclusion: RDF.Quad[]
-    ) {
+    conclusion: RDF.Quad[] | false,
+    // Conclusion: RDF.Quad[]
+  ) {
     this.premise = premise;
     this.conclusion = conclusion;
-  };
+  }
+
   /**
    * Antecedents for the rule
    */
@@ -85,7 +86,7 @@ export class Rule {
   // conclusion: RDF.Quad[] | false;
   conclusion: RDF.Quad[] | false;
 
-  // public equals(other: Rule): boolean {
+  // Public equals(other: Rule): boolean {
   //   if (this.conclusion === false) {
   //     return other.conclusion === false && quadEq(this.premise, other.premise)
   //   } else {
@@ -119,5 +120,5 @@ export interface Stream<T> extends EventEmitter {
    *
    * @return A rule from the internal buffer, or null if none is available.
    */
-  read(): T | null;
+  read: () => T | null;
 }

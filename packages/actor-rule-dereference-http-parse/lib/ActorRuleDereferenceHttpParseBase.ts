@@ -59,7 +59,7 @@ export abstract class ActorRuleDereferenceHttpParseBase extends ActorRuleDerefer
   }
 
   public async run(action: IActionRuleDereference): Promise<IActorRuleDereferenceOutput> {
-    // console.log('run called on http parse')
+    // Console.log('run called on http parse')
     let exists = true;
 
     // Define accept header based on available media types.
@@ -110,7 +110,7 @@ export abstract class ActorRuleDereferenceHttpParseBase extends ActorRuleDerefer
       }
     }
 
-    // console.log('response body', httpResponse.body)
+    // Console.log('response body', httpResponse.body)
 
     // Create Node quad response stream;
     let responseStream: NodeJS.ReadableStream;
@@ -123,14 +123,14 @@ export abstract class ActorRuleDereferenceHttpParseBase extends ActorRuleDerefer
       (<Readable> responseStream).push(null);
     }
 
-    // console.log('node stream', responseStream, httpResponse.headers, action)
+    // Console.log('node stream', responseStream, httpResponse.headers, action)
 
     // Parse the resulting response
     const match: RegExpExecArray = ActorRuleDereferenceHttpParseBase.REGEX_MEDIATYPE
       .exec(httpResponse.headers.get('content-type') ?? '')!;
     let mediaType: string | undefined = match[0];
 
-    // console.log('------------------')
+    // Console.log('------------------')
 
     // If no media type could be found, try to determine it via the file extension
     if (!mediaType || mediaType === 'text/plain') {
@@ -143,7 +143,7 @@ export abstract class ActorRuleDereferenceHttpParseBase extends ActorRuleDerefer
       input: responseStream,
     };
 
-    // console.log('parseAction', parseAction)
+    // Console.log('parseAction', parseAction)
     let parseOutput: IActorRuleParseOutput;
     try {
       parseOutput = (await this.mediatorRuleParseHandle.mediate(

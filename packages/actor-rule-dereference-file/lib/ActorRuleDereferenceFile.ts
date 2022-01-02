@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import { URL } from 'url';
 import { promisify } from 'util';
-import { ActorRuleDereference, IActionRuleDereference, IActorRuleDereferenceOutput, IActorRuleDereferenceMediaMappingsArgs, ActorRuleDereferenceMediaMappings } from '@comunica/bus-rule-dereference';
-import { IActionHandleRuleParse, IActorOutputHandleRuleParse, IActorRuleParseOutput, IActorTestHandleRuleParse } from '@comunica/bus-rule-parse';
-import { IActorArgs, IActorTest, Mediator, Actor } from '@comunica/core';
+import type { IActionRuleDereference, IActorRuleDereferenceOutput, IActorRuleDereferenceMediaMappingsArgs } from '@comunica/bus-rule-dereference';
+import { ActorRuleDereferenceMediaMappings } from '@comunica/bus-rule-dereference';
+import type { IActionHandleRuleParse, IActorOutputHandleRuleParse, IActorRuleParseOutput, IActorTestHandleRuleParse } from '@comunica/bus-rule-parse';
+import type { IActorTest, Mediator, Actor } from '@comunica/core';
 
 /**
  * A comunica Actor for dereferencing file paths into streams of Rules
@@ -69,7 +70,7 @@ export interface IActorRuleDereferenceFileArgs extends IActorRuleDereferenceMedi
   /**
    * Mediator used for parsing the file contents.
    */
-   mediatorRuleParse: Mediator<
-   Actor<IActionHandleRuleParse, IActorTestHandleRuleParse, IActorOutputHandleRuleParse>,
-   IActionHandleRuleParse, IActorTestHandleRuleParse, IActorOutputHandleRuleParse>;
+  mediatorRuleParse: Mediator<
+  Actor<IActionHandleRuleParse, IActorTestHandleRuleParse, IActorOutputHandleRuleParse>,
+  IActionHandleRuleParse, IActorTestHandleRuleParse, IActorOutputHandleRuleParse>;
 }
