@@ -62,5 +62,8 @@
     "validate": "npm ls",
     "prepare-": "comunica-compile-config config/config-default.json > engine-default.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@comunica/actor-init-sparql": "^1.22.3",
+    "@comunica/actor-init-sparql-link-traversal": "^0.0.2-alpha.e75a15a.0"
+  }
 }
