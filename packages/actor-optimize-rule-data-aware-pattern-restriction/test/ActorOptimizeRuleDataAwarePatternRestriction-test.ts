@@ -1,4 +1,3 @@
-import { ActorOptimizeRuleDataAware } from '@comunica/bus-optimize-rule-data-aware';
 import { Bus } from '@comunica/core';
 import { ActorOptimizeRuleDataAwarePatternRestriction } from '../lib/ActorOptimizeRuleDataAwarePatternRestriction';
 

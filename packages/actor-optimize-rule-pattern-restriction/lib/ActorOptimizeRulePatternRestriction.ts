@@ -52,10 +52,10 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
     if (!action.pattern) {
       throw new Error('Pattern expected');
     }
-    let rules = action.rules
+    let rules = action.rules;
     // TODO: REMOVE THIS IN FUTURE
-    rules = rules.filter(rule => rule.conclusion !== false)
-    rules = restrictNaive(rules as RestrictableRule[], [ action.pattern ])
+    rules = rules.filter(rule => rule.conclusion !== false);
+    rules = restrictNaive(rules as RestrictableRule[], [ action.pattern ]);
     return { ...action, rules };
     // Return true; // TODO implement
   }
@@ -75,6 +75,44 @@ function matches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.
     termMatches(value.predicate, pattern.predicate) &&
     termMatches(value.object, pattern.object) &&
     termMatches(value.graph, pattern.graph);
+}
+
+
+
+// TODO: See if we can do this with https://github.com/rubensworks/rdf-terms.js/blob/master/lib/QuadTermUtil.ts
+// In the naive matches function ?o ?o ?o would match to the pattern Jesse a Person. This resolves that problem.
+
+// We should also work out how to delete rules when they have the following type of inconsistency ?s a ?s  and John ?t ?t and ?s ?o ?s 
+
+function advancedMatches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.Pattern) {
+  const valueMapping: { [key: string]: RDF.Term } = {};
+  const dataMapping: { [key: string]: RDF.Term } = {};
+
+  function customTermMatches(term: RDF.Term, pattern: RDF.Term) {
+    if (term.termType === 'Variable') {
+      dataMapping[term.value].equals(term)
+    }
+    if (pattern.termType === 'Variable') {
+      valueMapping[pattern.value].equals(term)
+    } else {
+      return term.equals(pattern);
+    }
+    // if (term.termType === 'Variable') {
+    //   if (term.value in dataMapping) {
+    //     return dataMapping[term.value].equals(term)
+    //   }
+    //   valueMapping[pattern.value] = term;
+    //   return true;
+    // } else if (pattern.termType === 'Variable') {
+    //   if (pattern.value in valueMapping) {
+    //     return valueMapping[pattern.value].equals(term)
+    //   }
+    //   valueMapping[pattern.value] = term;
+    //   return true;
+    // } else {
+    //   return term.equals(pattern);
+    // }
+  }
 }
 
 /**

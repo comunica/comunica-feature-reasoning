@@ -1,18 +1,19 @@
+import { ActorInit } from '@comunica/bus-init';
 import { Bus } from '@comunica/core';
-import { ActorNormalizeRuleVariable } from '../lib/ActorNormalizeRuleVariable';
+import { ActorInitSparqlReasoningLinkTraversal } from '../lib/ActorInitSparqlReasoningLinkTraversal';
 
-describe('ActorNormalizeRuleVariable', () => {
+describe('ActorInitSparqlReasoningLinkTraversal', () => {
   let bus: any;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
   });
 
-  describe('An ActorNormalizeRuleVariable instance', () => {
-    let actor: ActorNormalizeRuleVariable;
+  describe('An ActorInitSparqlReasoningLinkTraversal instance', () => {
+    let actor: ActorInitSparqlReasoningLinkTraversal;
 
     beforeEach(() => {
-      actor = new ActorNormalizeRuleVariable({ name: 'actor', bus });
+      actor = new ActorInitSparqlReasoningLinkTraversal({ name: 'actor', bus });
     });
 
     it('should test', () => {

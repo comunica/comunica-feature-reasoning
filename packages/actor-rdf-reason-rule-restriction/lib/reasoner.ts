@@ -86,6 +86,7 @@ export function transformFactory(match: Match) {
 
       function factElemMatches(factElem: RDF.Term, causeElem: RDF.Term) {
         if (causeElem.termType === 'Variable' && factElem.termType !== 'Variable') {
+          // TODO: end if causeElem.value in localMapping && !factElem.equals(localMapping[causeElem.value])
           localMapping[causeElem.value] = factElem;
         }
       }
@@ -121,6 +122,8 @@ export function getMappings(rule: Rule, match: Match) {
 
   for (const nextCause of rule.premise.slice(1)) {
     // TODO: Filter out duplicate mappings if that seems like a problem
+    // If we do this then we can track quads that are *actually* new and and use the data aware rule filter
+    // to filter out those quads 
     currentCauses = currentCauses.transform<Mapping>({ transform: transformFactory(match) }).transform({
       transform(mapping, done, push) {
         push({

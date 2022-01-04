@@ -29,6 +29,10 @@ export class ActorRuleParseHyLAR extends ActorRuleParseFixedMediaTypes {
   }
 }
 
+function parseRules(str: string) {
+  return str.split('\n').filter(x => x !== '').map(parseRule);
+}
+
 const TRIPLE = /((?<=\()\S+?\s\S+?\s\S+?(?=\)))|false/gi;
 
 export function parseRule(strRule: string) {

@@ -1,13 +1,14 @@
-import { ActorOptimizeRule, IActionOptimizeRule, IActorOptimizeRuleOutput } from '@comunica/bus-optimize-rule';
-import { IActorArgs, IActorTest } from '@comunica/core';
+import type { MediatorNormalizeRule } from '@comunica/bus-normalize-rule';
+import type { IActionOptimizeRule, IActorOptimizeRuleOutput } from '@comunica/bus-optimize-rule';
+import { ActorOptimizeRule } from '@comunica/bus-optimize-rule';
+import type { IActorArgs, IActorTest } from '@comunica/core';
+import type * as RDF from '@rdfjs/types';
 import { Writer } from 'n3';
-import * as RDF from '@rdfjs/types'
-import { Rule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
-import { MediatorNormalizeRule } from '@comunica/bus-normalize-rule';
+import type { Rule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
 
 function toString(quads: RDF.Quad[]) {
   const writer = new Writer();
-  writer.quadsToString(quads)
+  writer.quadsToString(quads);
 }
 
 /**
@@ -28,8 +29,8 @@ export class ActorOptimizeRuleReconcilePremise extends ActorOptimizeRule {
     const normalized = await this.mediatorNormalizeRule.mediate(action);
 
     const writer = new Writer();
-    
-    const map: { [key: string]: Rule[] } = {};
+
+    const map: Record<string, Rule[]> = {};
 
     for (const rule of normalized.rules) {
       (map[writer.quadsToString(rule.premise)] ??= []).push(rule);
@@ -39,7 +40,7 @@ export class ActorOptimizeRuleReconcilePremise extends ActorOptimizeRule {
 
     for (const ruleSet of Object.values(map)) {
       if (ruleSet.length === 1) {
-        rules.push(ruleSet[0])
+        rules.push(ruleSet[0]);
       } else {
         const conclusion = rules.reduce<RDF.Quad[] | false>((total, { conclusion }) => {
           if (conclusion === false || total === false) {
@@ -49,12 +50,12 @@ export class ActorOptimizeRuleReconcilePremise extends ActorOptimizeRule {
         }, []);
         rules.push({
           premise: rules[0].premise,
-          conclusion
-        })
+          conclusion,
+        });
       }
     }
-    
-    // This assumes that 
+
+    // This assumes that
     return { ...action, rules }; // TODO implement
   }
 }

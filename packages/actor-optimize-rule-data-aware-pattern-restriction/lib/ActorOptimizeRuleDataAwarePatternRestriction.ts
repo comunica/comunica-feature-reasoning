@@ -1,5 +1,6 @@
-import { ActorOptimizeRuleDataAware, IActionOptimizeRuleDataAware, IActorOptimizeRuleDataAwareOutput } from '@comunica/bus-optimize-rule-data-aware';
-import { IActorArgs, IActorTest } from '@comunica/core';
+import type { IActionOptimizeRuleDataAware, IActorOptimizeRuleDataAwareOutput } from '@comunica/bus-optimize-rule-data-aware';
+import { ActorOptimizeRuleDataAware } from '@comunica/bus-optimize-rule-data-aware';
+import type { IActorArgs, IActorTest } from '@comunica/core';
 
 /**
  * A comunica actor that restricts rules based on whether appropriate premise patterns are available
@@ -14,6 +15,7 @@ export class ActorOptimizeRuleDataAwarePatternRestriction extends ActorOptimizeR
   }
 
   public async run(action: IActionOptimizeRuleDataAware): Promise<IActorOptimizeRuleDataAwareOutput> {
+    // 
     return true; // TODO implement
   }
 }

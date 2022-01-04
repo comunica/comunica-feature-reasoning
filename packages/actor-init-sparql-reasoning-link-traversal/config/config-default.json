@@ -1,0 +1,45 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning-link-traversal/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-link-traversal/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "urn:comunica:my",
+  "@type": "Runner",
+  "import": [
+    "config-sets:http.json",
+    "config-sets:http-memento.json",
+    "config-sets:join.json",
+    "config-sets:rdf-dereference.json",
+    "config-sets:rdf-parsers.json",
+    "config-sets:rdf-serializers.json",
+    "config-sets:rdf-update-hypermedia.json",
+    "config-sets:rdf-update-rdfjs.json",
+    "config-sets:resolve-sparql.json",
+    "config-sets:sparql-init.json",
+    "config-sets:graphql-parsers.json",
+    "config-sets:sparql-optimize.json",
+    "config-sets:sparql-parsers.json",
+    "config-sets:sparql-queryoperators-path.json",
+    "config-sets:sparql-queryoperators-update.json",
+    "config-sets:sparql-serializers.json",
+    "config-sets:resolve-hypermedia.json",
+    "config-sets:resolve-federated.json",
+    "config-sets:resolve-rdfjs.json",
+
+    "config-setsr:resolve-reasoned.json",
+    "config-setsr:rdf-reasoners.json",
+    "config-setsr:rule-dereference.json",
+    "config-setsr:rule-parsers.json",
+    "config-setsr:optimize-rule.json",
+    "config-setsr:normalize-rule.json",
+
+    "config-setsslt:set-seeds.json",
+    "config-setsslt:extract-links-all.json",
+    "config-setsslt:resolve-traverse-links.json",
+
+    "config-setsrlt:sparql-queryoperators.json"
+  ]
+}

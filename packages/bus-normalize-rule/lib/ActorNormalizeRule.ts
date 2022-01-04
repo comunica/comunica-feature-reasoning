@@ -1,5 +1,6 @@
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
-import { Rule } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/bus-rule-parse';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import { Actor } from '@comunica/core';
 
 /**
  * A comunica actor that performs a normalizing action on reasoning rules
@@ -26,4 +27,4 @@ export interface IActorNormalizeRuleOutput extends IActorOutput {
   rules: Rule[];
 }
 
-export type MediatorNormalizeRule = Mediator<Actor<IActionNormalizeRule, IActorTest, IActorNormalizeRuleOutput>, IActionNormalizeRule, IActorTest, IActorNormalizeRuleOutput>
+export type MediatorNormalizeRule = Mediator<Actor<IActionNormalizeRule, IActorTest, IActorNormalizeRuleOutput>, IActionNormalizeRule, IActorTest, IActorNormalizeRuleOutput>;

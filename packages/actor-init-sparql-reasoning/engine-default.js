@@ -68,6 +68,9 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_optimize_
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_parse_Bus_RuleParse = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/Bus/RuleParse'
 });
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_normalize_rule_Bus_NormalizeRule = new (require('@comunica/core').Bus)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-normalize-rule/Bus/NormalizeRule'
+});
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_resolve_hypermedia_links_Bus_RdfResolveHypermediaLinks = new (require('@comunica/core').Bus)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-hypermedia-links/Bus/RdfResolveHypermediaLinks'
 });
@@ -515,10 +518,6 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/optimize-rule.json#myOptimizeRulePatternRestriction',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_optimize_rule_Bus_OptimizeRule
 });
-const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleReconcilePremise = new (require('@comunica/actor-optimize-rule-reconcile-premise').ActorOptimizeRuleReconcilePremise)({
-  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/optimize-rule.json#myOptimizeRuleReconcilePremise',
-  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_optimize_rule_Bus_OptimizeRule
-});
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_rule_dereference_json_mediatorRuleParseMediatypes = new (require('@comunica/mediator-combine-union').MediatorCombineUnion)({
   'field': 'mediaTypes',
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rule-dereference.json#mediatorRuleParseMediatypes',
@@ -533,6 +532,14 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'mediaTypeFormats': {},
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rdf-reasoners.json#myRuleParseHyLAR',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rule_parse_Bus_RuleParse
+});
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_normalize_rule_json_myNormalizeRule = new (require('@comunica/mediator-combine-pipeline').MediatorCombinePipeline)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/normalize-rule.json#myNormalizeRule',
+  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_normalize_rule_Bus_NormalizeRule
+});
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_normalize_rule_json_myNormalizeRuleVariable = new (require('@comunica/actor-normalize-rule-variable').ActorNormalizeRuleVariable)({
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/normalize-rule.json#myNormalizeRuleVariable',
+  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_normalize_rule_Bus_NormalizeRule
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_mediatorRdfResolveHypermediaLinks = new (require('@comunica/mediator-race').MediatorRace)({
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/resolve-hypermedia.json#mediatorRdfResolveHypermediaLinks',
@@ -737,6 +744,11 @@ const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sp
   'mediatorRdfResolveQuadPattern': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_resolve_reasoned_json_mediatorRdfResolveQuadPattern,
   'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql/^1.0.0/config/sets/rdf-reasoners.json#myRdfReasonRuleRestriction',
   'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_rdf_reason_Bus_RdfReason
+});
+const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleReconcilePremise = new (require('@comunica/actor-optimize-rule-reconcile-premise').ActorOptimizeRuleReconcilePremise)({
+  'mediatorNormalizeRule': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_normalize_rule_json_myNormalizeRule,
+  'name': 'https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-sparql-reasoning/^1.0.0/config/sets/optimize-rule.json#myOptimizeRuleReconcilePremise',
+  'bus': https___linkedsoftwaredependencies_org_bundles_npm__comunica_bus_optimize_rule_Bus_OptimizeRule
 });
 const https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myQuadPatternHypermediaResolver = new (require('@comunica/actor-rdf-resolve-quad-pattern-hypermedia').ActorRdfResolveQuadPatternHypermedia)({
   'mediatorRdfDereference': https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_mediatorRdfDereference,
@@ -1134,6 +1146,7 @@ const urn_comunica_my = ({
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleRemoveFalseConclusion,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRulePatternRestriction,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_optimize_rule_json_myOptimizeRuleReconcilePremise,
+  https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql_reasoning__1_0_0_config_sets_normalize_rule_json_myNormalizeRuleVariable,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myHypermediaQpfResolver,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myHypermediaNoneResolver,
   https___linkedsoftwaredependencies_org_bundles_npm__comunica_actor_init_sparql__1_0_0_config_sets_resolve_hypermedia_json_myQuadPatternHypermediaResolver,

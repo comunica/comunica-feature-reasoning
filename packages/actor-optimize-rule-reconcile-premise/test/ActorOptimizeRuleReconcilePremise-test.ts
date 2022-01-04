@@ -1,4 +1,3 @@
-import { ActorOptimizeRule } from '@comunica/bus-optimize-rule';
 import { Bus } from '@comunica/core';
 import { ActorOptimizeRuleReconcilePremise } from '../lib/ActorOptimizeRuleReconcilePremise';
 
