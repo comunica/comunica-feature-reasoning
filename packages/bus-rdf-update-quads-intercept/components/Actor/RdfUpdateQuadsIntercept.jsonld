@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads-intercept/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/bus-rdf-update-quads-intercept",
+  "components": [
+    {
+      "@id": "cbruqi:Actor/RdfUpdateQuadsIntercept",
+      "@type": "AbstractClass",
+      "extends": "cc:Actor",
+      "requireElement": "ActorRdfUpdateQuadsIntercept",
+      "comment": "A comunica actor for rdf-update-quads-intercept events.",
+      "parameters": [
+        {
+          "@id": "cc:Actor/bus",
+          "defaultScoped": {
+            "defaultScope": "cbruqi:Actor/RdfUpdateQuadsIntercept",
+            "defaultScopedValue": { "@id": "cbruqi:Bus/RdfUpdateQuadsIntercept" }
+          }
+        }
+      ],
+      "constructorArguments": [
+        {
+          "@id": "cbruqi:Actor/RdfUpdateQuadsIntercept/constructorArgumentsObject",
+          "@type": "https://linkedsoftwaredependencies.org/vocabularies/object-oriented#Object",
+          "extends": "cc:Actor/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-reasoning/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-init/^1.0.0/components/context.jsonld"
+  ],
+  "@id": "npmd:@comunica/actor-init-reasoning",
+  "components": [
+    {
+      "@id": "cair:Actor/Init/Reasoning",
+      "@type": "Class",
+      "extends": "cbi:Actor/Init",
+      "requireElement": "ActorInitReasoning",
+      "comment": "A comunica Reasoning Init Actor.",
+      "constructorArguments": [
+        {
+          "extends": "cbi:Actor/Init/constructorArgumentsObject"
+        }
+      ]
+    }
+  ]
+}

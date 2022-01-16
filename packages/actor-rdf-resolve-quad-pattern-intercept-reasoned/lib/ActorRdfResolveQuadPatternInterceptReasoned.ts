@@ -2,6 +2,7 @@ import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
 import { getContextWithImplicitDataset, setUnionSource } from '@comunica/bus-rdf-reason';
 import type { IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptArgs } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
 import { ActorRdfResolveQuadPatternIntercept } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
+import EventEmitter = require('events');
 
 /**
  * A comunica Reasoned RDF Resolve Quad Pattern Intercept Actor.
@@ -24,3 +25,4 @@ export class ActorRdfResolveQuadPatternInterceptReasoned extends ActorRdfResolve
 interface IActorRdfResolveQuadPatternInterceptReasonedArgs extends IActorRdfResolveQuadPatternInterceptArgs {
   mediatorRdfReason: MediatorRdfReason;
 }
+

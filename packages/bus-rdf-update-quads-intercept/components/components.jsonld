@@ -1,0 +1,10 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-update-quads-intercept/^1.0.0/components/context.jsonld",
+  "@id": "npmd:@comunica/bus-rdf-update-quads-intercept",
+  "@type": "Module",
+  "requireName": "@comunica/bus-rdf-update-quads-intercept",
+  "import": [
+    "files-cbruqi:components/Bus/RdfUpdateQuadsIntercept.jsonld",
+    "files-cbruqi:components/Actor/RdfUpdateQuadsIntercept.jsonld"
+  ]
+}

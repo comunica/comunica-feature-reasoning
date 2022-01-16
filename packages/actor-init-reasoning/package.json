@@ -1,14 +1,14 @@
 {
-  "name": "@comunica/actor-init-sparql-reasoning-link-traversal",
+  "name": "@comunica/actor-init-reasoning",
   "version": "1.0.0",
-  "description": "A sparql-reasoning-link-traversal init actor",
+  "description": "A reasoning init actor",
   "lsd:module": true,
   "main": "index.js",
   "typings": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica/comunica.git",
-    "directory": "packages/actor-init-sparql-reasoning-link-traversal"
+    "directory": "packages/actor-init-reasoning"
   },
   "publishConfig": {
     "access": "public"
@@ -17,7 +17,7 @@
     "comunica",
     "actor",
     "init",
-    "sparql-reasoning-link-traversal"
+    "reasoning"
   ],
   "license": "MIT",
   "bugs": {
@@ -32,12 +32,12 @@
     "index.js"
   ],
   "peerDependencies": {
-    "@comunica/bus-init": "^1.22.0",
-    "@comunica/core": "^1.22.0"
+    "@comunica/core": "^1.22.0",
+    "@comunica/bus-init": "^1.22.0"
   },
   "devDependencies": {
-    "@comunica/bus-init": "^1.22.0",
-    "@comunica/core": "^1.22.0"
+    "@comunica/core": "^1.22.0",
+    "@comunica/bus-init": "^1.22.0"
   },
   "jest": {
     "globals": {
@@ -59,14 +59,6 @@
     "test": "node \"../../node_modules/jest/bin/jest.js\" ${1}",
     "test-watch": "node \"../../node_modules/jest/bin/jest.js\" ${1} --watch",
     "build": "node \"../../node_modules/typescript/bin/tsc\"",
-    "validate": "npm ls",
-    "prepare": "comunica-compile-config config/config-default.json > engine-default.js"
-  },
-  "dependencies": {
-    "@comunica/actor-init-sparql": "^1.22.3",
-    "@comunica/actor-init-sparql-link-traversal": "0.0.2-alpha.e74249a.0",
-    "@comunica/actor-init-sparql-link-traversal-solid": "^0.0.2-alpha.e74249a.0",
-    "@comunica/runner": "^1.22.0",
-    "@comunica/runner-cli": "^1.22.0"
+    "validate": "npm ls"
   }
 }

@@ -138,6 +138,8 @@ export function getMappings(rule: Rule, match: Match) {
   return currentCauses.transform<Mapping>({ transform: transformFactory(match) });
 }
 
+
+
 export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
   // TODO: See if this is necessary
   // if (elem.termType === 'BlankNode') return blankNode();

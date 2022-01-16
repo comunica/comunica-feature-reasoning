@@ -4,6 +4,8 @@ import type { IActorArgs, IActorTest } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
+import { everyTerms } from 'rdf-terms'
+import { isQuadSubject, isQuadPredicate, isQuadObject, isGraph, isQuad } from 'is-quad';
 
 /**
  * A comunica actor that restricts rules to only those needed to produce data matching a particular pattern
@@ -36,7 +38,7 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
       return false;
     }
 
-    if (uniqueVariable(pattern.subject) && uniqueVariable(pattern.predicate) && uniqueVariable(pattern.object) && uniqueVariable(pattern.graph)) {
+    if (everyTerms(pattern, uniqueVariable)) {
       throw new Error('Cannot optimise a pattern with all distinct variables');
     }
 
@@ -83,6 +85,16 @@ function matches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.
 // In the naive matches function ?o ?o ?o would match to the pattern Jesse a Person. This resolves that problem.
 
 // We should also work out how to delete rules when they have the following type of inconsistency ?s a ?s  and John ?t ?t and ?s ?o ?s 
+// We can also filter out inconsistent termTypes
+function listToHash(str: string[]): Record<string, boolean> {
+  const hash: Record<string, boolean> = {};
+  for (const s of str) {
+    hash[s] = true;
+  }
+  return hash;
+}
+
+
 
 function advancedMatches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.Pattern) {
   const valueMapping: { [key: string]: RDF.Term } = {};
