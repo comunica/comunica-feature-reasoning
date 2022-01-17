@@ -13,8 +13,7 @@ import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunic
  * @see IActorRdfUpdateQuadsInterceptOutput
  */
 export abstract class ActorRdfUpdateQuadsIntercept extends Actor<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput> {
-  public readonly mediatorRdfUpdateQuads: Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
-  IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>;
+  public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
   
   public constructor(args: IActorRdfUpdateQuadsInterceptArgs) {
     super(args);
@@ -32,8 +31,7 @@ export abstract class ActorRdfUpdateQuadsIntercept extends Actor<IActionRdfUpdat
 }
 
 export interface IActorRdfUpdateQuadsInterceptArgs extends IActorArgs<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsOutput> {
-  mediatorRdfUpdateQuads: Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
-  IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>;
+  mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 }
 
 export interface IActionRdfUpdateQuadsIntercept extends IAction, IActionRdfUpdateQuads {
@@ -43,3 +41,10 @@ export interface IActionRdfUpdateQuadsIntercept extends IAction, IActionRdfUpdat
 export interface IActorRdfUpdateQuadsInterceptOutput extends IActorOutput, IActorRdfUpdateQuadsOutput {
 
 }
+
+export type MediatorRdfUpdateQuadsIntercept = Mediator<Actor<IActionRdfUpdateQuadsIntercept, IActorTest,
+IActorRdfUpdateQuadsInterceptOutput>, IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput>;
+
+// TODO: Remove this when the next major version of comunica is released
+type MediatorRdfUpdateQuads = Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
+IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>

@@ -6,6 +6,19 @@ import type { ActionContext } from '@comunica/types';
 import { Store } from 'n3';
 // TODO: FIX
 import type { Algebra } from 'sparqlalgebrajs';
+import * as RDF from '@rdfjs/types'
+import { AsyncIterator } from 'asynciterator'
+
+interface IReasonedSource {
+  reasoned: true;
+  done: Promise<void>;
+}
+
+interface IUnreasonedSource {
+  reasoned: false;
+}
+
+type IReasonStatus = IReasonedSource | IUnreasonedSource;
 
 export enum KeysRdfReason {
   /**
@@ -13,9 +26,14 @@ export enum KeysRdfReason {
    */
   dataset = '@comunica/bus-rdf-reason:dataset',
   /**
-   * @range {IDataSource?} // TODO: FIX
+  //  * @range {Rule[]} // TODO: FIX
+   * @range {string}
    */
   rules = '@comunica/bus-rdf-reason:rules',
+  /**
+   * @range {IReasonStatus}
+   */
+  status = '@comunica/bus-rdf-reason:status',
 }
 
 export function getImplicitSource(context: ActionContext): IDataSource {
@@ -44,18 +62,11 @@ export function setUnionSource(context: ActionContext): ActionContext {
 
 export function getContextWithImplicitDataset(context?: ActionContext): ActionContext {
   const _context = context ?? ActionContextConstructor({});
-  return _context.has(KeysRdfReason.dataset) ? _context : _context.set(KeysRdfReason.dataset, assign({ type: 'rdfjsSource' }, new Store()));
+  return _context.has(KeysRdfReason.dataset) ? _context : _context.set(KeysRdfReason.dataset, { type: 'rdfjsSource', value: new Store() });
 }
 
-/**
- * Extends Object.assign by also copying prototype methods
- * @param {Object} props To add to the object
- * @param {Object} orig Original Object
- * @returns Copy of original object with added props
- */
-function assign(props: Object, orig: Object) {
-  // https://stackoverflow.com/questions/41474986/how-to-clone-a-javascript-es6-class-instance
-  return Object.assign(Object.create(orig), { ...orig, ...props });
+export function setContextReasoning<T>(context: ActionContext, promise: Promise<T>): ActionContext {
+  return context.set(KeysRdfReason.status, { reasoned: true, done: promise.then(() => {}) })
 }
 
 /**
@@ -75,9 +86,15 @@ export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest,
   }
 }
 
+export interface IQuadUpdates {
+  quadStreamInsert?: AsyncIterator<RDF.Quad>;
+  quadStreamDelete?: AsyncIterator<RDF.Quad>;
+}
+
 export interface IActionRdfReason extends IAction {
   // Rules?: RestrictableRule[]
   pattern?: Algebra.Pattern;
+  updates?: IQuadUpdates;
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {
