@@ -1,4 +1,5 @@
 import type { IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IDataDestination } from '@comunica/bus-rdf-update-quads';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
 import { Actor, ActionContext as ActionContextConstructor } from '@comunica/core';
@@ -8,6 +9,7 @@ import { Store } from 'n3';
 import type { Algebra } from 'sparqlalgebrajs';
 import * as RDF from '@rdfjs/types'
 import { AsyncIterator } from 'asynciterator'
+import { Rule } from '@comunica/bus-rule-parse';
 
 interface IReasonedSource {
   reasoned: true;
@@ -20,24 +22,90 @@ interface IUnreasonedSource {
 
 type IReasonStatus = IReasonedSource | IUnreasonedSource;
 
-export enum KeysRdfReason {
-  /**
-   * @range {IDataDestination & IDataSource}
-   */
-  dataset = '@comunica/bus-rdf-reason:dataset',
-  /**
-  //  * @range {Rule[]} // TODO: FIX
-   * @range {string}
-   */
-  rules = '@comunica/bus-rdf-reason:rules',
-  /**
-   * @range {IReasonStatus}
-   */
-  status = '@comunica/bus-rdf-reason:status',
+interface IReasonData {
+  dataset: IDataSource & IDataDestination;
+  status?: IReasonStatus;
+  rules?: Rule[];
 }
 
-export function getImplicitSource(context: ActionContext): IDataSource {
-  return context.get(KeysRdfReason.dataset);
+interface IReasonGroup {
+  data?: IReasonData;
+  context: ActionContext;
+}
+
+type DatasetFactory = () => IDataSource & IDataDestination;
+
+export enum KeysRdfReason {
+  /**
+   * The data to reason over in the *current context*.
+   * @range {IReasonData}
+   */
+  data = '@comunica/bus-rdf-reason:data',
+  /**
+   * Groups to reason over
+   * @range {IReasonGroup[]}
+   */
+  groups = '@comunica/bus-rdf-reason:groups',
+  /**
+   * @range {DatasetFactory}
+   */
+  implicitDatasetFactory = '@comunica/bus-rdf-reason:implicitDatasetFactory',
+}
+
+export function getReasonGroups(context: ActionContext): IReasonGroup[] {
+  return context.get(KeysRdfReason.groups) ?? [];
+}
+
+export function newImplicitDataset(context: ActionContext): IDataSource & IDataDestination {
+  return context.get(KeysRdfReason.implicitDatasetFactory)()
+}
+
+// Generates a set of new contexts for each of the reasoning groups
+export function getReasonGroupsContexts(context: ActionContext): ActionContext[] {
+  return getReasonGroups(context).map(group => reasonGroupContext(context, group));
+}
+
+export function reasonGroupContext(context: ActionContext, group: IReasonGroup): ActionContext {
+  const newContext = context.remove(KeysRdfReason.groups).merge(group.context);
+  // TODO: Probably need to clear out old source and source(s) at this stage
+
+  // TODO: Work out how to add rules and status properly here
+  const data: IReasonData = group.data ??= { dataset: newImplicitDataset(newContext) };
+  return newContext.set(KeysRdfReason.data, data);
+
+
+
+
+  
+  
+  
+  // const groups = getReasonGroups(context);
+  // groups.push(group);
+  // return context.put(KeysRdfReason.groups, groups);
+}
+
+
+
+
+// export enum KeysRdfReason {
+//   /**
+//    * @range {IDataDestination & IDataSource}
+//    */
+//   dataset = '@comunica/bus-rdf-reason:dataset',
+//   /**
+//   //  * @range {Rule[]} // TODO: FIX
+//    * @range {string}
+//    */
+//   rules = '@comunica/bus-rdf-reason:rules',
+//   /**
+//    * @range {IReasonStatus}
+//    */
+//   status = '@comunica/bus-rdf-reason:status',
+// }
+
+export function getImplicitSource(context: ActionContext): IDataSource & IDataDestination {
+  return context.get(KeysRdfReason.data).dataset;
+  // return context.get(KeysRdfReason.dataset);
 }
 
 export function getExplicitSources(context: ActionContext): IDataSource[] {
@@ -49,11 +117,11 @@ export function getUnionSources(context: ActionContext): IDataSource[] {
 }
 
 export function setImplicitDestination(context: ActionContext): ActionContext {
-  return context.set(KeysRdfUpdateQuads.destination, context.get(KeysRdfReason.dataset));
+  return context.set(KeysRdfUpdateQuads.destination, getImplicitSource(context));
 }
 
 export function setImplicitSource(context: ActionContext): ActionContext {
-  return context.set(KeysRdfResolveQuadPattern.source, context.get(KeysRdfReason.dataset));
+  return context.set(KeysRdfResolveQuadPattern.source, getImplicitSource(context));
 }
 
 export function setUnionSource(context: ActionContext): ActionContext {
