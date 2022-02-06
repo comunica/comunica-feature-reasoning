@@ -1,9 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-remove-false-conclusion/^1.0.0/components/context.jsonld",
-  "@id": "npmd:@comunica/actor-optimize-rule-remove-false-conclusion",
-  "@type": "Module",
-  "requireName": "@comunica/actor-optimize-rule-remove-false-conclusion",
-  "import": [
-    "files-caorrfc:components/Actor/OptimizeRule/RemoveFalseConclusion.jsonld"
-  ]
-}

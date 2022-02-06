@@ -1,9 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-dereference-fallback/^1.0.0/components/context.jsonld",
-  "@id": "npmd:@comunica/actor-rule-dereference-fallback",
-  "@type": "Module",
-  "requireName": "@comunica/actor-rule-dereference-fallback",
-  "import": [
-    "files-carldf:components/Actor/RuleDereference/Fallback.jsonld"
-  ]
-}

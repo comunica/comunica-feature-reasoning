@@ -1,9 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-init-reasoning/^1.0.0/components/context.jsonld",
-  "@id": "npmd:@comunica/actor-init-reasoning",
-  "@type": "Module",
-  "requireName": "@comunica/actor-init-reasoning",
-  "import": [
-    "files-cair:components/Actor/Init/Reasoning.jsonld"
-  ]
-}

@@ -1,6 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-optimize-rule-data-aware/^1.0.0/components/context.jsonld",
-  "@id": "cborda:Bus/OptimizeRuleDataAware",
-  "@type": "cc:Bus",
-  "comment": "A comunica bus for optimizing rules in a data aware manner"
-}

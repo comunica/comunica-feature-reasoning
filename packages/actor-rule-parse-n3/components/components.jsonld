@@ -1,9 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-rule-parse-n3/^1.0.0/components/context.jsonld",
-  "@id": "npmd:@comunica/actor-rule-parse-n3",
-  "@type": "Module",
-  "requireName": "@comunica/actor-rule-parse-n3",
-  "import": [
-    "files-carpn:components/Actor/RuleParse/N3.jsonld"
-  ]
-}

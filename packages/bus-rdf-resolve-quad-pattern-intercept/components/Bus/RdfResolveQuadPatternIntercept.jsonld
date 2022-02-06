@@ -1,6 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-resolve-quad-pattern-intercept/^1.0.0/components/context.jsonld",
-  "@id": "cbrrqpi:Bus/RdfResolveQuadPatternIntercept",
-  "@type": "cc:Bus",
-  "comment": "A comunica bus for rdf-resolve-quad-pattern-intercept events."
-}

@@ -1,6 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^1.0.0/components/context.jsonld",
-  "@id": "cbrr:Bus/RdfReason",
-  "@type": "cc:Bus",
-  "comment": "A comunica bus for reasoning over RDF data"
-}

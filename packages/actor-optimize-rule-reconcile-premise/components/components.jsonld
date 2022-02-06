@@ -1,9 +1,0 @@
-{
-  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-optimize-rule-reconcile-premise/^1.0.0/components/context.jsonld",
-  "@id": "npmd:@comunica/actor-optimize-rule-reconcile-premise",
-  "@type": "Module",
-  "requireName": "@comunica/actor-optimize-rule-reconcile-premise",
-  "import": [
-    "files-caorrp:components/Actor/OptimizeRule/ReconcilePremise.jsonld"
-  ]
-}
