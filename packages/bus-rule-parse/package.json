@@ -30,17 +30,11 @@
     "index.d.ts",
     "index.js"
   ],
-  "peerDependencies": {
-    "@comunica/core": "^1.21.1"
-  },
-  "devDependencies": {
+  "dependencies": {
     "@comunica/core": "^1.21.1"
   },
   "scripts": {
     "build": "node \"../../node_modules/typescript/bin/tsc\"",
     "validate": "npm ls"
-  },
-  "dependencies": {
-    "@rdfjs/parser-n3": "^1.1.4"
   }
 }

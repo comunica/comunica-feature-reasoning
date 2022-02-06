@@ -31,29 +31,9 @@
     "index.d.ts",
     "index.js"
   ],
-  "peerDependencies": {
+  "dependencies": {
     "@comunica/core": "^1.22.0",
     "@comunica/bus-optimize-rule": "^1.0.0"
-  },
-  "devDependencies": {
-    "@comunica/core": "^1.22.0",
-    "@comunica/bus-optimize-rule": "^1.0.0"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "../../tsconfig.json"
-      }
-    },
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true
   },
   "scripts": {
     "test": "node \"../../node_modules/jest/bin/jest.js\" ${1}",

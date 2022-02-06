@@ -30,10 +30,7 @@
     "index.d.ts",
     "index.js"
   ],
-  "peerDependencies": {
-    "@comunica/core": "^1.22.0"
-  },
-  "devDependencies": {
+  "dependencies": {
     "@comunica/core": "^1.22.0"
   },
   "scripts": {
