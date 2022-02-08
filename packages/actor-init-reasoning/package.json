@@ -31,10 +31,6 @@
     "index.d.ts",
     "index.js"
   ],
-  "dependencies": {
-    "@comunica/core": "^1.22.0",
-    "@comunica/bus-init": "^1.22.0"
-  },
   "scripts": {
     "test": "node \"../../node_modules/jest/bin/jest.js\" ${1}",
     "test-watch": "node \"../../node_modules/jest/bin/jest.js\" ${1} --watch",

@@ -30,10 +30,6 @@
     "index.d.ts",
     "index.js"
   ],
-  "dependencies": {
-    "@comunica/core": "^1.21.1",
-    "@comunica/actor-abstract-parse": "link:../../../comunica/packages/actor-abstract-parse/"
-  },
   "scripts": {
     "build": "node \"../../node_modules/typescript/bin/tsc\"",
     "validate": "npm ls"

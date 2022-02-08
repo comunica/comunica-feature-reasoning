@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "A reasoned rdf-resolve-quad-pattern-intercept actor",
   "lsd:module": true,
-  "main": "index.js",
-  "typings": "index",
+  "main": "lib/index.js",
+  "typings": "lib/index",
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica/comunica.git",
