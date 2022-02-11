@@ -31,7 +31,9 @@
   ],
   "dependencies": {
     "@comunica/core": "^2.0.1-alpha.5.0",
-    "@comunica/bus-normalize-rule": "^1.0.0"
+    "@comunica/bus-normalize-rule": "^1.0.0",
+    "rdf-terms": "^1.7.1",
+    "@rdfjs/types": "1.1.0-next.1"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",
