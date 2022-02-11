@@ -1,6 +1,7 @@
-import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
-import type { IActorArgs, IActorTest } from '@comunica/core';
-import { Actor } from '@comunica/core';
+import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsArgs, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+
+// TODO: Remove this module my using something like 'reasoning groups'
 
 /**
  * A comunica actor for rdf-update-quads-intercept events.
@@ -13,15 +14,11 @@ import { Actor } from '@comunica/core';
  * @see IActionRdfUpdateQuadsIntercept
  * @see IActorRdfUpdateQuadsInterceptOutput
  */
-export abstract class ActorRdfUpdateQuadsIntercept extends Actor<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput> {
+export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 
   public constructor(args: IActorRdfUpdateQuadsInterceptArgs) {
     super(args);
-  }
-
-  public async test(action: IActionRdfUpdateQuadsIntercept): Promise<IActorTest> {
-    return true;
   }
 
   abstract runIntercept(action: IActionRdfUpdateQuadsIntercept): Promise<IActionRdfUpdateQuadsIntercept>;
@@ -31,7 +28,7 @@ export abstract class ActorRdfUpdateQuadsIntercept extends Actor<IActionRdfUpdat
   }
 }
 
-export interface IActorRdfUpdateQuadsInterceptArgs extends IActorArgs<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsOutput> {
+export interface IActorRdfUpdateQuadsInterceptArgs extends IActorRdfUpdateQuadsArgs {
   mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 }
 

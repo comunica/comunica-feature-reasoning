@@ -51,7 +51,7 @@ interface IActionRuleParseMetadata {
 
 export type IActionRuleParse = IActionParse<IActionRuleParseMetadata>;
 
-export type IActorRuleParseOutput = IActorParseOutput<RDF.Re<Rule>, undefined>;
+export type IActorRuleParseOutput = IActorParseOutput<RDF.ResultStream<Rule>, undefined>;
 
 function rule(...args: ConstructorParameters<typeof Rule>) {
   return new Rule(...args);
