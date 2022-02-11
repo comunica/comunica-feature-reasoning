@@ -24,8 +24,8 @@ export class ActorRuleParseHyLAR extends ActorRuleParseFixedMediaTypes {
 
   public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
   Promise<IActorRuleParseOutput> {
-    const str = await toString(action.input);
-    return { rules: streamify(str.split('\n').filter(x => x !== '').map(parseRule)) };
+    const str = await toString(action.data);
+    return { data: streamify(str.split('\n').filter(x => x !== '').map(parseRule)) };
   }
 }
 
