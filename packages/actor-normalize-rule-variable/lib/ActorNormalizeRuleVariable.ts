@@ -1,7 +1,8 @@
 import type { IActionNormalizeRule, IActorNormalizeRuleOutput } from '@comunica/bus-normalize-rule';
 import { ActorNormalizeRule } from '@comunica/bus-normalize-rule';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import { variable, quad } from '@rdfjs/data-model';
+import { variable } from '@rdfjs/data-model';
+import { mapTerms } from 'rdf-terms';
 import type * as RDF from '@rdfjs/types';
 
 /**
@@ -26,12 +27,7 @@ export class ActorNormalizeRuleVariable extends ActorNormalizeRule {
       }
 
       function normalizeQuads(quads: RDF.Quad[]) {
-        return quads.map(q => quad(
-          normalize(q.subject),
-          normalize(q.predicate),
-          normalize(q.object),
-          normalize(q.graph),
-        ));
+        return quads.map(q => mapTerms(q, normalize));
       }
 
       return {
