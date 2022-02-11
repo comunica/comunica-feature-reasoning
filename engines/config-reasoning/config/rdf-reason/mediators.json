@@ -1,10 +1,9 @@
 {
   "@context": [
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rule-parse/^2.0.0/components/context.jsonld",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-combine-union/^2.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-rdf-reason/^2.0.0/components/context.jsonld",
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/mediator-race/^2.0.0/components/context.jsonld"
   ],
-  "@graph": [
-
-  ]
+  "@id": "urn:comunica:default:rdf-reason/mediators#main",
+  "@type": "MediatorRace",
+  "bus": { "@id": "ActorRdfReason:_default_bus" }
 }

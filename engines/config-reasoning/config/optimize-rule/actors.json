@@ -5,6 +5,18 @@
   "@id": "urn:comunica:default:Runner",
   "@type": "Runner",
   "actors": [
-
+    {
+      "@id": "urn:comunica:default:optimize-rule/actors#remove-false-conclusion",
+      "@type": "ActorOptimizeRuleRemoveFalseConclusion"
+    },
+    {
+      "@id": "urn:comunica:default:optimize-rule/actors#pattern-restriction",
+      "@type": "ActorOptimizeRulePatternRestriction"
+    },
+    {
+      "@id": "urn:comunica:default:optimize-rule/actors#reconcile-premise",
+      "@type": "ActorOptimizeRuleReconcilePremise",
+      "mediatorNormalizeRule": { "@id": "urn:comunica:default:normalize-rule/mediators#main"  }
+    }
   ]
 }

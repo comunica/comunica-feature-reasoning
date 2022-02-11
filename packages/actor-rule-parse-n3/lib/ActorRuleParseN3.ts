@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import type { IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse } from '@comunica/bus-rdf-parse';
+import type { MediatorRdfParseHandle } from '@comunica/bus-rdf-parse';
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes, Rule } from '@comunica/bus-rule-parse';
 import type { Mediator, Actor, ActionContext } from '@comunica/core';
@@ -16,9 +16,7 @@ import arrayifyStream = require('stream-to-array');
  * A comunica N3 Rule Parse Actor.
  */
 export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
-  public readonly mediatorRdfParseHandle: Mediator<
-  Actor<IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>,
-  IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>;
+  public readonly mediatorRdfParseHandle: MediatorRdfParseHandle;
 
   public constructor(args: IActorParseN3Args) {
     super(args);

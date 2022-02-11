@@ -5,6 +5,13 @@
   "@id": "urn:comunica:default:Runner",
   "@type": "Runner",
   "actors": [
-
+    {
+      "@id": "urn:comunica:default:rdf-reason/actors#rule-restriction",
+      "@type": "ActorRdfReasonRuleRestriction",
+      "mediatorRdfUpdateQuads": { "@id": "urn:comunica:default:rdf-update-quads/mediators#main" },
+      "mediatorRdfResolveQuadPattern": { "@id": "urn:comunica:default:rdf-resolve-quad-pattern/mediators#main" },
+      "mediatorRuleDereference": { "@id": "urn:comunica:default:rule-dereference/mediators#main" },
+      "mediatorOptimizeRule": { "@id": "urn:comunica:default:optimize-rule/mediators#main" }
+    }
   ]
 }
