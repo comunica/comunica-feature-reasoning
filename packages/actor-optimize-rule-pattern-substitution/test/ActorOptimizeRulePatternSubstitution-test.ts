@@ -1,16 +1,16 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { Rule } from '@comunica/bus-rule-parse';
 import { Bus } from '@comunica/core';
-import { defaultGraph, namedNode, quad, variable } from '@rdfjs/data-model';
-import { ActorOptimizeRulePatternSubstitution } from '../lib/ActorOptimizeRulePatternSubstitution';
-import * as RDF from '@rdfjs/types';
+import { defaultGraph, quad } from '@rdfjs/data-model';
+import type * as RDF from '@rdfjs/types';
+import { termAsQuad } from 'is-quad';
 import { stringToTerm } from 'rdf-string';
-import { termAsQuad } from 'is-quad'
-import * as fs from 'fs'
-import * as path from 'path'
+import { ActorOptimizeRulePatternSubstitution } from '../lib/ActorOptimizeRulePatternSubstitution';
 
-const OWL2RL = parseRules(fs.readFileSync(path.join(__dirname, 'data', 'owl2rl.hylar')).toString())
+const OWL2RL = parseRules(fs.readFileSync(path.join(__dirname, 'data', 'owl2rl.hylar')).toString());
 
-console.log(OWL2RL)
+console.log(OWL2RL);
 
 describe('ActorOptimizeRulePatternSubstitution', () => {
   let bus: any;
@@ -32,7 +32,7 @@ describe('ActorOptimizeRulePatternSubstitution', () => {
 
     const RDF = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
 
-  //   it('should run', () => {
+  //   It('should run', () => {
   //     return expect(actor.run({ rules: [
   //       {
   //         premise: [ quad(
@@ -113,7 +113,6 @@ describe('ActorOptimizeRulePatternSubstitution', () => {
   });
 });
 
-
 function parseRules(str: string) {
   return str.split('\n').filter(x => x !== '').map(parseRule);
 }
@@ -153,7 +152,7 @@ function myStringToTerm(value: string): RDF.Term {
     rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
     hax: 'http://ucbl.github.io/HyLAR-Reasoner/axioms/',
   };
-  
+
   const [ prefix ] = value.split(':');
   if (prefix in prefixes) {
     return stringToTerm(value.replace(new RegExp(`^${prefix}:`), prefixes[prefix]));

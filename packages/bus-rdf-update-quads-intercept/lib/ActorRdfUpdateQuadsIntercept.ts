@@ -1,5 +1,6 @@
-import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
-import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunica/bus-rdf-update-quads';
+import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import type { IActorArgs, IActorTest } from '@comunica/core';
+import { Actor } from '@comunica/core';
 
 /**
  * A comunica actor for rdf-update-quads-intercept events.
@@ -14,7 +15,7 @@ import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunic
  */
 export abstract class ActorRdfUpdateQuadsIntercept extends Actor<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput> {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
-  
+
   public constructor(args: IActorRdfUpdateQuadsInterceptArgs) {
     super(args);
   }
@@ -34,17 +35,6 @@ export interface IActorRdfUpdateQuadsInterceptArgs extends IActorArgs<IActionRdf
   mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 }
 
-export interface IActionRdfUpdateQuadsIntercept extends IAction, IActionRdfUpdateQuads {
-
-}
-
-export interface IActorRdfUpdateQuadsInterceptOutput extends IActorOutput, IActorRdfUpdateQuadsOutput {
-
-}
-
-export type MediatorRdfUpdateQuadsIntercept = Mediator<Actor<IActionRdfUpdateQuadsIntercept, IActorTest,
-IActorRdfUpdateQuadsInterceptOutput>, IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput>;
-
-// TODO: Remove this when the next major version of comunica is released
-type MediatorRdfUpdateQuads = Mediator<Actor<IActionRdfUpdateQuads, IActorTest,
-IActorRdfUpdateQuadsOutput>, IActionRdfUpdateQuads, IActorTest, IActorRdfUpdateQuadsOutput>
+export type IActionRdfUpdateQuadsIntercept = IActionRdfUpdateQuads;
+export type IActorRdfUpdateQuadsInterceptOutput = IActorRdfUpdateQuadsOutput;
+export type MediatorRdfUpdateQuadsIntercept = MediatorRdfUpdateQuads;

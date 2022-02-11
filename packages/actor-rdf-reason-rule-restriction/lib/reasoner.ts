@@ -123,7 +123,7 @@ export function getMappings(rule: Rule, match: Match) {
   for (const nextCause of rule.premise.slice(1)) {
     // TODO: Filter out duplicate mappings if that seems like a problem
     // If we do this then we can track quads that are *actually* new and and use the data aware rule filter
-    // to filter out those quads 
+    // to filter out those quads
     currentCauses = currentCauses.transform<Mapping>({ transform: transformFactory(match) }).transform({
       transform(mapping, done, push) {
         push({
@@ -137,8 +137,6 @@ export function getMappings(rule: Rule, match: Match) {
 
   return currentCauses.transform<Mapping>({ transform: transformFactory(match) });
 }
-
-
 
 export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
   // TODO: See if this is necessary

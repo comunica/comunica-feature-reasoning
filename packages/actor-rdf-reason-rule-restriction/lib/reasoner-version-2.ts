@@ -1,8 +1,7 @@
-import { quad } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { single, UnionIterator, type AsyncIterator } from 'asynciterator';
+import { mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import { mapTerms } from 'rdf-terms'
 
 type Match = (pattern: Algebra.Pattern | RDF.Quad) => AsyncIterator<RDF.Quad>;
 
@@ -11,9 +10,8 @@ type Mapping = Record<string, RDF.Term>;
 interface NestedRule {
   premise: RDF.Quad[];
   conclusion: RDF.Quad[];
-  next?: NestedRule; 
+  next?: NestedRule;
 }
-
 
 export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[], match: Match): AsyncIterator<RDF.Quad> {
   // Autostart needs to be false to prevent the iterator from ending before being consumed by rdf-update-quads
@@ -32,25 +30,25 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
         push({
           conclusion: rule.conclusion,
           mapping: rule.next ? mappings.clone() : mappings,
-        })
+        });
         _rule = rule.next;
       }
       done();
-    }
+    },
   }).transform({
     transform({ mapping, conclusion }, done, push) {
-      conclusion.forEach((quad: RDF.Quad) => { push(substituteQuad(mapping, quad)); });
+      conclusion.forEach((quad: RDF.Quad) => {
+        push(substituteQuad(mapping, quad));
+      });
       done();
     },
   });
 }
 
 export function getMappingsClean(rule: NestedRule, match: Match, startMappings: AsyncIterator<Mapping>) {
-  return rule.premise.reduce((iterator: AsyncIterator<Mapping>, premise: RDF.Quad) => {
-    return iterator
-      .map(mapping => ({ mapping, cause: substituteQuad(mapping, premise) }))
-      .transform<Mapping>({ transform: transformFactory(match) })
-  }, startMappings);
+  return rule.premise.reduce((iterator: AsyncIterator<Mapping>, premise: RDF.Quad) => iterator
+    .map(mapping => ({ mapping, cause: substituteQuad(mapping, premise) }))
+    .transform<Mapping>({ transform: transformFactory(match) }), startMappings);
 }
 
 export interface T {
@@ -60,10 +58,9 @@ export interface T {
 
 export function transformFactory(match: Match) {
   return function transform({ cause, mapping }: T, done: () => void, push: (mapping: Mapping) => void) {
-
     // This can be done in parallel
     const data = match(
-      unVar(cause, mapping)
+      unVar(cause, mapping),
     );
     data.on('data', quad => {
       // Console.log(q, quad, mapping)
@@ -110,5 +107,5 @@ export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
 }
 
 export function substituteQuad(mapping: Mapping, term: RDF.Quad) {
-  return mapTerms(term, elem => substitute(elem, mapping))
+  return mapTerms(term, elem => substitute(elem, mapping));
 }

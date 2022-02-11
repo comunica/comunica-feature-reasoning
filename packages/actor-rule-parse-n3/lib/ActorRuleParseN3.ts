@@ -105,6 +105,5 @@ function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
 }
 
 export interface IActorParseN3Args extends IActorRuleParseFixedMediaTypesArgs {
-  mediatorRdfParse: Mediator<Actor<IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>,
-  IActionHandleRdfParse, IActorTestHandleRdfParse, IActorOutputHandleRdfParse>;
+  mediatorRdfParse: MediatorRdfParse;
 }

@@ -1,7 +1,7 @@
-import type { IAction, IActorArgs, IActorOutput, IActorTest } from '@comunica/core';
-import { Actor } from '@comunica/core';
-import { ActorOptimizeRuleDataAware, IActionOptimizeRuleDataAware, IActorOptimizeRuleDataAwareOutput } from './ActorOptimizeRuleDataAware';
-import {} from '@comunica/bus-rdf-resolve-quad-pattern'
+import type { IActorArgs, IActorTest } from '@comunica/core';
+import type { IActionOptimizeRuleDataAware, IActorOptimizeRuleDataAwareOutput } from './ActorOptimizeRuleDataAware';
+import { ActorOptimizeRuleDataAware } from './ActorOptimizeRuleDataAware';
+import {} from '@comunica/bus-rdf-resolve-quad-pattern';
 
 /**
  * A comunica actor for optimize-rule-data-aware events.

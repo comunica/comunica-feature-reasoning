@@ -7,7 +7,7 @@ export interface BaseRule {
 
 export interface RDFSRule extends BaseRule {
   /**
-   * 
+   *
    */
   ruleType: 'rdfs';
 }
@@ -15,7 +15,5 @@ export interface RDFSRule extends BaseRule {
 export interface OWL2RLRule extends BaseRule {
 
 }
-
-
 
 export type Rule = RDFSRule | OWL2RLRule;

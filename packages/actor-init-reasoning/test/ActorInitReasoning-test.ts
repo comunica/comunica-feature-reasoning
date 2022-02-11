@@ -1,4 +1,3 @@
-import { ActorInit } from '@comunica/bus-init';
 import { Bus } from '@comunica/core';
 import { ActorInitReasoning } from '../lib/ActorInitReasoning';
 

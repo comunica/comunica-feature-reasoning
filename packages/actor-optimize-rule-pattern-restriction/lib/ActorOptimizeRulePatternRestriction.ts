@@ -2,10 +2,9 @@ import type { IActionOptimizeRule, IActorOptimizeRuleOutput } from '@comunica/bu
 import { ActorOptimizeRule } from '@comunica/bus-optimize-rule';
 import type { IActorArgs, IActorTest } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
+import { everyTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
-import { everyTerms } from 'rdf-terms'
-import { isQuadSubject, isQuadPredicate, isQuadObject, isGraph, isQuad } from 'is-quad';
 
 /**
  * A comunica actor that restricts rules to only those needed to produce data matching a particular pattern
@@ -79,12 +78,10 @@ function matches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.
     termMatches(value.graph, pattern.graph);
 }
 
-
-
 // TODO: See if we can do this with https://github.com/rubensworks/rdf-terms.js/blob/master/lib/QuadTermUtil.ts
 // In the naive matches function ?o ?o ?o would match to the pattern Jesse a Person. This resolves that problem.
 
-// We should also work out how to delete rules when they have the following type of inconsistency ?s a ?s  and John ?t ?t and ?s ?o ?s 
+// We should also work out how to delete rules when they have the following type of inconsistency ?s a ?s  and John ?t ?t and ?s ?o ?s
 // We can also filter out inconsistent termTypes
 function listToHash(str: string[]): Record<string, boolean> {
   const hash: Record<string, boolean> = {};
@@ -94,22 +91,20 @@ function listToHash(str: string[]): Record<string, boolean> {
   return hash;
 }
 
-
-
 function advancedMatches(value: RDF.Quad | Algebra.Pattern, pattern: RDF.Quad | Algebra.Pattern) {
-  const valueMapping: { [key: string]: RDF.Term } = {};
-  const dataMapping: { [key: string]: RDF.Term } = {};
+  const valueMapping: Record<string, RDF.Term> = {};
+  const dataMapping: Record<string, RDF.Term> = {};
 
   function customTermMatches(term: RDF.Term, pattern: RDF.Term) {
     if (term.termType === 'Variable') {
-      dataMapping[term.value].equals(term)
+      dataMapping[term.value].equals(term);
     }
     if (pattern.termType === 'Variable') {
-      valueMapping[pattern.value].equals(term)
+      valueMapping[pattern.value].equals(term);
     } else {
       return term.equals(pattern);
     }
-    // if (term.termType === 'Variable') {
+    // If (term.termType === 'Variable') {
     //   if (term.value in dataMapping) {
     //     return dataMapping[term.value].equals(term)
     //   }

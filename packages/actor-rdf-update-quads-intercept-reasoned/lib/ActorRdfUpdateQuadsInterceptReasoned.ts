@@ -1,13 +1,14 @@
-import { getContextWithImplicitDataset, MediatorRdfReason, setContextReasoning, setImplicitDestination, setImplicitSource, setUnionSource } from '@comunica/bus-rdf-reason';
-import { ActorRdfUpdateQuadsIntercept, IActionRdfUpdateQuadsIntercept, IActorRdfUpdateQuadsInterceptOutput, IActorRdfUpdateQuadsInterceptArgs } from '@comunica/bus-rdf-update-quads-intercept';
-import { IActorArgs, IActorTest } from '@comunica/core';
+import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
+import { getContextWithImplicitDataset, setContextReasoning, setImplicitDestination, setImplicitSource } from '@comunica/bus-rdf-reason';
+import type { IActionRdfUpdateQuadsIntercept, IActorRdfUpdateQuadsInterceptArgs } from '@comunica/bus-rdf-update-quads-intercept';
+import { ActorRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
 
 /**
  * A comunica Reasoned RDF Update Quads Intercept Actor.
  */
 export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsIntercept {
   public readonly mediatorRdfReason: MediatorRdfReason;
-  
+
   public constructor(args: IActorRdfUpdateQuadsInterceptReasonedArgs) {
     super(args);
   }
@@ -23,22 +24,23 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
       context: setImplicitSource(setImplicitDestination(context)),
     });
 
-    // await updateResult;
+    // Await updateResult;
 
-    // TODO: Implement properly  
+    // TODO: Implement properly
     // const context = getContextWithImplicitDataset(action.context);
     // TODO: Work out how to emit results from other sources while still reasoning
     // const { updateResult } = await this.mediatorRdfUpdateQuads.mediate(action);
     // await updateResult
     // TODO: Re-implement this so that we do it in *parallel* with the updates
-    const { reasoned } = await this.mediatorRdfReason.mediate({ context: action.context, updates: {
-      quadStreamDelete: action.quadStreamDelete,
-      quadStreamInsert: action.quadStreamInsert,
-    } });
+    const { reasoned } = await this.mediatorRdfReason.mediate({ context: action.context,
+      updates: {
+        quadStreamDelete: action.quadStreamDelete,
+        quadStreamInsert: action.quadStreamInsert,
+      }});
 
-    // await reasoned;
+    // Await reasoned;
 
-    return { ...action, context: setContextReasoning(context, Promise.all([updateResult, reasoned])) };
+    return { ...action, context: setContextReasoning(context, Promise.all([ updateResult, reasoned ])) };
   }
 }
 

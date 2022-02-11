@@ -15,7 +15,7 @@ export class ActorOptimizeRuleDataAwarePatternRestriction extends ActorOptimizeR
   }
 
   public async run(action: IActionOptimizeRuleDataAware): Promise<IActorOptimizeRuleDataAwareOutput> {
-    // 
+    //
     return true; // TODO implement
   }
 }

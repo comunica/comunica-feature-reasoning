@@ -1,15 +1,15 @@
 import type { IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type { IDataDestination } from '@comunica/bus-rdf-update-quads';
+import type { Rule } from '@comunica/bus-rule-parse';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
-import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor, ActionContext as ActionContextConstructor } from '@comunica/core';
 import type { ActionContext } from '@comunica/types';
+import type * as RDF from '@rdfjs/types';
+import type { AsyncIterator } from 'asynciterator';
 import { Store } from 'n3';
 // TODO: FIX
 import type { Algebra } from 'sparqlalgebrajs';
-import * as RDF from '@rdfjs/types'
-import { AsyncIterator } from 'asynciterator'
-import { Rule } from '@comunica/bus-rule-parse';
 
 interface IReasonedSource {
   reasoned: true;
@@ -57,7 +57,7 @@ export function getReasonGroups(context: ActionContext): IReasonGroup[] {
 }
 
 export function newImplicitDataset(context: ActionContext): IDataSource & IDataDestination {
-  return context.get(KeysRdfReason.implicitDatasetFactory)()
+  return context.get(KeysRdfReason.implicitDatasetFactory)();
 }
 
 // Generates a set of new contexts for each of the reasoning groups
@@ -73,21 +73,12 @@ export function reasonGroupContext(context: ActionContext, group: IReasonGroup):
   const data: IReasonData = group.data ??= { dataset: newImplicitDataset(newContext) };
   return newContext.set(KeysRdfReason.data, data);
 
-
-
-
-  
-  
-  
-  // const groups = getReasonGroups(context);
+  // Const groups = getReasonGroups(context);
   // groups.push(group);
   // return context.put(KeysRdfReason.groups, groups);
 }
 
-
-
-
-// export enum KeysRdfReason {
+// Export enum KeysRdfReason {
 //   /**
 //    * @range {IDataDestination & IDataSource}
 //    */
@@ -105,7 +96,7 @@ export function reasonGroupContext(context: ActionContext, group: IReasonGroup):
 
 export function getImplicitSource(context: ActionContext): IDataSource & IDataDestination {
   return context.get(KeysRdfReason.data).dataset;
-  // return context.get(KeysRdfReason.dataset);
+  // Return context.get(KeysRdfReason.dataset);
 }
 
 export function getExplicitSources(context: ActionContext): IDataSource[] {
@@ -134,7 +125,7 @@ export function getContextWithImplicitDataset(context?: ActionContext): ActionCo
 }
 
 export function setContextReasoning<T>(context: ActionContext, promise: Promise<T>): ActionContext {
-  return context.set(KeysRdfReason.status, { reasoned: true, done: promise.then(() => {}) })
+  return context.set(KeysRdfReason.status, { reasoned: true, done: promise.then(() => {}) });
 }
 
 /**
@@ -169,5 +160,4 @@ export interface IActorRdfReasonOutput extends IActorOutput {
   reasoned: Promise<void>;
 }
 
-export type MediatorRdfReason = Mediator<Actor<IActionRdfReason, IActorTest,
-IActorRdfReasonOutput>, IActionRdfReason, IActorTest, IActorRdfReasonOutput>;
+export type MediatorRdfReason = Mediate<IActionRdfReason, IActorRdfReasonOutput>;

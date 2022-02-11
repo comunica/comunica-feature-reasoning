@@ -25,3 +25,6 @@ $ yarn add @comunica/bus-optimize-rule-data-aware
 ## Creating actors on this bus
 
 Actors extending [`ActorOptimizeRuleDataAware`](TODO:jsdoc_url) are automatically subscribed to this bus.
+
+TODO: Probably remove this and create a `MediatorCombineFilteredPipelien
+https://github.com/comunica/comunica/blob/next/major/packages/mediator-combine-pipeline/lib/MediatorCombinePipeline.ts

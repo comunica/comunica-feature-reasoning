@@ -1,5 +1,5 @@
 import type { Rule } from '@comunica/bus-rule-parse';
-import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
 
 /**
@@ -27,4 +27,4 @@ export interface IActorNormalizeRuleOutput extends IActorOutput {
   rules: Rule[];
 }
 
-export type MediatorNormalizeRule = Mediator<Actor<IActionNormalizeRule, IActorTest, IActorNormalizeRuleOutput>, IActionNormalizeRule, IActorTest, IActorNormalizeRuleOutput>;
+export type MediatorNormalizeRule = Mediate<IActionNormalizeRule, IActorNormalizeRuleOutput>;

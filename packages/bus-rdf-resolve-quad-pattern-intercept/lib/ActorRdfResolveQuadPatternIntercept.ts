@@ -1,5 +1,5 @@
-import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
-import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediator } from '@comunica/core';
+import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput, MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IActorArgs, IActorTest } from '@comunica/core';
 import { Actor } from '@comunica/core';
 
 /**
@@ -14,8 +14,7 @@ import { Actor } from '@comunica/core';
  * @see IActorRdfResolveQuadPatternInterceptOutput
  */
 export abstract class ActorRdfResolveQuadPatternIntercept extends Actor<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
-  public readonly mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
-  IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+  public readonly mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 
   public constructor(args: IActorRdfResolveQuadPatternInterceptArgs) {
     super(args);
@@ -33,14 +32,9 @@ export abstract class ActorRdfResolveQuadPatternIntercept extends Actor<IActionR
 }
 
 export interface IActorRdfResolveQuadPatternInterceptArgs extends IActorArgs<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
-  mediatorRdfResolveQuadPattern: Mediator<Actor<IActionRdfResolveQuadPattern, IActorTest,
-  IActorRdfResolveQuadPatternOutput>, IActionRdfResolveQuadPattern, IActorTest, IActorRdfResolveQuadPatternOutput>;
+  mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 }
 
-export interface IActionRdfResolveQuadPatternIntercept extends IAction, IActionRdfResolveQuadPattern {
-
-}
-
-export interface IActorRdfResolveQuadPatternInterceptOutput extends IActorOutput, IActorRdfResolveQuadPatternOutput {
-
-}
+export type IActionRdfResolveQuadPatternIntercept = IActionRdfResolveQuadPattern;
+export type IActorRdfResolveQuadPatternInterceptOutput = IActorRdfResolveQuadPatternOutput;
+export type MediatorRdfResolveQuadPatternIntercept = MediatorRdfResolveQuadPattern;

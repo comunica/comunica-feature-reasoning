@@ -61,7 +61,7 @@ describe('ActorRuleParseN3', () => {
           });
 
           return {
-            quads: parser.import(action.input),
+            data: parser.import(action.data),
           };
         },
         async mediateActor(action: IActionRdfParse) {

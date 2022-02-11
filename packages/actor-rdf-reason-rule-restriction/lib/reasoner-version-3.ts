@@ -1,7 +1,7 @@
 import type * as RDF from '@rdfjs/types';
-import { single, UnionIterator, type AsyncIterator, MultiTransformIterator } from 'asynciterator';
+import { single, UnionIterator, type AsyncIterator } from 'asynciterator';
+import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import { forEachTerms, mapTerms } from 'rdf-terms'
 
 type Match = (pattern: Algebra.Pattern | RDF.Quad) => AsyncIterator<RDF.Quad>;
 
@@ -12,7 +12,6 @@ interface NestedRule {
   conclusion: RDF.Quad[];
   next?: NestedRule;
 }
-
 
 export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[], match: Match): AsyncIterator<RDF.Quad> {
   // Autostart needs to be false to prevent the iterator from ending before being consumed by rdf-update-quads
@@ -29,19 +28,21 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
       while (_rule) {
         mappings = rule.premise.reduce(
           (iterator, premise) => iterator.transform({ transform: transformFactory(match, premise) }),
-          mappings
+          mappings,
         );
         push({
           conclusion: rule.conclusion,
           mapping: rule.next ? mappings.clone() : mappings,
-        })
+        });
         _rule = rule.next;
       }
       done();
-    }
+    },
   }).transform({
     transform({ mapping, conclusion }, done, push) {
-      conclusion.forEach((quad: RDF.Quad) => { push(substituteQuad(mapping, quad)); });
+      conclusion.forEach((quad: RDF.Quad) => {
+        push(substituteQuad(mapping, quad));
+      });
       done();
     },
   });
@@ -81,7 +82,7 @@ export function transformFactory(match: Match, premise: RDF.Quad) {
       }
       // Console.log(localMapping)
       push(localMapping);
-    })
+    });
     done();
   };
 }
@@ -94,5 +95,5 @@ export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
 }
 
 export function substituteQuad(mapping: Mapping, term: RDF.Quad) {
-  return mapTerms(term, elem => substitute(elem, mapping))
+  return mapTerms(term, elem => substitute(elem, mapping));
 }

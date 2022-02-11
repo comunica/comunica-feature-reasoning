@@ -1,12 +1,12 @@
 import type { IActionOptimizeRule, IActorOptimizeRuleOutput } from '@comunica/bus-optimize-rule';
 import { ActorOptimizeRule } from '@comunica/bus-optimize-rule';
-import { Rule } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/bus-rule-parse';
 import type { IActorArgs, IActorTest } from '@comunica/core';
 import { quad, variable } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
-import type { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
+import { termToString } from 'rdf-string';
 import { mapTerms } from 'rdf-terms';
-import { termToString } from 'rdf-string'
+import type { RestrictableRule } from '../../actor-rdf-reason-rule-restriction/lib/reasoner';
 
 /**
  * A rule optimizer that updates rules so that they restrict the results they produce to be relevant to a particular pattern
@@ -158,27 +158,27 @@ function substitute(premises: RDF.Quad[], consequent: RDF.Quad, pattern: RDF.Qua
 // https://github.com/ucbl/HyLAR-Reasoner/blob/428892046d265be081195e2ca7f154e6bf1d68bd/hylar/core/Logics/Logics.js#L146
 function createDepsTree(rules: Rule[]) {
   // This doesn't work because of submatching
-  const premiseDeps: { [key: string]: Rule[] } = {};
+  const premiseDeps: Record<string, Rule[]> = {};
   for (const rule of rules) {
     for (const premise of rule.premise) {
       (premiseDeps[normalizedString(premise)] ??= []).push(rule);
     }
   }
 
-  const ruleDeps: { [key: string]: Rule[] } = {};
+  const ruleDeps: Record<string, Rule[]> = {};
 }
 
 // In order for a Rule to be applied *all* of its premises must be matched by at least 1 term *and*
-// at least one premise must have a new match from the last iteration. 
+// at least one premise must have a new match from the last iteration.
 
 function normalizedString(term: RDF.Quad): string {
   let count = 0;
-  let map: {[key: string]: RDF.Variable} = {};
+  const map: Record<string, RDF.Variable> = {};
 
   const quad = mapTerms(term, term => {
     if (term.termType === 'Variable') {
       if (term.value in map) {
-        return map[term.value]
+        return map[term.value];
       }
       return map[term.value] = variable(`?v${count++}`);
     }
@@ -188,14 +188,9 @@ function normalizedString(term: RDF.Quad): string {
   return termToString(quad);
 }
 
-
-// function depsTreeStore() {
+// Function depsTreeStore() {
 //   const store = new Store();
 // }
-
-
-
-
 
 // Possible proposal for rule syntax is one that uses sparql paths; i.e.
 // ?s a/subClassOf* ?o -> ?s a ?o
@@ -212,9 +207,7 @@ function normalizedString(term: RDF.Quad): string {
 // However, the same expanded rule can be produced by applying the first rule twice
 // A *naive* approach to test if a dependent rule is *actually* necessary would be to follow this substitution style approach
 
-
 // More generally, we need to test if our *existing* set of rules entails the proposed new rule
-
 
 // Starting with jesse a ?o & ?o subClass ?o2 -> jesse a ?o2
 
@@ -222,10 +215,9 @@ function normalizedString(term: RDF.Quad): string {
 // First update the variables to match the dep
 // ?o subClass ?o1 & ?o1 subClass ?o2 -> ?o subClass ?o2
 
-
 function ruleIsImplicit(additionCause: Rule[]) {
 
-  // return additionCause.length === 1 && additionCause[0].conclusion.length === 1 && additionCause[0].conclusion[0].predicate.termType === 'Variable';
+  // Return additionCause.length === 1 && additionCause[0].conclusion.length === 1 && additionCause[0].conclusion[0].predicate.termType === 'Variable';
 }
 
 type Normalize = (rules: Rule) => Rule;
@@ -242,9 +234,7 @@ interface DeducibilityMatch {
 function isNecessaryAddition(addition: Rule, causedBy: Rule, causeQuad: RDF.Quad) {
   // TODO: Follow the naive substitution pattern
 
-
 }
-
 
 /**
  * Tests to see if a {@param rule} is deducible from other {@param rules}
@@ -253,11 +243,11 @@ function isNecessaryAddition(addition: Rule, causedBy: Rule, causeQuad: RDF.Quad
  */
 function ruleIsDeducible(rule: Rule, rules: Rule[], normalize: Normalize, match: Match) {
   if (rule.conclusion === false) {
-    throw new Error('ruleIsDeducible cannot handle rules with a false conclusion')
+    throw new Error('ruleIsDeducible cannot handle rules with a false conclusion');
   }
 
   const matches: DeducibilityMatch[] = [];
-  
+
   for (const conclusion of rule.conclusion) {
     for (const r of rules) {
       for (const premise of r.premise) {
@@ -267,22 +257,19 @@ function ruleIsDeducible(rule: Rule, rules: Rule[], normalize: Normalize, match:
       }
     }
   }
-  
-  
-  
+
   // Find a(ll) (combinations of?) rule(s) which satisfies the premise(s)
   // const relevantRules = rules.flatMap((rule) => {
   //   rule.premise.filter(premise => matches())
   // })
-  // 
+  //
 
   rules.map(({}) => {
 
-  })
+  });
 }
 
 // Test cases ?s a ?o & ?o subClass ?o2 & ?o2 subClass ?o3  -> ?s a ?o3 should be deducible from [?s a ?o & ?o subClass ?o2  -> ?s a ?o2]
-
 
 // Starting with (?aaa rdfs:subPropertyOf ?bbb) ^ (?uuu ?aaa ?yyy) -> (?uuu ?bbb ?yyy)
 // Starting with (?uuu rdfs:subPropertyOf ?vvv) ^ (?vvv rdfs:subPropertyOf ?xxx) -> (?uuu rdfs:subPropertyOf ?xxx)
@@ -297,7 +284,4 @@ function ruleIsDeducible(rule: Rule, rules: Rule[], normalize: Normalize, match:
 
 // function isRuleRequired(premises: RDF.Quad[], conclusion: RDF.Quad, ) {
 // }
-
-
-
 

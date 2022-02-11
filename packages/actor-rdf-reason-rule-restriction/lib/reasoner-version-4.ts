@@ -1,7 +1,7 @@
 import type * as RDF from '@rdfjs/types';
 import { single, UnionIterator, type AsyncIterator, union } from 'asynciterator';
+import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import { forEachTerms, mapTerms } from 'rdf-terms'
 
 type Match = (pattern: Algebra.Pattern | RDF.Quad) => AsyncIterator<RDF.Quad>;
 
@@ -14,9 +14,7 @@ interface NestedRule {
   next?: NestedRule;
 }
 
-
-
-// do {
+// Do {
 //   size = store.size;
 //   const quadStreamInsert = evaluateRuleSet(rules as RestrictableRule[], this.unionQuadSource(context).match)
 //     .map(data => {
@@ -27,7 +25,6 @@ interface NestedRule {
 //   // Console.log('implicit size', size)
 // } while (store.size > size);
 
-
 export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[], match: Match): AsyncIterator<RDF.Quad> {
   // Autostart needs to be false to prevent the iterator from ending before being consumed by rdf-update-quads
   // https://github.com/comunica/comunica/issues/904
@@ -36,15 +33,12 @@ export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[],
 }
 
 function hashMapping(mapping: Mapping) {
-  let str = ''
+  let str = '';
   for (const key in mapping) {
-    str += mapping[key].value + ' '
+    str += `${mapping[key].value} `;
   }
   return str;
 }
-
-
-
 
 export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: Match, startMappings: AsyncIterator<Mapping> = single({})): AsyncIterator<RDF.Quad> {
   return single(nestedRule).transform({
@@ -52,30 +46,32 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
       let mappings = startMappings;
       let _rule: NestedRule | undefined = rule;
       while (_rule) {
-        let hash: Record<string, boolean> = {};
+        const hash: Record<string, boolean> = {};
         mappings = _rule.premise.reduce(
           (iterator, premise) => union(iterator.map(mapFactory(match, premise, _rule?.requiredVariables ?? {}))).filter(
             // This should be useful if and only if not all variables are required
             mapping => {
               const h = hashMapping(mapping);
               return !(h in hash) && (hash[h] = true);
-            }
+            },
           ),
-          mappings
+          mappings,
         );
         push({
           conclusion: rule.conclusion,
           // TODO: See if mappings needs to be cloned
           mapping: _rule.next ? mappings.clone() : mappings,
-        })
+        });
         _rule = rule.next;
       }
       done();
-    }
+    },
   }).transform({
     transform({ mapping, conclusion }, done, push) {
       // TODO: possibly push mappings here so that they can be re-used
-      conclusion.forEach((quad: RDF.Quad) => { push(substituteQuad(mapping, quad)); });
+      conclusion.forEach((quad: RDF.Quad) => {
+        push(substituteQuad(mapping, quad));
+      });
       done();
     },
   });
@@ -101,8 +97,8 @@ export function mapFactory(match: Match, premise: RDF.Quad, requiredVariables: R
       // May have jumped the gun a little by skipping the key overlap check - match needs to match against variables rather than undefined for that to work
 
       return localMapping;
-    })
-  }
+    });
+  };
 }
 
 const unVarTerm = (term: RDF.Term, mapping: Mapping) => term.termType === 'Variable' && term.value in mapping ? mapping[term.value] : term;
@@ -113,5 +109,5 @@ export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
 }
 
 export function substituteQuad(mapping: Mapping, term: RDF.Quad) {
-  return mapTerms(term, elem => substitute(elem, mapping))
+  return mapTerms(term, elem => substitute(elem, mapping));
 }

@@ -28,7 +28,7 @@ describe('ActorRuleParseHyLAR', () => {
     it('should test', async() => {
       // Console.log(JSON.stringify(await arrayifyStream((await actor.run(createAction('owl2rl'))).rules)))
       const { rules } = await actor.runHandle(createAction('owl2rl'), 'hylar', ActionContext({}));
-      console.log(JSON.stringify(await arrayifyStream(rules)))
+      console.log(JSON.stringify(await arrayifyStream(rules)));
       expect(await arrayifyStream(rules)).toHaveLength(52);
       // Expect(await actor.test(createAction('rdfs'))).toEqual(true);
       // Expect(await actor.test(createAction('invalid1'))).toEqual(false);
