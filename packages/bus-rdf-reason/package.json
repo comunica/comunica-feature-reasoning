@@ -34,7 +34,7 @@
     "@comunica/bus-rdf-update-quads": "^2.0.1-alpha.5.0",
     "@comunica/bus-rdf-resolve-quad-pattern": "^2.0.1-alpha.5.0",
     "@comunica/types": "^2.0.1-alpha.5.0",
-    "@rdfjs/types": "1.1.0-next.0"
+    "@rdfjs/types": "1.1.0-next.1"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",
