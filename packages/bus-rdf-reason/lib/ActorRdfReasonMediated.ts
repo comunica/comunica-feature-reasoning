@@ -4,7 +4,7 @@ import type { IActorArgs, IActorTest } from '@comunica/core';
 // Import { Map } from 'immutable';
 import type { ActionContext } from '@comunica/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
-import type * as RDF from 'rdf-js';
+import type * as RDF from '@rdfjs/types';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import { ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';
