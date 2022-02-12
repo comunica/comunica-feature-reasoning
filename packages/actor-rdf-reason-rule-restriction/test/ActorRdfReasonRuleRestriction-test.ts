@@ -1,9 +1,10 @@
 import type { EventEmitter } from 'events';
 import type { IActionRdfReason } from '@comunica/bus-rdf-reason';
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
-import type { IDataSource, IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
-import type { IDataDestination, IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunica/bus-rdf-update-quads';
+import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunica/bus-rdf-update-quads';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
+import type { IDataSource, IDataDestination } from '@comunica/types';
 import { ActionContext, Bus } from '@comunica/core';
 import { namedNode, quad, variable } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';

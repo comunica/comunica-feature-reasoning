@@ -2,13 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { IActionRuleParse } from '@comunica/bus-rule-parse';
 import { ActionContext, Bus } from '@comunica/core';
-import { ActorRuleParseHyLAR } from '../lib/ActorRuleParseHyLAR';
+import { ActorRuleParseHylar } from '../lib/ActorRuleParseHyLAR';
 // Const streamifyString = require('streamify-string')
 const arrayifyStream = require('stream-to-array');
 import 'jest-rdf';
 
 function createAction(file: string): IActionRuleParse {
-  return { input: fs.createReadStream(path.join(__dirname, 'data', `${file}.hylar`)), baseIRI: 'http://example.org' };
+  return { data: fs.createReadStream(path.join(__dirname, 'data', `${file}.hylar`)), baseIRI: 'http://example.org' };
 }
 
 describe('ActorRuleParseHyLAR', () => {
@@ -19,17 +19,17 @@ describe('ActorRuleParseHyLAR', () => {
   });
 
   describe('An ActorRuleParseHyLAR instance', () => {
-    let actor: ActorRuleParseHyLAR;
+    let actor: ActorRuleParseHylar;
 
     beforeEach(() => {
-      actor = new ActorRuleParseHyLAR({ name: 'actor', bus, mediaTypes: {}});
+      actor = new ActorRuleParseHylar({ name: 'actor', bus, mediaTypes: {}});
     });
 
     it('should test', async() => {
       // Console.log(JSON.stringify(await arrayifyStream((await actor.run(createAction('owl2rl'))).rules)))
-      const { rules } = await actor.runHandle(createAction('owl2rl'), 'hylar', ActionContext({}));
-      console.log(JSON.stringify(await arrayifyStream(rules)));
-      expect(await arrayifyStream(rules)).toHaveLength(52);
+      const { data } = await actor.runHandle(createAction('owl2rl'), 'hylar', new ActionContext({}));
+      console.log(JSON.stringify(await arrayifyStream(data)));
+      expect(await arrayifyStream(data)).toHaveLength(52);
       // Expect(await actor.test(createAction('rdfs'))).toEqual(true);
       // Expect(await actor.test(createAction('invalid1'))).toEqual(false);
       // expect(await actor.test(createAction('invalid2'))).toEqual(false);

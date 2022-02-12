@@ -2,7 +2,7 @@ import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-qu
 import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import type { IActorArgs, IActorTest } from '@comunica/core';
 // Import { Map } from 'immutable';
-import type { ActionContext } from '@comunica/types';
+import type { IActionContext } from '@comunica/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
 import type * as RDF from '@rdfjs/types';
 import type { Algebra } from 'sparqlalgebrajs';
@@ -18,24 +18,24 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     super(args);
   }
 
-  protected async runExplicitUpdate(changes: IActionRdfUpdateQuads, context: ActionContext): Promise<IActorRdfUpdateQuadsOutput> {
+  protected async runExplicitUpdate(changes: IActionRdfUpdateQuads, context: IActionContext): Promise<IActorRdfUpdateQuadsOutput> {
     return this.mediatorRdfUpdateQuads.mediate(changes);
   }
 
-  protected async runImplicitUpdate(changes: IActionRdfUpdateQuads, context: ActionContext): Promise<IActorRdfUpdateQuadsOutput> {
+  protected async runImplicitUpdate(changes: IActionRdfUpdateQuads, context: IActionContext): Promise<IActorRdfUpdateQuadsOutput> {
     return this.runExplicitUpdate(changes, setImplicitDestination(context));
   }
 
-  protected explicitQuadSource(context: ActionContext) {
+  protected explicitQuadSource(context: IActionContext) {
     const match = (pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> => wrap(this.mediatorRdfResolveQuadPattern.mediate({ context, pattern }).then(({ data }) => data));
     return { match };
   }
 
-  protected implicitQuadSource(context: ActionContext) {
+  protected implicitQuadSource(context: IActionContext) {
     return this.explicitQuadSource(setImplicitSource(context));
   }
 
-  protected unionQuadSource(context: ActionContext) {
+  protected unionQuadSource(context: IActionContext) {
     return this.explicitQuadSource(setUnionSource(context));
   }
 }

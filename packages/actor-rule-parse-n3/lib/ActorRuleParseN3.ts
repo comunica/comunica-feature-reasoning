@@ -8,6 +8,7 @@ import type * as RDF from '@rdfjs/types';
 import { wrap } from 'asynciterator';
 import type { Quad, Quad_Object } from 'n3';
 import { NamedNode, Store } from 'n3';
+import { pEvent } from 'p-event';
 import arrayifyStream = require('stream-to-array');
 
 // Test suite https://github.com/w3c/N3/blob/16d1eec49048f87a97054540f4e1301e73a12130/tests/N3Tests/cwm_syntax/this-quantifiers-ref2.n3
@@ -29,13 +30,9 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
       context,
       handleMediaType: mediaType,
     });
-    const store = new Store();
 
-    await new Promise((resolve, reject) => {
-      store.import(handle.quads)
-        .on('end', resolve)
-        .on('error', reject);
-    });
+    const store = new Store();
+    await pEvent(store.import(handle.data), 'end');
 
     const matches = wrap<Quad>(store.match(null, new NamedNode('http://www.w3.org/2000/10/swap/log#implies'), null));
 
@@ -85,12 +82,7 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
 
 // Function that converts a stream to an array
 export function streamToArray(stream: RDF.Stream<RDF.Quad>): Promise<RDF.Quad[]> {
-  return new Promise((resolve, reject) => {
-    const quads: Quad[] = [];
-    stream.on('data', quad => quads.push(quad));
-    stream.on('end', () => resolve(quads));
-    stream.on('error', reject);
-  });
+  return <Promise<RDF.Quad[]>>arrayifyStream(<any>stream);
 }
 
 function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
@@ -103,5 +95,5 @@ function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
 }
 
 export interface IActorParseN3Args extends IActorRuleParseFixedMediaTypesArgs {
-  mediatorRdfParse: MediatorRdfParse;
+  mediatorRdfParse: MediatorRdfParseHandle;
 }

@@ -1,10 +1,8 @@
-import type { IDataSource } from '@comunica/bus-rdf-resolve-quad-pattern';
-import type { IDataDestination } from '@comunica/bus-rdf-update-quads';
 import type { Rule } from '@comunica/bus-rule-parse';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
-import { Actor, ActionContext as ActionContextConstructor } from '@comunica/core';
-import type { ActionContext } from '@comunica/types';
+import { Actor, ActionContext, ActionContextKey } from '@comunica/core';
+import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { Store } from 'n3';
@@ -30,42 +28,38 @@ interface IReasonData {
 
 interface IReasonGroup {
   data?: IReasonData;
-  context: ActionContext;
+  context: IActionContext;
 }
 
-type DatasetFactory = () => IDataSource & IDataDestination;
-
-export enum KeysRdfReason {
+export const KeysRdfReason = {
   /**
    * The data to reason over in the *current context*.
-   * @range {IReasonData}
    */
-  data = '@comunica/bus-rdf-reason:data',
+  data: new ActionContextKey<IReasonData>('@comunica/bus-rdf-reason:data'),
   /**
    * Groups to reason over
-   * @range {IReasonGroup[]}
    */
-  groups = '@comunica/bus-rdf-reason:groups',
+  groups: new ActionContextKey<IReasonGroup[]>('@comunica/bus-rdf-reason:groups'),
   /**
-   * @range {DatasetFactory}
+   * A factory to generate new implicit datasets
    */
-  implicitDatasetFactory = '@comunica/bus-rdf-reason:implicitDatasetFactory',
+  implicitDatasetFactory: new ActionContextKey<() => IDataSource & IDataDestination>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
 }
 
-export function getReasonGroups(context: ActionContext): IReasonGroup[] {
+export function getReasonGroups(context: IActionContext): IReasonGroup[] {
   return context.get(KeysRdfReason.groups) ?? [];
 }
 
-export function newImplicitDataset(context: ActionContext): IDataSource & IDataDestination {
+export function newImplicitDataset(context: IActionContext): IDataSource & IDataDestination {
   return context.get(KeysRdfReason.implicitDatasetFactory)();
 }
 
 // Generates a set of new contexts for each of the reasoning groups
-export function getReasonGroupsContexts(context: ActionContext): ActionContext[] {
+export function getReasonGroupsContexts(context: IActionContext): IActionContext[] {
   return getReasonGroups(context).map(group => reasonGroupContext(context, group));
 }
 
-export function reasonGroupContext(context: ActionContext, group: IReasonGroup): ActionContext {
+export function reasonGroupContext(context: IActionContext, group: IReasonGroup): IActionContext {
   const newContext = context.remove(KeysRdfReason.groups).merge(group.context);
   // TODO: Probably need to clear out old source and source(s) at this stage
 
@@ -78,53 +72,38 @@ export function reasonGroupContext(context: ActionContext, group: IReasonGroup):
   // return context.put(KeysRdfReason.groups, groups);
 }
 
-// Export enum KeysRdfReason {
-//   /**
-//    * @range {IDataDestination & IDataSource}
-//    */
-//   dataset = '@comunica/bus-rdf-reason:dataset',
-//   /**
-//   //  * @range {Rule[]} // TODO: FIX
-//    * @range {string}
-//    */
-//   rules = '@comunica/bus-rdf-reason:rules',
-//   /**
-//    * @range {IReasonStatus}
-//    */
-//   status = '@comunica/bus-rdf-reason:status',
-// }
 
-export function getImplicitSource(context: ActionContext): IDataSource & IDataDestination {
+export function getImplicitSource(context: IActionContext): IDataSource & IDataDestination {
   return context.get(KeysRdfReason.data).dataset;
   // Return context.get(KeysRdfReason.dataset);
 }
 
-export function getExplicitSources(context: ActionContext): IDataSource[] {
+export function getExplicitSources(context: IActionContext): IDataSource[] {
   return context.get(KeysRdfResolveQuadPattern.source) ? [ context.get(KeysRdfResolveQuadPattern.source) ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 }
 
-export function getUnionSources(context: ActionContext): IDataSource[] {
+export function getUnionSources(context: IActionContext): IDataSource[] {
   return [ ...getExplicitSources(context), getImplicitSource(context) ];
 }
 
-export function setImplicitDestination(context: ActionContext): ActionContext {
+export function setImplicitDestination(context: IActionContext): IActionContext {
   return context.set(KeysRdfUpdateQuads.destination, getImplicitSource(context));
 }
 
-export function setImplicitSource(context: ActionContext): ActionContext {
+export function setImplicitSource(context: IActionContext): IActionContext {
   return context.set(KeysRdfResolveQuadPattern.source, getImplicitSource(context));
 }
 
-export function setUnionSource(context: ActionContext): ActionContext {
+export function setUnionSource(context: IActionContext): IActionContext {
   return context.delete(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, getUnionSources(context));
 }
 
-export function getContextWithImplicitDataset(context?: ActionContext): ActionContext {
-  const _context = context ?? ActionContextConstructor({});
+export function getContextWithImplicitDataset(context?: IActionContext): IActionContext {
+  const _context = context ?? new ActionContext({});
   return _context.has(KeysRdfReason.dataset) ? _context : _context.set(KeysRdfReason.dataset, { type: 'rdfjsSource', value: new Store() });
 }
 
-export function setContextReasoning<T>(context: ActionContext, promise: Promise<T>): ActionContext {
+export function setContextReasoning<T>(context: IActionContext, promise: Promise<T>): IActionContext {
   return context.set(KeysRdfReason.status, { reasoned: true, done: promise.then(() => {}) });
 }
 

@@ -1,7 +1,7 @@
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes, Rule } from '@comunica/bus-rule-parse';
 import type { IActorTest } from '@comunica/core';
-import type { ActionContext } from '@comunica/types';
+import type { IActionContext } from '@comunica/types';
 import { defaultGraph, quad } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { termAsQuad } from 'is-quad';
@@ -13,16 +13,16 @@ import streamify = require('streamify-array');
 /**
  * A comunica HyLAR Rule Parse Actor.
  */
-export class ActorRuleParseHyLAR extends ActorRuleParseFixedMediaTypes {
+export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
   }
 
-  async testHandle(action: IActionRuleParse, mediaType: string, context: ActionContext): Promise<IActorTest> {
+  async testHandle(action: IActionRuleParse, mediaType: string, context: IActionContext): Promise<IActorTest> {
     return true;
   }
 
-  public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
+  public async runHandle(action: IActionRuleParse, mediaType: string, context: IActionContext):
   Promise<IActorRuleParseOutput> {
     const str = await toString(action.data);
     return { data: streamify(str.split('\n').filter(x => x !== '').map(parseRule)) };

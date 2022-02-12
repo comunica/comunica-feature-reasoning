@@ -42,16 +42,20 @@ export type IActionMediaTypesRuleParse = IActionAbstractMediaTypedMediaTypes;
 export type IActorTestMediaTypesRuleParse = IActorTestAbstractMediaTypedMediaTypes;
 export type IActorOutputMediaTypesRuleParse = IActorOutputAbstractMediaTypedMediaTypes;
 
-interface IActionRuleParseMetadata {
+export interface IActionRuleParseMetadata {
   /**
    * The base IRI for parsed rules.
    */
   baseIRI: string;
 }
 
+export type IActorRuleParseOutputMetadata = undefined;
+
 export type IActionRuleParse = IActionParse<IActionRuleParseMetadata>;
 
-export type IActorRuleParseOutput = IActorParseOutput<RDF.ResultStream<Rule>, undefined>;
+export type RuleStream = RDF.ResultStream<Rule>;
+
+export type IActorRuleParseOutput = IActorParseOutput<RDF.ResultStream<Rule>, IActorRuleParseOutputMetadata>;
 
 function rule(...args: ConstructorParameters<typeof Rule>) {
   return new Rule(...args);
