@@ -1,13 +1,13 @@
 import type { IActorDereferenceOutput } from '@comunica/bus-dereference';
-import type { IActorDereferenceRdfArgs } from '@comunica/bus-dereference-rule';
-import { ActorDereferenceRdf } from '@comunica/bus-dereference-rule';
-import type { IActionRdfParseMetadata } from '@comunica/bus-rdf-parse';
+import type { IActorDereferenceRuleArgs } from '@comunica/bus-dereference-rule';
+import { ActorDereferenceRule } from '@comunica/bus-dereference-rule';
+import type { IActionRuleParseMetadata } from '@comunica/bus-rule-parse';
 
 /**
- * A comunica Parse Dereference RDF Actor.
+ * A comunica Parse Dereference Rule Actor.
  */
-export class ActorDereferenceRdfParse extends ActorDereferenceRdf {
-  public constructor(args: IActorDereferenceRdfArgs) {
+export class ActorDereferenceRuleParse extends ActorDereferenceRule {
+  public constructor(args: IActorDereferenceRuleArgs) {
     super(args);
   }
 
@@ -16,11 +16,12 @@ export class ActorDereferenceRdfParse extends ActorDereferenceRdf {
   }
 }
 
-export interface IActorDereferenceRdfParseArgs extends IActorDereferenceRdfArgs {
+export interface IActorDereferenceRuleParseArgs extends IActorDereferenceRuleArgs {
   /**
    * A collection of mappings, mapping file extensions to their corresponding media type.
    * @range {json}
    * @default {{
+   * "hylar":    "text/plain",
    * "ttl":      "text/turtle",
    * "turtle":   "text/turtle",
    * "nt":       "application/n-triples",
