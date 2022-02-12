@@ -1,5 +1,6 @@
 import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsArgs, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import { IActorTest } from '@comunica/core';
 
 // TODO: Remove this module my using something like 'reasoning groups'
 
@@ -22,6 +23,10 @@ export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
   }
 
   abstract runIntercept(action: IActionRdfUpdateQuadsIntercept): Promise<IActionRdfUpdateQuadsIntercept>;
+
+  public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
+    return true;
+  }
 
   public async run(action: IActionRdfUpdateQuadsIntercept): Promise<IActorRdfUpdateQuadsInterceptOutput> {
     return this.mediatorRdfUpdateQuads.mediate(await this.runIntercept(action));

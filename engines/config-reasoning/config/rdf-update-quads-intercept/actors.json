@@ -5,6 +5,11 @@
   "@id": "urn:comunica:default:Runner",
   "@type": "Runner",
   "actors": [
-
+    {
+      "@id": "urn:comunica:default:rdf-update-quads-intercept/actors#reasoned",
+      "@type": "ActorRdfUpdateQuadsInterceptReasoned",
+      "mediatorRdfReason": { "@id": "urn:comunica:default:rdf-reason/mediators#main" },
+      "mediatorRdfUpdateQuads": { "@id": "urn:comunica:default:rdf-update-quads/mediators#main" }
+    }
   ]
 }
