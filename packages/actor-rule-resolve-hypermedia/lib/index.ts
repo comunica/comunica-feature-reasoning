@@ -1,1 +1,1 @@
-import {} from '@comunica/bus'
+export * from './ActorRuleResolveHypermedia';
