@@ -24,10 +24,15 @@ interface IReasonData {
   dataset: IDataSource & IDataDestination;
   status?: IReasonStatus;
   rules?: Rule[];
+  context: IActionContext;
 }
 
 interface IReasonGroup {
-  data?: IReasonData;
+  // data?: IReasonData;
+  // context: IActionContext;
+  dataset: IDataSource & IDataDestination;
+  status?: IReasonStatus;
+  rules?: Rule[];
   context: IActionContext;
 }
 
@@ -50,8 +55,21 @@ export function getReasonGroups(context: IActionContext): IReasonGroup[] {
   return context.get(KeysRdfReason.groups) ?? [];
 }
 
-export function newImplicitDataset(context: IActionContext): IDataSource & IDataDestination {
-  return context.get(KeysRdfReason.implicitDatasetFactory)();
+export function implicitDatasetFactory(context: IActionContext): IDataSource & IDataDestination {
+  const datasetFactory = context.get<() => IDataSource & IDataDestination>(KeysRdfReason.implicitDatasetFactory);
+  if (!datasetFactory) {
+    throw new Error(`Missing context entry for ${KeysRdfReason.implicitDatasetFactory.name}`);
+  }
+  return datasetFactory();
+}
+
+export function implicitGroupFactory(context: IActionContext): IReasonGroup {
+  return {
+    dataset: implicitDatasetFactory(context),
+    status: { reasoned: false },
+    rules: [], // TODO: Probably get these from the parent
+    context: new ActionContext(),
+  }
 }
 
 // Generates a set of new contexts for each of the reasoning groups
@@ -60,11 +78,11 @@ export function getReasonGroupsContexts(context: IActionContext): IActionContext
 }
 
 export function reasonGroupContext(context: IActionContext, group: IReasonGroup): IActionContext {
-  const newContext = context.remove(KeysRdfReason.groups).merge(group.context);
+  const newContext = context.delete(KeysRdfReason.groups).merge(group.context);
   // TODO: Probably need to clear out old source and source(s) at this stage
 
   // TODO: Work out how to add rules and status properly here
-  const data: IReasonData = group.data ??= { dataset: newImplicitDataset(newContext) };
+  const data: IReasonData = group.data ??= { dataset: implicitDatasetFactory(newContext) };
   return newContext.set(KeysRdfReason.data, data);
 
   // Const groups = getReasonGroups(context);
@@ -73,9 +91,13 @@ export function reasonGroupContext(context: IActionContext, group: IReasonGroup)
 }
 
 
+
 export function getImplicitSource(context: IActionContext): IDataSource & IDataDestination {
-  return context.get(KeysRdfReason.data).dataset;
-  // Return context.get(KeysRdfReason.dataset);
+  const data: IReasonData | undefined =  context.get(KeysRdfReason.data);
+  if (!data) {
+    throw new Error('Missing data in context');
+  }
+  return data.dataset ?? implicitDatasetFactory(context);
 }
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
@@ -98,9 +120,8 @@ export function setUnionSource(context: IActionContext): IActionContext {
   return context.delete(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, getUnionSources(context));
 }
 
-export function getContextWithImplicitDataset(context?: IActionContext): IActionContext {
-  const _context = context ?? new ActionContext({});
-  return _context.has(KeysRdfReason.dataset) ? _context : _context.set(KeysRdfReason.dataset, { type: 'rdfjsSource', value: new Store() });
+export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
+  return context.setDefault(KeysRdfReason.data, implicitDatasetFactory(context));
 }
 
 export function setContextReasoning<T>(context: IActionContext, promise: Promise<T>): IActionContext {

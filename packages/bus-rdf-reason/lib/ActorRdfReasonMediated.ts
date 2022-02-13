@@ -18,12 +18,12 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     super(args);
   }
 
-  protected async runExplicitUpdate(changes: IActionRdfUpdateQuads, context: IActionContext): Promise<IActorRdfUpdateQuadsOutput> {
+  protected async runExplicitUpdate(changes: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
     return this.mediatorRdfUpdateQuads.mediate(changes);
   }
 
-  protected async runImplicitUpdate(changes: IActionRdfUpdateQuads, context: IActionContext): Promise<IActorRdfUpdateQuadsOutput> {
-    return this.runExplicitUpdate(changes, setImplicitDestination(context));
+  protected async runImplicitUpdate(action: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
+    return this.runExplicitUpdate({ ...action, context: setImplicitDestination(action.context) });
   }
 
   protected explicitQuadSource(context: IActionContext) {

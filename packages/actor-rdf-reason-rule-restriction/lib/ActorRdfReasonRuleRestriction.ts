@@ -40,7 +40,7 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     // Console.log('rule dereference', this.mediatorRuleDereference)
     const d = await this.mediatorRuleDereference.mediate({ url: context.get(KeysRdfReason.data) });
     const originalRules = await arrayifyStream(d.rules);
-    const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern });
+    // const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern });
 
     // Console.log(rules.length, originalRules.length)
     // console.log(r)
