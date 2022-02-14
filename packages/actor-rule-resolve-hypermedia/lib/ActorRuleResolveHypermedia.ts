@@ -1,5 +1,5 @@
 import LRUCache from 'lru-cache';
-import {} from '@comunica/bus-rule-resolve'
+import { ActorRuleResolve } from '@comunica/bus-rule-resolve'
 
 /**
  * A comunica Hypermedia Rule Resolve Actor.
