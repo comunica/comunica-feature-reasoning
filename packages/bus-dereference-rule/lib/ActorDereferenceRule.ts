@@ -18,7 +18,7 @@ import type * as RDF from '@rdfjs/types';
  * * Test:   <none>
  * * Output: IActorDereferenceRdfOutput: A rule stream.
  *
- * @see IActionDereferenceRdf
+ * @see IActionDereferenceRule
  * @see IActorDereferenceRdfOutput
  */
 export abstract class ActorDereferenceRule extends
@@ -37,6 +37,6 @@ export interface IActorDereferenceRuleArgs extends
 
 export type IActionDereferenceRule = IActionDereferenceParse<IActionRuleParseMetadata>;
 
-export type IActorDereferenceRuleOutput = IActorDereferenceParseOutput<RDF.Stream, IActionRuleParseMetadata>;
+export type IActorDereferenceRuleOutput = IActorDereferenceParseOutput<RDF, IActionRuleParseMetadata>;
 
-export type MediatorDereferenceRdf = Mediate<IActionDereferenceRule, IActorDereferenceRuleOutput>;
+export type MediatorDereferenceRule = Mediate<IActionDereferenceRule, IActorDereferenceRuleOutput>;

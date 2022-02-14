@@ -33,7 +33,7 @@
     "@comunica/core": "^2.0.1-alpha.5.0",
     "@comunica/bus-dereference": "^2.0.1-alpha.5.0",
     "@comunica/bus-rule-parse": "^1.0.0",
-    "@rdfjs/types": "*"
+    "@rdfjs/types": "1.1.0-next.1"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

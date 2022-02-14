@@ -1,12 +1,13 @@
-import LRUCache from 'lru-cache';
-import { ActorRuleResolve } from '@comunica/bus-rule-resolve'
+import LRUCache = require('lru-cache');
+import { ActorRuleResolve } from '@comunica/bus-rule-resolve';
+import { MediatorDereferenceRdf } from '@comunica/bus-dereference-rule';
 
 /**
  * A comunica Hypermedia Rule Resolve Actor.
  */
  export class ActorRuleResolveHypermedia extends ActorRuleResolve
  implements IActorRdfResolveQuadPatternHypermediaArgs {
- public readonly mediatorDereferenceRdf: MediatorDereferenceRdf;
+ public readonly mediatorDereferenceRule: MediatorDereferenceRule;
  public readonly mediatorMetadata: MediatorRdfMetadata;
  public readonly mediatorMetadataExtract: MediatorRdfMetadataExtract;
  public readonly mediatorRdfResolveHypermedia: MediatorRdfResolveHypermedia;
