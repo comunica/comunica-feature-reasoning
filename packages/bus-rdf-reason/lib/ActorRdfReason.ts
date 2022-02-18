@@ -31,8 +31,8 @@ interface IReasonGroup {
   // data?: IReasonData;
   // context: IActionContext;
   dataset: IDataSource & IDataDestination;
-  status?: IReasonStatus;
-  rules?: Rule[];
+  status: IReasonStatus;
+  // rules?: Rule[];
   context: IActionContext;
 }
 
@@ -40,11 +40,16 @@ export const KeysRdfReason = {
   /**
    * The data to reason over in the *current context*.
    */
-  data: new ActionContextKey<IReasonData>('@comunica/bus-rdf-reason:data'),
+  data: new ActionContextKey<IReasonGroup>('@comunica/bus-rdf-reason:data'),
   /**
    * Groups to reason over
    */
   groups: new ActionContextKey<IReasonGroup[]>('@comunica/bus-rdf-reason:groups'),
+  /**
+   * The rules to use for reasoning in the *current context*
+   * TODO: Make this capable of more things (i.e. be more like IDataSource)
+   */
+  rules: new ActionContextKey<string>('@comunica/bus-rdf-reason:rules'),
   /**
    * A factory to generate new implicit datasets
    */
@@ -67,7 +72,6 @@ export function implicitGroupFactory(context: IActionContext): IReasonGroup {
   return {
     dataset: implicitDatasetFactory(context),
     status: { reasoned: false },
-    rules: [], // TODO: Probably get these from the parent
     context: new ActionContext(),
   }
 }
@@ -78,12 +82,13 @@ export function getReasonGroupsContexts(context: IActionContext): IActionContext
 }
 
 export function reasonGroupContext(context: IActionContext, group: IReasonGroup): IActionContext {
-  const newContext = context.delete(KeysRdfReason.groups).merge(group.context);
+  let newContext = context.delete(KeysRdfReason.groups).merge(group.context);
   // TODO: Probably need to clear out old source and source(s) at this stage
+  return newContext.set(KeysRdfReason.data, implicitGroupFactory(context))
 
   // TODO: Work out how to add rules and status properly here
-  const data: IReasonData = group.data ??= { dataset: implicitDatasetFactory(newContext) };
-  return newContext.set(KeysRdfReason.data, data);
+  // const data: IReasonData = group.data ??= { dataset: implicitDatasetFactory(newContext) };
+  // return newContext.set(KeysRdfReason.data, data);
 
   // Const groups = getReasonGroups(context);
   // groups.push(group);
@@ -97,11 +102,11 @@ export function getImplicitSource(context: IActionContext): IDataSource & IDataD
   if (!data) {
     throw new Error('Missing data in context');
   }
-  return data.dataset ?? implicitDatasetFactory(context);
+  return data.dataset;
 }
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
-  return context.get(KeysRdfResolveQuadPattern.source) ? [ context.get(KeysRdfResolveQuadPattern.source) ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
+  return context.has(KeysRdfResolveQuadPattern.source) ? [ <IDataSource> context.get(KeysRdfResolveQuadPattern.source) ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 }
 
 export function getUnionSources(context: IActionContext): IDataSource[] {
@@ -120,12 +125,27 @@ export function setUnionSource(context: IActionContext): IActionContext {
   return context.delete(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, getUnionSources(context));
 }
 
+export function getReasoningData(context: IActionContext): IReasonGroup | undefined {
+  return context.get(KeysRdfReason.data)
+}
+
 export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
-  return context.setDefault(KeysRdfReason.data, implicitDatasetFactory(context));
+  if (!context.has(KeysRdfReason.data)) {
+    return context.set(KeysRdfReason.data, implicitDatasetFactory(context))
+  }
+  return context;
+
+  // TODO: Use this with comunica update
+  // return context.setDefault(KeysRdfReason.data, implicitDatasetFactory(context));
 }
 
 export function setContextReasoning<T>(context: IActionContext, promise: Promise<T>): IActionContext {
-  return context.set(KeysRdfReason.status, { reasoned: true, done: promise.then(() => {}) });
+  const data = getReasoningData(context);
+  if (!data) {
+    throw new Error('Data is required to set reasoning context');
+  }
+  data.status = { reasoned: true, done: promise.then(() => {}) }
+  return context;
 }
 
 /**

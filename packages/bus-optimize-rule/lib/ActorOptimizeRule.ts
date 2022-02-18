@@ -1,7 +1,7 @@
 import type { Rule } from '@comunica/bus-rule-parse';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
-import type { ActionContext } from '@comunica/types';
+import type { IActionContext } from '@comunica/types';
 import type { Algebra } from 'sparqlalgebrajs';
 
 /**
@@ -32,7 +32,7 @@ export interface IActionOptimizeRule extends IAction {
 export interface IActorOptimizeRuleOutput extends IActorOutput {
   rules: Rule[];
   pattern?: Algebra.Pattern;
-  context?: ActionContext;
+  context?: IActionContext;
 }
 
 export type MediatorOptimizeRule = Mediate<IActionOptimizeRule, IActorOptimizeRuleOutput>;

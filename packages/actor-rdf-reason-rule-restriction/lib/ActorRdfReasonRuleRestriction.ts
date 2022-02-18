@@ -1,7 +1,7 @@
 import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
 import type { IActionRdfReason, IActorRdfReasonMediatedArgs, IActorRdfReasonOutput } from '@comunica/bus-rdf-reason';
 import { ActorRdfReasonMediated, KeysRdfReason } from '@comunica/bus-rdf-reason';
-import type { MediatorRuleDereference } from '@comunica/bus-rule-dereference';
+import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorTest } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
 import { single, UnionIterator, type AsyncIterator } from 'asynciterator';
@@ -15,7 +15,7 @@ import streamifyArray = require('streamify-array');
  * A comunica actor that
  */
 export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
-  public readonly mediatorRuleDereference: MediatorRuleDereference;
+  public readonly mediatorRuleResolve: MediatorRuleResolve;
   public readonly mediatorOptimizeRule: MediatorOptimizeRule;
   public constructor(args: IActorRdfReasonRuleRestrictionArgs) {
     super(args);
@@ -38,8 +38,8 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     const store = new Store();
     let size = 0;
     // Console.log('rule dereference', this.mediatorRuleDereference)
-    const d = await this.mediatorRuleDereference.mediate({ url: context.get(KeysRdfReason.data) });
-    const originalRules = await arrayifyStream(d.rules);
+    const { data } = await this.mediatorRuleResolve.mediate({ context });
+    const originalRules = await arrayifyStream(<any>data);
     // const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern });
 
     // Console.log(rules.length, originalRules.length)

@@ -9,17 +9,18 @@ import {
 import type { IActionRuleParseMetadata, IActorRuleParseOutputMetadata, RuleStream } from '@comunica/bus-rule-parse';
 import type { Mediate } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
+import { Rule } from '../../reasoning-types';
 
 /**
  * A base actor for dereferencing URLs to rule streams.
  *
  * Actor types:
- * * Input:  IActionDereferenceRdf:      A URL.
+ * * Input:  IActionDereferenceRule:      A URL.
  * * Test:   <none>
- * * Output: IActorDereferenceRdfOutput: A rule stream.
+ * * Output: IActorDereferenceRuleOutput: A rule stream.
  *
  * @see IActionDereferenceRule
- * @see IActorDereferenceRdfOutput
+ * @see IActorDereferenceRuleOutput
  */
 export abstract class ActorDereferenceRule extends
   ActorDereferenceParse<RuleStream, IActionRuleParseMetadata, IActorRuleParseOutputMetadata> {
@@ -37,6 +38,6 @@ export interface IActorDereferenceRuleArgs extends
 
 export type IActionDereferenceRule = IActionDereferenceParse<IActionRuleParseMetadata>;
 
-export type IActorDereferenceRuleOutput = IActorDereferenceParseOutput<RDF, IActionRuleParseMetadata>;
+export type IActorDereferenceRuleOutput = IActorDereferenceParseOutput<RDF.ResultStream<Rule>, IActionRuleParseMetadata>;
 
 export type MediatorDereferenceRule = Mediate<IActionDereferenceRule, IActorDereferenceRuleOutput>;
