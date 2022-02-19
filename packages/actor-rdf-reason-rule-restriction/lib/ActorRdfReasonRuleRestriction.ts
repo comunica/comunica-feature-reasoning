@@ -4,12 +4,13 @@ import { ActorRdfReasonMediated, KeysRdfReason } from '@comunica/bus-rdf-reason'
 import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorTest } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
+import arrayifyStream = require('arrayify-stream');
 import { single, UnionIterator, type AsyncIterator } from 'asynciterator';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import arrayifyStream = require('arrayify-stream');
 import streamifyArray = require('streamify-array');
+import type { IPremiseConclusionRule } from '../../reasoning-types';
 
 /**
  * A comunica actor that
@@ -22,10 +23,10 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
   }
 
   public async test(action: IActionRdfReason): Promise<IActorTest> {
-    if (!action.context.has(KeysRdfReason.dataset) || !action.context.has(KeysRdfReason.dataset)) {
+    if (!action.context.has(KeysRdfReason.data) || !action.context.has(KeysRdfReason.rules)) {
       throw new Error('Missing dataset or rule context');
     }
-    return true; // TODO implement
+    return true;
   }
 
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
@@ -35,42 +36,33 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
       throw new Error('Context required for reasoning');
     }
 
-    const store = new Store();
-    let size = 0;
-    // Console.log('rule dereference', this.mediatorRuleDereference)
-    const { data } = await this.mediatorRuleResolve.mediate({ context });
-    const originalRules = await arrayifyStream(<any>data);
-    // const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern });
-
-    // Console.log(rules.length, originalRules.length)
-    // console.log(r)
-    // console.log(r[0].premise)
-    // console.log(r[0].conclusion)
-    // const rules: RestrictableRule[] = context.get(KeysRdfReason.rules) ?? [];
-
-    do {
-      size = store.size;
-      const quadStreamInsert = evaluateRuleSet(rules as RestrictableRule[], this.unionQuadSource(context).match)
-        .map(data => {
-          store.addQuad(data);
-          return data;
-        });
-      await this.runImplicitUpdate({ quadStreamInsert }, context);
-      // Console.log('implicit size', size)
-    } while (store.size > size);
-
     return {
-      reasoned: Promise.resolve(),
+      execute: async() => {
+        const store = new Store();
+        let size = 0;
+        // Console.log('rule dereference', this.mediatorRuleDereference)
+        const { data } = await this.mediatorRuleResolve.mediate({ context });
+        const rules: IPremiseConclusionRule[] = await arrayifyStream(data);
+        // Const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern });
+
+        do {
+          size = store.size;
+          const quadStreamInsert = evaluateRuleSet(rules, this.unionQuadSource(context).match)
+            .map(data => {
+              store.addQuad(data);
+              return data;
+            });
+          await this.runImplicitUpdate({ quadStreamInsert, context });
+        } while (store.size > size);
+      },
     };
   }
 }
 
 interface IActorRdfReasonRuleRestrictionArgs extends IActorRdfReasonMediatedArgs {
-  mediatorRuleDereference: MediatorRuleDereference;
+  mediatorRuleResolve: MediatorRuleResolve;
   mediatorOptimizeRule: MediatorOptimizeRule;
 }
-
-
 
 type Match = (pattern: Algebra.Pattern | RDF.Quad) => AsyncIterator<RDF.Quad>;
 

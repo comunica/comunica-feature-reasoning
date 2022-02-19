@@ -9,6 +9,7 @@ import type { IActionParse, IActorParseOutput } from '@comunica/actor-abstract-p
 import type { IActorArgs, IActorTest } from '@comunica/core';
 import { Actor } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
+import type { Rule } from '@comunica/reasoning-types'
 
 /**
  * A comunica actor for parsing reasoning rules
@@ -56,40 +57,3 @@ export type IActionRuleParse = IActionParse<IActionRuleParseMetadata>;
 export type RuleStream = RDF.ResultStream<Rule>;
 
 export type IActorRuleParseOutput = IActorParseOutput<RDF.ResultStream<Rule>, IActorRuleParseOutputMetadata>;
-
-function rule(...args: ConstructorParameters<typeof Rule>) {
-  return new Rule(...args);
-}
-
-export class Rule {
-  public constructor(
-    premise: RDF.Quad[],
-    conclusion: RDF.Quad[] | false,
-    // Conclusion: RDF.Quad[]
-  ) {
-    this.premise = premise;
-    this.conclusion = conclusion;
-  }
-
-  /**
-   * Antecedents for the rule
-   */
-  premise: RDF.Quad[];
-  /**
-   * Consequent(s) for the rule
-   */
-  // conclusion: RDF.Quad[] | false;
-  conclusion: RDF.Quad[] | false;
-
-  // Public equals(other: Rule): boolean {
-  //   if (this.conclusion === false) {
-  //     return other.conclusion === false && quadEq(this.premise, other.premise)
-  //   } else {
-  //     return other.conclusion !== false && quadEq(this.premise, other.premise) && quadEq(this.conclusion, other.conclusion)
-  //   }
-  // }
-}
-
-function quadEq(a: RDF.Quad[], b: RDF.Quad[]): boolean {
-  return a.length === b.length && a.every((quad, index) => quad.equals(b[index]));
-}

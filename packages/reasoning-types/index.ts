@@ -1,19 +1,29 @@
-export interface BaseRule {
+import type { Quad } from '@rdfjs/types';
+
+export interface IBaseRule {
   /**
    * This should be the equivalent to termType in RDF Terms
    */
   ruleType: string;
 }
 
-export interface RDFSRule extends BaseRule {
+export interface IRDFSRule extends IBaseRule {
   /**
    *
    */
   ruleType: 'rdfs';
+  premise: Quad[];
+  conclusion: Quad[] | false;
 }
 
-export interface OWL2RLRule extends BaseRule {
-
+export interface IOWL2RLRule extends IBaseRule {
+  ruleType: 'owl2rl';
 }
 
-export type Rule = RDFSRule | OWL2RLRule;
+export interface IPremiseConclusionRule extends IBaseRule {
+  ruleType: 'premise-conclusion';
+  premise: Quad[];
+  conclusion: Quad[];
+}
+
+export type Rule = IRDFSRule | IOWL2RLRule | IPremiseConclusionRule;

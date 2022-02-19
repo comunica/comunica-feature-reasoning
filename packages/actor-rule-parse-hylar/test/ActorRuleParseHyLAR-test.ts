@@ -2,13 +2,17 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { IActionRuleParse } from '@comunica/bus-rule-parse';
 import { ActionContext, Bus } from '@comunica/core';
-import { ActorRuleParseHylar } from '../lib/ActorRuleParseHyLAR';
+import { ActorRuleParseHylar } from '../lib/ActorRuleParseHylar';
 // Const streamifyString = require('streamify-string')
 const arrayifyStream = require('stream-to-array');
 import 'jest-rdf';
 
 function createAction(file: string): IActionRuleParse {
-  return { data: fs.createReadStream(path.join(__dirname, 'data', `${file}.hylar`)), baseIRI: 'http://example.org' };
+  return {
+    data: fs.createReadStream(path.join(__dirname, 'data', `${file}.hylar`)),
+    metadata: { baseIRI: 'http://example.org' },
+    context: new ActionContext()
+  };
 }
 
 describe('ActorRuleParseHyLAR', () => {

@@ -1,11 +1,10 @@
-import type { Rule } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/reasoning-types';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor, ActionContext, ActionContextKey } from '@comunica/core';
 import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
-import { Store } from 'n3';
 // TODO: FIX
 import type { Algebra } from 'sparqlalgebrajs';
 
@@ -28,13 +27,15 @@ interface IReasonData {
 }
 
 interface IReasonGroup {
-  // data?: IReasonData;
+  // Data?: IReasonData;
   // context: IActionContext;
   dataset: IDataSource & IDataDestination;
   status: IReasonStatus;
-  // rules?: Rule[];
+  // Rules?: Rule[];
   context: IActionContext;
 }
+
+type IDatasetFactory = () => IDataSource & IDataDestination;
 
 export const KeysRdfReason = {
   /**
@@ -53,15 +54,15 @@ export const KeysRdfReason = {
   /**
    * A factory to generate new implicit datasets
    */
-  implicitDatasetFactory: new ActionContextKey<() => IDataSource & IDataDestination>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
-}
+  implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
+};
 
 export function getReasonGroups(context: IActionContext): IReasonGroup[] {
   return context.get(KeysRdfReason.groups) ?? [];
 }
 
 export function implicitDatasetFactory(context: IActionContext): IDataSource & IDataDestination {
-  const datasetFactory = context.get<() => IDataSource & IDataDestination>(KeysRdfReason.implicitDatasetFactory);
+  const datasetFactory = context.get<IDatasetFactory>(KeysRdfReason.implicitDatasetFactory);
   if (!datasetFactory) {
     throw new Error(`Missing context entry for ${KeysRdfReason.implicitDatasetFactory.name}`);
   }
@@ -73,7 +74,7 @@ export function implicitGroupFactory(context: IActionContext): IReasonGroup {
     dataset: implicitDatasetFactory(context),
     status: { reasoned: false },
     context: new ActionContext(),
-  }
+  };
 }
 
 // Generates a set of new contexts for each of the reasoning groups
@@ -82,9 +83,9 @@ export function getReasonGroupsContexts(context: IActionContext): IActionContext
 }
 
 export function reasonGroupContext(context: IActionContext, group: IReasonGroup): IActionContext {
-  let newContext = context.delete(KeysRdfReason.groups).merge(group.context);
+  const newContext = context.delete(KeysRdfReason.groups).merge(group.context);
   // TODO: Probably need to clear out old source and source(s) at this stage
-  return newContext.set(KeysRdfReason.data, implicitGroupFactory(context))
+  return newContext.set(KeysRdfReason.data, implicitGroupFactory(context));
 
   // TODO: Work out how to add rules and status properly here
   // const data: IReasonData = group.data ??= { dataset: implicitDatasetFactory(newContext) };
@@ -95,10 +96,8 @@ export function reasonGroupContext(context: IActionContext, group: IReasonGroup)
   // return context.put(KeysRdfReason.groups, groups);
 }
 
-
-
 export function getImplicitSource(context: IActionContext): IDataSource & IDataDestination {
-  const data: IReasonData | undefined =  context.get(KeysRdfReason.data);
+  const data: IReasonData | undefined = context.get(KeysRdfReason.data);
   if (!data) {
     throw new Error('Missing data in context');
   }
@@ -106,7 +105,7 @@ export function getImplicitSource(context: IActionContext): IDataSource & IDataD
 }
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
-  return context.has(KeysRdfResolveQuadPattern.source) ? [ <IDataSource> context.get(KeysRdfResolveQuadPattern.source) ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
+  return context.has(KeysRdfResolveQuadPattern.source) ? [ context.get(KeysRdfResolveQuadPattern.source)! ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 }
 
 export function getUnionSources(context: IActionContext): IDataSource[] {
@@ -126,12 +125,12 @@ export function setUnionSource(context: IActionContext): IActionContext {
 }
 
 export function getReasoningData(context: IActionContext): IReasonGroup | undefined {
-  return context.get(KeysRdfReason.data)
+  return context.get(KeysRdfReason.data);
 }
 
 export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
   if (!context.has(KeysRdfReason.data)) {
-    return context.set(KeysRdfReason.data, implicitDatasetFactory(context))
+    return context.set(KeysRdfReason.data, implicitDatasetFactory(context));
   }
   return context;
 
@@ -144,7 +143,7 @@ export function setContextReasoning<T>(context: IActionContext, promise: Promise
   if (!data) {
     throw new Error('Data is required to set reasoning context');
   }
-  data.status = { reasoned: true, done: promise.then(() => {}) }
+  data.status = { reasoned: true, done: promise.then(() => {}) };
   return context;
 }
 
@@ -171,13 +170,15 @@ export interface IQuadUpdates {
 }
 
 export interface IActionRdfReason extends IAction {
-  // Rules?: RestrictableRule[]
   pattern?: Algebra.Pattern;
   updates?: IQuadUpdates;
 }
 
 export interface IActorRdfReasonOutput extends IActorOutput {
-  reasoned: Promise<void>;
+  /**
+   * Async function that resolves when the reasoning is done.
+   */
+  execute: () => Promise<void>;
 }
 
 export type MediatorRdfReason = Mediate<IActionRdfReason, IActorRdfReasonOutput>;

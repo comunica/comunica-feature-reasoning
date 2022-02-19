@@ -18,7 +18,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
 
     // First we handle changes to whole graphs
     // Note this only works so long as we are *not* doing inter-graph reasoning
-    const { voidResult } = await this.mediatorRdfUpdateQuads.mediate({
+    const { execute: executeUpdate } = await this.mediatorRdfUpdateQuads.mediate({
       createGraphs: action.createGraphs,
       deleteGraphs: action.deleteGraphs,
       context: setImplicitSource(setImplicitDestination(context)),
@@ -32,7 +32,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
     // const { updateResult } = await this.mediatorRdfUpdateQuads.mediate(action);
     // await updateResult
     // TODO: Re-implement this so that we do it in *parallel* with the updates
-    const { reasoned } = await this.mediatorRdfReason.mediate({ context: action.context,
+    const { execute: executeReasoning } = await this.mediatorRdfReason.mediate({ context: action.context,
       updates: {
         quadStreamDelete: action.quadStreamDelete,
         quadStreamInsert: action.quadStreamInsert,
@@ -40,7 +40,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
 
     // Await reasoned;
 
-    return { ...action, context: setContextReasoning(context, Promise.all([ voidResult, reasoned ])) };
+    return { ...action, context: setContextReasoning(context, Promise.all([ executeUpdate(), executeReasoning() ])) };
   }
 }
 

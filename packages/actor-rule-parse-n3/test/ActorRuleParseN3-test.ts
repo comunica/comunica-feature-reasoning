@@ -1,9 +1,9 @@
 // Import { ActorRuleParse } from '@comunica/bus-rule-parse';
 import type { IActionRdfParse, IActorRdfParseOutput } from '@comunica/bus-rdf-parse';
-import type { Rule } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/reasoning-types';
 import { Bus } from '@comunica/core';
 import { quad, namedNode, variable } from '@rdfjs/data-model';
-import arrayifyStream = require('arrayify-stream');
+import arrayifyStream from 'arrayify-stream';
 import { StreamParser } from 'n3';
 import stringToStream = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';

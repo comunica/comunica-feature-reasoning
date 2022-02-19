@@ -1,6 +1,6 @@
 import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsArgs, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
-import { IActorTest } from '@comunica/core';
+import type { IActorTest } from '@comunica/core';
 
 // TODO: Remove this module my using something like 'reasoning groups'
 

@@ -3,8 +3,8 @@ import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpda
 import type { IActorArgs, IActorTest } from '@comunica/core';
 // Import { Map } from 'immutable';
 import type { IActionContext } from '@comunica/types';
-import { wrap, type AsyncIterator } from 'asynciterator';
 import type * as RDF from '@rdfjs/types';
+import { wrap, type AsyncIterator } from 'asynciterator';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import { ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';

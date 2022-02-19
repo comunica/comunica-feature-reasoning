@@ -1,5 +1,6 @@
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
-import { ActorRuleParseFixedMediaTypes, Rule } from '@comunica/bus-rule-parse';
+import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActorTest } from '@comunica/core';
 import type { IActionContext } from '@comunica/types';
 import { defaultGraph, quad } from '@rdfjs/data-model';

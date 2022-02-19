@@ -1,8 +1,9 @@
 import { Readable } from 'stream';
 import type { MediatorRdfParseHandle } from '@comunica/bus-rdf-parse';
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
-import { ActorRuleParseFixedMediaTypes, Rule } from '@comunica/bus-rule-parse';
-import type { Mediator, Actor, ActionContext } from '@comunica/core';
+import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/reasoning-types';
+import type { ActionContext } from '@comunica/core';
 import { quad } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { wrap } from 'asynciterator';
@@ -81,12 +82,12 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
 }
 
 // Function that converts a stream to an array
-export function streamToArray(stream: RDF.Stream<RDF.Quad>): Promise<RDF.Quad[]> {
-  return <Promise<RDF.Quad[]>>arrayifyStream(<any>stream);
-}
+// export function streamToArray(stream: RDF.Stream): Promise<RDF.Quad[]> {
+//   return arrayifyStream(stream);
+// }
 
 function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
-  return streamToArray(
+  return arrayifyStream<RDF.Quad>(
     wrap<Quad>(store.match(null, null, null, object)).map(
       // TODO: add graph as variable
       q => quad(q.subject, q.predicate, q.object),

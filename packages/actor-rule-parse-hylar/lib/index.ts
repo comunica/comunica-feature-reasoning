@@ -1,1 +1,1 @@
-export * from './ActorRuleParseHyLAR';
+export * from './ActorRuleParseHylar';

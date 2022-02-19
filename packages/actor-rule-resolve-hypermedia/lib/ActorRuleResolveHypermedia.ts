@@ -1,13 +1,15 @@
-import LRUCache = require('lru-cache');
-import { ActorRuleResolve, ActorRuleResolveSource, IActionRuleResolve, IActorRuleResolveArgs, IRuleSource } from '@comunica/bus-rule-resolve';
-import { MediatorDereferenceRule } from '@comunica/bus-dereference-rule';
-import { IActorArgs, IActorTest } from '@comunica/core';
-import { IActionContext } from '@comunica/types';
-// TODO: Use reasoning types
-import { Rule } from '@comunica/bus-rule-parse';
-import { wrap, AsyncIterator, fromArray } from 'asynciterator';
+import type { MediatorDereferenceRule } from '@comunica/bus-dereference-rule';
 import type { ActorHttpInvalidateListenable, IActionHttpInvalidate } from '@comunica/bus-http-invalidate';
+import type { Rule } from '@comunica/reasoning-types';
+import type { IActionRuleResolve, IActorRuleResolveArgs, IRuleSource } from '@comunica/bus-rule-resolve';
+import { ActorRuleResolveSource } from '@comunica/bus-rule-resolve';
 import { getContextSource } from '@comunica/bus-rule-resolve/lib/util';
+import type { IActorTest } from '@comunica/core';
+import type { IActionContext } from '@comunica/types';
+// TODO: Use reasoning types
+import type { AsyncIterator } from 'asynciterator';
+import { wrap, fromArray } from 'asynciterator';
+import LRUCache = require('lru-cache');
 
 /**
  * A comunica Hypermedia Rule Resolve Actor.
@@ -59,30 +61,31 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
   }
 }
 
-
 class MediatedRuleSource implements IRuleSource {
   private cache: Rule[] | undefined;
 
   public constructor(
     public readonly context: IActionContext,
     public readonly url: string,
-    public readonly mediators: IMediatorArgs
+    public readonly mediators: IMediatorArgs,
   ) {
 
   }
 
   get(): AsyncIterator<Rule> {
     if (this.cache) {
-      return fromArray(this.cache)
+      return fromArray(this.cache);
     }
 
     const data = wrap<Rule>(this.mediators.mediatorDereferenceRule.mediate({
       url: this.url,
-      context: this.context
-    }).then(({ data }) => data))
+      context: this.context,
+    }).then(({ data }) => data));
 
     this.cache = [];
-    return data.map(rule => { this.cache?.push(rule); return rule; })
+    return data.map(rule => {
+      this.cache?.push(rule); return rule;
+    });
   }
 }
 

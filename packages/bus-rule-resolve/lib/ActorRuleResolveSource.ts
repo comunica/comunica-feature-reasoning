@@ -1,11 +1,10 @@
-import { Rule } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActorTest } from '@comunica/core';
 import type { IActionContext } from '@comunica/types';
-import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
-import type { Algebra } from 'sparqlalgebrajs';
-import { ActorRuleResolve, IActorRuleResolveArgs, IActionRuleResolve, IActorRuleResolveOutput } from './ActorRuleResolve';
-// import { ActorRdfResolveQuadPattern } from './ActorRdfResolveQuadPattern';
+import type { IActorRuleResolveArgs, IActionRuleResolve, IActorRuleResolveOutput } from './ActorRuleResolve';
+import { ActorRuleResolve } from './ActorRuleResolve';
+// Import { ActorRdfResolveQuadPattern } from './ActorRdfResolveQuadPattern';
 
 /**
  * A base implementation for rdf-resolve-quad-pattern events

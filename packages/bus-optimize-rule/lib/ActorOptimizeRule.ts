@@ -1,4 +1,4 @@
-import type { Rule } from '@comunica/bus-rule-parse';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
 import type { IActionContext } from '@comunica/types';
