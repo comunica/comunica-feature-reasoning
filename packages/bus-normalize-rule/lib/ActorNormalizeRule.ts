@@ -1,6 +1,6 @@
-import type { Rule } from '@comunica/reasoning-types';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 
 /**
  * A comunica actor that performs a normalizing action on reasoning rules

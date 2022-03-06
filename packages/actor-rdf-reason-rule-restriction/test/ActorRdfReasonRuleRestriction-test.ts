@@ -1,69 +1,131 @@
 import type { EventEmitter } from 'events';
-import type { IActionRdfReason } from '@comunica/bus-rdf-reason';
+import { IActionRdfReason, IActorRdfReasonOutput, implicitGroupFactory, IReasonGroup } from '@comunica/bus-rdf-reason';
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
-import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
-import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunica/bus-rdf-update-quads';
+import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput, MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
-import { ActionContext, Bus } from '@comunica/core';
+import { ActionContext, Actor, Bus, IAction, IActorOutput, IActorTest } from '@comunica/core';
 import type { IDataSource, IDataDestination } from '@comunica/types';
 import { namedNode, quad, variable } from '@rdfjs/data-model';
-import type * as RDF from '@rdfjs/types';
-import { wrap, union } from 'asynciterator';
+import * as RDF from '@rdfjs/types';
+import { wrap, union, fromArray, UnionIterator } from 'asynciterator';
 import { Store } from 'n3';
 import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestriction';
+import { promisifyEventEmitter } from 'event-emitter-promisify';
+
 import 'jest-rdf';
+import { IActorRuleResolveOutput, MediatorRuleResolve } from '@comunica/bus-rule-resolve';
+import { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
+import { Rule } from '@comunica/reasoning-types';
 type Data = IDataDestination & IDataSource;
 
-function awaitEvent(event: EventEmitter) {
-  return new Promise<void>((res, rej) => {
-    event.on('end', () => { res(); });
-    // Event.on('finish', () => { res() });
-    event.on('err', e => { rej(e); });
-    // Event.emit
-  });
-}
-
-describe('ActorRdfReasonHylar', () => {
-  let bus: any;
-  let mediatorRdfUpdateQuads: any;
-  let mediatorRdfResolveQuadPattern: any;
+describe('ActorRdfReasonRuleRestriction', () => {
+  let bus: Bus<Actor<IActionRdfReason, IActorTest, IActorRdfReasonOutput>, IActionRdfReason, IActorTest, IActorRdfReasonOutput>;
+  let mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
+  let mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
+  let mediatorRuleResolve: MediatorRuleResolve;
+  let mediatorOptimizeRule: MediatorOptimizeRule;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
+    // @ts-ignore
     mediatorRdfUpdateQuads = {
       async mediate(action: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
-        const destination = action.context?.get(KeysRdfUpdateQuads.destination);
-        await awaitEvent(destination?.import(action.quadStreamInsert));
-
-        // Action.quadStreamInsert
-
-        // destination.addQuad()
-
+        const destination: Store = action.context.get(KeysRdfUpdateQuads.destination)!;
         return {
-          updateResult: Promise.resolve(),
+          execute: () => {
+            return promisifyEventEmitter(destination.import(action.quadStreamInsert as any))
+          },
         };
       },
     };
+    // @ts-ignore
     mediatorRdfResolveQuadPattern = {
       async mediate(action: IActionRdfResolveQuadPattern): Promise<IActorRdfResolveQuadPatternOutput> {
-        const sources = action.context?.get(KeysRdfResolveQuadPattern.source) ? action.context?.get(KeysRdfResolveQuadPattern.source) : action.context?.get(KeysRdfResolveQuadPattern.sources);
-        const toUndef = (term: RDF.Term) => term.termType === 'Variable' ? undefined : term;
+        const sources: Store[] = action.context.get(KeysRdfResolveQuadPattern.source) ?
+          [action.context.get(KeysRdfResolveQuadPattern.source)!] :
+          action.context.get(KeysRdfResolveQuadPattern.sources) ?? [];
+
+        function toUndef<T extends { termType: string }>(term: T): any { return term.termType === 'Variable' ? undefined : term; };
+
         return {
-          data: union(sources.map((source: Store) => wrap(source.match(
-            // @ts-expect-error
+          data: new UnionIterator<RDF.Quad>(sources.map((source: Store) => wrap(source.match(
             toUndef(action.pattern.subject),
             toUndef(action.pattern.predicate),
             toUndef(action.pattern.object),
             toUndef(action.pattern.graph),
-          )))),
+          ))), { autoStart: false }),
         };
-        // Const destination
       },
     };
+    // @ts-ignore
+    mediatorOptimizeRule = {
+      async mediate(action) {
+        return action;
+      }
+    }
+    // @ts-ignore
+    mediatorRuleResolve = {
+      async mediate(action): Promise<IActorRuleResolveOutput> {
+        return {
+          data: fromArray<Rule>([
+            {
+              ruleType: 'premise-conclusion',
+              premise: [
+                quad(
+                  variable('?s'),
+                  namedNode('http://example.org#a'),
+                  variable('?o'),
+                  variable('?g'),
+                ),
+                quad(
+                  variable('?o'),
+                  namedNode('http://example.org#subsetOf'),
+                  variable('?o2'),
+                  variable('?g'),
+                ),
+              ],
+              conclusion: [
+                quad(
+                  variable('?s'),
+                  namedNode('http://example.org#a'),
+                  variable('?o2'),
+                  variable('?g'),
+                ),
+              ],
+            },
+            {
+              ruleType: 'premise-conclusion',
+              premise: [
+                quad(
+                  variable('?s'),
+                  namedNode('http://example.org#a'),
+                  variable('?o'),
+                  variable('?g'),
+                ),
+              ],
+              conclusion: [
+                quad(
+                  variable('?o'),
+                  namedNode('http://example.org#a'),
+                  namedNode('http://example.org#Class'),
+                  variable('?g'),
+                ),
+              ],
+            },
+          ])
+        };
+      },
+    }
   });
 
-  describe('An ActorRdfReasonHylar instance', () => {
+  describe('An ActorRdfReasonRuleRestriction instance', () => {
     let actor: ActorRdfReasonRuleRestriction;
+    let action: IActionRdfReason;
+    let data: IReasonGroup;
+    let destination: Store;
+    let source: Store;
+
 
     beforeEach(() => {
       actor = new ActorRdfReasonRuleRestriction({
@@ -71,102 +133,82 @@ describe('ActorRdfReasonHylar', () => {
         bus,
         mediatorRdfUpdateQuads,
         mediatorRdfResolveQuadPattern,
+        mediatorRuleResolve,
+        mediatorOptimizeRule
       });
+
+      data = implicitGroupFactory(
+        new ActionContext({
+          [KeysRdfReason.implicitDatasetFactory.name]: () => new Store(),
+        })
+      );
+
+      destination = new Store();
+
+      source = new Store();
+
+      action = {
+        context: new ActionContext({
+          [KeysRdfReason.data.name]: data,
+          [KeysRdfReason.rules.name]: 'my-rules',
+          [KeysRdfUpdateQuads.destination.name]: destination,
+          [KeysRdfResolveQuadPattern.source.name]: source
+        }),
+      }
     });
 
     // TODO: Implement this
-    // it('should test', () => {
-    //   return expect(actor.test({
-    //     context: ActionContext({
-    //       // TODO: Probably rename this to destination
-    //       [KeysRdfReason.dataset]: new Store(),
-    //       [KeysRdfUpdateQuads.destination]: new Store(),
-    //       [KeysRdfResolveQuadPattern.source]: new Store()
-    //     }),
-    //     rules: []
-    //   })).resolves.toEqual(true); // TODO
-    // });
+    it('should test', () => {
+      return expect(actor.test(action)).resolves.toEqual(true); // TODO
+    });
 
-    // it('should run with no rules and empty data', () => {
-    //   const input: IActionRdfReason = {
-    //     context: ActionContext({
-    //       [KeysRdfReason.dataset]: new Store(),
-    //       [KeysRdfUpdateQuads.destination]: new Store(),
-    //       [KeysRdfResolveQuadPattern.source]: new Store()
-    //     }),
-    //     rules: []
-    //   }
-    //   return expect(actor.run(input)).resolves.toMatchObject<IActorRdfReasonOutput>({
-    //     reasoned: Promise.resolve(),
-    //   });
-    // });
+    it('Should error if missing an implicit destination', () => {
+      return expect(actor.test({ ...action, context: action.context.delete(KeysRdfReason.data) })).rejects.toThrowError();
+    })
 
-    // it('should run with no rules and empty data', async () => {
-    //   const dataset = new Store();
-    //   const destination = new Store();
-    //   const source = new Store();
+    it('should run with no rules and empty data', async () => {
+      const { execute } = await actor.run(action);
+      await expect(execute()).resolves.toBeUndefined();
+    });
 
-    //   source.addQuad(
-    //     quad(
-    //       namedNode('http://example.org#Jesse'),
-    //       namedNode('http://example.org#a'),
-    //       namedNode('http://example.org#Human'),
-    //     )
-    //   )
+    it('should run with empty data', async () => {
 
-    //   const input: IActionRdfReason = {
-    //     context: ActionContext({
-    //       [KeysRdfReason.dataset]: dataset,
-    //       [KeysRdfUpdateQuads.destination]: destination,
-    //       [KeysRdfResolveQuadPattern.source]: source
-    //     }),
-    //     rules: [
-    //       {
-    //         premise: [
-    //           quad(
-    //             variable('?s'),
-    //             namedNode('http://example.org#a'),
-    //             variable('?o')
-    //           )
-    //         ],
-    //         conclusion: [
-    //           quad(
-    //             variable('?o'),
-    //             namedNode('http://example.org#a'),
-    //             namedNode('http://example.org#class')
-    //           )
-    //         ]
-    //       }
-    //     ]
-    //   }
-    //   const { reasoned } = await actor.run(input);
-    //   await reasoned;
-    //   expect(source).toBeRdfIsomorphic([quad(
-    //     namedNode('http://example.org#Jesse'),
-    //     namedNode('http://example.org#a'),
-    //     namedNode('http://example.org#Human'),
-    //   )])
-    //   expect(destination).toBeRdfIsomorphic([])
-    //   expect(dataset).toBeRdfIsomorphic([quad(
-    //     namedNode('http://example.org#Human'),
-    //     namedNode('http://example.org#a'),
-    //     namedNode('http://example.org#class'),
-    //   ),quad(
-    //     namedNode('http://example.org#class'),
-    //     namedNode('http://example.org#a'),
-    //     namedNode('http://example.org#class'),
-    //   )])
+      const { execute } = await actor.run(action);
+      await execute();
+      expect(source).toBeRdfIsomorphic([])
+      expect(destination).toBeRdfIsomorphic([])
+      expect(data.dataset).toBeRdfIsomorphic([])
+    });
 
-    //   // return expect(actor.run(input)).resolves.toMatchObject<IActorRdfReasonOutput>({
-    //   //   implicitSource: new Store(),
-    //   // });
-    // });
+    it('should run with with the fact Jesse a Human and produce implicit data', async () => {
+      source.addQuad(
+        quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Human'),
+        )
+      )
 
-    it('should run with no rules and empty data', async() => {
-      const dataset = new Store();
-      const destination = new Store();
-      const source = new Store();
+      const { execute } = await actor.run(action);
+      await execute();
+      expect(source).toBeRdfIsomorphic([quad(
+        namedNode('http://example.org#Jesse'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Human'),
+      )])
+      expect(destination).toBeRdfIsomorphic([])
+      expect(data.dataset).toBeRdfIsomorphic([quad(
+        namedNode('http://example.org#Human'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      ),quad(
+        namedNode('http://example.org#Class'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      )]);
+    });
 
+    it('should run with with the fact Jesse a Human and produce implicit data', async () => {
       source.addQuad(
         quad(
           namedNode('http://example.org#Jesse'),
@@ -183,53 +225,46 @@ describe('ActorRdfReasonHylar', () => {
         ),
       );
 
-      const input: IActionRdfReason = {
-        context: ActionContext({
-          [KeysRdfReason.dataset]: dataset,
-          [KeysRdfReason.rules]: [
-            {
-              premise: [
-                quad(
-                  variable('?s'),
-                  namedNode('http://example.org#a'),
-                  variable('?o'),
-                ),
-                quad(
-                  variable('?o'),
-                  namedNode('http://example.org#subsetOf'),
-                  variable('?o2'),
-                ),
-              ],
-              conclusion: [
-                quad(
-                  variable('?s'),
-                  namedNode('http://example.org#a'),
-                  variable('?o2'),
-                ),
-              ],
-            },
-          ],
-          [KeysRdfUpdateQuads.destination]: destination,
-          [KeysRdfResolveQuadPattern.source]: source,
-        }),
-      };
-      const { reasoned } = await actor.run(input);
-      await reasoned;
-      // Expect(source).toBeRdfIsomorphic([quad(
-      //   namedNode('http://example.org#Jesse'),
-      //   namedNode('http://example.org#a'),
-      //   namedNode('http://example.org#Human'),
-      // )])
+      const { execute } = await actor.run(action);
+      await execute();
+
+      expect(source).toBeRdfIsomorphic([quad(
+        namedNode('http://example.org#Jesse'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Human'),
+      ),
+      quad(
+        namedNode('http://example.org#Human'),
+        namedNode('http://example.org#subsetOf'),
+        namedNode('http://example.org#Thing'),
+      ),])
       expect(destination).toBeRdfIsomorphic([]);
-      expect(dataset).toBeRdfIsomorphic([ quad(
+      expect((data.dataset as any).size).toEqual(4);
+      expect(data.dataset).toBeRdfIsomorphic([quad(
         namedNode('http://example.org#Jesse'),
         namedNode('http://example.org#a'),
         namedNode('http://example.org#Thing'),
-      ) ]);
+      ),
+      quad(
+        namedNode('http://example.org#Human'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      )
+        ,
+      quad(
+        namedNode('http://example.org#Thing'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      )
+        ,
+      quad(
+        namedNode('http://example.org#Class'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      )
 
-      // Return expect(actor.run(input)).resolves.toMatchObject<IActorRdfReasonOutput>({
-      //   implicitSource: new Store(),
-      // });
+
+      ]);
     });
   });
 });

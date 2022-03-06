@@ -1,16 +1,16 @@
-import { Readable } from 'stream';
 import type { MediatorRdfParseHandle } from '@comunica/bus-rdf-parse';
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
+import type { ActionContext, IActorTest } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
-import type { ActionContext } from '@comunica/core';
+import type { IActionContext } from '@comunica/types';
 import { quad } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
+import arrayifyStream from 'arrayify-stream';
 import { wrap } from 'asynciterator';
+import { promisifyEventEmitter } from 'event-emitter-promisify';
 import type { Quad, Quad_Object } from 'n3';
-import { NamedNode, Store } from 'n3';
-import { pEvent } from 'p-event';
-import arrayifyStream = require('stream-to-array');
+import { Store, DataFactory } from 'n3';
 
 // Test suite https://github.com/w3c/N3/blob/16d1eec49048f87a97054540f4e1301e73a12130/tests/N3Tests/cwm_syntax/this-quantifiers-ref2.n3
 
@@ -18,14 +18,25 @@ import arrayifyStream = require('stream-to-array');
  * A comunica N3 Rule Parse Actor.
  */
 export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
+  // MediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
   public readonly mediatorRdfParseHandle: MediatorRdfParseHandle;
 
   public constructor(args: IActorParseN3Args) {
     super(args);
   }
 
+  public async testHandle(action: IActionRuleParse, mediaType: string, context: IActionContext): Promise<IActorTest> {
+    return this.mediatorRdfParseHandle.publish({
+      handle: action,
+      context,
+      handleMediaType: mediaType,
+    });
+  }
+
   public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
   Promise<IActorRuleParseOutput> {
+    // This.mediatorRdfResolveQuadPattern.mediate;
+
     const { handle } = await this.mediatorRdfParseHandle.mediate({
       handle: action,
       context,
@@ -33,58 +44,23 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
     });
 
     const store = new Store();
-    await pEvent(store.import(handle.data), 'end');
+    await promisifyEventEmitter(store.import(handle.data));
 
-    const matches = wrap<Quad>(store.match(null, new NamedNode('http://www.w3.org/2000/10/swap/log#implies'), null));
+    const matches = wrap<Quad>(store.match(null, DataFactory.namedNode('http://www.w3.org/2000/10/swap/log#implies'), null));
 
     const rules = matches.transform<Rule>({
-      async transform(qd, done, push) {
-        if (qd.subject.termType === 'BlankNode' && qd.object.termType === 'BlankNode') {
-          push(new Rule(await match(store, qd.subject), await match(store, qd.object)));
+      async transform({ subject, object }, done, push) {
+        if (subject.termType === 'BlankNode' && object.termType === 'BlankNode') {
+          push({ premise: await match(store, subject), conclusion: await match(store, object), ruleType: 'premise-conclusion' });
         }
         done();
       },
     });
 
     // @ts-expect-error
-    return { rules: new Readable(rules) };
+    return { data: rules };
   }
-
-  // Public async test(action: IActionRuleParse): Promise<IActorTest> {
-  //   // TODO: Double check
-  //   await this.mediatorRdfParse.mediateActor(action);
-  //   return true;
-  // }
-
-  // public async run(action: IActionRuleParse): Promise<IActorRuleParseOutput> {
-  // const { quads } = await this.mediatorRdfParse.mediate(action);
-  // const store = new Store();
-
-  // await new Promise((resolve, reject) => {
-  //   store.import(quads)
-  //     .on('end', resolve)
-  //     .on('error', reject);
-  // });
-
-  // const matches = wrap<Quad>(store.match(null, new NamedNode('http://www.w3.org/2000/10/swap/log#implies'), null))
-
-  // const rules = matches.transform<Rule>({
-  //   transform: async (qd, done, push) => {
-  //     if (qd.subject.termType === 'BlankNode' && qd.object.termType === 'BlankNode') {
-  //       push(new Rule(await match(store, qd.subject), await match(store, qd.object)));
-  //     }
-  //     done();
-  //   }
-  // });
-  // // @ts-ignore
-  // return { rules };
-  // }
 }
-
-// Function that converts a stream to an array
-// export function streamToArray(stream: RDF.Stream): Promise<RDF.Quad[]> {
-//   return arrayifyStream(stream);
-// }
 
 function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
   return arrayifyStream<RDF.Quad>(

@@ -33,6 +33,7 @@
     "@comunica/core": "^2.0.0",
     "@comunica/types": "^2.0.0",
     "@comunica/reasoning-types": "^1.0.0",
+    "@comunica/bus-rdf-reason": "^1.0.0",
     "@rdfjs/types": "^1.1.0",
     "asynciterator": "^3.2.1"
   },

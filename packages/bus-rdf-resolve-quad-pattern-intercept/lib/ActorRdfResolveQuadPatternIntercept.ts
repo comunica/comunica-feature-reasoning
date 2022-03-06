@@ -13,7 +13,8 @@ import { Actor } from '@comunica/core';
  * @see IActionRdfResolveQuadPatternIntercept
  * @see IActorRdfResolveQuadPatternInterceptOutput
  */
-export abstract class ActorRdfResolveQuadPatternIntercept extends Actor<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
+export abstract class ActorRdfResolveQuadPatternIntercept extends
+  Actor<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
   public readonly mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 
   public constructor(args: IActorRdfResolveQuadPatternInterceptArgs) {
@@ -31,7 +32,8 @@ export abstract class ActorRdfResolveQuadPatternIntercept extends Actor<IActionR
   }
 }
 
-export interface IActorRdfResolveQuadPatternInterceptArgs extends IActorArgs<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
+export interface IActorRdfResolveQuadPatternInterceptArgs extends
+  IActorArgs<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
   mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 }
 

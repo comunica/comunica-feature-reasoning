@@ -11,7 +11,7 @@ function createAction(file: string): IActionRuleParse {
   return {
     data: fs.createReadStream(path.join(__dirname, 'data', `${file}.hylar`)),
     metadata: { baseIRI: 'http://example.org' },
-    context: new ActionContext()
+    context: new ActionContext(),
   };
 }
 
@@ -32,7 +32,7 @@ describe('ActorRuleParseHyLAR', () => {
     it('should test', async() => {
       // Console.log(JSON.stringify(await arrayifyStream((await actor.run(createAction('owl2rl'))).rules)))
       const { data } = await actor.runHandle(createAction('owl2rl'), 'hylar', new ActionContext({}));
-      console.log(JSON.stringify(await arrayifyStream(data)));
+      // console.log(JSON.stringify(await arrayifyStream(data)));
       expect(await arrayifyStream(data)).toHaveLength(52);
       // Expect(await actor.test(createAction('rdfs'))).toEqual(true);
       // Expect(await actor.test(createAction('invalid1'))).toEqual(false);

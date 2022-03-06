@@ -1,23 +1,17 @@
-import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
-import type { IActionRdfReason, IActorRdfReasonMediatedArgs, IActorRdfReasonOutput } from '@comunica/bus-rdf-reason';
+import type { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
 import { ActorRdfReasonMediated, KeysRdfReason } from '@comunica/bus-rdf-reason';
-import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorTest } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
-import arrayifyStream = require('arrayify-stream');
-import { single, UnionIterator, type AsyncIterator } from 'asynciterator';
+import { single, UnionIterator, AsyncIterator, TransformIterator, BufferedIterator } from 'asynciterator';
+import { promisifyEventEmitter } from 'event-emitter-promisify/dist';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import streamifyArray = require('streamify-array');
-import type { IPremiseConclusionRule } from '../../reasoning-types';
 
 /**
  * A comunica actor that
  */
 export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
-  public readonly mediatorRuleResolve: MediatorRuleResolve;
-  public readonly mediatorOptimizeRule: MediatorOptimizeRule;
   public constructor(args: IActorRdfReasonRuleRestrictionArgs) {
     super(args);
   }
@@ -29,39 +23,21 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     return true;
   }
 
-  public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
+  public async execute(action: IActionRdfReasonExecute): Promise<void> {
     const { context } = action;
-
-    if (!context) {
-      throw new Error('Context required for reasoning');
-    }
-
-    return {
-      execute: async() => {
-        const store = new Store();
-        let size = 0;
-        // Console.log('rule dereference', this.mediatorRuleDereference)
-        const { data } = await this.mediatorRuleResolve.mediate({ context });
-        const rules: IPremiseConclusionRule[] = await arrayifyStream(data);
-        // Const { rules } = await this.mediatorOptimizeRule.mediate({ rules: originalRules, pattern: action.pattern });
-
-        do {
-          size = store.size;
-          const quadStreamInsert = evaluateRuleSet(rules, this.unionQuadSource(context).match)
-            .map(data => {
-              store.addQuad(data);
-              return data;
-            });
-          await this.runImplicitUpdate({ quadStreamInsert, context });
-        } while (store.size > size);
-      },
-    };
-  }
+    const store = new Store();
+    let size = 0;
+    do {
+      size = store.size;
+      // TODO: Handle rule assertions better
+      const quadStreamInsert = evaluateRuleSet(action.rules as any, this.unionQuadSource(context).match)
+      const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
+      await Promise.all([execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone()))]);
+    } while (store.size > size);
+  };
 }
 
 interface IActorRdfReasonRuleRestrictionArgs extends IActorRdfReasonMediatedArgs {
-  mediatorRuleResolve: MediatorRuleResolve;
-  mediatorOptimizeRule: MediatorOptimizeRule;
 }
 
 type Match = (pattern: Algebra.Pattern | RDF.Quad) => AsyncIterator<RDF.Quad>;
@@ -82,31 +58,48 @@ export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[],
 }
 
 export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: Match): AsyncIterator<RDF.Quad> {
-  return single(nestedRule).transform({
-    transform(rule, done, push) {
+  let mappings: AsyncIterator<Mapping> = single({});
+  
+  
+  
+  
+  
+  
+  const iterators = single(nestedRule).transform<{ mappings: AsyncIterator<Mapping>, conclusion: RDF.Quad[] }>({
+    autoStart: false,
+    transform(rule: NestedRule | undefined, done, push) {
       let mappings: AsyncIterator<Mapping> = single({});
-      let _rule: NestedRule | undefined = rule;
-      while (_rule) {
+      while (rule) {
         mappings = rule.premise.reduce(
-          (iterator, premise) => iterator.transform({ transform: transformFactory(match, premise) }),
+          (iterator, premise) => new UnionIterator(iterator.map(
+            mapping => {
+              const cause = substituteQuad(premise, mapping);
+              return match(cause).map(quad => {
+                let localMapping: Mapping | undefined = {};
+
+                forEachTerms(cause, (term, key) => {
+                  if (term.termType === 'Variable' && localMapping)
+                    if (key in localMapping && localMapping[key] !== term)
+                      localMapping = undefined
+                    else
+                      localMapping[term.value] = quad[key];
+                });
+
+                return localMapping && Object.assign(localMapping, mapping);
+              }).filter<Mapping>((mapping): mapping is Mapping => mapping !== undefined)
+            }
+          ), { autoStart: false }),
           mappings,
         );
         push({
           conclusion: rule.conclusion,
-          mapping: rule.next ? mappings.clone() : mappings,
+          mappings: (rule = rule.next) ? mappings.clone() : mappings,
         });
-        _rule = rule.next;
       }
       done();
     },
-  }).transform({
-    transform({ mapping, conclusion }, done, push) {
-      conclusion.forEach((quad: RDF.Quad) => {
-        push(substituteQuad(mapping, quad));
-      });
-      done();
-    },
-  });
+  }).map(({ mappings, conclusion }) => new UnionIterator(conclusion.map(quad => mappings.map(mapping => substituteQuad(quad, mapping))), { autoStart: false }));
+  return new UnionIterator(iterators, { autoStart: false });
 }
 
 export interface T {
@@ -114,47 +107,39 @@ export interface T {
   mapping: Mapping;
 }
 
-export function transformFactory(match: Match, premise: RDF.Quad) {
-  return function transform(mapping: Mapping, done: () => void, push: (mapping: Mapping) => void) {
-    const cause = substituteQuad(mapping, premise);
-    match(unVar(cause, mapping)).forEach(quad => {
-      const localMapping: Mapping = {};
+// export function transformFactory(match: Match, premise: RDF.Quad) {
+//   return async function transform(mapping: Mapping, done: () => void, push: (mapping: Mapping) => void) {
+//     const cause = substituteQuad(premise, mapping);
+//     console.log('the cause is', cause, mapping, await match(cause).toArray())
+//     match(cause).forEach(quad => {
+//       const localMapping: Mapping = {};
 
-      function factElemMatches(factElem: RDF.Term, causeElem: RDF.Term) {
-        if (causeElem.termType === 'Variable' && factElem.termType !== 'Variable') {
-          // TODO: end if causeElem.value in localMapping && !factElem.equals(localMapping[causeElem.value])
-          localMapping[causeElem.value] = factElem;
-        }
-      }
+//       forEachTerms(cause, (term, key) => {
+//         if (term.termType === 'Variable')
+//           localMapping[term.value] = quad[key];
+//       });
 
-      forEachTerms(quad, (term, key) => factElemMatches(term, cause[key]));
+//       // If an already existing uri has been mapped...
+//       // Merges local and global mapping
+//       for (const mapKey in mapping) {
+//         for (const key in localMapping) {
+//           // This is horribly innefficient, allow lookup in rev direction
+//           // This shouldn't even be necessary due to thefact that the variables are already substitued for in the cause
+//           if (mapping[mapKey] === localMapping[key] && mapKey !== key) {
+//             return;
+//           }
+//         }
+//         localMapping[mapKey] = mapping[mapKey];
+//       }
 
-      // If an already existing uri has been mapped...
-      // Merges local and global mapping
-      for (const mapKey in mapping) {
-        for (const key in localMapping) {
-          // This is horribly innefficient, allow lookup in rev direction
-          // This shouldn't even be necessary due to thefact that the variables are already substitued for in the cause
-          if (mapping[mapKey] === localMapping[key] && mapKey !== key) {
-            return;
-          }
-        }
-        localMapping[mapKey] = mapping[mapKey];
-      }
-      // Console.log(localMapping)
-      push(localMapping);
-    });
-    done();
-  };
-}
+//       console.log('pushing mapping', localMapping);
 
-const unVarTerm = (term: RDF.Term, mapping: Mapping) => term.termType === 'Variable' && term.value in mapping ? mapping[term.value] : term;
-const unVar = (quad: RDF.Quad, mapping: Mapping) => mapTerms(quad, elem => unVarTerm(elem, mapping));
+//       push(localMapping);
+//     });
+//     done();
+//   };
+// }
 
-export function substitute(elem: RDF.Term, mapping: Mapping): RDF.Term {
-  return elem.termType === 'Variable' && elem.value in mapping ? mapping[elem.value] : elem;
-}
-
-export function substituteQuad(mapping: Mapping, term: RDF.Quad) {
-  return mapTerms(term, elem => substitute(elem, mapping));
+export function substituteQuad(term: RDF.Quad, mapping: Mapping) {
+  return mapTerms(term, elem => (elem.termType === 'Variable' && elem.value in mapping) ? mapping[elem.value] : elem);
 }

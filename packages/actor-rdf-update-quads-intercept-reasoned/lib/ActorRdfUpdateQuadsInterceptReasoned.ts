@@ -25,6 +25,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
     });
 
     // Await updateResult;
+    executeUpdate();
 
     // TODO: Implement properly
     // const context = getContextWithImplicitDataset(action.context);

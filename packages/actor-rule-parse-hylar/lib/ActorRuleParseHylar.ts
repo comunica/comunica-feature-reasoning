@@ -1,6 +1,5 @@
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
-import type { Rule } from '@comunica/reasoning-types';
 import type { IActorTest } from '@comunica/core';
 import type { IActionContext } from '@comunica/types';
 import { defaultGraph, quad } from '@rdfjs/data-model';
@@ -49,7 +48,10 @@ export function parseRule(strRule: string) {
     throw new Error(`Invalid rule: ${strRule}`);
   }
 
-  return new Rule(parseTriples(premiseQuads), conclusionQuads[0] === 'false' ? false : parseTriples(conclusionQuads));
+  return {
+    premise: parseTriples(premiseQuads),
+    conclusion: conclusionQuads[0] === 'false' ? false : parseTriples(conclusionQuads),
+  };
 }
 
 export function parseTriples(triples: string[]): RDF.Quad[] {

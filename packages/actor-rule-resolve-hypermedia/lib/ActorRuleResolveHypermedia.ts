@@ -1,10 +1,10 @@
 import type { MediatorDereferenceRule } from '@comunica/bus-dereference-rule';
 import type { ActorHttpInvalidateListenable, IActionHttpInvalidate } from '@comunica/bus-http-invalidate';
-import type { Rule } from '@comunica/reasoning-types';
 import type { IActionRuleResolve, IActorRuleResolveArgs, IRuleSource } from '@comunica/bus-rule-resolve';
 import { ActorRuleResolveSource } from '@comunica/bus-rule-resolve';
 import { getContextSource } from '@comunica/bus-rule-resolve/lib/util';
 import type { IActorTest } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 // TODO: Use reasoning types
 import type { AsyncIterator } from 'asynciterator';

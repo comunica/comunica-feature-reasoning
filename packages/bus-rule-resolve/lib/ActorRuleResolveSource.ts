@@ -1,5 +1,5 @@
-import type { Rule } from '@comunica/reasoning-types';
 import type { IActorTest } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type { AsyncIterator } from 'asynciterator';
 import type { IActorRuleResolveArgs, IActionRuleResolve, IActorRuleResolveOutput } from './ActorRuleResolve';

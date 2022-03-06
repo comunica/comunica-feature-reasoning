@@ -1,6 +1,7 @@
-import type { Rule } from '@comunica/reasoning-types';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
+import type { AsyncIterator } from 'asynciterator';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type { Algebra } from 'sparqlalgebrajs';
 
@@ -22,7 +23,7 @@ export abstract class ActorOptimizeRule extends Actor<IActionOptimizeRule, IActo
 }
 
 export interface IActionOptimizeRule extends IAction {
-  rules: Rule[];
+  rules: AsyncIterator<Rule>;
   /**
    * An optional pattern to to restrict the rules to infer for
    */
@@ -30,9 +31,9 @@ export interface IActionOptimizeRule extends IAction {
 }
 
 export interface IActorOptimizeRuleOutput extends IActorOutput {
-  rules: Rule[];
+  rules: AsyncIterator<Rule>;
   pattern?: Algebra.Pattern;
-  context?: IActionContext;
+  context: IActionContext;
 }
 
 export type MediatorOptimizeRule = Mediate<IActionOptimizeRule, IActorOptimizeRuleOutput>;

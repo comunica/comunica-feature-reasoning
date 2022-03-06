@@ -1,7 +1,7 @@
 // Import { ActorRuleParse } from '@comunica/bus-rule-parse';
 import type { IActionRdfParse, IActorRdfParseOutput } from '@comunica/bus-rdf-parse';
-import type { Rule } from '@comunica/reasoning-types';
 import { Bus } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 import { quad, namedNode, variable } from '@rdfjs/data-model';
 import arrayifyStream from 'arrayify-stream';
 import { StreamParser } from 'n3';

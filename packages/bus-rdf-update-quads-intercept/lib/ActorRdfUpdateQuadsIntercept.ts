@@ -1,4 +1,9 @@
-import type { IActionRdfUpdateQuads, IActorRdfUpdateQuadsArgs, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import type {
+  IActionRdfUpdateQuads,
+  IActorRdfUpdateQuadsArgs,
+  IActorRdfUpdateQuadsOutput,
+  MediatorRdfUpdateQuads,
+} from '@comunica/bus-rdf-update-quads';
 import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import type { IActorTest } from '@comunica/core';
 
@@ -22,7 +27,7 @@ export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
     super(args);
   }
 
-  abstract runIntercept(action: IActionRdfUpdateQuadsIntercept): Promise<IActionRdfUpdateQuadsIntercept>;
+  public abstract runIntercept(action: IActionRdfUpdateQuadsIntercept): Promise<IActionRdfUpdateQuadsIntercept>;
 
   public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
     return true;

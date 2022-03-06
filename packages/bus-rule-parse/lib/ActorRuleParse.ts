@@ -8,8 +8,8 @@ import type { IActionAbstractMediaTyped,
 import type { IActionParse, IActorParseOutput } from '@comunica/actor-abstract-parse';
 import type { IActorArgs, IActorTest } from '@comunica/core';
 import { Actor } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
-import type { Rule } from '@comunica/reasoning-types'
 
 /**
  * A comunica actor for parsing reasoning rules

@@ -1,7 +1,7 @@
-import type { Rule } from '@comunica/reasoning-types';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor, ActionContext, ActionContextKey } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
@@ -19,6 +19,10 @@ interface IUnreasonedSource {
 
 type IReasonStatus = IReasonedSource | IUnreasonedSource;
 
+interface IReasonPattern {
+  pattern: RDF.BaseQuad;
+}
+
 interface IReasonData {
   dataset: IDataSource & IDataDestination;
   status?: IReasonStatus;
@@ -26,7 +30,7 @@ interface IReasonData {
   context: IActionContext;
 }
 
-interface IReasonGroup {
+export interface IReasonGroup {
   // Data?: IReasonData;
   // context: IActionContext;
   dataset: IDataSource & IDataDestination;
@@ -54,7 +58,7 @@ export const KeysRdfReason = {
   /**
    * A factory to generate new implicit datasets
    */
-  implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
+  implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory')
 };
 
 export function getReasonGroups(context: IActionContext): IReasonGroup[] {
@@ -101,6 +105,7 @@ export function getImplicitSource(context: IActionContext): IDataSource & IDataD
   if (!data) {
     throw new Error('Missing data in context');
   }
+
   return data.dataset;
 }
 
@@ -129,13 +134,7 @@ export function getReasoningData(context: IActionContext): IReasonGroup | undefi
 }
 
 export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
-  if (!context.has(KeysRdfReason.data)) {
-    return context.set(KeysRdfReason.data, implicitDatasetFactory(context));
-  }
-  return context;
-
-  // TODO: Use this with comunica update
-  // return context.setDefault(KeysRdfReason.data, implicitDatasetFactory(context));
+  return context.setDefault(KeysRdfReason.data, implicitGroupFactory(context));
 }
 
 export function setContextReasoning<T>(context: IActionContext, promise: Promise<T>): IActionContext {
@@ -170,7 +169,15 @@ export interface IQuadUpdates {
 }
 
 export interface IActionRdfReason extends IAction {
+  /**
+   * The patterns for which must have all inferred data 
+   * 
+   * If left undefined then all inferences on the data need to be made
+   */
   pattern?: Algebra.Pattern;
+  /**
+   * 
+   */
   updates?: IQuadUpdates;
 }
 
