@@ -9,11 +9,11 @@
   },
   "devDependencies": {
     "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "26.0.24",
     "@types/node": "^16.4.0",
     "@typescript-eslint/eslint-plugin": "4.28.5",
     "@typescript-eslint/parser": "4.28.5",
-    "jest": "^27.0.6",
+    "jest": "27.5.1",
     "jest-rdf": "^1.6.0",
     "lerna": "4.0.0",
     "pre-commit": "^1.2.2",
