@@ -1,17 +1,18 @@
+import type { Readable } from 'stream';
 import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
 import type { IActorTest } from '@comunica/core';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
-import { defaultGraph, quad } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
+import { wrap } from 'asynciterator';
 import { termAsQuad } from 'is-quad';
+import { DataFactory } from 'n3';
 import { stringToTerm } from 'rdf-string';
-// TODO: Remove this dependency
-import toString = require('stream-to-string');
-import streamify = require('streamify-array');
+const { quad, variable } = DataFactory;
 
 /**
- * A comunica HyLAR Rule Parse Actor.
+ * A comunica Hylar Rule Parse Actor.
  */
 export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
@@ -24,22 +25,42 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
 
   public async runHandle(action: IActionRuleParse, mediaType: string, context: IActionContext):
   Promise<IActorRuleParseOutput> {
-    const str = await toString(action.data);
-    return { data: streamify(str.split('\n').filter(x => x !== '').map(parseRule)) };
-  }
-}
+    let buffer = '';
 
-function parseRules(str: string) {
-  return str.split('\n').filter(x => x !== '').map(parseRule);
+    // TODO: Make this a module of its own right
+    const ruleStrings = wrap<Buffer>(action.data).map(chunk => chunk.toString()).transform<string>({
+      transform(data, done, push) {
+        for (const c of data) {
+          if (c === '\n') {
+            if (buffer !== '') {
+              push(buffer);
+              buffer = '';
+            }
+          } else {
+            buffer += c;
+          }
+        }
+        // TODO: Fix this - it assumes 'clean' chunks
+        // it is here to handle the case where there is
+        // no line break at EOF
+        if (buffer !== '') {
+          push(buffer);
+          buffer = '';
+        }
+        done();
+      },
+    });
+
+    return { data: <RDF.ResultStream<Rule> & Readable> <unknown> ruleStrings.map(ruleString => parseRule(ruleString)) };
+  }
 }
 
 const TRIPLE = /((?<=\()\S+?\s\S+?\s\S+?(?=\)))|false/gi;
 
-export function parseRule(strRule: string) {
+export function parseRule(strRule: string): Rule {
   // TODO: Handle the following bugs:
   // 1. Will not parse correctly if '->', '^', '(' or ')' occurs in a string or url
   // Consider stream parsing like the N3 package instead
-  // console.log('rule', strRule)
   const [ premise, conclusion ] = strRule.split('->');
   const premiseQuads = premise.match(TRIPLE);
   const conclusionQuads = conclusion.match(TRIPLE);
@@ -49,6 +70,7 @@ export function parseRule(strRule: string) {
   }
 
   return {
+    ruleType: 'rdfs',
     premise: parseTriples(premiseQuads),
     conclusion: conclusionQuads[0] === 'false' ? false : parseTriples(conclusionQuads),
   };
@@ -60,8 +82,7 @@ export function parseTriples(triples: string[]): RDF.Quad[] {
 
 export function parseTriple(triple: string): RDF.Quad {
   const [ s, p, o ] = triple.split(' ');
-  // TODO: Handle non-default graph cases
-  return termAsQuad(quad(myStringToTerm(s), myStringToTerm(p), myStringToTerm(o), defaultGraph()));
+  return termAsQuad(quad<RDF.BaseQuad>(myStringToTerm(s), myStringToTerm(p), myStringToTerm(o), variable('?g')));
 }
 
 const prefixes: Record<string, string> = {
@@ -72,9 +93,12 @@ const prefixes: Record<string, string> = {
 };
 
 function myStringToTerm(value: string): RDF.Term {
-  const [ prefix ] = value.split(':');
-  if (prefix in prefixes) {
-    return stringToTerm(value.replace(new RegExp(`^${prefix}:`), prefixes[prefix]));
+  const split = value.split(':');
+  if (split.length >= 2) {
+    const prefix = split[0];
+    if (prefix in prefixes) {
+      value = prefixes[prefix] + value.slice(prefix.length + 1);
+    }
   }
   return stringToTerm(value);
 }

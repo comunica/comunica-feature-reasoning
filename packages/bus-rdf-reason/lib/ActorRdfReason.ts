@@ -1,7 +1,6 @@
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor, ActionContext, ActionContextKey } from '@comunica/core';
-import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
@@ -9,33 +8,28 @@ import type { AsyncIterator } from 'asynciterator';
 import type { Algebra } from 'sparqlalgebrajs';
 
 interface IReasonedSource {
+  type: 'full';
   reasoned: true;
   done: Promise<void>;
 }
 
 interface IUnreasonedSource {
+  type: 'full';
   reasoned: false;
+}
+
+interface IPartialReasonedStatus {
+  type: 'partial';
+  // TODO: Consider using term-map here
+  patterns: Map<RDF.Quad, IReasonStatus>;
 }
 
 type IReasonStatus = IReasonedSource | IUnreasonedSource;
 
-interface IReasonPattern {
-  pattern: RDF.BaseQuad;
-}
-
-interface IReasonData {
-  dataset: IDataSource & IDataDestination;
-  status?: IReasonStatus;
-  rules?: Rule[];
-  context: IActionContext;
-}
 
 export interface IReasonGroup {
-  // Data?: IReasonData;
-  // context: IActionContext;
   dataset: IDataSource & IDataDestination;
-  status: IReasonStatus;
-  // Rules?: Rule[];
+  status: IReasonStatus | IPartialReasonedStatus;
   context: IActionContext;
 }
 
@@ -58,7 +52,7 @@ export const KeysRdfReason = {
   /**
    * A factory to generate new implicit datasets
    */
-  implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory')
+  implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
 };
 
 export function getReasonGroups(context: IActionContext): IReasonGroup[] {
@@ -76,7 +70,7 @@ export function implicitDatasetFactory(context: IActionContext): IDataSource & I
 export function implicitGroupFactory(context: IActionContext): IReasonGroup {
   return {
     dataset: implicitDatasetFactory(context),
-    status: { reasoned: false },
+    status: { type: 'full', reasoned: false },
     context: new ActionContext(),
   };
 }
@@ -100,13 +94,17 @@ export function reasonGroupContext(context: IActionContext, group: IReasonGroup)
   // return context.put(KeysRdfReason.groups, groups);
 }
 
-export function getImplicitSource(context: IActionContext): IDataSource & IDataDestination {
-  const data: IReasonData | undefined = context.get(KeysRdfReason.data);
+// TODO: Clean up after https://github.com/comunica/comunica/issues/945 is closed
+export function getSafeData(context: IActionContext): IReasonGroup {
+  const data: IReasonGroup | undefined = context.get(KeysRdfReason.data);
   if (!data) {
-    throw new Error('Missing data in context');
+    throw new Error(`Context entry ${KeysRdfReason.data.name} is required but not available`);
   }
+  return data;
+}
 
-  return data.dataset;
+export function getImplicitSource(context: IActionContext): IDataSource & IDataDestination {
+  return getSafeData(context).dataset;
 }
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
@@ -129,20 +127,23 @@ export function setUnionSource(context: IActionContext): IActionContext {
   return context.delete(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, getUnionSources(context));
 }
 
-export function getReasoningData(context: IActionContext): IReasonGroup | undefined {
-  return context.get(KeysRdfReason.data);
-}
-
 export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
   return context.setDefault(KeysRdfReason.data, implicitGroupFactory(context));
 }
 
+export function invalidateReasoningStatus(context: IActionContext): IActionContext {
+  getSafeData(context).status = { type: 'full', reasoned: false };
+  return context;
+}
+
 export function setContextReasoning<T>(context: IActionContext, promise: Promise<T>): IActionContext {
-  const data = getReasoningData(context);
-  if (!data) {
-    throw new Error('Data is required to set reasoning context');
-  }
-  data.status = { reasoned: true, done: promise.then(() => {}) };
+  getSafeData(context).status = { type: 'full', reasoned: true, done: promise.then(() => {}) };
+  return context;
+}
+
+export function setContextPartialReasoning<T>(context: IActionContext, patterns: Map<RDF.Quad, IReasonStatus>): IActionContext {
+  // TODO: Handle this properly
+  getSafeData(context).status = { type: 'partial', patterns };
   return context;
 }
 
@@ -170,13 +171,13 @@ export interface IQuadUpdates {
 
 export interface IActionRdfReason extends IAction {
   /**
-   * The patterns for which must have all inferred data 
-   * 
+   * The patterns for which must have all inferred data
+   *
    * If left undefined then all inferences on the data need to be made
    */
   pattern?: Algebra.Pattern;
   /**
-   * 
+   *
    */
   updates?: IQuadUpdates;
 }

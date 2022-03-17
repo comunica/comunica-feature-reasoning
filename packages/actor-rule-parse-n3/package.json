@@ -44,5 +44,9 @@
     "asynciterator": "^3.2.0",
     "event-emitter-promisify": "^1.1.0",
     "streamify-string": "^1.0.1"
+  },
+  "devDependencies": {
+    "@comunica/actor-abstract-mediatyped": "^2.0.1",
+    "@comunica/bus-rdf-resolve-quad-pattern": "^2.0.1"
   }
 }

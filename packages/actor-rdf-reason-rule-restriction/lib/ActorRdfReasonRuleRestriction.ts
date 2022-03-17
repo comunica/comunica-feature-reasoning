@@ -2,7 +2,8 @@ import type { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediated
 import { ActorRdfReasonMediated, KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type { IActorTest } from '@comunica/core';
 import type * as RDF from '@rdfjs/types';
-import { single, UnionIterator, AsyncIterator, TransformIterator, BufferedIterator } from 'asynciterator';
+import type { AsyncIterator } from 'asynciterator';
+import { single, UnionIterator } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify/dist';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
@@ -30,11 +31,11 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     do {
       size = store.size;
       // TODO: Handle rule assertions better
-      const quadStreamInsert = evaluateRuleSet(action.rules as any, this.unionQuadSource(context).match)
+      const quadStreamInsert = evaluateRuleSet(action.rules as any, this.unionQuadSource(context).match);
       const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
-      await Promise.all([execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone()))]);
+      await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
     } while (store.size > size);
-  };
+  }
 }
 
 interface IActorRdfReasonRuleRestrictionArgs extends IActorRdfReasonMediatedArgs {
@@ -57,15 +58,9 @@ export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[],
   return new UnionIterator(rules.map((rule: NestedRule) => evaluateNestedThroughRestriction(rule, match)), { autoStart: false });
 }
 
+// We can probably use InitialBindings here to do a lot of optimizations
 export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: Match): AsyncIterator<RDF.Quad> {
-  let mappings: AsyncIterator<Mapping> = single({});
-  
-  
-  
-  
-  
-  
-  const iterators = single(nestedRule).transform<{ mappings: AsyncIterator<Mapping>, conclusion: RDF.Quad[] }>({
+  const iterators = single(nestedRule).transform<{ mappings: AsyncIterator<Mapping>; conclusion: RDF.Quad[] }>({
     autoStart: false,
     transform(rule: NestedRule | undefined, done, push) {
       let mappings: AsyncIterator<Mapping> = single({});
@@ -78,23 +73,30 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
                 let localMapping: Mapping | undefined = {};
 
                 forEachTerms(cause, (term, key) => {
-                  if (term.termType === 'Variable' && localMapping)
-                    if (key in localMapping && localMapping[key] !== term)
-                      localMapping = undefined
-                    else
+                  if (term.termType === 'Variable' && localMapping) {
+                    if (key in localMapping && localMapping[key] !== term) {
+                      localMapping = undefined;
+                    } else {
                       localMapping[term.value] = quad[key];
+                    }
+                  }
                 });
 
                 return localMapping && Object.assign(localMapping, mapping);
-              }).filter<Mapping>((mapping): mapping is Mapping => mapping !== undefined)
-            }
+              }).filter<Mapping>((mapping): mapping is Mapping => mapping !== undefined);
+            },
           ), { autoStart: false }),
           mappings,
         );
         push({
           conclusion: rule.conclusion,
-          mappings: (rule = rule.next) ? mappings.clone() : mappings,
+          // The only time the mappings shouldn't be cloned is if the rules is
+          // not nested at all
+          mappings: nestedRule.next ? mappings.clone() : mappings,
         });
+        if (rule = rule.next) {
+          mappings = mappings.clone();
+        }
       }
       done();
     },
@@ -107,39 +109,6 @@ export interface T {
   mapping: Mapping;
 }
 
-// export function transformFactory(match: Match, premise: RDF.Quad) {
-//   return async function transform(mapping: Mapping, done: () => void, push: (mapping: Mapping) => void) {
-//     const cause = substituteQuad(premise, mapping);
-//     console.log('the cause is', cause, mapping, await match(cause).toArray())
-//     match(cause).forEach(quad => {
-//       const localMapping: Mapping = {};
-
-//       forEachTerms(cause, (term, key) => {
-//         if (term.termType === 'Variable')
-//           localMapping[term.value] = quad[key];
-//       });
-
-//       // If an already existing uri has been mapped...
-//       // Merges local and global mapping
-//       for (const mapKey in mapping) {
-//         for (const key in localMapping) {
-//           // This is horribly innefficient, allow lookup in rev direction
-//           // This shouldn't even be necessary due to thefact that the variables are already substitued for in the cause
-//           if (mapping[mapKey] === localMapping[key] && mapKey !== key) {
-//             return;
-//           }
-//         }
-//         localMapping[mapKey] = mapping[mapKey];
-//       }
-
-//       console.log('pushing mapping', localMapping);
-
-//       push(localMapping);
-//     });
-//     done();
-//   };
-// }
-
 export function substituteQuad(term: RDF.Quad, mapping: Mapping) {
-  return mapTerms(term, elem => (elem.termType === 'Variable' && elem.value in mapping) ? mapping[elem.value] : elem);
+  return mapTerms(term, elem => elem.termType === 'Variable' && elem.value in mapping ? mapping[elem.value] : elem);
 }

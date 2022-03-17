@@ -27,15 +27,25 @@ export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
     super(args);
   }
 
-  public abstract runIntercept(action: IActionRdfUpdateQuadsIntercept): Promise<IActionRdfUpdateQuadsIntercept>;
+  // public abstract execute(action: IActionRdfUpdateQuadsIntercept, cb: () => void): Promise<void>;
 
   public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
     return true;
   }
 
-  public async run(action: IActionRdfUpdateQuadsIntercept): Promise<IActorRdfUpdateQuadsInterceptOutput> {
-    return this.mediatorRdfUpdateQuads.mediate(await this.runIntercept(action));
-  }
+  public abstract run(action: IActionRdfUpdateQuadsIntercept): Promise<IActorRdfUpdateQuadsInterceptOutput>
+  
+  // {
+  //   const { execute } = await this.mediatorRdfUpdateQuads.mediate(action);
+  //   return {
+  //     execute: () => this.execute(action, execute)
+  //   }
+    
+    
+    
+    
+  //   // return this.mediatorRdfUpdateQuads.mediate(await this.runIntercept(action));
+  // }
 }
 
 export interface IActorRdfUpdateQuadsInterceptArgs extends IActorRdfUpdateQuadsArgs {

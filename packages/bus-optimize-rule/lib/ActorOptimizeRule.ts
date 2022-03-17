@@ -1,8 +1,8 @@
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
-import type { AsyncIterator } from 'asynciterator';
 import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
+import type { AsyncIterator } from 'asynciterator';
 import type { Algebra } from 'sparqlalgebrajs';
 
 /**

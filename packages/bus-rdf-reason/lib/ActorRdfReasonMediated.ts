@@ -1,11 +1,11 @@
-import { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
-import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
+import type { IActorRdfResolveQuadPatternArgs, IActorRdfResolveQuadPatternOutput, MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type {
   IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads,
 } from '@comunica/bus-rdf-update-quads';
-import { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
+import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import { Rule } from '@comunica/reasoning-types';
+import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
@@ -34,7 +34,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     return this.runExplicitUpdate({ ...action, context: setImplicitDestination(action.context) });
   }
 
-  protected explicitQuadSource(context: IActionContext) {
+  protected explicitQuadSource(context: IActionContext): { match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad> } {
     return {
       match: (pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> => wrap(
         this.mediatorRdfResolveQuadPattern.mediate({ context, pattern }).then(({ data }) => data),
@@ -42,26 +42,29 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     };
   }
 
-  protected implicitQuadSource(context: IActionContext) {
+  protected implicitQuadSource(context: IActionContext): { match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad> } {
     return this.explicitQuadSource(setImplicitSource(context));
   }
 
-  protected unionQuadSource(context: IActionContext) {
+  protected unionQuadSource(context: IActionContext): { match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad> } {
     return this.explicitQuadSource(setUnionSource(context));
   }
 
-  public async getRules(action: IActionRdfReason) {
-    const { data } = await this.mediatorRuleResolve.mediate(action);
-    const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
-    return rules;
+  public getRules(action: IActionRdfReason): AsyncIterator<Rule> {
+    const getRules = async() => {
+      const { data } = await this.mediatorRuleResolve.mediate(action);
+      const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
+      return rules;
+    };
+    return wrap<Rule>(getRules());
   }
 
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
-      execute: async () => {
-        await this.execute({ ...action, rules: await (await this.getRules(action)).toArray(), });
-      }
-    }
+      execute: async() => {
+        await this.execute({ ...action, rules: await this.getRules(action).toArray() });
+      },
+    };
   }
 
   public abstract execute(action: IActionRdfReasonExecute): Promise<void>;

@@ -1,15 +1,19 @@
 // Import { ActorRuleParse } from '@comunica/bus-rule-parse';
-import type { IActionRdfParse, IActorRdfParseOutput } from '@comunica/bus-rdf-parse';
-import { Bus } from '@comunica/core';
-import type { Rule } from '@comunica/reasoning-types';
+import type { IActionRdfParseHandle, IActorOutputRdfParseHandle, IActorTestRdfParseHandle, MediatorRdfParseHandle } from '@comunica/bus-rdf-parse';
+import type { Actor, IActorReply } from '@comunica/core';
+import { ActionContext, Bus } from '@comunica/core';
+import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
 import { quad, namedNode, variable } from '@rdfjs/data-model';
+// Import streamifyString from 'arrayify-stream';
 import arrayifyStream from 'arrayify-stream';
 import { StreamParser } from 'n3';
-import stringToStream = require('streamify-string');
+import streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';
-// @ts-expect-error
 import 'jest-rdf';
-import exp = require('constants');
+import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule-parse';
+import * as fs from 'fs';
+import * as path from 'path';
+import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediatyped';
 
 const rule1 = `
 @prefix : <dpe#>.
@@ -41,9 +45,25 @@ const rule2 = `
     }.
 }.
 `;
+
+function createAction(file: string, isFile = true): IActionRuleParse {
+  return {
+    data: isFile ? fs.createReadStream(path.join(__dirname, 'data', `${file}.hylar`)) : streamifyString(file),
+    metadata: { baseIRI: 'http://example.org#' },
+    context: new ActionContext(),
+  };
+}
+
+function createMediaTypedAction(file: string, isFile = true): IActionAbstractMediaTyped<IActionRuleParse> {
+  return {
+    handle: createAction(file, isFile),
+    context: new ActionContext(),
+  };
+}
+
 describe('ActorRuleParseN3', () => {
   let bus: any;
-  let mediatorRdfParse: any;
+  let mediatorRdfParse: MediatorRdfParseHandle;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
@@ -53,52 +73,49 @@ describe('ActorRuleParseN3', () => {
     let actor: ActorRuleParseN3;
 
     beforeEach(() => {
+      // @ts-expect-error
       mediatorRdfParse = {
-        async mediate(action: IActionRdfParse): Promise<IActorRdfParseOutput> {
+        publish(action: IActionRdfParseHandle): IActorReply<Actor<IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>, IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>[]
+        {
+          return [];
+        },
+        async mediate(action: IActionRdfParseHandle): Promise<IActorOutputRdfParseHandle> {
           const parser = new StreamParser({
-            baseIRI: action.baseIRI,
-            format: 'text/n3',
+            baseIRI: action.handle.metadata?.baseIRI,
+            format: 'text/n3'
           });
 
           return {
-            data: parser.import(action.data),
+            handle: {
+              data: <any> parser.import(action.handle.data),
+            },
           };
-        },
-        async mediateActor(action: IActionRdfParse) {
-
         },
       };
       actor = new ActorRuleParseN3({
         name: 'actor',
         bus,
         mediatorRdfParse,
+        mediaTypeFormats: {},
+        mediaTypePriorities: {},
       });
     });
 
     // TODO: IMPLEMENT THIS
     it('should test', () => {
-      expect(actor.test({
-        input: stringToStream(rule1),
-        baseIRI: 'http://example.org#',
-      })).resolves.toEqual(true);
+      expect(actor.test(createMediaTypedAction(rule1, false))).resolves.toEqual({ handle: [] });
 
-      expect(actor.test({
-        input: stringToStream(rule2),
-        baseIRI: 'http://example.org#',
-      })).resolves.toEqual(true);
+      expect(actor.test(createMediaTypedAction(rule2, false))).resolves.toEqual({ handle: [] });
     });
 
     it('should run', async() => {
-      const { rules } = await actor.run({
-        input: stringToStream(rule1),
-        baseIRI: 'http://example.org#',
-      });
+      const { data } = <IActorRuleParseOutput> (<any> await actor.run(createMediaTypedAction(rule1, false))).handle;
 
-      const arr = await arrayifyStream(rules);
+      const arr = await arrayifyStream(data);
 
       expect(arr).toHaveLength(1);
 
-      const rule: Rule = arr[0];
+      const rule: IPremiseConclusionRule = arr[0];
 
       expect(rule.premise).toEqualRdfQuadArray([
         quad(
