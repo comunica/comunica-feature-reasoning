@@ -41,12 +41,7 @@ export const KeysRdfReason = {
    */
   data: new ActionContextKey<IReasonGroup>('@comunica/bus-rdf-reason:data'),
   /**
-   * Groups to reason over
-   */
-  groups: new ActionContextKey<IReasonGroup[]>('@comunica/bus-rdf-reason:groups'),
-  /**
    * The rules to use for reasoning in the *current context*
-   * TODO: Make this capable of more things (i.e. be more like IDataSource)
    */
   rules: new ActionContextKey<string>('@comunica/bus-rdf-reason:rules'),
   /**
@@ -54,10 +49,6 @@ export const KeysRdfReason = {
    */
   implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
 };
-
-export function getReasonGroups(context: IActionContext): IReasonGroup[] {
-  return context.get(KeysRdfReason.groups) ?? [];
-}
 
 export function implicitDatasetFactory(context: IActionContext): IDataSource & IDataDestination {
   const datasetFactory = context.get<IDatasetFactory>(KeysRdfReason.implicitDatasetFactory);
@@ -73,25 +64,6 @@ export function implicitGroupFactory(context: IActionContext): IReasonGroup {
     status: { type: 'full', reasoned: false },
     context: new ActionContext(),
   };
-}
-
-// Generates a set of new contexts for each of the reasoning groups
-export function getReasonGroupsContexts(context: IActionContext): IActionContext[] {
-  return getReasonGroups(context).map(group => reasonGroupContext(context, group));
-}
-
-export function reasonGroupContext(context: IActionContext, group: IReasonGroup): IActionContext {
-  const newContext = context.delete(KeysRdfReason.groups).merge(group.context);
-  // TODO: Probably need to clear out old source and source(s) at this stage
-  return newContext.set(KeysRdfReason.data, implicitGroupFactory(context));
-
-  // TODO: Work out how to add rules and status properly here
-  // const data: IReasonData = group.data ??= { dataset: implicitDatasetFactory(newContext) };
-  // return newContext.set(KeysRdfReason.data, data);
-
-  // Const groups = getReasonGroups(context);
-  // groups.push(group);
-  // return context.put(KeysRdfReason.groups, groups);
 }
 
 // TODO: Clean up after https://github.com/comunica/comunica/issues/945 is closed
@@ -131,6 +103,10 @@ export function getContextWithImplicitDataset(context: IActionContext): IActionC
   // We cannot use 'setDefault' here because implicitGroupFactory will throw an error
   // if there is no implicit dataset factory *even if* we already have a data entry
   return context.has(KeysRdfReason.data) ? context : context.set(KeysRdfReason.data, implicitGroupFactory(context));
+}
+
+export function setReasoningStatus(context: IActionContext, status: IReasonStatus): IActionContext {
+  return context.set(KeysRdfReason.data, { ...getSafeData(context), status });
 }
 
 export function invalidateReasoningStatus(context: IActionContext): IActionContext {
