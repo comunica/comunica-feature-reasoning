@@ -29,9 +29,9 @@ export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
 
   // public abstract execute(action: IActionRdfUpdateQuadsIntercept, cb: () => void): Promise<void>;
 
-  public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
-    return true;
-  }
+  // public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
+  //   return true;
+  // }
 
   public abstract run(action: IActionRdfUpdateQuadsIntercept): Promise<IActorRdfUpdateQuadsInterceptOutput>
   

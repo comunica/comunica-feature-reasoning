@@ -128,7 +128,9 @@ export function setUnionSource(context: IActionContext): IActionContext {
 }
 
 export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
-  return context.setDefault(KeysRdfReason.data, implicitGroupFactory(context));
+  // We cannot use 'setDefault' here because implicitGroupFactory will throw an error
+  // if there is no implicit dataset factory *even if* we already have a data entry
+  return context.has(KeysRdfReason.data) ? context : context.set(KeysRdfReason.data, implicitGroupFactory(context));
 }
 
 export function invalidateReasoningStatus(context: IActionContext): IActionContext {

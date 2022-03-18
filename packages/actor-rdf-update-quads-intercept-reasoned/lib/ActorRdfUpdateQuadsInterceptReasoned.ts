@@ -4,6 +4,7 @@ import { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pa
 import { IActionRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import type { IActionRdfUpdateQuadsIntercept, IActorRdfUpdateQuadsInterceptArgs, IActorRdfUpdateQuadsInterceptOutput } from '@comunica/bus-rdf-update-quads-intercept';
 import { ActorRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
+import { IActorTest } from '@comunica/core';
 import { defaultGraph, namedNode, quad, variable } from '@rdfjs/data-model';
 import * as RDF from '@rdfjs/types'
 import { AsyncIterator, UnionIterator } from 'asynciterator';
@@ -19,6 +20,10 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
     super(args);
   }
 
+  public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
+    const actor = await this.mediatorRdfUpdateQuads.mediateActor(action);
+    return actor.test(action);
+  }
 
   public async run(action: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsInterceptOutput> {
 
@@ -85,4 +90,5 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
 
 interface IActorRdfUpdateQuadsInterceptReasonedArgs extends IActorRdfUpdateQuadsInterceptArgs {
   mediatorRdfReason: MediatorRdfReason;
+  mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 }
