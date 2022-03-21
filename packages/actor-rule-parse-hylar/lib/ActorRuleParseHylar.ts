@@ -58,13 +58,11 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
 const TRIPLE = /((?<=\()\S+?\s\S+?\s\S+?(?=\)))|false/gi;
 
 export function parseRule(strRule: string): Rule {
-  // TODO: Handle the following bugs:
-  // 1. Will not parse correctly if '->', '^', '(' or ')' occurs in a string or url
-  // Consider stream parsing like the N3 package instead
   const [ premise, conclusion ] = strRule.split('->');
   const premiseQuads = premise.match(TRIPLE);
   const conclusionQuads = conclusion.match(TRIPLE);
 
+  /* istanbul ignore next - remove with closure of https://github.com/comunica/comunica-feature-reasoning/issues/31 */
   if (premiseQuads === null || conclusionQuads === null) {
     throw new Error(`Invalid rule: ${strRule}`);
   }

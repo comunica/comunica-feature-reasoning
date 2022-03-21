@@ -10,8 +10,9 @@ import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
 import type { Algebra } from 'sparqlalgebrajs';
-import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
+import { getSafeData, IActionRdfReason, IActorRdfReasonOutput, IReasonStatus, setReasoningStatus } from './ActorRdfReason';
 import { ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';
+import { everyTerms } from 'rdf-terms'
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
@@ -50,6 +51,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     return this.explicitQuadSource(setUnionSource(context));
   }
 
+  // TODO [FUTURE]: Push this into a specific abstract interface for language agnostic reasoners.
   public getRules(action: IActionRdfReason): AsyncIterator<Rule> {
     const getRules = async() => {
       const { data } = await this.mediatorRuleResolve.mediate(action);
@@ -62,7 +64,56 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
       execute: async() => {
-        await this.execute({ ...action, rules: await this.getRules(action).toArray() });
+        const { updates, pattern } = action;
+        if (updates) {
+          // If there is an update - forget everything we know about the current status of reasoning
+          setReasoningStatus(action.context, { type: 'full', reasoned: false });
+        }
+
+        const { status } = getSafeData(action.context);
+
+        // If full reasoning is already being applied then just use the data from that
+        if (status.type === 'full' && status.reasoned) {
+          return status.done;
+        }
+
+        // TODO: Double check this matches function
+        function matches(term1: RDF.BaseQuad, term2: RDF.BaseQuad) {
+          const mapping: Record<string, RDF.Term> = {};
+          return everyTerms(term1, (term, key) => {
+            if (term.termType === 'Variable') {
+              if (term.value in mapping) {
+                return mapping[term.value].equals(term2[key]);
+              }
+              } else {
+                mapping[term.value] = term2[key];
+                return true;
+              }
+              return term.equals(term2[key]);
+            })       
+        }
+
+        // If we have already done partial reasoning and are only interested in a certain
+        // pattern then maybe we can use that
+        if (status.type === 'partial' && pattern) {
+          for (const [key, value] of status.patterns) {
+            if (value.reasoned && matches(pattern, key)) {
+              return value.done;
+            }
+          }
+        }
+
+        const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
+
+        if (action.pattern) {
+          // Set reasoning whole
+          const patterns: Map<RDF.BaseQuad, IReasonStatus> = status.type === 'partial' ? status.patterns : new Map();
+          setReasoningStatus(action.context, { type: 'partial', patterns: patterns.set(action.pattern, { type: 'full', reasoned: true, done: reasoningLock }) });
+        } else {
+          setReasoningStatus(action.context, { type: 'full', reasoned: true, done: reasoningLock });
+        }
+        
+        return reasoningLock;
       },
     };
   }

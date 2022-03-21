@@ -15,6 +15,8 @@ import type { IActionRuleParse, IActorRuleParseOutput } from './ActorRuleParse';
  */
 export abstract class ActorRuleParseFixedMediaTypes extends ActorAbstractMediaTypedFixed<
 IActionRuleParse, IActorTest, IActorRuleParseOutput> implements IActorRuleParseFixedMediaTypesArgs {
+  
+  // TODO: See if we need the JSDoc from https://github.com/comunica/comunica/blob/master/packages/bus-rdf-parse/lib/ActorRdfParseFixedMediaTypes.ts
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
   }

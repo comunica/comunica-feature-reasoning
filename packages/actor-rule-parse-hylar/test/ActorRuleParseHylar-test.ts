@@ -42,9 +42,6 @@ describe('ActorRuleParseHyLAR', () => {
 
     it('should test', async() => {
       expect(await actor.test(createMediaTypedAction('rdfs'))).toEqual({ handle: true });
-      // Expect(await actor.test(createMediaTypedAction('invalid1'))).toEqual({ handle: false });
-      // expect(await actor.test(createMediaTypedAction('invalid2'))).toEqual({ handle: false });
-      // expect(await actor.test(createMediaTypedAction('invalid3'))).toEqual({ handle: false });
     });
 
     it('Should parse all owl2rl rules', async() => {

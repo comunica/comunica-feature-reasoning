@@ -7,24 +7,24 @@ import type { AsyncIterator } from 'asynciterator';
 // TODO: FIX
 import type { Algebra } from 'sparqlalgebrajs';
 
-interface IReasonedSource {
+export interface IReasonedSource {
   type: 'full';
   reasoned: true;
   done: Promise<void>;
 }
 
-interface IUnreasonedSource {
+export interface IUnreasonedSource {
   type: 'full';
   reasoned: false;
 }
 
-interface IPartialReasonedStatus {
+export interface IPartialReasonedStatus {
   type: 'partial';
   // TODO: Consider using term-map here
-  patterns: Map<RDF.Quad, IReasonStatus>;
+  patterns: Map<RDF.BaseQuad, IReasonStatus>;
 }
 
-type IReasonStatus = IReasonedSource | IUnreasonedSource;
+export type IReasonStatus = IReasonedSource | IUnreasonedSource;
 
 
 export interface IReasonGroup {
@@ -105,7 +105,7 @@ export function getContextWithImplicitDataset(context: IActionContext): IActionC
   return context.has(KeysRdfReason.data) ? context : context.set(KeysRdfReason.data, implicitGroupFactory(context));
 }
 
-export function setReasoningStatus(context: IActionContext, status: IReasonStatus): IActionContext {
+export function setReasoningStatus(context: IActionContext, status: IReasonGroup['status']): IActionContext {
   return context.set(KeysRdfReason.data, { ...getSafeData(context), status });
 }
 
