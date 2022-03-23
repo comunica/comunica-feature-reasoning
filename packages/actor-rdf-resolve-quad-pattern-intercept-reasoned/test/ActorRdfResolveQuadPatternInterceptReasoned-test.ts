@@ -11,6 +11,7 @@ import { Store, DataFactory } from 'n3';
 import type { Algebra } from 'sparqlalgebrajs';
 import { Factory } from 'sparqlalgebrajs';
 import { ActorRdfResolveQuadPatternInterceptReasoned } from '../lib/ActorRdfResolveQuadPatternInterceptReasoned';
+import { mediatorRdfReason, mediatorRdfResolveQuadPattern } from '@comunica/reasoning-mocks';
 const { namedNode, quad, variable } = DataFactory;
 
 function getDataStream(store: Store, pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> {
@@ -25,28 +26,20 @@ const factory = new Factory();
 
 describe('ActorRdfResolveQuadPatternInterceptReasoned', () => {
   let bus: any;
-  let mediatorRdfReason: MediatorRdfReason;
   let mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPatternIntercept;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
-    // @ts-expect-error
-    mediatorRdfReason = {
-      async mediate(action) {
-        return { async execute() { } };
-      },
-    };
+    // TODO [FUTURE]: Get this from the mocks module instead (requires mocks module to handle federation).
     // @ts-expect-error
     mediatorRdfResolveQuadPattern = {
       async mediate(action: IActionRdfResolveQuadPattern): Promise<IActorRdfResolveQuadPatternOutput> {
-        // Console.log('mediatorRdfResolveQuadPAttern called', action)
         if (action.context.has(KeysRdfResolveQuadPattern.source)) {
           const source: Store = action.context.get(KeysRdfResolveQuadPattern.source)!;
           const data = getDataStream(source, action.pattern);
           return { data };
         }
         const sources: Store[] = action.context.get(KeysRdfResolveQuadPattern.sources)!;
-        // Console.log('trying to resolve sources', sources)
         return { data: new UnionIterator(fromArray(sources).map((source: Store) => getDataStream(source, action.pattern)), { autoStart: false }) };
       },
     };

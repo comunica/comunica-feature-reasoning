@@ -1,4 +1,3 @@
-import EventEmitter = require('events');
 import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
 import { getContextWithImplicitDataset, setUnionSource } from '@comunica/bus-rdf-reason';
 import type { IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptArgs } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
@@ -16,7 +15,6 @@ export class ActorRdfResolveQuadPatternInterceptReasoned extends ActorRdfResolve
 
   async runIntercept(action: IActionRdfResolveQuadPatternIntercept): Promise<IActionRdfResolveQuadPatternIntercept> {
     const context = getContextWithImplicitDataset(action.context);
-    // Console.log('the context is', context)
     // TODO: Work out how to emit results from other sources while still reasoning
     // this will be done by including the
     const { execute } = await this.mediatorRdfReason.mediate({ context, pattern: action.pattern });
