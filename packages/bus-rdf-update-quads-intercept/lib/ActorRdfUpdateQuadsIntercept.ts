@@ -5,7 +5,6 @@ import type {
   MediatorRdfUpdateQuads,
 } from '@comunica/bus-rdf-update-quads';
 import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
-import type { IActorTest } from '@comunica/core';
 
 // TODO: Remove this module my using something like 'reasoning groups'
 
@@ -27,23 +26,20 @@ export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
     super(args);
   }
 
-  // public abstract execute(action: IActionRdfUpdateQuadsIntercept, cb: () => void): Promise<void>;
+  // Public abstract execute(action: IActionRdfUpdateQuadsIntercept, cb: () => void): Promise<void>;
 
   // public async test(action: IActionRdfUpdateQuads): Promise<IActorTest> {
   //   return true;
   // }
 
-  public abstract run(action: IActionRdfUpdateQuadsIntercept): Promise<IActorRdfUpdateQuadsInterceptOutput>
-  
+  public abstract run(action: IActionRdfUpdateQuadsIntercept): Promise<IActorRdfUpdateQuadsInterceptOutput>;
+
   // {
   //   const { execute } = await this.mediatorRdfUpdateQuads.mediate(action);
   //   return {
   //     execute: () => this.execute(action, execute)
   //   }
-    
-    
-    
-    
+
   //   // return this.mediatorRdfUpdateQuads.mediate(await this.runIntercept(action));
   // }
 }

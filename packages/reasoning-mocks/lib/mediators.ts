@@ -1,9 +1,9 @@
 import { mediatorOptimizeRule } from './mediatorOptimizeRule';
-import { mediatorRdfResolveQuadPattern } from './mediatorRdfResolveQuadPattern';
+import { mediatorRdfParse } from './mediatorRdfParse';
 import { mediatorRdfReason } from './mediatorRdfReason';
+import { mediatorRdfResolveQuadPattern } from './mediatorRdfResolveQuadPattern';
 import { mediatorRdfUpdateQuads } from './mediatorRdfUpdateQuads';
 import { mediatorRuleResolve } from './mediatorRuleResolve';
-import { mediatorRdfParse } from './mediatorRdfParse';
 
 export {
   mediatorOptimizeRule,
@@ -11,8 +11,8 @@ export {
   mediatorRdfReason,
   mediatorRdfUpdateQuads,
   mediatorRuleResolve,
-  mediatorRdfParse
-}
+  mediatorRdfParse,
+};
 
 export default {
   mediatorOptimizeRule,
@@ -20,5 +20,5 @@ export default {
   mediatorRdfReason,
   mediatorRdfUpdateQuads,
   mediatorRuleResolve,
-  mediatorRdfParse
-}
+  mediatorRdfParse,
+};

@@ -82,7 +82,7 @@ describe('ActorRuleParseN3', () => {
         async mediate(action: IActionRdfParseHandle): Promise<IActorOutputRdfParseHandle> {
           const parser = new StreamParser({
             baseIRI: action.handle.metadata?.baseIRI,
-            format: 'text/n3'
+            format: 'text/n3',
           });
 
           return {
@@ -103,9 +103,9 @@ describe('ActorRuleParseN3', () => {
 
     // TODO: IMPLEMENT THIS
     it('should test', () => {
-      expect(actor.test(createMediaTypedAction(rule1, false))).resolves.toEqual({ handle: [] });
+      expect(actor.test(createMediaTypedAction(rule1, false))).resolves.toEqual({ handle: []});
 
-      expect(actor.test(createMediaTypedAction(rule2, false))).resolves.toEqual({ handle: [] });
+      expect(actor.test(createMediaTypedAction(rule2, false))).resolves.toEqual({ handle: []});
     });
 
     it('should run', async() => {

@@ -1,5 +1,5 @@
 import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
-import type { IActorRdfResolveQuadPatternArgs, IActorRdfResolveQuadPatternOutput, MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type {
   IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads,
 } from '@comunica/bus-rdf-update-quads';
@@ -9,10 +9,10 @@ import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
+import { everyTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import { getSafeData, IActionRdfReason, IActorRdfReasonOutput, IReasonStatus, setReasoningStatus } from './ActorRdfReason';
-import { ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';
-import { everyTerms } from 'rdf-terms'
+import type { IActionRdfReason, IActorRdfReasonOutput, IReasonStatus } from './ActorRdfReason';
+import { getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
@@ -85,18 +85,18 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
               if (term.value in mapping) {
                 return mapping[term.value].equals(term2[key]);
               }
-              } else {
-                mapping[term.value] = term2[key];
-                return true;
-              }
-              return term.equals(term2[key]);
-            })       
+            } else {
+              mapping[term.value] = term2[key];
+              return true;
+            }
+            return term.equals(term2[key]);
+          });
         }
 
         // If we have already done partial reasoning and are only interested in a certain
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
-          for (const [key, value] of status.patterns) {
+          for (const [ key, value ] of status.patterns) {
             if (value.reasoned && matches(pattern, key)) {
               return value.done;
             }
@@ -112,7 +112,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
         } else {
           setReasoningStatus(action.context, { type: 'full', reasoned: true, done: reasoningLock });
         }
-        
+
         return reasoningLock;
       },
     };

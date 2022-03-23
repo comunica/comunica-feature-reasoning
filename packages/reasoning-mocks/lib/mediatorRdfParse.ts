@@ -4,14 +4,15 @@ import 'jest-rdf';
 import { StreamParser } from 'n3';
 
 export const mediatorRdfParse = {
-  publish(action: IActionRdfParseHandle): IActorReply<Actor<IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>, IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>[]
-  {
+  publish(action: IActionRdfParseHandle): IActorReply<
+  Actor<IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>,
+  IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>[] {
     return [];
   },
   async mediate(action: IActionRdfParseHandle): Promise<IActorOutputRdfParseHandle> {
     const parser = new StreamParser({
       baseIRI: action.handle.metadata?.baseIRI,
-      format: 'text/n3'
+      format: 'text/n3',
     });
 
     return {

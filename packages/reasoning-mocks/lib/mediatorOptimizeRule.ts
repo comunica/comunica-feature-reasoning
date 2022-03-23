@@ -1,4 +1,4 @@
-import { MediatorOptimizeRule } from "@comunica/bus-optimize-rule";
+import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
 
 export const mediatorOptimizeRule = {
   async mediate(action) {

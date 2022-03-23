@@ -26,7 +26,6 @@ export interface IPartialReasonedStatus {
 
 export type IReasonStatus = IReasonedSource | IUnreasonedSource;
 
-
 export interface IReasonGroup {
   dataset: IDataSource & IDataDestination;
   status: IReasonStatus | IPartialReasonedStatus;

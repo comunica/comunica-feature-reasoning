@@ -1,5 +1,5 @@
-import { MediatorRdfReason, setContextReasoning } from "@comunica/bus-rdf-reason";
-
+import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
+import { setContextReasoning } from '@comunica/bus-rdf-reason';
 
 // Returns a promise that resolves after timeout milliseconds.
 function timedPromise(timeout: number): Promise<void> {
@@ -8,6 +8,8 @@ function timedPromise(timeout: number): Promise<void> {
 
 export const mediatorRdfReason = {
   async mediate(action) {
-    return { async execute() { setContextReasoning(action.context, timedPromise(10)); } };
+    return { async execute() {
+      setContextReasoning(action.context, timedPromise(10));
+    } };
   },
 } as MediatorRdfReason;

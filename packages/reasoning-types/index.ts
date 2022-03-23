@@ -8,12 +8,19 @@ export interface IBaseRule {
 }
 
 export interface IRDFSRule extends IBaseRule {
-  /**
-   *
-   */
   ruleType: 'rdfs';
   premise: Quad[];
   conclusion: Quad[] | false;
+}
+
+export interface INestedPremiseConclusionRuleBase {
+  premise: Quad[];
+  conclusion: Quad[];
+  next?: INestedPremiseConclusionRuleBase;
+}
+
+export interface INestedPremiseConclusionRule extends INestedPremiseConclusionRuleBase, IBaseRule {
+  ruleType: 'nested-premise-conclusion';
 }
 
 export interface IOWL2RLRule extends IBaseRule {
@@ -26,4 +33,4 @@ export interface IPremiseConclusionRule extends IBaseRule {
   conclusion: Quad[];
 }
 
-export type Rule = IRDFSRule | IOWL2RLRule | IPremiseConclusionRule;
+export type Rule = IRDFSRule | IOWL2RLRule | IPremiseConclusionRule | INestedPremiseConclusionRule;

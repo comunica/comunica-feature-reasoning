@@ -1,13 +1,16 @@
-import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from "@comunica/context-entries";
-import { ActionContext, Actor, Bus, IActorTest } from "@comunica/core";
+import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
+import type { Actor, IActorTest } from '@comunica/core';
+import { ActionContext, Bus } from '@comunica/core';
 import { mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve } from '@comunica/reasoning-mocks';
-import { namedNode, quad, variable } from "@rdfjs/data-model";
-import { fromArray } from "asynciterator";
+import { namedNode, quad, variable } from '@rdfjs/data-model';
+import { fromArray } from 'asynciterator';
 import 'jest-rdf';
-import { Store } from "n3";
+import { Store } from 'n3';
 import { Factory } from 'sparqlalgebrajs';
-import { ActorRdfReasonMediated, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from "../lib";
-import { IActionRdfReason, IActorRdfReasonOutput, implicitGroupFactory, IPartialReasonedStatus, IReasonGroup, IReasonStatus, KeysRdfReason, setReasoningStatus } from "../lib/ActorRdfReason";
+import type { IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '../lib';
+import { ActorRdfReasonMediated } from '../lib';
+import type { IActionRdfReason, IActorRdfReasonOutput, IPartialReasonedStatus, IReasonGroup, IReasonStatus } from '../lib/ActorRdfReason';
+import { implicitGroupFactory, KeysRdfReason, setReasoningStatus } from '../lib/ActorRdfReason';
 const factory = new Factory();
 
 class MyClass extends ActorRdfReasonMediated {
@@ -47,7 +50,7 @@ describe('ActorRdfReasonMediated', () => {
         mediatorOptimizeRule,
         mediatorRdfResolveQuadPattern,
         mediatorRdfUpdateQuads,
-        mediatorRuleResolve
+        mediatorRuleResolve,
       });
 
       data = implicitGroupFactory(
@@ -75,20 +78,20 @@ describe('ActorRdfReasonMediated', () => {
     });
 
     describe('The actor has been run but not executed', () => {
-      beforeEach(async () => {
+      beforeEach(async() => {
         execute = (await actor.run(action)).execute;
       });
 
-      it('Should not be reasoned if execute is not called', async () => {
+      it('Should not be reasoned if execute is not called', async() => {
         expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: false });
       });
 
       describe('The actor has been run and executed', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           await execute();
         });
 
-        it('Should be reasoned after execute is not called', async () => {
+        it('Should be reasoned after execute is not called', async() => {
           expect(data.status).toMatchObject<IReasonStatus>(({ type: 'full', reasoned: true, done: Promise.resolve() }));
         });
       });
@@ -108,7 +111,7 @@ describe('ActorRdfReasonMediated', () => {
       });
 
       describe('.run is called but execute is not yet run', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           execute = (await actor.run(action)).execute;
         });
 
@@ -117,7 +120,7 @@ describe('ActorRdfReasonMediated', () => {
         });
 
         describe('execute is called', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
@@ -126,7 +129,7 @@ describe('ActorRdfReasonMediated', () => {
             expect(status.type).toEqual('partial');
             const { patterns } = status as IPartialReasonedStatus;
             expect(patterns.size).toEqual(1);
-            const [[term, state]] = patterns.entries();
+            const [[ term, state ]] = patterns.entries();
 
             expect(term.equals(quad(variable('s'), namedNode('http://example.org#type'), variable('?o')))).toBe(true);
             expect(state).toMatchObject({ type: 'full', reasoned: true, done: Promise.resolve() });
@@ -138,27 +141,28 @@ describe('ActorRdfReasonMediated', () => {
     describe('Testing the actor on an update query action and unreasoned', () => {
       beforeEach(() => {
         action = {
-          ...action, updates: {
-            quadStreamInsert: fromArray([quad(namedNode('http://example.org#s'), namedNode('http://example.org#p'), namedNode('http://example.org#o'))]),
-          }
+          ...action,
+          updates: {
+            quadStreamInsert: fromArray([ quad(namedNode('http://example.org#s'), namedNode('http://example.org#p'), namedNode('http://example.org#o')) ]),
+          },
         };
       });
 
       describe('The actor has been run but not executed', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           execute = (await actor.run(action)).execute;
         });
 
-        it('Should not be reasoned if execute is not called', async () => {
+        it('Should not be reasoned if execute is not called', async() => {
           expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: false });
         });
 
         describe('The actor has been run and executed', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
-          it('Should be reasoned after execute is not called', async () => {
+          it('Should be reasoned after execute is not called', async() => {
             expect(data.status).toMatchObject<IReasonStatus>(({ type: 'full', reasoned: true, done: Promise.resolve() }));
           });
         });
@@ -166,21 +170,21 @@ describe('ActorRdfReasonMediated', () => {
     });
 
     describe('The actor has been run but not executed', () => {
-      beforeEach(async () => {
-        setReasoningStatus(action.context, { type: 'partial', patterns: new Map() })
+      beforeEach(async() => {
+        setReasoningStatus(action.context, { type: 'partial', patterns: new Map() });
         execute = (await actor.run(action)).execute;
       });
 
-      it('Should not be reasoned if execute is not called', async () => {
+      it('Should not be reasoned if execute is not called', async() => {
         expect(data.status).toMatchObject({ type: 'partial', patterns: new Map() });
       });
 
       describe('The actor has been run and executed', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           await execute();
         });
 
-        it('Should be reasoned after execute is not called', async () => {
+        it('Should be reasoned after execute is not called', async() => {
           expect(data.status).toMatchObject<IReasonStatus>(({ type: 'full', reasoned: true, done: Promise.resolve() }));
         });
       });

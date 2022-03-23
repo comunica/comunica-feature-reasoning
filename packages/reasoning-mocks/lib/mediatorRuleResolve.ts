@@ -1,8 +1,8 @@
-import { KeysRdfReason } from "@comunica/bus-rdf-reason";
-import { IActionRuleResolve, IActorRuleResolveOutput, MediatorRuleResolve } from "@comunica/bus-rule-resolve";
-import { Rule } from "@comunica/reasoning-types";
-import { quad, variable, namedNode } from "@rdfjs/data-model";
-import { fromArray } from "asynciterator";
+import { KeysRdfReason } from '@comunica/bus-rdf-reason';
+import type { IActionRuleResolve, IActorRuleResolveOutput, MediatorRuleResolve } from '@comunica/bus-rule-resolve';
+import type { Rule } from '@comunica/reasoning-types';
+import { quad, variable, namedNode } from '@rdfjs/data-model';
+import { fromArray } from 'asynciterator';
 
 export const mediatorRuleResolve = {
   async mediate(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
@@ -62,7 +62,7 @@ const RULES: Record<string, Rule[]> = {
   ],
   'my-nested-rules': [
     {
-      ruleType: 'premise-conclusion',
+      ruleType: 'nested-premise-conclusion',
       premise: [
         quad(
           variable('?s'),
@@ -79,8 +79,6 @@ const RULES: Record<string, Rule[]> = {
           variable('?g'),
         ),
       ],
-      // TODO: Get the types working here
-      // @ts-expect-error
       next: {
         premise: [
           quad(

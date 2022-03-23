@@ -1,13 +1,14 @@
 import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
-import { getContextWithImplicitDataset, setContextReasoning, setImplicitDestination, setImplicitSource } from '@comunica/bus-rdf-reason';
-import { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
-import { IActionRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
-import type { IActionRdfUpdateQuadsIntercept, IActorRdfUpdateQuadsInterceptArgs, IActorRdfUpdateQuadsInterceptOutput } from '@comunica/bus-rdf-update-quads-intercept';
+import { getContextWithImplicitDataset } from '@comunica/bus-rdf-reason';
+import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type { IActionRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import type { IActorRdfUpdateQuadsInterceptArgs, IActorRdfUpdateQuadsInterceptOutput } from '@comunica/bus-rdf-update-quads-intercept';
 import { ActorRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
-import { IActorTest } from '@comunica/core';
-import { defaultGraph, namedNode, quad, variable } from '@rdfjs/data-model';
-import * as RDF from '@rdfjs/types'
-import { AsyncIterator, UnionIterator } from 'asynciterator';
+import type { IActorTest } from '@comunica/core';
+import { defaultGraph, quad, variable } from '@rdfjs/data-model';
+import type * as RDF from '@rdfjs/types';
+import type { AsyncIterator } from 'asynciterator';
+import { UnionIterator } from 'asynciterator';
 
 /**
  * A comunica Reasoned RDF Update Quads Intercept Actor.
@@ -26,16 +27,15 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
   }
 
   public async run(action: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsInterceptOutput> {
-
     // TODO: Remove this logic into an actor on top of the update-quads bus that allows you to
     // view quad updates.
-    const getQuadsFromGraph = async (graph: RDF.Quad_Graph): Promise<AsyncIterator<RDF.Quad>> => {
+    const getQuadsFromGraph = async(graph: RDF.Quad_Graph): Promise<AsyncIterator<RDF.Quad>> => {
       const { data } = await this.mediatorRdfResolveQuadPattern.mediate({
         context: action.context,
-        pattern: quad(variable('?s'), variable('?p'), variable('?o'), graph)
+        pattern: quad(variable('?s'), variable('?p'), variable('?o'), graph),
       });
       return data;
-    }
+    };
 
     async function getGraphDeletedQuads(graphs: RDF.DefaultGraph | 'NAMED' | 'ALL' | RDF.NamedNode[]): Promise<AsyncIterator<RDF.Quad>> {
       switch (graphs) {
@@ -54,19 +54,19 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
     }
 
     return {
-      execute: async () => {
+      execute: async() => {
         const quadStreamDelete = [
           action.deleteGraphs?.graphs && await getGraphDeletedQuads(action.deleteGraphs?.graphs),
           action.quadStreamDelete?.clone(),
-        ].filter((x): x is AsyncIterator<RDF.Quad> => x !== undefined)
+        ].filter((x): x is AsyncIterator<RDF.Quad> => x !== undefined);
 
         const { execute: executeReasoning } = await this.mediatorRdfReason.mediate({
-          // context: action.context,
+          // Context: action.context,
           context: getContextWithImplicitDataset(action.context),
           updates: {
             quadStreamDelete: new UnionIterator<RDF.Quad>(quadStreamDelete, { autoStart: false }),
             quadStreamInsert: action.quadStreamInsert?.clone(),
-          }
+          },
         });
 
         // Long term actor should start a reasoning lock
@@ -83,8 +83,8 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
 
         // We may also need to start/stop an update lock here
         await execute();
-      }
-    }
+      },
+    };
   }
 }
 

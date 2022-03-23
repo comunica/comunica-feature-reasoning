@@ -1,6 +1,7 @@
-import { ActionContext } from "@comunica/core";
-import { Store } from "n3";
-import { getContextWithImplicitDataset, IReasonGroup, KeysRdfReason } from "../lib/ActorRdfReason";
+import { ActionContext } from '@comunica/core';
+import { Store } from 'n3';
+import type { IReasonGroup } from '../lib/ActorRdfReason';
+import { getContextWithImplicitDataset, KeysRdfReason } from '../lib/ActorRdfReason';
 
 describe('getContextWithImplicitDataset', () => {
   let store: Store;
@@ -12,10 +13,9 @@ describe('getContextWithImplicitDataset', () => {
       dataset: store,
       status: { type: 'full', reasoned: false },
       context: new ActionContext(),
-    }
-    factory = () => new Store;
+    };
+    factory = () => new Store();
   });
-
 
   it('Should throw an error if there is no data object or source generator', () => {
     expect(() => getContextWithImplicitDataset(new ActionContext())).toThrowError();
@@ -28,7 +28,7 @@ describe('getContextWithImplicitDataset', () => {
     expect(context).toEqual(newContext);
     expect(newContext.get<IReasonGroup>(KeysRdfReason.data)?.dataset === store).toEqual(true);
 
-    context = new ActionContext({ [KeysRdfReason.data.name]: data, [KeysRdfReason.implicitDatasetFactory.name]: factory  });
+    context = new ActionContext({ [KeysRdfReason.data.name]: data, [KeysRdfReason.implicitDatasetFactory.name]: factory });
     newContext = getContextWithImplicitDataset(context);
 
     expect(context).toEqual(newContext);
