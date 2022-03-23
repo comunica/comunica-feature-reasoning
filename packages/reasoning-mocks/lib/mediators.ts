@@ -1,6 +1,24 @@
-export { mediatorOptimizeRule } from './mediatorOptimizeRule';
-export { mediatorRdfResolveQuadPattern } from './mediatorRdfResolveQuadPattern';
-export { mediatorRdfReason } from './mediatorRdfReason';
-export { mediatorRdfUpdateQuads } from './mediatorRdfUpdateQuads';
-export { mediatorRuleResolve } from './mediatorRuleResolve';
-export { mediatorRdfParse } from './mediatorRdfParse';
+import { mediatorOptimizeRule } from './mediatorOptimizeRule';
+import { mediatorRdfResolveQuadPattern } from './mediatorRdfResolveQuadPattern';
+import { mediatorRdfReason } from './mediatorRdfReason';
+import { mediatorRdfUpdateQuads } from './mediatorRdfUpdateQuads';
+import { mediatorRuleResolve } from './mediatorRuleResolve';
+import { mediatorRdfParse } from './mediatorRdfParse';
+
+export {
+  mediatorOptimizeRule,
+  mediatorRdfResolveQuadPattern,
+  mediatorRdfReason,
+  mediatorRdfUpdateQuads,
+  mediatorRuleResolve,
+  mediatorRdfParse
+}
+
+export default {
+  mediatorOptimizeRule,
+  mediatorRdfResolveQuadPattern,
+  mediatorRdfReason,
+  mediatorRdfUpdateQuads,
+  mediatorRuleResolve,
+  mediatorRdfParse
+}

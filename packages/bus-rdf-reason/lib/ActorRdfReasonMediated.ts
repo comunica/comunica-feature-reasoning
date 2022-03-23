@@ -54,6 +54,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
   // TODO [FUTURE]: Push this into a specific abstract interface for language agnostic reasoners.
   public getRules(action: IActionRdfReason): AsyncIterator<Rule> {
     const getRules = async() => {
+      console.log(this, this.mediatorRuleResolve);
       const { data } = await this.mediatorRuleResolve.mediate(action);
       const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
       return rules;
@@ -64,6 +65,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
       execute: async() => {
+        // console.log(this)
         const { updates, pattern } = action;
         if (updates) {
           // If there is an update - forget everything we know about the current status of reasoning

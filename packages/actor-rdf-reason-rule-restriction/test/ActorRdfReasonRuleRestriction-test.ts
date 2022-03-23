@@ -17,6 +17,7 @@ import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestrict
 
 import 'jest-rdf';
 import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
+import { mediators } from '@comunica/reasoning-mocks'
 type Data = IDataDestination & IDataSource;
 
 // TODO: Add tests with blank nodes

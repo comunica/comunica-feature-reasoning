@@ -106,7 +106,8 @@ export function getContextWithImplicitDataset(context: IActionContext): IActionC
 }
 
 export function setReasoningStatus(context: IActionContext, status: IReasonGroup['status']): IActionContext {
-  return context.set(KeysRdfReason.data, { ...getSafeData(context), status });
+  getSafeData(context).status = status;
+  return context;
 }
 
 export function invalidateReasoningStatus(context: IActionContext): IActionContext {

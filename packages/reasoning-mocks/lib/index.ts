@@ -1,5 +1,5 @@
 import { Bus } from '@comunica/core';
-import * as mediators from './mediators';
+import mediators from './mediators';
 
 export const actorParams = {
   ...mediators,
