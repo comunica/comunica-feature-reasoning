@@ -1,4 +1,4 @@
-import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
+import { MediatorRdfReason, setImplicitSource } from '@comunica/bus-rdf-reason';
 import { getContextWithImplicitDataset } from '@comunica/bus-rdf-reason';
 import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type { IActionRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';

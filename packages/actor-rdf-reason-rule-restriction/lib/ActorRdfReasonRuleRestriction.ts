@@ -74,7 +74,7 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
 
                 forEachTerms(cause, (term, key) => {
                   if (term.termType === 'Variable' && localMapping) {
-                    if (key in localMapping && localMapping[key] !== term) {
+                    if (term.value in localMapping && !localMapping[term.value].equals(quad[key])) {
                       localMapping = undefined;
                     } else {
                       localMapping[term.value] = quad[key];

@@ -1,4 +1,4 @@
-import type { IReasonGroup } from '@comunica/bus-rdf-reason';
+import type { IActionRdfReason, IActorRdfReasonOutput, IReasonGroup, MediatorRdfReason } from '@comunica/bus-rdf-reason';
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type { IActionRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
@@ -10,6 +10,7 @@ import type * as RDF from '@rdfjs/types';
 import { fromArray } from 'asynciterator';
 import { Store } from 'n3';
 import { ActorRdfUpdateQuadsInterceptReasoned } from '../lib/ActorRdfUpdateQuadsInterceptReasoned';
+import { promisifyEventEmitter } from 'event-emitter-promisify';
 
 describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
   let bus: any;
@@ -29,9 +30,13 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
     let execute: () => Promise<void>;
     let quads: RDF.Quad[];
 
+    let insertedDataset: Store;
+    let deletedDataset: Store;
+
     beforeEach(() => {
       source = new Store();
       destination = new Store();
+      implicitDestination = new Store();
       reasonGroup = {
         dataset: implicitDestination,
         status: { type: 'full', reasoned: false },
@@ -46,7 +51,21 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       actor = new ActorRdfUpdateQuadsInterceptReasoned({
         name: 'actor',
         bus,
-        mediatorRdfReason,
+        mediatorRdfReason: <MediatorRdfReason> <any> {
+          mediate: async (action: IActionRdfReason): Promise<IActorRdfReasonOutput> => {
+            return {
+              execute: async() => {
+                insertedDataset = new Store();
+                deletedDataset = new Store();
+
+                if (action?.updates?.quadStreamInsert)
+                  await promisifyEventEmitter(insertedDataset.import(action.updates.quadStreamInsert));
+                if (action?.updates?.quadStreamDelete)
+                  await promisifyEventEmitter(deletedDataset.import(action.updates.quadStreamDelete));
+              },
+            };
+          },
+        },
         mediatorRdfResolveQuadPattern,
         mediatorRdfUpdateQuads,
       });
@@ -134,6 +153,13 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
+          it('Should have the correct delta streams', () => {
+            expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+            expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
+            ]);
+          });
+
           it('Should have deleted the quad from the store', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
               quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
@@ -169,6 +195,14 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
+          // it('Should have the correct delta streams', () => {
+          //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+          //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
+          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
+          //   ]);
+          // });
+
           it('Should have deleted all quads from the graph quad from the store', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
               quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
@@ -203,6 +237,16 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
           beforeEach(async () => {
             await execute();
           });
+
+          // it('Should have the correct delta streams', () => {
+          //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+          //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
+          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
+          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
+          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
+          //   ]);
+          // });
 
           it('Should have deleted all named quads', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
@@ -266,7 +310,15 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          it('Should have deleted all named quads', () => {
+          // it('Should have the correct delta streams', () => {
+          //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+          //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
+          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
+          //   ]);
+          // });
+
+          it('Should have deleted all default graph quads', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
               quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
               quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),

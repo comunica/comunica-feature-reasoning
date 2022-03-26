@@ -99,4 +99,25 @@ const RULES: Record<string, Rule[]> = {
       },
     },
   ],
+  'my-repeated-var-rules': [
+    {
+      ruleType: 'premise-conclusion',
+      premise: [
+        quad(
+          variable('?s'),
+          namedNode('http://example.org#a'),
+          variable('?s'),
+          variable('?g'),
+        ),
+      ],
+      conclusion: [
+        quad(
+          variable('?s'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Thing'),
+          variable('?g'),
+        ),
+      ],
+    },
+  ],
 };
