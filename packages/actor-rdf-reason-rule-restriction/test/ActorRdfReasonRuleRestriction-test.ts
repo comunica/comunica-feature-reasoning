@@ -27,6 +27,7 @@ describe('ActorRdfReasonRuleRestriction', () => {
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
+    // TODO: Fix the global mock and replace this with it
     // @ts-expect-error
     mediatorRdfResolveQuadPattern = {
       async mediate(action: IActionRdfResolveQuadPattern): Promise<IActorRdfResolveQuadPatternOutput> {
@@ -34,7 +35,9 @@ describe('ActorRdfReasonRuleRestriction', () => {
           [ action.context.get(KeysRdfResolveQuadPattern.source)! ] :
           action.context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 
-        function toUndef<T extends { termType: string }>(term: T): any { return term.termType === 'Variable' ? undefined : term; }
+        function toUndef<T extends { termType: string }>(term: T): any {
+          return term.termType === 'Variable' ? undefined : term;
+        }
 
         return {
           data: new UnionIterator<RDF.Quad>(sources.map((source: Store) => wrap(source.match(
@@ -91,7 +94,8 @@ describe('ActorRdfReasonRuleRestriction', () => {
     });
 
     it('Should error if missing an implicit destination', () => {
-      return expect(actor.test({ ...action, context: action.context.delete(KeysRdfReason.data) })).rejects.toThrowError();
+      return expect(actor.test({ ...action, context: action.context.delete(KeysRdfReason.data) }))
+        .rejects.toThrowError();
     });
 
     it('should run with no rules and empty data', async() => {

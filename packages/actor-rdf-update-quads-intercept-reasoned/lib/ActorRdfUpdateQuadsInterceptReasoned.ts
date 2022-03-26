@@ -56,7 +56,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
     return {
       execute: async() => {
         const quadStreamDelete = [
-          action.deleteGraphs?.graphs && await getGraphDeletedQuads(action.deleteGraphs?.graphs),
+          action.deleteGraphs?.graphs && await getGraphDeletedQuads(action.deleteGraphs.graphs),
           action.quadStreamDelete?.clone(),
         ].filter((x): x is AsyncIterator<RDF.Quad> => x !== undefined);
 

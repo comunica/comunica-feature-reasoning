@@ -5,7 +5,7 @@ import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfReason, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads } from '@comunica/reasoning-mocks';
 import type { IActionContext } from '@comunica/types';
-import { namedNode, quad } from '@rdfjs/data-model';
+import { namedNode, quad, defaultGraph } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { fromArray } from 'asynciterator';
 import { Store } from 'n3';
@@ -26,7 +26,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
     let implicitDestination: Store;
     let reasonGroup: IReasonGroup;
     let context: IActionContext;
-    let execute: Function;
+    let execute: () => Promise<void>;
     let quads: RDF.Quad[];
 
     beforeEach(() => {
@@ -64,14 +64,14 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       })).rejects.toThrowError();
     });
 
-    it('should run', async() => {
+    it('should run', async () => {
       const { execute } = await actor.run({ context });
       await execute();
       expect(destination.getQuads(null, null, null, null)).toEqual([]);
     });
 
     describe('Performing inserts', () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         action = {
           context,
           quadStreamInsert: fromArray([
@@ -87,7 +87,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       });
 
       describe('Post running execute', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           await execute();
         });
 
@@ -100,19 +100,21 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
     });
 
     describe('Performing deletes', () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         quads = [
           quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
           quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
           quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
           quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
+          quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
+          quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
         ];
 
         destination.addQuads(quads);
       });
 
       describe('Deleting a single quad', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           action = {
             context,
             quadStreamDelete: fromArray([
@@ -128,7 +130,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async() => {
+          beforeEach(async () => {
             await execute();
           });
 
@@ -137,17 +139,19 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
               quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
               quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
               quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
             ]);
           });
         });
       });
 
       describe('Deleting a graph', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           action = {
             context,
             deleteGraphs: {
-              graphs: [ namedNode('g') ],
+              graphs: [namedNode('g')],
               requireExistence: true,
               dropGraphs: true,
             },
@@ -161,12 +165,111 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async() => {
+          beforeEach(async () => {
             await execute();
           });
 
           it('Should have deleted all quads from the graph quad from the store', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
+            ]);
+          });
+        });
+      });
+
+
+      describe('Deleting named graph', () => {
+        beforeEach(async () => {
+          action = {
+            context,
+            deleteGraphs: {
+              graphs: "NAMED",
+              requireExistence: true,
+              dropGraphs: true,
+            },
+          };
+
+          execute = (await actor.run(action)).execute;
+        });
+
+        it('Should not have deleted the quads prior to calling execute', () => {
+          expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic(quads);
+        });
+
+        describe('Post running execute', () => {
+          beforeEach(async () => {
+            await execute();
+          });
+
+          it('Should have deleted all named quads', () => {
+            expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
+            ]);
+          });
+        });
+      });
+
+
+      describe('Deleting all graphs', () => {
+        beforeEach(async () => {
+          action = {
+            context,
+            deleteGraphs: {
+              graphs: "ALL",
+              requireExistence: true,
+              dropGraphs: true,
+            },
+          };
+
+          execute = (await actor.run(action)).execute;
+        });
+
+        it('Should not have deleted the quads prior to calling execute', () => {
+          expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic(quads);
+        });
+
+        describe('Post running execute', () => {
+          beforeEach(async () => {
+            await execute();
+          });
+
+          it('Should have deleted all named quads', () => {
+            expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+          });
+        });
+      });
+
+      describe('Deleting default graph', () => {
+        beforeEach(async () => {
+          action = {
+            context,
+            deleteGraphs: {
+              graphs: defaultGraph(),
+              requireExistence: true,
+              dropGraphs: true,
+            },
+          };
+
+          execute = (await actor.run(action)).execute;
+        });
+
+        it('Should not have deleted the quads prior to calling execute', () => {
+          expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic(quads);
+        });
+
+        describe('Post running execute', () => {
+          beforeEach(async () => {
+            await execute();
+          });
+
+          it('Should have deleted all named quads', () => {
+            expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
               quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
               quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
             ]);

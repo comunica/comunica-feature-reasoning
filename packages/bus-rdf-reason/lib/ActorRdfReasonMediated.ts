@@ -12,7 +12,9 @@ import { wrap, type AsyncIterator } from 'asynciterator';
 import { everyTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput, IReasonStatus } from './ActorRdfReason';
-import { getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource } from './ActorRdfReason';
+import {
+  getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource
+} from './ActorRdfReason';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
@@ -35,7 +37,9 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     return this.runExplicitUpdate({ ...action, context: setImplicitDestination(action.context) });
   }
 
-  protected explicitQuadSource(context: IActionContext): { match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad> } {
+  protected explicitQuadSource(context: IActionContext): {
+    match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad>
+  } {
     return {
       match: (pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> => wrap(
         this.mediatorRdfResolveQuadPattern.mediate({ context, pattern }).then(({ data }) => data),
@@ -43,9 +47,12 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
     };
   }
 
-  protected implicitQuadSource(context: IActionContext): { match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad> } {
-    return this.explicitQuadSource(setImplicitSource(context));
-  }
+  // TODO: See if we need to add this back in
+  // protected implicitQuadSource(context: IActionContext): {
+  //   match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad>
+  // } {
+  //   return this.explicitQuadSource(setImplicitSource(context));
+  // }
 
   protected unionQuadSource(context: IActionContext): { match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad> } {
     return this.explicitQuadSource(setUnionSource(context));
@@ -53,7 +60,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
   // TODO [FUTURE]: Push this into a specific abstract interface for language agnostic reasoners.
   public getRules(action: IActionRdfReason): AsyncIterator<Rule> {
-    const getRules = async() => {
+    const getRules = async (): Promise<AsyncIterator<Rule>> => {
       const { data } = await this.mediatorRuleResolve.mediate(action);
       const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
       return rules;
@@ -63,7 +70,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
-      execute: async() => {
+      execute: async (): Promise<void> => {
         const { updates, pattern } = action;
         if (updates) {
           // If there is an update - forget everything we know about the current status of reasoning
@@ -77,27 +84,33 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
           return status.done;
         }
 
-        // TODO: Double check this matches function
-        function matches(term1: RDF.BaseQuad, term2: RDF.BaseQuad) {
+        // TODO: Import from rdf-terms.js once https://github.com/rubensworks/rdf-terms.js/pull/42 is merged
+        /* istanbul ignore next  */
+        function matchBaseQuadPattern(pattern: RDF.BaseQuad, quad: RDF.BaseQuad): boolean {
           const mapping: Record<string, RDF.Term> = {};
-          return everyTerms(term1, (term, key) => {
-            if (term.termType === 'Variable') {
-              if (term.value in mapping) {
-                return mapping[term.value].equals(term2[key]);
+          function match(_pattern: RDF.BaseQuad, _quad: RDF.BaseQuad): boolean {
+            return everyTerms(_pattern, (term, key) => {
+              switch (term.termType) {
+              case 'Quad':
+                return _quad[key].termType === 'Quad' && match(term, _quad[key] as RDF.BaseQuad);
+              case 'Variable':
+                return term.value in mapping ?
+                    mapping[term.value].equals(_quad[key]) :
+                    ((mapping[term.value] = _quad[key]) && true);
+              default:
+                return term.equals(_quad[key]);
               }
-            } else {
-              mapping[term.value] = term2[key];
-              return true;
-            }
-            return term.equals(term2[key]);
-          });
+            });
+          }
+          return match(pattern, quad);
         }
+        
 
         // If we have already done partial reasoning and are only interested in a certain
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
-          for (const [ key, value ] of status.patterns) {
-            if (value.reasoned && matches(pattern, key)) {
+          for (const [key, value] of status.patterns) {
+            if (value.reasoned && matchBaseQuadPattern(pattern, key)) {
               return value.done;
             }
           }
@@ -108,7 +121,10 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
         if (action.pattern) {
           // Set reasoning whole
           const patterns: Map<RDF.BaseQuad, IReasonStatus> = status.type === 'partial' ? status.patterns : new Map();
-          setReasoningStatus(action.context, { type: 'partial', patterns: patterns.set(action.pattern, { type: 'full', reasoned: true, done: reasoningLock }) });
+          setReasoningStatus(action.context, {
+            type: 'partial',
+            patterns: patterns.set(action.pattern, { type: 'full', reasoned: true, done: reasoningLock })
+          });
         } else {
           setReasoningStatus(action.context, { type: 'full', reasoned: true, done: reasoningLock });
         }

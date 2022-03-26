@@ -77,7 +77,8 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/mocks/",
-      "lib/index.js"
+      "lib/index.js",
+      "packages/reasoning-mocks/"
     ],
     "testEnvironment": "node",
     "coverageThreshold": {

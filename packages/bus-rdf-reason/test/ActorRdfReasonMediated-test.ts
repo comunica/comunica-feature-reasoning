@@ -1,7 +1,9 @@
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import type { Actor, IActorTest } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
-import { mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve } from '@comunica/reasoning-mocks';
+import {
+  mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
+} from '@comunica/reasoning-mocks';
 import { namedNode, quad, variable } from '@rdfjs/data-model';
 import { fromArray } from 'asynciterator';
 import 'jest-rdf';
@@ -9,7 +11,9 @@ import { Store } from 'n3';
 import { Factory } from 'sparqlalgebrajs';
 import type { IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '../lib';
 import { ActorRdfReasonMediated } from '../lib';
-import type { IActionRdfReason, IActorRdfReasonOutput, IPartialReasonedStatus, IReasonGroup, IReasonStatus } from '../lib/ActorRdfReason';
+import type {
+  IActionRdfReason, IActorRdfReasonOutput, IPartialReasonedStatus, IReasonGroup, IReasonStatus,
+} from '../lib/ActorRdfReason';
 import { implicitGroupFactory, KeysRdfReason, setReasoningStatus } from '../lib/ActorRdfReason';
 const factory = new Factory();
 
@@ -30,7 +34,8 @@ class MyClass extends ActorRdfReasonMediated {
 // TODO: Test resolution of promises
 
 describe('ActorRdfReasonMediated', () => {
-  let bus: Bus<Actor<IActionRdfReason, IActorTest, IActorRdfReasonOutput>, IActionRdfReason, IActorTest, IActorRdfReasonOutput>;
+  let bus: Bus<
+    Actor<IActionRdfReason, IActorTest, IActorRdfReasonOutput>, IActionRdfReason, IActorTest, IActorRdfReasonOutput>;
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
   });
@@ -78,28 +83,140 @@ describe('ActorRdfReasonMediated', () => {
     });
 
     describe('The actor has been run but not executed', () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         execute = (await actor.run(action)).execute;
       });
 
-      it('Should not be reasoned if execute is not called', async() => {
+      it('Should not be reasoned if execute is not called', async () => {
         expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: false });
       });
 
       describe('The actor has been run and executed', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           await execute();
         });
 
-        it('Should be reasoned after execute is not called', async() => {
+        it('Should be reasoned after execute is not called', async () => {
           expect(data.status).toMatchObject<IReasonStatus>(({ type: 'full', reasoned: true, done: Promise.resolve() }));
+        });
+      });
+    });
+
+    describe('The actor has been run but not executed [on a fully reasoned source]', () => {
+      let reasoningStatus: any;
+      beforeEach(async () => {
+        reasoningStatus = { type: 'full', reasoned: true, done: Promise.resolve() }
+        setReasoningStatus(action.context, reasoningStatus);
+        execute = (await actor.run(action)).execute;
+      });
+
+      it('Should not be reasoned if execute is not called', async () => {
+        expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: true, done: Promise.resolve() });
+      });
+
+      describe('The actor has been run and executed', () => {
+        beforeEach(async () => {
+          await execute();
+        });
+
+        it('Should be reasoned after execute is not called', async () => {
+          expect(data.status).toMatchObject<IReasonStatus>(reasoningStatus);
+          expect(data.status).toEqual<IReasonStatus>(reasoningStatus);
+          expect(data.status === reasoningStatus).toBe(true);
+        });
+      });
+    });
+
+    describe('The actor has been run but not executed [on a fully reasoned source, with action pattern]', () => {
+      let reasoningStatus: any;
+      beforeEach(async () => {
+        reasoningStatus = { type: 'full', reasoned: true, done: Promise.resolve() }
+        setReasoningStatus(action.context, reasoningStatus);
+        execute = (await actor.run({
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), variable('?o')),
+        })).execute;
+      });
+
+      it('Should not be reasoned if execute is not called', async () => {
+        expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: true, done: Promise.resolve() });
+      });
+
+      describe('The actor has been run and executed', () => {
+        beforeEach(async () => {
+          await execute();
+        });
+
+        it('Should be reasoned after execute is not called', async () => {
+          expect(data.status).toMatchObject<IReasonStatus>(reasoningStatus);
+          expect(data.status).toEqual<IReasonStatus>(reasoningStatus);
+          expect(data.status === reasoningStatus).toBe(true);
+        });
+      });
+    });
+
+    describe('The actor has been run but not executed [on a source with fully reasoned false]', () => {
+      let reasoningStatus: any;
+      beforeEach(async () => {
+        reasoningStatus = { type: 'full', reasoned: false }
+        setReasoningStatus(action.context, reasoningStatus);
+        execute = (await actor.run(action)).execute;
+      });
+
+      it('Should not be reasoned if execute is not called', async () => {
+        expect(data.status).toMatchObject<IReasonStatus>(reasoningStatus);
+      });
+
+      describe('The actor has been run and executed', () => {
+        beforeEach(async () => {
+          await execute();
+        });
+
+        it('Should be reasoned after execute is not called', async () => {
+          expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: true, done: Promise.resolve() });
+        });
+      });
+    });
+
+    describe('The actor has been run but not executed [on a source with fully reasoned false, with action pattern]', () => {
+      let reasoningStatus: any;
+      beforeEach(async () => {
+        reasoningStatus = { type: 'full', reasoned: false }
+        setReasoningStatus(action.context, reasoningStatus);
+        execute = (await actor.run({
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), variable('?o')),
+        })).execute;
+      });
+
+      it('Should not be reasoned if execute is not called', async () => {
+        expect(data.status).toMatchObject<IReasonStatus>(reasoningStatus);
+      });
+
+      describe('The actor has been run and executed', () => {
+        beforeEach(async () => {
+          await execute();
+        });
+
+        it('Should have partial reasoning applied', () => {
+          const { status } = data;
+          expect(status.type).toEqual('partial');
+          const { patterns } = status as IPartialReasonedStatus;
+          expect(patterns.size).toEqual(1);
+          const [[term, state]] = patterns.entries();
+
+          expect(term.equals(quad(variable('s'), namedNode('http://example.org#type'), variable('?o')))).toBe(true);
+          expect(state).toMatchObject({ type: 'full', reasoned: true, done: Promise.resolve() });
         });
       });
     });
 
     describe('Testing the actor on a pattern', () => {
       beforeEach(() => {
-        action = { ...action, pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), variable('?o')) };
+        action = {
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), variable('?o')),
+        };
       });
 
       it('Should be able to test the actor on a patterned action', () => {
@@ -111,7 +228,7 @@ describe('ActorRdfReasonMediated', () => {
       });
 
       describe('.run is called but execute is not yet run', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           execute = (await actor.run(action)).execute;
         });
 
@@ -120,7 +237,7 @@ describe('ActorRdfReasonMediated', () => {
         });
 
         describe('execute is called', () => {
-          beforeEach(async() => {
+          beforeEach(async () => {
             await execute();
           });
 
@@ -129,10 +246,111 @@ describe('ActorRdfReasonMediated', () => {
             expect(status.type).toEqual('partial');
             const { patterns } = status as IPartialReasonedStatus;
             expect(patterns.size).toEqual(1);
-            const [[ term, state ]] = patterns.entries();
+            const [[term, state]] = patterns.entries();
 
             expect(term.equals(quad(variable('s'), namedNode('http://example.org#type'), variable('?o')))).toBe(true);
             expect(state).toMatchObject({ type: 'full', reasoned: true, done: Promise.resolve() });
+          });
+        });
+      });
+    });
+
+    describe('Testing the actor on overlapping patterns', () => {
+      let actionRestricted: any;
+      let executeRestricted: () => Promise<void>;
+      beforeEach(async () => {
+        actionRestricted = {
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), namedNode('http://example.org#thing')),
+        };
+
+        action = {
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), variable('?o')),
+        };
+
+        executeRestricted = (await actor.run(actionRestricted)).execute;
+        execute = (await actor.run(action)).execute;
+      });
+
+      it('Should be full not reasoned before the run action is called', () => {
+        expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: false });
+      });
+
+      describe('executeRestricted is called', () => {
+        beforeEach(async () => {
+          await execute();
+        });
+
+        it('Should have partial reasoning applied', () => {
+          const { status } = data;
+          expect(status.type).toEqual('partial');
+          const { patterns } = status as IPartialReasonedStatus;
+          expect(patterns.size).toEqual(1);
+          const [[term, state]] = patterns.entries();
+
+          expect(term.equals(quad(variable('s'), namedNode('http://example.org#type'), variable('?o')))).toBe(true);
+          expect(state).toMatchObject({ type: 'full', reasoned: true, done: Promise.resolve() });
+        });
+
+        describe('execute is called', () => {
+          beforeEach(async () => {
+            await executeRestricted();
+          });
+
+          it('Should not have applied any further reasoning', () => {
+            const { status } = data;
+            expect(status.type).toEqual('partial');
+            const { patterns } = status as IPartialReasonedStatus;
+            expect(patterns.size).toEqual(1);
+            const [[term, state]] = patterns.entries();
+  
+            expect(term.equals(quad(variable('s'), namedNode('http://example.org#type'), variable('?o')))).toBe(true);
+            expect(state).toMatchObject({ type: 'full', reasoned: true, done: Promise.resolve() });
+          });
+        });
+      });
+    });
+
+
+    describe('Testing the actor on overlapping patterns', () => {
+      let actionRestricted: any;
+      let executeRestricted: () => Promise<void>;
+      beforeEach(async () => {
+        actionRestricted = {
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), namedNode('s')),
+        };
+
+        action = {
+          ...action,
+          pattern: factory.createPattern(variable('s'), namedNode('http://example.org#type'), variable('?o')),
+        };
+
+        executeRestricted = (await actor.run(actionRestricted)).execute;
+        execute = (await actor.run(action)).execute;
+      });
+
+      it('Should be full not reasoned before the run action is called', () => {
+        expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: false });
+      });
+
+      describe('executeRestricted is called', () => {
+        beforeEach(async () => {
+          await executeRestricted();
+        });
+
+
+        describe('execute is called', () => {
+          beforeEach(async () => {
+            await execute();
+          });
+
+          it('Should have applied further reasoning', () => {
+            const { status } = data;
+            expect(status.type).toEqual('partial');
+            const { patterns } = status as IPartialReasonedStatus;
+            expect(patterns.size).toEqual(2);
           });
         });
       });
@@ -143,48 +361,58 @@ describe('ActorRdfReasonMediated', () => {
         action = {
           ...action,
           updates: {
-            quadStreamInsert: fromArray([ quad(namedNode('http://example.org#s'), namedNode('http://example.org#p'), namedNode('http://example.org#o')) ]),
+            quadStreamInsert: fromArray([
+              quad(
+                namedNode('http://example.org#s'),
+                namedNode('http://example.org#p'),
+                namedNode('http://example.org#o'),
+              ),
+            ]),
           },
         };
       });
 
       describe('The actor has been run but not executed', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           execute = (await actor.run(action)).execute;
         });
 
-        it('Should not be reasoned if execute is not called', async() => {
+        it('Should not be reasoned if execute is not called', async () => {
           expect(data.status).toMatchObject<IReasonStatus>({ type: 'full', reasoned: false });
         });
 
         describe('The actor has been run and executed', () => {
-          beforeEach(async() => {
+          beforeEach(async () => {
             await execute();
           });
 
-          it('Should be reasoned after execute is not called', async() => {
-            expect(data.status).toMatchObject<IReasonStatus>(({ type: 'full', reasoned: true, done: Promise.resolve() }));
+          it('Should be reasoned after execute is not called', async () => {
+            expect(data.status).toMatchObject<IReasonStatus>(({
+              type: 'full',
+              reasoned: true,
+              done: Promise.resolve(),
+            }));
           });
         });
       });
     });
 
     describe('The actor has been run but not executed', () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         setReasoningStatus(action.context, { type: 'partial', patterns: new Map() });
         execute = (await actor.run(action)).execute;
       });
 
-      it('Should not be reasoned if execute is not called', async() => {
+      it('Should not be reasoned if execute is not called', async () => {
         expect(data.status).toMatchObject({ type: 'partial', patterns: new Map() });
       });
 
       describe('The actor has been run and executed', () => {
-        beforeEach(async() => {
+        beforeEach(async () => {
           await execute();
         });
 
-        it('Should be reasoned after execute is not called', async() => {
+        it('Should be reasoned after execute is not called', async () => {
           expect(data.status).toMatchObject<IReasonStatus>(({ type: 'full', reasoned: true, done: Promise.resolve() }));
         });
       });

@@ -1,19 +1,20 @@
 // Import { ActorRuleParse } from '@comunica/bus-rule-parse';
+import * as fs from 'fs';
+import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediatyped';
 import type { IActionRdfParseHandle, IActorOutputRdfParseHandle, IActorTestRdfParseHandle, MediatorRdfParseHandle } from '@comunica/bus-rdf-parse';
+import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule-parse';
 import type { Actor, IActorReply } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
-import { quad, namedNode, variable } from '@rdfjs/data-model';
+import { namedNode, quad, variable } from '@rdfjs/data-model';
 // Import streamifyString from 'arrayify-stream';
 import arrayifyStream from 'arrayify-stream';
+import 'jest-rdf';
 import { StreamParser } from 'n3';
+import * as path from 'path';
 import streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';
-import 'jest-rdf';
-import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule-parse';
-import * as fs from 'fs';
-import * as path from 'path';
-import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediatyped';
+import { mediatorRdfParse } from '@comunica/reasoning-mocks'
 
 const rule1 = `
 @prefix : <dpe#>.
@@ -63,7 +64,6 @@ function createMediaTypedAction(file: string, isFile = true): IActionAbstractMed
 
 describe('ActorRuleParseN3', () => {
   let bus: any;
-  let mediatorRdfParse: MediatorRdfParseHandle;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
@@ -73,25 +73,6 @@ describe('ActorRuleParseN3', () => {
     let actor: ActorRuleParseN3;
 
     beforeEach(() => {
-      // @ts-expect-error
-      mediatorRdfParse = {
-        publish(action: IActionRdfParseHandle): IActorReply<Actor<IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>, IActionRdfParseHandle, IActorTestRdfParseHandle, IActorOutputRdfParseHandle>[]
-        {
-          return [];
-        },
-        async mediate(action: IActionRdfParseHandle): Promise<IActorOutputRdfParseHandle> {
-          const parser = new StreamParser({
-            baseIRI: action.handle.metadata?.baseIRI,
-            format: 'text/n3',
-          });
-
-          return {
-            handle: {
-              data: <any> parser.import(action.handle.data),
-            },
-          };
-        },
-      };
       actor = new ActorRuleParseN3({
         name: 'actor',
         bus,

@@ -79,11 +79,13 @@ export function getImplicitSource(context: IActionContext): IDataSource & IDataD
 }
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
-  return context.has(KeysRdfResolveQuadPattern.source) ? [ context.get(KeysRdfResolveQuadPattern.source)! ] : context.get(KeysRdfResolveQuadPattern.sources) ?? [];
+  return context.has(KeysRdfResolveQuadPattern.source) ?
+    [context.get(KeysRdfResolveQuadPattern.source)!] :
+    context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 }
 
 export function getUnionSources(context: IActionContext): IDataSource[] {
-  return [ ...getExplicitSources(context), getImplicitSource(context) ];
+  return [...getExplicitSources(context), getImplicitSource(context)];
 }
 
 export function setImplicitDestination(context: IActionContext): IActionContext {
@@ -91,11 +93,14 @@ export function setImplicitDestination(context: IActionContext): IActionContext 
 }
 
 export function setImplicitSource(context: IActionContext): IActionContext {
-  return context.set(KeysRdfResolveQuadPattern.source, getImplicitSource(context));
+  return context
+    .delete(KeysRdfResolveQuadPattern.sources)
+    .set(KeysRdfResolveQuadPattern.source, getImplicitSource(context));
 }
 
 export function setUnionSource(context: IActionContext): IActionContext {
-  return context.delete(KeysRdfResolveQuadPattern.source).set(KeysRdfResolveQuadPattern.sources, getUnionSources(context));
+  return context.delete(KeysRdfResolveQuadPattern.source)
+    .set(KeysRdfResolveQuadPattern.sources, getUnionSources(context));
 }
 
 export function getContextWithImplicitDataset(context: IActionContext): IActionContext {
@@ -106,22 +111,6 @@ export function getContextWithImplicitDataset(context: IActionContext): IActionC
 
 export function setReasoningStatus(context: IActionContext, status: IReasonGroup['status']): IActionContext {
   getSafeData(context).status = status;
-  return context;
-}
-
-export function invalidateReasoningStatus(context: IActionContext): IActionContext {
-  getSafeData(context).status = { type: 'full', reasoned: false };
-  return context;
-}
-
-export function setContextReasoning<T>(context: IActionContext, promise: Promise<T>): IActionContext {
-  getSafeData(context).status = { type: 'full', reasoned: true, done: promise.then(() => {}) };
-  return context;
-}
-
-export function setContextPartialReasoning<T>(context: IActionContext, patterns: Map<RDF.Quad, IReasonStatus>): IActionContext {
-  // TODO: Handle this properly
-  getSafeData(context).status = { type: 'partial', patterns };
   return context;
 }
 

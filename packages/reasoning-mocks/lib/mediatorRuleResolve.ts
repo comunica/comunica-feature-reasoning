@@ -4,14 +4,14 @@ import type { Rule } from '@comunica/reasoning-types';
 import { quad, variable, namedNode } from '@rdfjs/data-model';
 import { fromArray } from 'asynciterator';
 
-export const mediatorRuleResolve = {
+export const mediatorRuleResolve = <MediatorRuleResolve> {
   async mediate(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
     const ruleString: string = action.context.get(KeysRdfReason.rules)!;
     return {
       data: fromArray<Rule>(RULES[ruleString]),
     };
   },
-} as MediatorRuleResolve;
+};
 
 const RULES: Record<string, Rule[]> = {
   'my-unnested-rules': [
