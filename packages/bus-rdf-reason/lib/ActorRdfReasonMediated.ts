@@ -110,7 +110,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
           for (const [key, value] of status.patterns) {
-            if (value.reasoned && matchBaseQuadPattern(pattern, key)) {
+            if (value.reasoned && matchBaseQuadPattern(key, pattern)) {
               return value.done;
             }
           }
