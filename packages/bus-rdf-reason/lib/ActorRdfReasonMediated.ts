@@ -94,9 +94,9 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
                 case 'Quad':
                   return _quad[key].termType === 'Quad' && match(term, <RDF.BaseQuad> _quad[key]);
                 case 'Variable':
+                  // eslint-disable-next-line no-return-assign
                   return term.value in mapping ?
                     mapping[term.value].equals(_quad[key]) :
-
                     (mapping[term.value] = _quad[key]) && true;
                 default:
                   return term.equals(_quad[key]);

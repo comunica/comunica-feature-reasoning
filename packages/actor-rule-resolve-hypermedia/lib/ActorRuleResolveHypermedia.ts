@@ -72,18 +72,18 @@ class MediatedRuleSource implements IRuleSource {
 
   }
 
-  get(): AsyncIterator<Rule> {
+  public get(): AsyncIterator<Rule> {
     if (this.cache) {
       return fromArray(this.cache);
     }
 
-    const data = wrap<Rule>(this.mediators.mediatorDereferenceRule.mediate({
+    const _data = wrap<Rule>(this.mediators.mediatorDereferenceRule.mediate({
       url: this.url,
       context: this.context,
     }).then(({ data }) => data));
 
     this.cache = [];
-    return data.map(rule => {
+    return _data.map(rule => {
       this.cache?.push(rule);
       return rule;
     });

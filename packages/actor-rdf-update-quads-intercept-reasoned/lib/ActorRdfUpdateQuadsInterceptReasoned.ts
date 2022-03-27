@@ -12,7 +12,7 @@ import type { AsyncIterator } from 'asynciterator';
 import { UnionIterator } from 'asynciterator';
 import { DataFactory } from 'n3';
 const { defaultGraph, variable } = DataFactory;
-import { Factory } from 'sparqlalgebrajs'
+import { Factory } from 'sparqlalgebrajs';
 
 const factory = new Factory();
 

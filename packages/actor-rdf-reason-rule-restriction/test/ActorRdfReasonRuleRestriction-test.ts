@@ -3,8 +3,9 @@ import { implicitGroupFactory, KeysRdfReason } from '@comunica/bus-rdf-reason';
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import type { Actor, IActorTest } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
-import { mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve } from '@comunica/reasoning-mocks';
-import type { IDataDestination, IDataSource } from '@comunica/types';
+import {
+  mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
+} from '@comunica/reasoning-mocks';
 import 'jest-rdf';
 import { Store, DataFactory } from 'n3';
 import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestriction';

@@ -1,15 +1,15 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediatyped';
 import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule-parse';
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfParse } from '@comunica/reasoning-mocks';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
 import arrayifyStream from 'arrayify-stream';
-import 'jest-rdf';
-import * as path from 'path';
+import { DataFactory } from 'n3';
 import streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';
-import { DataFactory } from 'n3';
+import 'jest-rdf';
 const { namedNode, quad, variable } = DataFactory;
 
 const rule1 = `

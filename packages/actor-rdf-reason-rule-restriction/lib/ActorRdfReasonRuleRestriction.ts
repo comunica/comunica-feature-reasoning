@@ -26,13 +26,13 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
   }
 
   public async execute(action: IActionRdfReasonExecute): Promise<void> {
-    const { context } = action;
+    const { context, rules } = action;
     const store = new Store();
     let size = 0;
     do {
       size = store.size;
       // TODO: Handle rule assertions better
-      const quadStreamInsert = evaluateRuleSet(<any> action.rules, this.unionQuadSource(context).match);
+      const quadStreamInsert = evaluateRuleSet(<any> rules, this.unionQuadSource(context).match);
       const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
       await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
     } while (store.size > size);
@@ -95,6 +95,7 @@ AsyncIterator<RDF.Quad> {
           // not nested at all
           mappings: nestedRule.next ? mappings.clone() : mappings,
         });
+        // eslint-disable-next-line no-cond-assign
         if (rule = rule.next) {
           mappings = mappings.clone();
         }
@@ -107,6 +108,6 @@ AsyncIterator<RDF.Quad> {
   return new UnionIterator(iterators, { autoStart: false });
 }
 
-export function substituteQuad(term: RDF.Quad, mapping: Mapping) {
+export function substituteQuad(term: RDF.Quad, mapping: Mapping): RDF.Quad {
   return mapTerms(term, elem => elem.termType === 'Variable' && elem.value in mapping ? mapping[elem.value] : elem);
 }

@@ -1,5 +1,7 @@
 import type { Readable } from 'stream';
-import type { IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs } from '@comunica/bus-rule-parse';
+import type {
+  IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs,
+} from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
 import type { IActorTest } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
@@ -19,7 +21,7 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
     super(args);
   }
 
-  async testHandle(action: IActionRuleParse, mediaType: string, context: IActionContext): Promise<IActorTest> {
+  public async testHandle(action: IActionRuleParse, mediaType: string, context: IActionContext): Promise<IActorTest> {
     return true;
   }
 
