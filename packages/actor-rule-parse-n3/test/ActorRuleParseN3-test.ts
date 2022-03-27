@@ -98,6 +98,7 @@ describe('ActorRuleParseN3', () => {
           namedNode('http://dpe#b'),
           namedNode('http://dpe#re'),
           variable('X'),
+          variable('g'),
         ),
       ]);
 
@@ -106,6 +107,7 @@ describe('ActorRuleParseN3', () => {
           namedNode('http://dpe#c'),
           namedNode('http://dpe#not_re'),
           variable('X'),
+          variable('g'),
         ),
       ]);
     });

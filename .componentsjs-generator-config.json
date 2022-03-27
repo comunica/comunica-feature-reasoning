@@ -1,6 +1,9 @@
 {
   "source": "lib",
   "ignorePackagePaths": [
+    "packages/reasoning-mocks",
+    "packages/reasoning-types",
+    "packages/bus-dereference-rule"
   ],
   "ignoreComponents": [
     "NodeJS.ReadableStream",
@@ -39,7 +42,6 @@
     "Response",
     "RequestInfo",
     "RequestInit",
-
 
     "IQueryableResultStream",
     "IQueryableResultBindings",

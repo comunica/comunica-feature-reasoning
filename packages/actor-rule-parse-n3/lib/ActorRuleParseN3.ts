@@ -75,7 +75,7 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
 function match(store: Store, object: Quad_Object): Promise<RDF.Quad[]> {
   // TODO: add graph as variable
   return wrap<Quad>(store.match(null, null, null, object))
-    .map(_quad => quad(_quad.subject, _quad.predicate, _quad.object))
+    .map(_quad => quad(_quad.subject, _quad.predicate, _quad.object, DataFactory.variable('g')))
     .toArray();
 }
 
