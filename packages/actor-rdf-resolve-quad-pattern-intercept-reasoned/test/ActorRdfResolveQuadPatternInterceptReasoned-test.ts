@@ -1,6 +1,6 @@
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type {
-  IActionRdfResolveQuadPattern
+  IActionRdfResolveQuadPattern,
 } from '@comunica/bus-rdf-resolve-quad-pattern';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';

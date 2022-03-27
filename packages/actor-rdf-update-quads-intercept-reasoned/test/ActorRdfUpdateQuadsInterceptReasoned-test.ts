@@ -44,7 +44,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         context: new ActionContext(),
       };
       context = new ActionContext({
-        [KeysRdfResolveQuadPattern.source.name]: source,
+        [KeysRdfResolveQuadPattern.sources.name]: [ source, destination ],
         [KeysRdfUpdateQuads.destination.name]: destination,
         [KeysRdfReason.data.name]: reasonGroup,
       });
@@ -196,13 +196,13 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          // it('Should have the correct delta streams', () => {
-          //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
-          //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
-          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
-          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
-          //   ]);
-          // });
+          it('Should have the correct delta streams', () => {
+            expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+            expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
+            ]);
+          });
 
           it('Should have deleted all quads from the graph quad from the store', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
@@ -238,15 +238,15 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          // it('Should have the correct delta streams', () => {
-          //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
-          //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
-          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
-          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
-          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
-          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
-          //   ]);
-          // });
+          it('Should have the correct delta streams', () => {
+            expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+            expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g1')),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g1')),
+            ]);
+          });
 
           it('Should have deleted all named quads', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([
@@ -309,13 +309,13 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          // it('Should have the correct delta streams', () => {
-          //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
-          //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
-          //     quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
-          //     quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
-          //   ]);
-          // });
+          it('Should have the correct delta streams', () => {
+            expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
+            expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
+              quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
+              quad(namedNode('s1'), namedNode('p'), namedNode('o'), defaultGraph()),
+            ]);
+          });
 
           it('Should have deleted all default graph quads', () => {
             expect(destination.getQuads(null, null, null, null)).toBeRdfIsomorphic([

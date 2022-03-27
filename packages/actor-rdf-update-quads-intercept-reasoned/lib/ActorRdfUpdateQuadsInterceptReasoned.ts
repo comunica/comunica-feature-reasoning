@@ -68,7 +68,6 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
         ].filter((x): x is AsyncIterator<RDF.Quad> => x !== undefined);
 
         const { execute: executeReasoning } = await this.mediatorRdfReason.mediate({
-          // Context: action.context,
           context: getContextWithImplicitDataset(action.context),
           updates: {
             quadStreamDelete: new UnionIterator<RDF.Quad>(quadStreamDelete, { autoStart: false }),
