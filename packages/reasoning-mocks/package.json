@@ -36,6 +36,7 @@
     "@comunica/actor-rdf-update-quads-rdfjs-store": "^2.0.1",
     "@comunica/context-entries": "^2.0.1",
     "@comunica/core": "^2.0.1",
+    "@comunica/bus-rdf-reason": "^1.0.0",
     "@rdfjs/types": "1.1.0",
     "asynciterator": "^3.4.0"
   },
