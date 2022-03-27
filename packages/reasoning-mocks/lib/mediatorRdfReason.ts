@@ -1,4 +1,5 @@
-import { MediatorRdfReason, setReasoningStatus } from '@comunica/bus-rdf-reason';
+import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
+import { setReasoningStatus } from '@comunica/bus-rdf-reason';
 
 // Returns a promise that resolves after timeout milliseconds.
 function timedPromise(timeout: number): Promise<void> {

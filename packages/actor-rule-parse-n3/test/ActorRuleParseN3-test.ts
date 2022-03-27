@@ -1,20 +1,15 @@
-// Import { ActorRuleParse } from '@comunica/bus-rule-parse';
 import * as fs from 'fs';
 import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediatyped';
-import type { IActionRdfParseHandle, IActorOutputRdfParseHandle, IActorTestRdfParseHandle, MediatorRdfParseHandle } from '@comunica/bus-rdf-parse';
 import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule-parse';
-import type { Actor, IActorReply } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
+import { mediatorRdfParse } from '@comunica/reasoning-mocks';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
 import { namedNode, quad, variable } from '@rdfjs/data-model';
-// Import streamifyString from 'arrayify-stream';
 import arrayifyStream from 'arrayify-stream';
 import 'jest-rdf';
-import { StreamParser } from 'n3';
 import * as path from 'path';
 import streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';
-import { mediatorRdfParse } from '@comunica/reasoning-mocks'
 
 const rule1 = `
 @prefix : <dpe#>.
@@ -83,10 +78,9 @@ describe('ActorRuleParseN3', () => {
     });
 
     // TODO: IMPLEMENT THIS
-    it('should test', () => {
-      expect(actor.test(createMediaTypedAction(rule1, false))).resolves.toEqual({ handle: []});
-
-      expect(actor.test(createMediaTypedAction(rule2, false))).resolves.toEqual({ handle: []});
+    it('should test', async() => {
+      await expect(actor.test(createMediaTypedAction(rule1, false))).resolves.toEqual({ handle: []});
+      await expect(actor.test(createMediaTypedAction(rule2, false))).resolves.toEqual({ handle: []});
     });
 
     it('should run', async() => {

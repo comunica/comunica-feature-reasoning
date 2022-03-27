@@ -1,6 +1,7 @@
 import type { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
 import { ActorRdfReasonMediated, KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type { IActorTest } from '@comunica/core';
+import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { single, UnionIterator } from 'asynciterator';
@@ -31,7 +32,7 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     do {
       size = store.size;
       // TODO: Handle rule assertions better
-      const quadStreamInsert = evaluateRuleSet(action.rules as any, this.unionQuadSource(context).match);
+      const quadStreamInsert = evaluateRuleSet(<any> action.rules, this.unionQuadSource(context).match);
       const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
       await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
     } while (store.size > size);
@@ -45,24 +46,24 @@ type Match = (pattern: Algebra.Pattern | RDF.Quad) => AsyncIterator<RDF.Quad>;
 
 type Mapping = Record<string, RDF.Term>;
 
-interface NestedRule {
-  premise: RDF.Quad[];
-  conclusion: RDF.Quad[];
-  next?: NestedRule;
-}
-
-export function evaluateRuleSet(rules: AsyncIterator<NestedRule> | NestedRule[], match: Match): AsyncIterator<RDF.Quad> {
+export function evaluateRuleSet(
+  rules: AsyncIterator<INestedPremiseConclusionRule> | INestedPremiseConclusionRule[], match: Match,
+): AsyncIterator<RDF.Quad> {
   // Autostart needs to be false to prevent the iterator from ending before being consumed by rdf-update-quads
   // https://github.com/comunica/comunica/issues/904
   // https://github.com/RubenVerborgh/AsyncIterator/issues/25
-  return new UnionIterator(rules.map((rule: NestedRule) => evaluateNestedThroughRestriction(rule, match)), { autoStart: false });
+  return new UnionIterator(
+    rules.map((rule: INestedPremiseConclusionRule) => evaluateNestedThroughRestriction(rule, match)),
+    { autoStart: false },
+  );
 }
 
 // We can probably use InitialBindings here to do a lot of optimizations
-export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: Match): AsyncIterator<RDF.Quad> {
+export function evaluateNestedThroughRestriction(nestedRule: INestedPremiseConclusionRule, match: Match):
+AsyncIterator<RDF.Quad> {
   const iterators = single(nestedRule).transform<{ mappings: AsyncIterator<Mapping>; conclusion: RDF.Quad[] }>({
     autoStart: false,
-    transform(rule: NestedRule | undefined, done, push) {
+    transform(rule: INestedPremiseConclusionRuleBase | undefined, done, push) {
       let mappings: AsyncIterator<Mapping> = single({});
       while (rule) {
         mappings = rule.premise.reduce(
@@ -83,7 +84,7 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
                 });
 
                 return localMapping && Object.assign(localMapping, mapping);
-              }).filter<Mapping>((mapping): mapping is Mapping => mapping !== undefined);
+              }).filter<Mapping>((_mapping): _mapping is Mapping => _mapping !== undefined);
             },
           ), { autoStart: false }),
           mappings,
@@ -100,13 +101,10 @@ export function evaluateNestedThroughRestriction(nestedRule: NestedRule, match: 
       }
       done();
     },
-  }).map(({ mappings, conclusion }) => new UnionIterator(conclusion.map(quad => mappings.map(mapping => substituteQuad(quad, mapping))), { autoStart: false }));
+  }).map(({ mappings, conclusion }) => new UnionIterator(
+    conclusion.map(quad => mappings.map(mapping => substituteQuad(quad, mapping))), { autoStart: false },
+  ));
   return new UnionIterator(iterators, { autoStart: false });
-}
-
-export interface T {
-  premise: RDF.Quad;
-  mapping: Mapping;
 }
 
 export function substituteQuad(term: RDF.Quad, mapping: Mapping) {

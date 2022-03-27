@@ -38,6 +38,7 @@ export interface IActorDereferenceRuleArgs extends
 
 export type IActionDereferenceRule = IActionDereferenceParse<IActionRuleParseMetadata>;
 
-export type IActorDereferenceRuleOutput = IActorDereferenceParseOutput<RDF.ResultStream<Rule>, IActionRuleParseMetadata>;
+export type IActorDereferenceRuleOutput =
+IActorDereferenceParseOutput<RDF.ResultStream<Rule>, IActionRuleParseMetadata>;
 
 export type MediatorDereferenceRule = Mediate<IActionDereferenceRule, IActorDereferenceRuleOutput>;

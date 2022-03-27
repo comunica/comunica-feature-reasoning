@@ -1,5 +1,7 @@
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
-import type { IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput } from '@comunica/bus-rdf-resolve-quad-pattern';
+import type {
+  IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput,
+} from '@comunica/bus-rdf-resolve-quad-pattern';
 import type { MediatorRdfResolveQuadPatternIntercept } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
@@ -39,7 +41,10 @@ describe('ActorRdfResolveQuadPatternInterceptReasoned', () => {
           return { data };
         }
         const sources: Store[] = action.context.get(KeysRdfResolveQuadPattern.sources)!;
-        return { data: new UnionIterator(fromArray(sources).map((source: Store) => getDataStream(source, action.pattern)), { autoStart: false }) };
+        return { data: new UnionIterator(
+          fromArray(sources).map((source: Store) => getDataStream(source, action.pattern)),
+          { autoStart: false },
+        ) };
       },
     };
   });

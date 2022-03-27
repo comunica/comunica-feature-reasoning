@@ -16,7 +16,7 @@ import {} from '@comunica/bus-rdf-resolve-quad-pattern';
  */
 export abstract class ActorOptimizeRuleDataAwareMediated extends ActorOptimizeRuleDataAware {
   // TODO: Sort mediation
-  public constructor(args: IActorArgs<IActionOptimizeRuleDataAwareMediated, IActorTest, IActorOptimizeRuleDataAwareOutputMediated>) {
+  public constructor(args: IActorOptimizeRuleDataAwareMediatedArgs) {
     super(args);
   }
 }
@@ -29,6 +29,5 @@ export interface IActorOptimizeRuleDataAwareOutputMediated extends IActorOptimiz
 
 }
 
-export interface IActorOptimizeRuleDataAwareMediatedArgs extends IActorArgs<IActionOptimizeRuleDataAwareMediated, IActorTest, IActorOptimizeRuleDataAwareOutputMediated> {
-
-}
+export type IActorOptimizeRuleDataAwareMediatedArgs =
+IActorArgs<IActionOptimizeRuleDataAwareMediated, IActorTest, IActorOptimizeRuleDataAwareOutputMediated>;

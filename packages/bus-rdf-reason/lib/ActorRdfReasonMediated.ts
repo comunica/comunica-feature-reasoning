@@ -13,7 +13,7 @@ import { everyTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput, IReasonStatus } from './ActorRdfReason';
 import {
-  getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setImplicitSource, setUnionSource
+  getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
 } from './ActorRdfReason';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
@@ -38,7 +38,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
   }
 
   protected explicitQuadSource(context: IActionContext): {
-    match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad>
+    match: (pattern: Algebra.Pattern) => AsyncIterator<RDF.Quad>;
   } {
     return {
       match: (pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> => wrap(
@@ -60,7 +60,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
   // TODO [FUTURE]: Push this into a specific abstract interface for language agnostic reasoners.
   public getRules(action: IActionRdfReason): AsyncIterator<Rule> {
-    const getRules = async (): Promise<AsyncIterator<Rule>> => {
+    const getRules = async(): Promise<AsyncIterator<Rule>> => {
       const { data } = await this.mediatorRuleResolve.mediate(action);
       const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
       return rules;
@@ -70,7 +70,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
-      execute: async (): Promise<void> => {
+      execute: async(): Promise<void> => {
         const { updates, pattern } = action;
         if (updates) {
           // If there is an update - forget everything we know about the current status of reasoning
@@ -91,25 +91,24 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
           function match(_pattern: RDF.BaseQuad, _quad: RDF.BaseQuad): boolean {
             return everyTerms(_pattern, (term, key) => {
               switch (term.termType) {
-              case 'Quad':
-                return _quad[key].termType === 'Quad' && match(term, _quad[key] as RDF.BaseQuad);
-              case 'Variable':
-                return term.value in mapping ?
+                case 'Quad':
+                  return _quad[key].termType === 'Quad' && match(term, <RDF.BaseQuad> _quad[key]);
+                case 'Variable':
+                  return term.value in mapping ?
                     mapping[term.value].equals(_quad[key]) :
-                    ((mapping[term.value] = _quad[key]) && true);
-              default:
-                return term.equals(_quad[key]);
+                    (mapping[term.value] = _quad[key]) && true;
+                default:
+                  return term.equals(_quad[key]);
               }
             });
           }
           return match(pattern, quad);
         }
-        
 
         // If we have already done partial reasoning and are only interested in a certain
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
-          for (const [key, value] of status.patterns) {
+          for (const [ key, value ] of status.patterns) {
             if (value.reasoned && matchBaseQuadPattern(key, pattern)) {
               return value.done;
             }
@@ -118,12 +117,12 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
         const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
 
-        if (action.pattern) {
+        if (pattern) {
           // Set reasoning whole
           const patterns: Map<RDF.BaseQuad, IReasonStatus> = status.type === 'partial' ? status.patterns : new Map();
           setReasoningStatus(action.context, {
             type: 'partial',
-            patterns: patterns.set(action.pattern, { type: 'full', reasoned: true, done: reasoningLock })
+            patterns: patterns.set(pattern, { type: 'full', reasoned: true, done: reasoningLock }),
           });
         } else {
           setReasoningStatus(action.context, { type: 'full', reasoned: true, done: reasoningLock });

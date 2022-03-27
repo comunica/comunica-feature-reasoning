@@ -1,11 +1,13 @@
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext } from '@comunica/core';
-import { IActionContext } from '@comunica/types';
+import type { IActionContext } from '@comunica/types';
 import { namedNode, quad } from '@rdfjs/data-model';
+import type * as RDF from '@rdfjs/types';
 import { Store } from 'n3';
-import { getExplicitSources, getSafeData, IReasonGroup, setImplicitSource } from '../lib/ActorRdfReason';
-import { getContextWithImplicitDataset, KeysRdfReason } from '../lib/ActorRdfReason';
-import * as RDF from '@rdfjs/types'
+import type { IReasonGroup } from '../lib/ActorRdfReason';
+import {
+  getExplicitSources, getSafeData, setImplicitSource, getContextWithImplicitDataset, KeysRdfReason,
+} from '../lib/ActorRdfReason';
 
 describe('getContextWithImplicitDataset', () => {
   let store: Store;
@@ -58,7 +60,12 @@ describe('getContextWithImplicitDataset', () => {
         [KeysRdfReason.implicitDatasetFactory.name]: factory,
         [KeysRdfReason.data.name]: data,
       });
-      indicatorQuad = quad(namedNode('http://example.org/subject'), namedNode('http://example.org/predicate'), namedNode('http://example.org/object'), namedNode('http://example.org/graph'));
+      indicatorQuad = quad(
+        namedNode('http://example.org/subject'),
+        namedNode('http://example.org/predicate'),
+        namedNode('http://example.org/object'),
+        namedNode('http://example.org/graph'),
+      );
       store.addQuad(indicatorQuad);
     });
 
@@ -77,14 +84,20 @@ describe('getContextWithImplicitDataset', () => {
     });
 
     it('With original sources but no source', () => {
-      const newContext = setImplicitSource(context.set(KeysRdfResolveQuadPattern.sources, [new Store(), new Store()]));
+      const newContext = setImplicitSource(
+        context.set(KeysRdfResolveQuadPattern.sources, [ new Store(), new Store() ]),
+      );
       expect(newContext.get<IReasonGroup>(KeysRdfReason.data)?.dataset).toBeRdfDatasetContaining(indicatorQuad);
       expect(newContext.get(KeysRdfResolveQuadPattern.source)).toBeRdfDatasetContaining(indicatorQuad);
       expect(newContext.has(KeysRdfResolveQuadPattern.sources)).toEqual(false);
     });
 
     it('With original sources and source', () => {
-      const newContext = setImplicitSource(context.set(KeysRdfResolveQuadPattern.sources, [new Store(), new Store()]).set(KeysRdfResolveQuadPattern.source, new Store()));
+      const newContext = setImplicitSource(
+        context
+          .set(KeysRdfResolveQuadPattern.sources, [ new Store(), new Store() ])
+          .set(KeysRdfResolveQuadPattern.source, new Store()),
+      );
       expect(newContext.get<IReasonGroup>(KeysRdfReason.data)?.dataset).toBeRdfDatasetContaining(indicatorQuad);
       expect(newContext.get(KeysRdfResolveQuadPattern.source)).toBeRdfDatasetContaining(indicatorQuad);
       expect(newContext.has(KeysRdfResolveQuadPattern.sources)).toEqual(false);
@@ -94,24 +107,24 @@ describe('getContextWithImplicitDataset', () => {
   describe('getSafeData', () => {
     it('Should run if the data is available', () => {
       expect(getSafeData(new ActionContext({ [KeysRdfReason.data.name]: data }))).toEqual(data);
-    })
+    });
     it('Should eror if the data is available', () => {
       expect(() => getSafeData(new ActionContext())).toThrowError();
-    })
+    });
   });
 
   describe('getExplicitSources', () => {
     expect(getExplicitSources(new ActionContext())).toEqual([]);
     expect(getExplicitSources(new ActionContext({
-      [KeysRdfResolveQuadPattern.source.name]: 'source1'
-    }))).toEqual(['source1']);
+      [KeysRdfResolveQuadPattern.source.name]: 'source1',
+    }))).toEqual([ 'source1' ]);
     expect(getExplicitSources(new ActionContext({
-      [KeysRdfResolveQuadPattern.sources.name]: ['source0', 'source2']
-    }))).toEqual(['source0', 'source2']);
+      [KeysRdfResolveQuadPattern.sources.name]: [ 'source0', 'source2' ],
+    }))).toEqual([ 'source0', 'source2' ]);
     // TODO: Address this case
     // expect(getExplicitSources(new ActionContext({
     //   [KeysRdfResolveQuadPattern.source.name]: 'source1',
     //   [KeysRdfResolveQuadPattern.sources.name]: ['source0', 'source2']
     // }))).toEqual(['source0', 'source2']);
-  })
+  });
 });

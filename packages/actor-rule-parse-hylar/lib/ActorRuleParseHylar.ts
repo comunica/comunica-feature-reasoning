@@ -30,14 +30,14 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
     // TODO: Make this a module of its own right
     const ruleStrings = wrap<Buffer>(action.data).map(chunk => chunk.toString()).transform<string>({
       transform(data, done, push) {
-        for (const c of data) {
-          if (c === '\n') {
+        for (const char of data) {
+          if (char === '\n') {
             if (buffer !== '') {
               push(buffer);
               buffer = '';
             }
           } else {
-            buffer += c;
+            buffer += char;
           }
         }
         // TODO: Fix this - it assumes 'clean' chunks
@@ -55,7 +55,7 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
   }
 }
 
-const TRIPLE = /((?<=\()\S+?\s\S+?\s\S+?(?=\)))|false/gi;
+const TRIPLE = /((?<=\()\S+?\s\S+?\s\S+?(?=\)))|false/gui;
 
 export function parseRule(strRule: string): Rule {
   const [ premise, conclusion ] = strRule.split('->');
@@ -79,8 +79,10 @@ export function parseTriples(triples: string[]): RDF.Quad[] {
 }
 
 export function parseTriple(triple: string): RDF.Quad {
-  const [ s, p, o ] = triple.split(' ');
-  return termAsQuad(quad<RDF.BaseQuad>(myStringToTerm(s), myStringToTerm(p), myStringToTerm(o), variable('?g')));
+  const [ subject, predicate, object ] = triple.split(' ');
+  return termAsQuad(
+    quad<RDF.BaseQuad>(myStringToTerm(subject), myStringToTerm(predicate), myStringToTerm(object), variable('?g')),
+  );
 }
 
 const prefixes: Record<string, string> = {

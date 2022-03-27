@@ -1,6 +1,8 @@
 import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
 import { getContextWithImplicitDataset, setUnionSource } from '@comunica/bus-rdf-reason';
-import type { IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptArgs } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
+import type {
+  IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptArgs,
+} from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
 import { ActorRdfResolveQuadPatternIntercept } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
 
 /**
@@ -13,7 +15,7 @@ export class ActorRdfResolveQuadPatternInterceptReasoned extends ActorRdfResolve
     super(args);
   }
 
-  async runIntercept(action: IActionRdfResolveQuadPatternIntercept): Promise<IActionRdfResolveQuadPatternIntercept> {
+  public async runIntercept(action: IActionRdfResolveQuadPatternIntercept): Promise<IActionRdfResolveQuadPatternIntercept> {
     const context = getContextWithImplicitDataset(action.context);
     // TODO: Work out how to emit results from other sources while still reasoning
     // this will be done by including the

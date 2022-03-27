@@ -1,8 +1,10 @@
-import { MediatorRdfReason, setImplicitSource } from '@comunica/bus-rdf-reason';
+import type { MediatorRdfReason } from '@comunica/bus-rdf-reason';
 import { getContextWithImplicitDataset } from '@comunica/bus-rdf-reason';
 import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type { IActionRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
-import type { IActorRdfUpdateQuadsInterceptArgs, IActorRdfUpdateQuadsInterceptOutput } from '@comunica/bus-rdf-update-quads-intercept';
+import type {
+  IActorRdfUpdateQuadsInterceptArgs, IActorRdfUpdateQuadsInterceptOutput,
+} from '@comunica/bus-rdf-update-quads-intercept';
 import { ActorRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
 import type { IActorTest } from '@comunica/core';
 import { defaultGraph, quad, variable } from '@rdfjs/data-model';
@@ -37,7 +39,8 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
       return data;
     };
 
-    async function getGraphDeletedQuads(graphs: RDF.DefaultGraph | 'NAMED' | 'ALL' | RDF.NamedNode[]): Promise<AsyncIterator<RDF.Quad>> {
+    async function getGraphDeletedQuads(graphs: RDF.DefaultGraph | 'NAMED' | 'ALL' | RDF.NamedNode[]):
+    Promise<AsyncIterator<RDF.Quad>> {
       switch (graphs) {
         case 'ALL':
           return getQuadsFromGraph(defaultGraph());

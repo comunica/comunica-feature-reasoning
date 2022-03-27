@@ -80,12 +80,12 @@ export function getImplicitSource(context: IActionContext): IDataSource & IDataD
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
   return context.has(KeysRdfResolveQuadPattern.source) ?
-    [context.get(KeysRdfResolveQuadPattern.source)!] :
+    [ context.get(KeysRdfResolveQuadPattern.source)! ] :
     context.get(KeysRdfResolveQuadPattern.sources) ?? [];
 }
 
 export function getUnionSources(context: IActionContext): IDataSource[] {
-  return [...getExplicitSources(context), getImplicitSource(context)];
+  return [ ...getExplicitSources(context), getImplicitSource(context) ];
 }
 
 export function setImplicitDestination(context: IActionContext): IActionContext {

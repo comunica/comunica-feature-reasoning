@@ -50,16 +50,24 @@ describe('ActorRuleParseHyLAR', () => {
     });
 
     it('should run', async() => {
-      const { data } = await actor.runHandle({ data: streamifyString('(?uuu ?aaa ?yyy) -> (?aaa rdf:type rdf:Property)'), context: new ActionContext() }, 'hylar', new ActionContext());
+      const { data } = await actor.runHandle({
+        data: streamifyString('(?uuu ?aaa ?yyy) -> (?aaa rdf:type rdf:Property)'),
+        context: new ActionContext(),
+      }, 'hylar', new ActionContext());
 
       const rules: Rule[] = await arrayifyStream(data);
       expect(rules).toHaveLength(1);
       expect(rules[0].ruleType).toEqual('rdfs');
-      expect((rules[0] as any).premise).toBeRdfIsomorphic([
+      expect((<any> rules[0]).premise).toBeRdfIsomorphic([
         quad(variable('uuu'), variable('aaa'), variable('yyy'), variable('?g')),
       ]);
-      expect((rules[0] as any).conclusion).toBeRdfIsomorphic([
-        quad(variable('aaa'), namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), variable('?g')),
+      expect((<any> rules[0]).conclusion).toBeRdfIsomorphic([
+        quad(
+          variable('aaa'),
+          namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+          namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'),
+          variable('?g'),
+        ),
       ]);
     });
   });

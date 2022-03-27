@@ -84,7 +84,8 @@ class MediatedRuleSource implements IRuleSource {
 
     this.cache = [];
     return data.map(rule => {
-      this.cache?.push(rule); return rule;
+      this.cache?.push(rule);
+      return rule;
     });
   }
 }

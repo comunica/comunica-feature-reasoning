@@ -12,8 +12,9 @@ import { Actor } from '@comunica/core';
  * @see IActionOptimizeRuleDataAware
  * @see IActorOptimizeRuleDataAwareOutput
  */
-export abstract class ActorOptimizeRuleDataAware extends Actor<IActionOptimizeRuleDataAware, IActorTest, IActorOptimizeRuleDataAwareOutput> {
-  public constructor(args: IActorArgs<IActionOptimizeRuleDataAware, IActorTest, IActorOptimizeRuleDataAwareOutput>) {
+export abstract class ActorOptimizeRuleDataAware extends
+  Actor<IActionOptimizeRuleDataAware, IActorTest, IActorOptimizeRuleDataAwareOutput> {
+  public constructor(args: IActorOptimizeRuleDataAwareArgs) {
     super(args);
   }
 }
@@ -25,3 +26,6 @@ export interface IActionOptimizeRuleDataAware extends IAction {
 export interface IActorOptimizeRuleDataAwareOutput extends IActorOutput {
 
 }
+
+export type IActorOptimizeRuleDataAwareArgs =
+IActorArgs<IActionOptimizeRuleDataAware, IActorTest, IActorOptimizeRuleDataAwareOutput>;

@@ -1,16 +1,18 @@
-import type { IActionRdfReason, IActorRdfReasonOutput, IReasonGroup, MediatorRdfReason } from '@comunica/bus-rdf-reason';
+import type {
+  IActionRdfReason, IActorRdfReasonOutput, IReasonGroup, MediatorRdfReason,
+} from '@comunica/bus-rdf-reason';
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type { IActionRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
-import { mediatorRdfReason, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads } from '@comunica/reasoning-mocks';
+import { mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads } from '@comunica/reasoning-mocks';
 import type { IActionContext } from '@comunica/types';
 import { namedNode, quad, defaultGraph } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { fromArray } from 'asynciterator';
+import { promisifyEventEmitter } from 'event-emitter-promisify';
 import { Store } from 'n3';
 import { ActorRdfUpdateQuadsInterceptReasoned } from '../lib/ActorRdfUpdateQuadsInterceptReasoned';
-import { promisifyEventEmitter } from 'event-emitter-promisify';
 
 describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
   let bus: any;
@@ -52,16 +54,16 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         name: 'actor',
         bus,
         mediatorRdfReason: <MediatorRdfReason> <any> {
-          mediate: async (action: IActionRdfReason): Promise<IActorRdfReasonOutput> => {
+          async mediate(_action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
             return {
-              execute: async() => {
+              async execute() {
                 insertedDataset = new Store();
                 deletedDataset = new Store();
 
-                if (action?.updates?.quadStreamInsert)
-                  await promisifyEventEmitter(insertedDataset.import(action.updates.quadStreamInsert));
-                if (action?.updates?.quadStreamDelete)
-                  await promisifyEventEmitter(deletedDataset.import(action.updates.quadStreamDelete));
+                if (_action?.updates?.quadStreamInsert)
+                { await promisifyEventEmitter(insertedDataset.import(_action.updates.quadStreamInsert)); }
+                if (_action?.updates?.quadStreamDelete)
+                { await promisifyEventEmitter(deletedDataset.import(_action.updates.quadStreamDelete)); }
               },
             };
           },
@@ -83,14 +85,14 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       })).rejects.toThrowError();
     });
 
-    it('should run', async () => {
-      const { execute } = await actor.run({ context });
+    it('should run', async() => {
+      execute = (await actor.run({ context })).execute;
       await execute();
       expect(destination.getQuads(null, null, null, null)).toEqual([]);
     });
 
     describe('Performing inserts', () => {
-      beforeEach(async () => {
+      beforeEach(async() => {
         action = {
           context,
           quadStreamInsert: fromArray([
@@ -106,7 +108,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       });
 
       describe('Post running execute', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           await execute();
         });
 
@@ -119,7 +121,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
     });
 
     describe('Performing deletes', () => {
-      beforeEach(async () => {
+      beforeEach(async() => {
         quads = [
           quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
           quad(namedNode('s1'), namedNode('p'), namedNode('o'), namedNode('g')),
@@ -133,7 +135,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       });
 
       describe('Deleting a single quad', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           action = {
             context,
             quadStreamDelete: fromArray([
@@ -149,7 +151,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
@@ -173,11 +175,11 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       });
 
       describe('Deleting a graph', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           action = {
             context,
             deleteGraphs: {
-              graphs: [namedNode('g')],
+              graphs: [ namedNode('g') ],
               requireExistence: true,
               dropGraphs: true,
             },
@@ -191,11 +193,11 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
-          // it('Should have the correct delta streams', () => {
+          // It('Should have the correct delta streams', () => {
           //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
           //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
           //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
@@ -214,13 +216,12 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
       });
 
-
       describe('Deleting named graph', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           action = {
             context,
             deleteGraphs: {
-              graphs: "NAMED",
+              graphs: 'NAMED',
               requireExistence: true,
               dropGraphs: true,
             },
@@ -234,11 +235,11 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
-          // it('Should have the correct delta streams', () => {
+          // It('Should have the correct delta streams', () => {
           //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
           //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
           //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
@@ -257,13 +258,12 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
       });
 
-
       describe('Deleting all graphs', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           action = {
             context,
             deleteGraphs: {
-              graphs: "ALL",
+              graphs: 'ALL',
               requireExistence: true,
               dropGraphs: true,
             },
@@ -277,7 +277,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
@@ -288,7 +288,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
       });
 
       describe('Deleting default graph', () => {
-        beforeEach(async () => {
+        beforeEach(async() => {
           action = {
             context,
             deleteGraphs: {
@@ -306,11 +306,11 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
         });
 
         describe('Post running execute', () => {
-          beforeEach(async () => {
+          beforeEach(async() => {
             await execute();
           });
 
-          // it('Should have the correct delta streams', () => {
+          // It('Should have the correct delta streams', () => {
           //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
           //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
           //     quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
