@@ -4,12 +4,13 @@ import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfParse } from '@comunica/reasoning-mocks';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
-import { namedNode, quad, variable } from '@rdfjs/data-model';
 import arrayifyStream from 'arrayify-stream';
 import 'jest-rdf';
 import * as path from 'path';
 import streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';
+import { DataFactory } from 'n3';
+const { namedNode, quad, variable } = DataFactory;
 
 const rule1 = `
 @prefix : <dpe#>.

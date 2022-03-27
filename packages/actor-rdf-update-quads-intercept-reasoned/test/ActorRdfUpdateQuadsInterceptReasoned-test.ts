@@ -7,13 +7,12 @@ import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads } from '@comunica/reasoning-mocks';
 import type { IActionContext } from '@comunica/types';
-import { namedNode, quad, defaultGraph } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { fromArray } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
-import { Store } from 'n3';
+import { Store, DataFactory } from 'n3';
 import { ActorRdfUpdateQuadsInterceptReasoned } from '../lib/ActorRdfUpdateQuadsInterceptReasoned';
-
+const { namedNode, quad, defaultGraph } = DataFactory;
 describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
   let bus: any;
 

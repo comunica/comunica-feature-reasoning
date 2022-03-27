@@ -8,7 +8,6 @@
     "node": ">=8.0"
   },
   "devDependencies": {
-    "@rdfjs/data-model": "^1.0.0",
     "@rdfjs/types": "^1.1.0",
     "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
     "@types/jest": "^27.4.0",

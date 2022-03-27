@@ -4,10 +4,9 @@ import { ActionContext, Bus } from '@comunica/core';
 import {
   mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
 } from '@comunica/reasoning-mocks';
-import { namedNode, quad, variable } from '@rdfjs/data-model';
 import { fromArray } from 'asynciterator';
 import 'jest-rdf';
-import { Store } from 'n3';
+import { DataFactory, Store } from 'n3';
 import { Factory } from 'sparqlalgebrajs';
 import type { IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '../lib';
 import { ActorRdfReasonMediated } from '../lib';
@@ -15,6 +14,8 @@ import type {
   IActionRdfReason, IActorRdfReasonOutput, IPartialReasonedStatus, IReasonGroup, IReasonStatus,
 } from '../lib/ActorRdfReason';
 import { implicitGroupFactory, KeysRdfReason, setReasoningStatus } from '../lib/ActorRdfReason';
+const { namedNode, quad, variable } = DataFactory;
+
 const factory = new Factory();
 
 class MyClass extends ActorRdfReasonMediated {
@@ -256,7 +257,7 @@ describe('ActorRdfReasonMediated', () => {
       });
     });
 
-    describe('Testing the actor on overlapping patterns', () => {
+    describe('Testing the actor on overlapping patterns ?s type thing and s type ?o', () => {
       let actionRestricted: any;
       let executeRestricted: () => Promise<void>;
       beforeEach(async() => {
@@ -315,7 +316,7 @@ describe('ActorRdfReasonMediated', () => {
       });
     });
 
-    describe('Testing the actor on overlapping patterns', () => {
+    describe('Testing the actor on overlapping patterns ?s type ?s and ?s type ?o', () => {
       let actionRestricted: any;
       let executeRestricted: () => Promise<void>;
       beforeEach(async() => {
@@ -373,7 +374,7 @@ describe('ActorRdfReasonMediated', () => {
         };
       });
 
-      describe('The actor has been run but not executed', () => {
+      describe('The actor has been run but not executed (with no reasoning yet applied)', () => {
         beforeEach(async() => {
           execute = (await actor.run(action)).execute;
         });
@@ -398,7 +399,7 @@ describe('ActorRdfReasonMediated', () => {
       });
     });
 
-    describe('The actor has been run but not executed', () => {
+    describe('The actor has been run but not executed (starting in a partial reasoned status)', () => {
       beforeEach(async() => {
         setReasoningStatus(action.context, { type: 'partial', patterns: new Map() });
         execute = (await actor.run(action)).execute;

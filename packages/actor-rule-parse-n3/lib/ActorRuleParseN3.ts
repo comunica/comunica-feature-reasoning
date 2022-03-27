@@ -7,13 +7,12 @@ import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
 import type { ActionContext, IActorTest } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
-import { quad } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import { wrap } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
 import type { Quad, Quad_Object } from 'n3';
 import { Store, DataFactory } from 'n3';
-
+const { quad } = DataFactory;
 // Test suite
 // https://github.com/w3c/N3/blob/16d1eec49048f87a97054540f4e1301e73a12130/tests/N3Tests/cwm_syntax/
 // this-quantifiers-ref2.n3

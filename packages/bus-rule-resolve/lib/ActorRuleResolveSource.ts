@@ -4,7 +4,6 @@ import type { IActionContext } from '@comunica/types';
 import type { AsyncIterator } from 'asynciterator';
 import type { IActorRuleResolveArgs, IActionRuleResolve, IActorRuleResolveOutput } from './ActorRuleResolve';
 import { ActorRuleResolve } from './ActorRuleResolve';
-// Import { ActorRdfResolveQuadPattern } from './ActorRdfResolveQuadPattern';
 
 /**
  * A base implementation for rdf-resolve-quad-pattern events

@@ -5,12 +5,10 @@ import type { Actor, IActorTest } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve } from '@comunica/reasoning-mocks';
 import type { IDataDestination, IDataSource } from '@comunica/types';
-import { namedNode, quad } from '@rdfjs/data-model';
 import 'jest-rdf';
-import { Store } from 'n3';
+import { Store, DataFactory } from 'n3';
 import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestriction';
-
-type Data = IDataDestination & IDataSource;
+const { namedNode, quad } = DataFactory;
 
 // TODO: Add tests with blank nodes
 

@@ -7,10 +7,14 @@ import type {
 } from '@comunica/bus-rdf-update-quads-intercept';
 import { ActorRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
 import type { IActorTest } from '@comunica/core';
-import { defaultGraph, quad, variable } from '@rdfjs/data-model';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { UnionIterator } from 'asynciterator';
+import { DataFactory } from 'n3';
+const { defaultGraph, variable } = DataFactory;
+import { Factory } from 'sparqlalgebrajs'
+
+const factory = new Factory();
 
 /**
  * A comunica Reasoned RDF Update Quads Intercept Actor.
@@ -34,7 +38,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
     const getQuadsFromGraph = async(graph: RDF.Quad_Graph): Promise<AsyncIterator<RDF.Quad>> => {
       const { data } = await this.mediatorRdfResolveQuadPattern.mediate({
         context: action.context,
-        pattern: quad(variable('?s'), variable('?p'), variable('?o'), graph),
+        pattern: factory.createPattern(variable('?s'), variable('?p'), variable('?o'), graph),
       });
       return data;
     };

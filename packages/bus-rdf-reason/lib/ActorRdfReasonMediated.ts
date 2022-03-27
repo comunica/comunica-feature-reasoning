@@ -86,7 +86,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
 
         // TODO: Import from rdf-terms.js once https://github.com/rubensworks/rdf-terms.js/pull/42 is merged
         /* istanbul ignore next  */
-        function matchBaseQuadPattern(pattern: RDF.BaseQuad, quad: RDF.BaseQuad): boolean {
+        function matchBaseQuadPattern(__pattern: RDF.BaseQuad, quad: RDF.BaseQuad): boolean {
           const mapping: Record<string, RDF.Term> = {};
           function match(_pattern: RDF.BaseQuad, _quad: RDF.BaseQuad): boolean {
             return everyTerms(_pattern, (term, key) => {
@@ -96,13 +96,14 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
                 case 'Variable':
                   return term.value in mapping ?
                     mapping[term.value].equals(_quad[key]) :
+
                     (mapping[term.value] = _quad[key]) && true;
                 default:
                   return term.equals(_quad[key]);
               }
             });
           }
-          return match(pattern, quad);
+          return match(__pattern, quad);
         }
 
         // If we have already done partial reasoning and are only interested in a certain

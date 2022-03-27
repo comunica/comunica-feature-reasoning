@@ -41,7 +41,7 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
     return true;
   }
 
-  protected async getSource(context: IActionContext): Promise<MediatedRuleSource> {
+  protected async getSource(context: IActionContext): Promise<IRuleSource> {
     const url = getContextSource(context);
 
     if (!url) {
