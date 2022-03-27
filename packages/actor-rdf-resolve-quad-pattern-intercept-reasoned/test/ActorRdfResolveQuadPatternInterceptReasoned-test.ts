@@ -1,15 +1,14 @@
 import { KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type {
-  IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput,
+  IActionRdfResolveQuadPattern
 } from '@comunica/bus-rdf-resolve-quad-pattern';
-import type { MediatorRdfResolveQuadPatternIntercept } from '@comunica/bus-rdf-resolve-quad-pattern-intercept';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
-import { mediatorRdfReason } from '@comunica/reasoning-mocks';
+import { mediatorRdfReason, mediatorRdfResolveQuadPattern } from '@comunica/reasoning-mocks';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
-import { fromArray, UnionIterator, wrap } from 'asynciterator';
-import { Store, DataFactory } from 'n3';
+import { wrap } from 'asynciterator';
+import { DataFactory, Store } from 'n3';
 import type { Algebra } from 'sparqlalgebrajs';
 import { Factory } from 'sparqlalgebrajs';
 import { ActorRdfResolveQuadPatternInterceptReasoned } from '../lib/ActorRdfResolveQuadPatternInterceptReasoned';
@@ -27,26 +26,9 @@ const factory = new Factory();
 
 describe('ActorRdfResolveQuadPatternInterceptReasoned', () => {
   let bus: any;
-  let mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPatternIntercept;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
-    // TODO [FUTURE]: Get this from the mocks module instead (requires mocks module to handle federation).
-    // @ts-expect-error
-    mediatorRdfResolveQuadPattern = {
-      async mediate(action: IActionRdfResolveQuadPattern): Promise<IActorRdfResolveQuadPatternOutput> {
-        if (action.context.has(KeysRdfResolveQuadPattern.source)) {
-          const source: Store = action.context.get(KeysRdfResolveQuadPattern.source)!;
-          const data = getDataStream(source, action.pattern);
-          return { data };
-        }
-        const sources: Store[] = action.context.get(KeysRdfResolveQuadPattern.sources)!;
-        return { data: new UnionIterator(
-          fromArray(sources).map((source: Store) => getDataStream(source, action.pattern)),
-          { autoStart: false },
-        ) };
-      },
-    };
   });
 
   describe('An ActorRdfResolveQuadPatternInterceptReasoned instance', () => {

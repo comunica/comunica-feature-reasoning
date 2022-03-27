@@ -196,7 +196,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          // It('Should have the correct delta streams', () => {
+          // it('Should have the correct delta streams', () => {
           //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
           //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
           //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
@@ -238,7 +238,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          // It('Should have the correct delta streams', () => {
+          // it('Should have the correct delta streams', () => {
           //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
           //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
           //     quad(namedNode('s'), namedNode('p'), namedNode('o'), namedNode('g')),
@@ -309,7 +309,7 @@ describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
             await execute();
           });
 
-          // It('Should have the correct delta streams', () => {
+          // it('Should have the correct delta streams', () => {
           //   expect(insertedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([]);
           //   expect(deletedDataset.getQuads(null, null, null, null)).toBeRdfIsomorphic([
           //     quad(namedNode('s'), namedNode('p'), namedNode('o'), defaultGraph()),
