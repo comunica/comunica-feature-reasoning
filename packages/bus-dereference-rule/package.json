@@ -33,6 +33,7 @@
     "@comunica/core": "^2.0.0",
     "@comunica/bus-dereference": "^2.0.0",
     "@comunica/bus-rule-parse": "^1.0.0",
+    "@comunica/reasoning-types": "^1.0.0",
     "@rdfjs/types": "^1.1.0"
   },
   "scripts": {
