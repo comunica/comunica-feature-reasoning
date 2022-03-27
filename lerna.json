@@ -6,11 +6,14 @@
         "*.md"
       ],
       "message": "Bump to release version %s",
-      "allowBranch": "master",
+      "allowBranch": [
+        "master"
+      ],
       "npmClient": "npm"
     }
   },
   "packages": [
+    "engines/*",
     "packages/*"
   ],
   "useWorkspaces": true,

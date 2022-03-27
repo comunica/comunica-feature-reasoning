@@ -6,7 +6,7 @@ module.exports = {
   out: 'documentation',
   theme: 'default',
   'external-modulemap': '.*packages/([^/]+)/.*',
-  entryPoints: getPackagesSync(path.join(__dirname, 'packages')).map(
+  entryPoints: getPackagesSync(__dirname).map(
     pkg => path.relative(__dirname, pkg.location)
   ),
   excludeExternals: false,
