@@ -31,7 +31,8 @@
   ],
   "dependencies": {
     "@comunica/core": "^2.0.0",
-    "@comunica/bus-rdf-resolve-quad-pattern-intercept": "^1.0.0"
+    "@comunica/bus-rdf-resolve-quad-pattern-intercept": "^1.0.0",
+    "@comunica/bus-rdf-reason": "^1.0.0"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

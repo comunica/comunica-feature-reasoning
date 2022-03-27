@@ -5,7 +5,7 @@ import { fromArray } from 'asynciterator';
 import { DataFactory } from 'n3';
 const { quad, variable, namedNode } = DataFactory;
 
-const KEY_RDF_REASON_RULES = new ActionContextKey<any>('@comunica/bus-rdf-reason:data');
+const KEY_RDF_REASON_RULES = new ActionContextKey<any>('@comunica/bus-rdf-reason:rules');
 
 export const mediatorRuleResolve = <MediatorRuleResolve> {
   async mediate(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
