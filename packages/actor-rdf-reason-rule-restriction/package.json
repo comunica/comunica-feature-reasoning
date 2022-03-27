@@ -34,7 +34,7 @@
     "@comunica/core": "^2.0.0",
     "@comunica/reasoning-types": "^1.0.0",
     "arrayify-stream": "^2.0.0",
-    "asynciterator": "^3.4.0",
+    "asynciterator": "3.4.0",
     "rdf-terms": "^1.7.1"
   },
   "scripts": {
