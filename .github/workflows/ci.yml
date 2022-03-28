@@ -33,22 +33,10 @@ jobs:
         run: yarn run depcheck
       - name: Run tests
         run: yarn run test-ci
-      - name: Submit coverage results
-        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GH_TOKEN }}
           flag-name: run-${{ matrix.node-version }}
           parallel: true
-
-  coveralls:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Consolidate test coverage from different jobs
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          parallel-finished: true
 
   lint:
     runs-on: ubuntu-latest
