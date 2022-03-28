@@ -1,2 +1,2 @@
-export * from './reasoning-groups';
+export * from './reasoningGroups';
 export * from './rules';
