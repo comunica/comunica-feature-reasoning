@@ -2,7 +2,8 @@
   "source": "lib",
   "ignorePackagePaths": [
     "packages/reasoning-mocks",
-    "packages/reasoning-types"
+    "packages/reasoning-types",
+    "packages/reasoning-context-entries"
   ],
   "ignoreComponents": [
     "NodeJS.ReadableStream",

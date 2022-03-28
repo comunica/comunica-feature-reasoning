@@ -7,7 +7,7 @@
   "typings": "lib/index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/comunica/comunica.git",
+    "url": "https://github.com/comunica/comunica-feature-reasoning.git",
     "directory": "engines/config-reasoning"
   },
   "publishConfig": {
@@ -22,7 +22,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/comunica/comunica/issues"
+    "url": "https://github.com/comunica/comunica-feature-reasoning/issues"
   },
   "homepage": "https://comunica.dev/",
   "files": [

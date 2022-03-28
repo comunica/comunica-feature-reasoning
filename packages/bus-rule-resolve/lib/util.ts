@@ -2,7 +2,7 @@
 // Use pattern at
 // https://github.com/comunica/comunica/blob/next/major/packages/bus-rdf-resolve-quad-pattern/lib/utils.ts
 // to enable multiple rule sources
-import { KeysRdfReason } from '@comunica/bus-rdf-reason';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { IActionContext } from '@comunica/types';
 
 export function getContextSource(context: IActionContext): string | undefined {

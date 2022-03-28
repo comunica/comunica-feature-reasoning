@@ -11,10 +11,11 @@ import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
 import { everyTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import type { IActionRdfReason, IActorRdfReasonOutput, IReasonStatus } from './ActorRdfReason';
+import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import {
   getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
 } from './ActorRdfReason';
+import { IReasonStatus } from '@comunica/reasoning-types';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;

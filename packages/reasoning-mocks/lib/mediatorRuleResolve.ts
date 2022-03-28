@@ -1,4 +1,4 @@
-import { KeysRdfReason } from '@comunica/bus-rdf-reason';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { IActionRuleResolve, IActorRuleResolveOutput, MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { Rule } from '@comunica/reasoning-types';
 import { fromArray } from 'asynciterator';

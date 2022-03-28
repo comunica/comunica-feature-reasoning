@@ -1,14 +1,14 @@
 {
   "name": "@comunica/reasoning-types",
   "version": "1.0.0",
-  "description": "Typings module for Reasoning  in Comunica",
+  "description": "Typings module for Reasoning in Comunica",
   "lsd:module": true,
   "main": "lib/index.js",
   "typings": "lib/index",
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica-feature-reasoning/comunica.git",
-    "directory": "packages/types"
+    "directory": "packages/reasoning-types"
   },
   "publishConfig": {
     "access": "public"

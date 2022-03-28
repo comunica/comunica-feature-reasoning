@@ -1,52 +1,12 @@
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
-import { Actor, ActionContext, ActionContextKey } from '@comunica/core';
+import { Actor, ActionContext } from '@comunica/core';
 import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import type { Algebra } from 'sparqlalgebrajs';
-
-export type IDatasetFactory = () => IDataSource & IDataDestination;
-
-export interface IReasonedSource {
-  type: 'full';
-  reasoned: true;
-  done: Promise<void>;
-}
-
-export interface IUnreasonedSource {
-  type: 'full';
-  reasoned: false;
-}
-
-export interface IPartialReasonedStatus {
-  type: 'partial';
-  // TODO: Consider using term-map here
-  patterns: Map<RDF.BaseQuad, IReasonStatus>;
-}
-
-export type IReasonStatus = IReasonedSource | IUnreasonedSource;
-
-export interface IReasonGroup {
-  dataset: IDataSource & IDataDestination;
-  status: IReasonStatus | IPartialReasonedStatus;
-  context: IActionContext;
-}
-
-export const KeysRdfReason = {
-  /**
-   * The data to reason over in the *current context*.
-   */
-  data: new ActionContextKey<IReasonGroup>('@comunica/bus-rdf-reason:data'),
-  /**
-   * The rules to use for reasoning in the *current context*
-   */
-  rules: new ActionContextKey<string>('@comunica/bus-rdf-reason:rules'),
-  /**
-   * A factory to generate new implicit datasets
-   */
-  implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
-};
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import { IDatasetFactory, IReasonGroup } from '@comunica/reasoning-types';
 
 export function implicitDatasetFactory(context: IActionContext): IDataSource & IDataDestination {
   const datasetFactory = context.get<IDatasetFactory>(KeysRdfReason.implicitDatasetFactory);
@@ -64,7 +24,7 @@ export function implicitGroupFactory(context: IActionContext): IReasonGroup {
   };
 }
 
-// TODO: Clean up after https://github.com/comunica/comunica/issues/945 is closed
+// TODO: Clean up after https://github.com/comunica/comunica-feature-reasoning/issues/945 is closed
 export function getSafeData(context: IActionContext): IReasonGroup {
   const data: IReasonGroup | undefined = context.get(KeysRdfReason.data);
   if (!data) {

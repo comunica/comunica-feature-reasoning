@@ -1,5 +1,5 @@
 import type { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
-import { ActorRdfReasonMediated, KeysRdfReason } from '@comunica/bus-rdf-reason';
+import { ActorRdfReasonMediated } from '@comunica/bus-rdf-reason';
 import type { IActorTest } from '@comunica/core';
 import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
@@ -9,6 +9,7 @@ import { promisifyEventEmitter } from 'event-emitter-promisify/dist';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries'
 
 /**
  * A comunica actor that
@@ -50,7 +51,7 @@ export function evaluateRuleSet(
   rules: AsyncIterator<INestedPremiseConclusionRule> | INestedPremiseConclusionRule[], match: Match,
 ): AsyncIterator<RDF.Quad> {
   // Autostart needs to be false to prevent the iterator from ending before being consumed by rdf-update-quads
-  // https://github.com/comunica/comunica/issues/904
+  // https://github.com/comunica/comunica-feature-reasoning/issues/904
   // https://github.com/RubenVerborgh/AsyncIterator/issues/25
   return new UnionIterator(
     rules.map((rule: INestedPremiseConclusionRule) => evaluateNestedThroughRestriction(rule, match)),
