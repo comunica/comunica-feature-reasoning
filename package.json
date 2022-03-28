@@ -59,9 +59,7 @@
     "tslint": "^6.0.0",
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.22.11",
-    "typescript": "^4.6.3",
-    "yarn": "^1.22.18",
-    "zx": "^6.0.7"
+    "typescript": "^4.6.3"
   },
   "pre-commit": [
     "depcheck",
