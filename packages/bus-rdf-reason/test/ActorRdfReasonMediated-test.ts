@@ -5,7 +5,7 @@ import {
   mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
 } from '@comunica/reasoning-mocks';
 import { fromArray } from 'asynciterator';
-import 'jest-rdf';
+import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 import { DataFactory, Store } from 'n3';
 import { Factory } from 'sparqlalgebrajs';
 import type { IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '../lib';
@@ -14,6 +14,7 @@ import type {
   IActionRdfReason, IActorRdfReasonOutput, IPartialReasonedStatus, IReasonGroup, IReasonStatus,
 } from '../lib/ActorRdfReason';
 import { implicitGroupFactory, KeysRdfReason, setReasoningStatus } from '../lib/ActorRdfReason';
+
 const { namedNode, quad, variable } = DataFactory;
 
 const factory = new Factory();

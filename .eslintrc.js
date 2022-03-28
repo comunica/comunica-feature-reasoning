@@ -119,6 +119,8 @@ module.exports = {
     'import/no-unused-modules': 'off',
     'unused-imports/no-unused-imports-ts': 'error',
     'import/no-extraneous-dependencies': 'error',
+    'import/group-exports': 'off',
+    'import/exports-last': 'off',
 
     // TODO: Try to re-enable the following rules in the future
     'global-require': 'off',

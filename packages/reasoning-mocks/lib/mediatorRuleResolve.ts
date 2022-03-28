@@ -3,16 +3,8 @@ import type { IActionRuleResolve, IActorRuleResolveOutput, MediatorRuleResolve }
 import type { Rule } from '@comunica/reasoning-types';
 import { fromArray } from 'asynciterator';
 import { DataFactory } from 'n3';
-const { quad, variable, namedNode } = DataFactory;
 
-export const mediatorRuleResolve = <MediatorRuleResolve> {
-  async mediate(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
-    const ruleString: string = action.context.get(KeysRdfReason.rules)!;
-    return {
-      data: fromArray<Rule>(RULES[ruleString]),
-    };
-  },
-};
+const { quad, variable, namedNode } = DataFactory;
 
 const RULES: Record<string, Rule[]> = {
   'my-unnested-rules': [
@@ -121,4 +113,13 @@ const RULES: Record<string, Rule[]> = {
       ],
     },
   ],
+};
+
+export const mediatorRuleResolve = <MediatorRuleResolve> {
+  async mediate(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
+    const ruleString: string = action.context.get(KeysRdfReason.rules)!;
+    return {
+      data: fromArray<Rule>(RULES[ruleString]),
+    };
+  },
 };

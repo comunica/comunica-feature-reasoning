@@ -11,8 +11,9 @@ import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { UnionIterator } from 'asynciterator';
 import { DataFactory } from 'n3';
-const { defaultGraph, variable } = DataFactory;
 import { Factory } from 'sparqlalgebrajs';
+
+const { defaultGraph, variable } = DataFactory;
 
 const factory = new Factory();
 

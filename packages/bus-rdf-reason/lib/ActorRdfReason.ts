@@ -4,8 +4,9 @@ import { Actor, ActionContext, ActionContextKey } from '@comunica/core';
 import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
-// TODO: FIX
 import type { Algebra } from 'sparqlalgebrajs';
+
+export type IDatasetFactory = () => IDataSource & IDataDestination;
 
 export interface IReasonedSource {
   type: 'full';
@@ -31,8 +32,6 @@ export interface IReasonGroup {
   status: IReasonStatus | IPartialReasonedStatus;
   context: IActionContext;
 }
-
-type IDatasetFactory = () => IDataSource & IDataDestination;
 
 export const KeysRdfReason = {
   /**

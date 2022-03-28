@@ -11,6 +11,7 @@ import { wrap } from 'asynciterator';
 import { termAsQuad } from 'is-quad';
 import { DataFactory } from 'n3';
 import { stringToTerm } from 'rdf-string';
+
 const { quad, variable } = DataFactory;
 
 /**

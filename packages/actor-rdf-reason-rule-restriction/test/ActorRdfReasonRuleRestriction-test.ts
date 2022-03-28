@@ -6,9 +6,10 @@ import { ActionContext, Bus } from '@comunica/core';
 import {
   mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
 } from '@comunica/reasoning-mocks';
-import 'jest-rdf';
+import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 import { Store, DataFactory } from 'n3';
 import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestriction';
+
 const { namedNode, quad } = DataFactory;
 
 // TODO: Add tests with blank nodes

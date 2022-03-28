@@ -8,8 +8,8 @@ import {
 } from '@comunica/bus-dereference';
 import type { IActionRuleParseMetadata, IActorRuleParseOutputMetadata, RuleStream } from '@comunica/bus-rule-parse';
 import type { Mediate } from '@comunica/core';
-import type * as RDF from '@rdfjs/types';
 import type { Rule } from '@comunica/reasoning-types';
+import type * as RDF from '@rdfjs/types';
 
 /**
  * A base actor for dereferencing URLs to rule streams.

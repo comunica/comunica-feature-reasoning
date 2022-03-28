@@ -12,6 +12,7 @@ import { DataFactory, Store } from 'n3';
 import type { Algebra } from 'sparqlalgebrajs';
 import { Factory } from 'sparqlalgebrajs';
 import { ActorRdfResolveQuadPatternInterceptReasoned } from '../lib/ActorRdfResolveQuadPatternInterceptReasoned';
+
 const { namedNode, quad, variable } = DataFactory;
 
 function getDataStream(store: Store, pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> {

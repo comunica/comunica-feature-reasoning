@@ -12,6 +12,7 @@ import { wrap } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
 import type { Quad, Quad_Object } from 'n3';
 import { Store, DataFactory } from 'n3';
+
 const { quad } = DataFactory;
 // Test suite
 // https://github.com/w3c/N3/blob/16d1eec49048f87a97054540f4e1301e73a12130/tests/N3Tests/cwm_syntax/

@@ -3306,9 +3306,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.4.84:
-  version "1.4.95"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.95.tgz#49303dbe037c15e2e0cc851d71c4cb86119a9cd6"
-  integrity sha512-h2VAMV/hPtmAeiDkwA8c5sjS+cWt6GlQL4ERdrOUWu7cRIG5IRk9uwR9f0utP+hPJ9ZZsADTq9HpbuT46eBYAg==
+  version "1.4.96"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.96.tgz#a97438a01d5db1460343fea4a344960b09330990"
+  integrity sha512-DPNjvNGPabv6FcyjzLAN4C0psN/GgD9rSGvMTuv81SeXG/EX3mCz0wiw9N1tUEnfQXYCJi3H8M0oFPRziZh7rw==
 
 emittery@^0.8.1:
   version "0.8.1"
@@ -3436,10 +3436,10 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-es@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-es/-/eslint-config-es-4.1.0.tgz#bef594038abc5b0ca79a3adbb04222d9e201748a"
-  integrity sha512-o7sRistJAqsiVB437ptIodjcBTz+JwUj2youjU9P2zIJMHZOY2eRpEnIMhqOusbWDVqPKefp+3hPSI/qFotECQ==
+eslint-config-es@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-es/-/eslint-config-es-4.2.0.tgz#1557543ad8a3b02d0b268c7d7292a0f4919657ea"
+  integrity sha512-VpM6q45ie7GjDLHB0BdOC5UDGEpFOFWBBEE+zKHz1ZBoQaYEK32YufOgk1rnzpEsMCg3NgVnM9Kt3pE1+o4CZQ==
   dependencies:
     lodash "4.17.21"
 

@@ -9,7 +9,8 @@ import arrayifyStream from 'arrayify-stream';
 import { DataFactory } from 'n3';
 import streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib/ActorRuleParseN3';
-import 'jest-rdf';
+import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+
 const { namedNode, quad, variable } = DataFactory;
 
 const rule1 = `

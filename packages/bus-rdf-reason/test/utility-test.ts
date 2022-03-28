@@ -7,6 +7,7 @@ import type { IReasonGroup } from '../lib/ActorRdfReason';
 import {
   getExplicitSources, getSafeData, setImplicitSource, getContextWithImplicitDataset, KeysRdfReason,
 } from '../lib/ActorRdfReason';
+
 const { namedNode, quad } = DataFactory;
 
 describe('getContextWithImplicitDataset', () => {

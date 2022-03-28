@@ -12,6 +12,7 @@ import { fromArray } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
 import { Store, DataFactory } from 'n3';
 import { ActorRdfUpdateQuadsInterceptReasoned } from '../lib/ActorRdfUpdateQuadsInterceptReasoned';
+
 const { namedNode, quad, defaultGraph } = DataFactory;
 describe('ActorRdfUpdateQuadsInterceptReasoned', () => {
   let bus: any;

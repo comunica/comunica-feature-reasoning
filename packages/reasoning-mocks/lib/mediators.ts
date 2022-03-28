@@ -14,7 +14,7 @@ export {
   mediatorRdfParse,
 };
 
-export default {
+export const mediators = {
   mediatorOptimizeRule,
   mediatorRdfResolveQuadPattern,
   mediatorRdfReason,
