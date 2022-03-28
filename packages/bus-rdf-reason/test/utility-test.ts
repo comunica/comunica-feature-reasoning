@@ -1,11 +1,12 @@
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import type { IReasonGroup } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory, Store } from 'n3';
-import type { IReasonGroup } from '../lib/ActorRdfReason';
 import {
-  getExplicitSources, getSafeData, setImplicitSource, getContextWithImplicitDataset, KeysRdfReason,
+  getExplicitSources, getSafeData, setImplicitSource, getContextWithImplicitDataset,
 } from '../lib/ActorRdfReason';
 
 const { namedNode, quad } = DataFactory;

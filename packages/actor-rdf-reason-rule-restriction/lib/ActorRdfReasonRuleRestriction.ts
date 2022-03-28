@@ -1,6 +1,7 @@
 import type { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
 import { ActorRdfReasonMediated } from '@comunica/bus-rdf-reason';
 import type { IActorTest } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
@@ -9,7 +10,6 @@ import { promisifyEventEmitter } from 'event-emitter-promisify/dist';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
-import { KeysRdfReason } from '@comunica/reasoning-context-entries'
 
 /**
  * A comunica actor that

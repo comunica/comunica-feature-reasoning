@@ -1,19 +1,21 @@
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import type { Actor, IActorTest } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import {
   mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
 } from '@comunica/reasoning-mocks';
+import type { IPartialReasonedStatus, IReasonGroup, IReasonStatus } from '@comunica/reasoning-types';
 import { fromArray } from 'asynciterator';
 import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 import { DataFactory, Store } from 'n3';
 import { Factory } from 'sparqlalgebrajs';
-import type { IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '../lib';
 import { ActorRdfReasonMediated } from '../lib';
 import type {
-  IActionRdfReason, IActorRdfReasonOutput, IPartialReasonedStatus, IReasonGroup, IReasonStatus,
+  IActionRdfReason, IActorRdfReasonOutput,
 } from '../lib/ActorRdfReason';
-import { implicitGroupFactory, KeysRdfReason, setReasoningStatus } from '../lib/ActorRdfReason';
+import { implicitGroupFactory, setReasoningStatus } from '../lib/ActorRdfReason';
+import type { IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '../lib/ActorRdfReasonMediated';
 
 const { namedNode, quad, variable } = DataFactory;
 

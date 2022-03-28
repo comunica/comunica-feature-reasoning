@@ -1,12 +1,12 @@
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
 import { Actor, ActionContext } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import type { IDatasetFactory, IReasonGroup } from '@comunica/reasoning-types';
 import type { IActionContext, IDataDestination, IDataSource } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import type { Algebra } from 'sparqlalgebrajs';
-import { KeysRdfReason } from '@comunica/reasoning-context-entries';
-import { IDatasetFactory, IReasonGroup } from '@comunica/reasoning-types';
 
 export function implicitDatasetFactory(context: IActionContext): IDataSource & IDataDestination {
   const datasetFactory = context.get<IDatasetFactory>(KeysRdfReason.implicitDatasetFactory);

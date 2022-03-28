@@ -1,11 +1,12 @@
 import type {
-  IActionRdfReason, IActorRdfReasonOutput, IReasonGroup, MediatorRdfReason,
+  IActionRdfReason, IActorRdfReasonOutput, MediatorRdfReason,
 } from '@comunica/bus-rdf-reason';
-import { KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type { IActionRdfUpdateQuadsIntercept } from '@comunica/bus-rdf-update-quads-intercept';
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads } from '@comunica/reasoning-mocks';
+import type { IReasonGroup } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { fromArray } from 'asynciterator';

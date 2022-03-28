@@ -5,7 +5,7 @@ import type {
 } from '@comunica/bus-rdf-update-quads';
 import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import type { Rule } from '@comunica/reasoning-types';
+import type { Rule, IReasonStatus } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
@@ -15,7 +15,6 @@ import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import {
   getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
 } from './ActorRdfReason';
-import { IReasonStatus } from '@comunica/reasoning-types';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;

@@ -1,12 +1,14 @@
-import type { IActionRdfReason, IActorRdfReasonOutput, IReasonGroup } from '@comunica/bus-rdf-reason';
-import { implicitGroupFactory, KeysRdfReason } from '@comunica/bus-rdf-reason';
+import type { IActionRdfReason, IActorRdfReasonOutput } from '@comunica/bus-rdf-reason';
+import { implicitGroupFactory } from '@comunica/bus-rdf-reason';
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import type { Actor, IActorTest } from '@comunica/core';
 import { ActionContext, Bus } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import {
   mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
 } from '@comunica/reasoning-mocks';
 import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import type { IReasonGroup } from '@comunica/reasoning-types';
 import { Store, DataFactory } from 'n3';
 import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestriction';
 

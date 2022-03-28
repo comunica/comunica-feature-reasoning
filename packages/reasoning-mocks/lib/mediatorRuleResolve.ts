@@ -1,5 +1,4 @@
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
-import type { IActionRuleResolve, IActorRuleResolveOutput, MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { Rule } from '@comunica/reasoning-types';
 import { fromArray } from 'asynciterator';
 import { DataFactory } from 'n3';
@@ -115,8 +114,8 @@ const RULES: Record<string, Rule[]> = {
   ],
 };
 
-export const mediatorRuleResolve = <MediatorRuleResolve> {
-  async mediate(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
+export const mediatorRuleResolve = <any> {
+  async mediate(action: any): Promise<any> {
     const ruleString: string = action.context.get(KeysRdfReason.rules)!;
     return {
       data: fromArray<Rule>(RULES[ruleString]),

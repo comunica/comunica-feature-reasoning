@@ -1,9 +1,9 @@
-import { KeysRdfReason } from '@comunica/bus-rdf-reason';
 import type {
   IActionRdfResolveQuadPattern,
 } from '@comunica/bus-rdf-resolve-quad-pattern';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { mediatorRdfReason, mediatorRdfResolveQuadPattern } from '@comunica/reasoning-mocks';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';

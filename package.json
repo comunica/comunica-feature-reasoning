@@ -118,8 +118,7 @@
     "doc": "typedoc",
     "postinstall": "yarn run build && lerna run prepare",
     "version": "manual-git-changelog onversion",
-    "depcheck": "lerna exec --stream --scope=@comunica/* -- depcheck --ignore-patterns=test/*",
-    "depcheck:dev": "lerna exec --no-bail --stream --scope=@comunica/* -- depcheck --ignore-patterns=test/*",
-    "depcheck:fix": "lerna-script depcheckTask"
+    "depcheck": "lerna-script depcheckTask",
+    "depcheck:fix": "lerna-script depfixTask"
   }
 }

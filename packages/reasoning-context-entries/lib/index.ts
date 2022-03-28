@@ -1,5 +1,5 @@
-import { IDatasetFactory, IReasonGroup } from "@comunica/reasoning-types";
 import { ActionContextKey } from '@comunica/core';
+import type { IDatasetFactory, IReasonGroup } from '@comunica/reasoning-types';
 
 export const KeysRdfReason = {
   /**
