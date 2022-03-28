@@ -33,10 +33,6 @@ jobs:
         run: yarn run depcheck
       - name: Run tests
         run: yarn run test-ci
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          flag-name: run-${{ matrix.node-version }}
-          parallel: true
 
   lint:
     runs-on: ubuntu-latest
