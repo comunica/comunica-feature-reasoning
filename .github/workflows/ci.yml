@@ -36,7 +36,7 @@ jobs:
       - name: Submit coverage results
         uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GH_TOKEN }}
           flag-name: run-${{ matrix.node-version }}
           parallel: true
 
@@ -47,7 +47,7 @@ jobs:
       - name: Consolidate test coverage from different jobs
         uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GH_TOKEN }}
           parallel-finished: true
 
   lint:
