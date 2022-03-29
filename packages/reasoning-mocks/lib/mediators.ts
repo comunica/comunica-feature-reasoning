@@ -1,3 +1,4 @@
+import { mediatorDereferenceRule } from './mediatorDereferenceRule';
 import { mediatorOptimizeRule } from './mediatorOptimizeRule';
 import { mediatorRdfParse } from './mediatorRdfParse';
 import { mediatorRdfReason } from './mediatorRdfReason';
@@ -12,6 +13,7 @@ export {
   mediatorRdfUpdateQuads,
   mediatorRuleResolve,
   mediatorRdfParse,
+  mediatorDereferenceRule,
 };
 
 export const mediators = {
@@ -21,4 +23,5 @@ export const mediators = {
   mediatorRdfUpdateQuads,
   mediatorRuleResolve,
   mediatorRdfParse,
+  mediatorDereferenceRule,
 };

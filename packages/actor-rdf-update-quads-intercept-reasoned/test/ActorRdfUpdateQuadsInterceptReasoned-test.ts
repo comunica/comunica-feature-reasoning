@@ -12,7 +12,7 @@ import type * as RDF from '@rdfjs/types';
 import { fromArray } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
 import { Store, DataFactory } from 'n3';
-import { ActorRdfUpdateQuadsInterceptReasoned } from '../lib/ActorRdfUpdateQuadsInterceptReasoned';
+import { ActorRdfUpdateQuadsInterceptReasoned } from '../lib';
 
 const { namedNode, quad, defaultGraph } = DataFactory;
 describe('ActorRdfUpdateQuadsInterceptReasoned', () => {

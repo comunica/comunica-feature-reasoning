@@ -10,7 +10,7 @@ import {
 import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 import type { IReasonGroup } from '@comunica/reasoning-types';
 import { Store, DataFactory } from 'n3';
-import { ActorRdfReasonRuleRestriction } from '../lib/ActorRdfReasonRuleRestriction';
+import { ActorRdfReasonRuleRestriction } from '../lib';
 
 const { namedNode, quad } = DataFactory;
 

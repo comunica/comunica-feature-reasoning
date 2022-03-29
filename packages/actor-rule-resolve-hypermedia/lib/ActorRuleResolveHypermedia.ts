@@ -2,14 +2,12 @@ import type { MediatorDereferenceRule } from '@comunica/bus-dereference-rule';
 import type { ActorHttpInvalidateListenable, IActionHttpInvalidate } from '@comunica/bus-http-invalidate';
 import type { IActionRuleResolve, IActorRuleResolveArgs, IRuleSource } from '@comunica/bus-rule-resolve';
 import { ActorRuleResolveSource } from '@comunica/bus-rule-resolve';
-import { getContextSource } from '@comunica/bus-rule-resolve/lib/util';
 import type { IActorTest } from '@comunica/core';
-import type { Rule } from '@comunica/reasoning-types';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { IActionContext } from '@comunica/types';
-// TODO: Use reasoning types
-import type { AsyncIterator } from 'asynciterator';
-import { wrap, fromArray } from 'asynciterator';
 import LRUCache = require('lru-cache');
+import type { IMediatedRuleSourceArgs } from './MediatedRuleSource';
+import { MediatedRuleSource } from './MediatedRuleSource';
 
 /**
  * A comunica Hypermedia Rule Resolve Actor.
@@ -23,8 +21,9 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
 
   public constructor(args: IActorRuleResolveHypermediaArgs) {
     super(args);
-    this.cache = this.cacheSize ? new LRUCache<string, any>({ max: this.cacheSize }) : undefined;
-    const cache = this.cache;
+    const cache = this.cache = this.cacheSize ?
+      new LRUCache<string, MediatedRuleSource>({ max: this.cacheSize }) :
+      undefined;
     if (cache) {
       this.httpInvalidator.addInvalidateListener(
         ({ url }: IActionHttpInvalidate) => url ? cache.del(url) : cache.reset(),
@@ -41,11 +40,11 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
     return true;
   }
 
-  protected async getSource(context: IActionContext): Promise<IRuleSource> {
-    const url = getContextSource(context);
+  protected getSource(context: IActionContext): IRuleSource {
+    const url = context.get<string>(KeysRdfReason.rules);
 
     if (!url) {
-      throw new Error('No url found in context source');
+      throw new Error('No rule found in context');
     }
 
     let source = this.cache?.get(url);
@@ -61,38 +60,18 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
   }
 }
 
-class MediatedRuleSource implements IRuleSource {
-  private cache: Rule[] | undefined;
-
-  public constructor(
-    public readonly context: IActionContext,
-    public readonly url: string,
-    public readonly mediators: IMediatorArgs,
-  ) {
-
-  }
-
-  public get(): AsyncIterator<Rule> {
-    if (this.cache) {
-      return fromArray(this.cache);
-    }
-
-    const _data = wrap<Rule>(this.mediators.mediatorDereferenceRule.mediate({
-      url: this.url,
-      context: this.context,
-    }).then(({ data }) => data));
-
-    this.cache = [];
-    return _data.map(rule => {
-      this.cache?.push(rule);
-      return rule;
-    });
-  }
-}
-
-interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs, IMediatorArgs {
-}
-
-interface IMediatorArgs {
-  mediatorDereferenceRule: MediatorDereferenceRule;
+interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs, IMediatedRuleSourceArgs {
+  /**
+   * The maximum number of entries in the LRU cache, set to 0 to disable.
+   * @range {integer}
+   * @default {100}
+   */
+  cacheSize: number;
+  /* eslint-disable max-len */
+  /**
+   * An actor that listens to HTTP invalidation events
+   * @default {<default_invalidator> a <npmd:@comunica/bus-http-invalidate/^2.0.0/components/ActorHttpInvalidateListenable.jsonld#ActorHttpInvalidateListenable>}
+   */
+  httpInvalidator: ActorHttpInvalidateListenable;
+  /* eslint-enable max-len */
 }

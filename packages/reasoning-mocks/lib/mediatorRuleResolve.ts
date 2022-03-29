@@ -5,7 +5,7 @@ import { DataFactory } from 'n3';
 
 const { quad, variable, namedNode } = DataFactory;
 
-const RULES: Record<string, Rule[]> = {
+export const RULES: Record<string, Rule[]> = {
   'my-unnested-rules': [
     {
       ruleType: 'premise-conclusion',

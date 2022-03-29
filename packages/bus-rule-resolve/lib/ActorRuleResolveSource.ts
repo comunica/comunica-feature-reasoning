@@ -16,18 +16,16 @@ export abstract class ActorRuleResolveSource extends ActorRuleResolve {
     super(args);
   }
 
-  public async test(action: IActionRuleResolve): Promise<IActorTest> {
-    return true;
-  }
+  public abstract test(action: IActionRuleResolve): Promise<IActorTest>;
 
   public async run(action: IActionRuleResolve): Promise<IActorRuleResolveOutput> {
-    return { data: (await this.getSource(action.context)).get() };
+    return { data: this.getSource(action.context).get() };
   }
 
   /**
    * Get a source instance for the given context.
    */
-  protected abstract getSource(context: IActionContext): Promise<IRuleSource>;
+  protected abstract getSource(context: IActionContext): IRuleSource;
 }
 
 /**

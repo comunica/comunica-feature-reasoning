@@ -7,7 +7,7 @@ import type { Rule } from '@comunica/reasoning-types';
 import arrayifyStream from 'arrayify-stream';
 import { DataFactory } from 'n3';
 import streamifyString = require('streamify-string');
-import { ActorRuleParseHylar } from '../lib/ActorRuleParseHylar';
+import { ActorRuleParseHylar } from '../lib';
 import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 
 const { variable, quad, namedNode } = DataFactory;

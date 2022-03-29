@@ -576,6 +576,13 @@
   dependencies:
     "@rdfjs/types" "*"
 
+"@comunica/logger-void@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@comunica/logger-void/-/logger-void-2.0.1.tgz#0faa527c81e97463507f8c3b1b566041d78d0d4d"
+  integrity sha512-9pFjbhoEaNH4niVMSN5gape1ADHUBi57sGFNpmp2JtjX2JontYxaYg9wVWwvYP7YaTAlUOCH9SmwtpWHGS8rOQ==
+  dependencies:
+    "@comunica/core" "^2.0.1"
+
 "@comunica/mediator-combine-pipeline@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@comunica/mediator-combine-pipeline/-/mediator-combine-pipeline-2.0.1.tgz#afbd88b31405b39193807264ff1bf3b341e688ac"

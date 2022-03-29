@@ -5,23 +5,11 @@ import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { mediatorRdfReason, mediatorRdfResolveQuadPattern } from '@comunica/reasoning-mocks';
-import type * as RDF from '@rdfjs/types';
-import type { AsyncIterator } from 'asynciterator';
-import { wrap } from 'asynciterator';
 import { DataFactory, Store } from 'n3';
-import type { Algebra } from 'sparqlalgebrajs';
 import { Factory } from 'sparqlalgebrajs';
-import { ActorRdfResolveQuadPatternInterceptReasoned } from '../lib/ActorRdfResolveQuadPatternInterceptReasoned';
+import { ActorRdfResolveQuadPatternInterceptReasoned } from '../lib';
 
 const { namedNode, quad, variable } = DataFactory;
-
-function getDataStream(store: Store, pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> {
-  const u = (term: RDF.Term) => term.termType === 'Variable' ? undefined : term;
-  return wrap<RDF.Quad>(store.match(
-    // @ts-expect-error
-    u(pattern.subject), u(pattern.predicate), u(pattern.object), u(pattern.graph),
-  ), { autoStart: false });
-}
 
 const factory = new Factory();
 
