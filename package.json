@@ -118,5 +118,8 @@
     "version": "manual-git-changelog onversion",
     "depcheck": "lerna-script depcheckTask",
     "depcheck:fix": "lerna-script depfixTask"
+  },
+  "resolutions": {
+    "@rdfjs/types": "1.1.0"
   }
 }
