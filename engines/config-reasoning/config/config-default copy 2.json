@@ -60,8 +60,6 @@
     "ccr:config/rdf-reason/actors.json",
     "ccr:config/rdf-reason/mediators.json",
     "ccr:config/rule-parse/actors.json",
-    "ccr:config/rule-parse/mediators.json",
-    "ccr:config/rule-resolve/actors.json",
-    "ccr:config/rule-resolve/mediators.json"
+    "ccr:config/rule-parse/mediators.json"
   ]
 }

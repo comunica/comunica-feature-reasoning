@@ -60,7 +60,7 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
   }
 }
 
-interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs, IMediatedRuleSourceArgs {
+export interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs {
   /**
    * The maximum number of entries in the LRU cache, set to 0 to disable.
    * @range {integer}
@@ -74,4 +74,5 @@ interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs, IMediat
    */
   httpInvalidator: ActorHttpInvalidateListenable;
   /* eslint-enable max-len */
+  mediatorDereferenceRule: MediatorDereferenceRule;
 }

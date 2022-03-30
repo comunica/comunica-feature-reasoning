@@ -10,7 +10,10 @@
   },
   "devDependencies": {
     "@comunica/actor-abstract-parse": "^2.0.1",
+    "@comunica/bus-http-invalidate": "^2.0.1",
+    "@comunica/config-query-sparql": "^2.0.1",
     "@comunica/logger-void": "^2.0.1",
+    "@comunica/packager": "^2.0.3",
     "@rdfjs/types": "^1.1.0",
     "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
     "@types/jest": "^27.4.0",
@@ -118,7 +121,9 @@
     "postinstall": "yarn run build && lerna run prepare",
     "version": "manual-git-changelog onversion",
     "depcheck": "lerna-script depcheckTask",
-    "depcheck:fix": "lerna-script depfixTask"
+    "depcheck:fix": "lerna-script depfixTask",
+    "build:engine": "yarn run build:engine:sparql-reasoning",
+    "build:engine:sparql-reasoning": "(cd engines && comunica-package -c config-reasoning/config/config-default.json -o query-sparql-reasoning)"
   },
   "resolutions": {
     "@rdfjs/types": "1.1.0"

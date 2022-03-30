@@ -17,6 +17,11 @@ export abstract class ActorRuleParseFixedMediaTypes extends ActorAbstractMediaTy
 IActionRuleParse, IActorTest, IActorRuleParseOutput> implements IActorRuleParseFixedMediaTypesArgs {
   // TODO: See if we need the JSDoc from
   // https://github.com/comunica/comunica/blob/master/packages/bus-rdf-parse/lib/ActorRdfParseFixedMediaTypes.ts
+  
+  /**
+   * TODO: rm this (and eslint-disable) once we remove the abstract media typed actor
+   * @param args - @defaultNested {<cbrp:components/ActorRuleParse.jsonld#ActorRuleParse_default_bus> a <cc:components/Bus.jsonld#Bus>} bus
+   */
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
   }

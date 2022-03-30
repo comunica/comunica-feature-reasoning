@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rule-resolve-hypermedia",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "A hypermedia rule-resolve actor",
   "lsd:module": true,
   "main": "lib/index.js",

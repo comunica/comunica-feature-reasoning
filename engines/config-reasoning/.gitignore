@@ -5,3 +5,4 @@ index-browser.js
 index-browser.js.map
 *.sparql
 dist
+query-*
