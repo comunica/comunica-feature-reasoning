@@ -1,4 +1,4 @@
-import type { Quad } from '@rdfjs/types';
+import type { Quad, ResultStream } from '@rdfjs/types';
 
 export interface IBaseRule {
   /**
@@ -34,3 +34,5 @@ export interface IPremiseConclusionRule extends IBaseRule {
 }
 
 export type Rule = IRDFSRule | IOWL2RLRule | IPremiseConclusionRule | INestedPremiseConclusionRule;
+
+export type RuleStream = ResultStream<Rule>;

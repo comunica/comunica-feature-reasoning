@@ -54,6 +54,4 @@ export type IActorRuleParseOutputMetadata = undefined;
 
 export type IActionRuleParse = IActionParse<IActionRuleParseMetadata>;
 
-export type RuleStream = RDF.ResultStream<Rule>;
-
 export type IActorRuleParseOutput = IActorParseOutput<RDF.ResultStream<Rule>, IActorRuleParseOutputMetadata>;

@@ -6,7 +6,6 @@ import type { IActorTest } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { IActionContext } from '@comunica/types';
 import LRUCache = require('lru-cache');
-import type { IMediatedRuleSourceArgs } from './MediatedRuleSource';
 import { MediatedRuleSource } from './MediatedRuleSource';
 
 /**

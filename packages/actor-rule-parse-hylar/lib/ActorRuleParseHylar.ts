@@ -18,6 +18,16 @@ const { quad, variable } = DataFactory;
  * A comunica Hylar Rule Parse Actor.
  */
 export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
+  /**
+   * TODO: Check this
+   * @param args -
+   *   \ @defaultNested {{
+   *       "text/hylar": 1.0
+   *     }} mediaTypePriorities
+   *   \ @defaultNested {{
+   *       "text/hylar": "http://www.w3.org/ns/formats/Hylar"
+   *     }} mediaTypeFormats
+   */
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
   }
