@@ -15,7 +15,7 @@
     "ccqs:config/init/actors.json",
     "ccqs:config/optimize-query-operation/actors.json",
     "ccqs:config/optimize-query-operation/mediators.json",
-    "ccqs:config/query-operation/actors.json",
+    "ccr:config/query-operation/actors.json",
     "ccqs:config/query-operation/mediators.json",
     "ccqs:config/query-parse/actors.json",
     "ccqs:config/query-parse/mediators.json",
@@ -55,10 +55,17 @@
 
     "ccr:config/normalize-rule/mediators.json",
     "ccr:config/optimize-rule/mediators.json",
-    
     "ccr:config/rule-parse/actors.json",
     "ccr:config/rule-parse/mediators.json",
-
-    "ccr:config/dereference-rule/actors.json"
+    "ccr:config/dereference-rule/actors.json",
+    "ccr:config/dereference-rule/mediators.json",
+    "ccr:config/rule-resolve/actors.json",
+    "ccr:config/rule-resolve/mediators.json",
+    "ccr:config/rdf-reason/actors.json",
+    "ccr:config/rdf-reason/mediators.json",
+    "ccr:config/rdf-resolve-quad-pattern-intercept/actors.json",
+    "ccr:config/rdf-resolve-quad-pattern-intercept/mediators.json",
+    "ccr:config/rdf-update-quads-intercept/actors.json",
+    "ccr:config/rdf-update-quads-intercept/mediators.json"
   ]
 }

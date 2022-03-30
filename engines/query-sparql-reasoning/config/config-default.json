@@ -1,0 +1,8 @@
+{
+  "@context": [
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/config-reasoning/^1.0.0/components/context.jsonld"
+  ],
+  "import": [
+    "ccr:config/config-default.json"
+  ]
+}
