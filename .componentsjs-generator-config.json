@@ -10,7 +10,7 @@
     "Headers",
     "Readable",
     "LRUCache",
-    "RDF.ResultStream"
+    "RuleStream"
   ],
   "modulePrefix": {
     "@comunica/bus-dereference-rule": "cbdrl"
