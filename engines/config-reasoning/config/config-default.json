@@ -53,10 +53,12 @@
     "ccqs:config/rdf-update-quads/actors.json",
     "ccqs:config/rdf-update-quads/mediators.json",
 
+    "ccr:config/normalize-rule/mediators.json",
+    "ccr:config/optimize-rule/mediators.json",
+    
     "ccr:config/rule-parse/actors.json",
     "ccr:config/rule-parse/mediators.json",
 
-    "ccr:config/dereference-rule/actors.json",
-    "ccr:config/dereference-rule/mediators.json"
+    "ccr:config/dereference-rule/actors.json"
   ]
 }
