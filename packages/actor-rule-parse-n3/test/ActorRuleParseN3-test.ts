@@ -5,10 +5,10 @@ import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfParse } from '@comunica/reasoning-mocks';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
+import arrayifyStream from 'arrayify-stream';
 import { DataFactory } from 'n3';
 import { ActorRuleParseN3 } from '../lib';
 import 'jest-rdf';
-import arrayifyStream from 'arrayify-stream';
 
 const streamifyString = require('streamify-string');
 
