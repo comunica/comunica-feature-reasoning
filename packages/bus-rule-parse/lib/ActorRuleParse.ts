@@ -1,13 +1,17 @@
-import {
-  ActorAbstractMediaTyped, IActionAbstractMediaTyped,
-  IActionAbstractMediaTypedHandle, IActionAbstractMediaTypedMediaTypeFormats, IActionAbstractMediaTypedMediaTypes,
+import type { IActionAbstractMediaTyped,
+  IActionAbstractMediaTypedHandle, IActionAbstractMediaTypedMediaTypeFormats,
+  IActionAbstractMediaTypedMediaTypes,
   IActorArgsMediaTyped,
   IActorOutputAbstractMediaTyped,
-  IActorOutputAbstractMediaTypedHandle, IActorOutputAbstractMediaTypedMediaTypeFormats, IActorOutputAbstractMediaTypedMediaTypes,
+  IActorOutputAbstractMediaTypedHandle,
+  IActorOutputAbstractMediaTypedMediaTypeFormats,
+  IActorOutputAbstractMediaTypedMediaTypes,
   IActorTestAbstractMediaTyped,
   IActorTestAbstractMediaTypedHandle,
   IActorTestAbstractMediaTypedMediaTypeFormats,
-  IActorTestAbstractMediaTypedMediaTypes
+  IActorTestAbstractMediaTypedMediaTypes } from '@comunica/actor-abstract-mediatyped';
+import {
+  ActorAbstractMediaTyped,
 } from '@comunica/actor-abstract-mediatyped';
 import type { IActionParse, IActorParseOutput } from '@comunica/actor-abstract-parse';
 import type { IActorTest, Mediate } from '@comunica/core';
@@ -24,7 +28,8 @@ import type { RuleStream } from '@comunica/reasoning-types';
  * @see IActionRuleParse
  * @see IActorRuleParseOutput
  */
-export abstract class ActorRuleParse extends ActorAbstractMediaTyped<IActionRuleParse, IActorTest, IActorRuleParseOutput> {
+export abstract class ActorRuleParse extends
+  ActorAbstractMediaTyped<IActionRuleParse, IActorTest, IActorRuleParseOutput> {
   /**
    * @param args - @defaultNested {<default_bus> a <cc:components/Bus.jsonld#Bus>} bus
    */
@@ -48,7 +53,6 @@ export type IActorOutputRuleParseMediaTypes = IActorOutputAbstractMediaTypedMedi
 export type IActionRuleParseMediaTypeFormats = IActionAbstractMediaTypedMediaTypeFormats;
 export type IActorTestRuleParseMediaTypeFormats = IActorTestAbstractMediaTypedMediaTypeFormats;
 export type IActorOutputRuleParseMediaTypeFormats = IActorOutputAbstractMediaTypedMediaTypeFormats;
-
 
 export interface IActionRuleParseMetadata {
   /**

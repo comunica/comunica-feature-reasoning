@@ -17,7 +17,10 @@ import type { Algebra } from 'sparqlalgebrajs';
  * @see IActorOptimizeRuleOutput
  */
 export abstract class ActorOptimizeRule extends Actor<IActionOptimizeRule, IActorTest, IActorOptimizeRuleOutput> {
-  public constructor(args: IActorArgs<IActionOptimizeRule, IActorTest, IActorOptimizeRuleOutput>) {
+  /**
+   * @param args - @defaultNested {<default_bus> a <cc:components/Bus.jsonld#Bus>} bus
+   */
+  public constructor(args: IActorOptimizeRuleArgs) {
     super(args);
   }
 }
@@ -37,3 +40,5 @@ export interface IActorOptimizeRuleOutput extends IActorOutput {
 }
 
 export type MediatorOptimizeRule = Mediate<IActionOptimizeRule, IActorOptimizeRuleOutput>;
+
+export type IActorOptimizeRuleArgs = IActorArgs<IActionOptimizeRule, IActorTest, IActorOptimizeRuleOutput>;

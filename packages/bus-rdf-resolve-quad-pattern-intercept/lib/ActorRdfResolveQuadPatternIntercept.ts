@@ -1,7 +1,7 @@
 import type {
   IActionRdfResolveQuadPattern, IActorRdfResolveQuadPatternOutput, MediatorRdfResolveQuadPattern,
 } from '@comunica/bus-rdf-resolve-quad-pattern';
-import type { IActorArgs, IActorTest } from '@comunica/core';
+import type { IActorArgs, IActorTest, Mediate } from '@comunica/core';
 import { Actor } from '@comunica/core';
 
 /**
@@ -19,6 +19,9 @@ export abstract class ActorRdfResolveQuadPatternIntercept extends
   Actor<IActionRdfResolveQuadPatternIntercept, IActorTest, IActorRdfResolveQuadPatternInterceptOutput> {
   public readonly mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 
+  /**
+   * @param args - @defaultNested {<default_bus> a <cc:components/Bus.jsonld#Bus>} bus
+   */
   public constructor(args: IActorRdfResolveQuadPatternInterceptArgs) {
     super(args);
   }
@@ -40,6 +43,8 @@ export interface IActorRdfResolveQuadPatternInterceptArgs extends
   mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 }
 
-export type IActionRdfResolveQuadPatternIntercept = IActionRdfResolveQuadPattern;
-export type IActorRdfResolveQuadPatternInterceptOutput = IActorRdfResolveQuadPatternOutput;
-export type MediatorRdfResolveQuadPatternIntercept = MediatorRdfResolveQuadPattern;
+// Revert to type = pattern once https://github.com/LinkedSoftwareDependencies/Components.js/issues/90 is fixed
+export interface IActionRdfResolveQuadPatternIntercept extends IActionRdfResolveQuadPattern {}
+export interface IActorRdfResolveQuadPatternInterceptOutput extends IActorRdfResolveQuadPatternOutput {}
+export type MediatorRdfResolveQuadPatternIntercept =
+Mediate<IActionRdfResolveQuadPatternIntercept, IActorRdfResolveQuadPatternInterceptOutput>;

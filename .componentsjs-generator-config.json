@@ -3,9 +3,15 @@
   "ignorePackagePaths": [
     "packages/reasoning-mocks",
     "packages/reasoning-types",
-    "packages/reasoning-context-entries"
+    "packages/reasoning-context-entries",
+    "engines/query-sparql-reasoning"
   ],
   "ignoreComponents": [
+    "IActionRdfResolveQuadPattern",
+    "IActorRdfResolveQuadPatternOutput",
+    "IActionRdfUpdateQuads",
+    "IActorRdfUpdateQuadsOutput",
+    "MediateMediaTyped",
     "NodeJS.ReadableStream",
     "Headers",
     "Readable",

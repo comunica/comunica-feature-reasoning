@@ -4,6 +4,7 @@
   "description": "A collection of reusable Comunica Reasoning context key definitions.",
   "main": "lib/index.js",
   "typings": "lib/index",
+  "lsd:module": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica/comunica-feature-reasoning.git",

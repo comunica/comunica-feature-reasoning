@@ -9,6 +9,7 @@ import type { IActionRuleParseMetadata } from '@comunica/bus-rule-parse';
 export class ActorDereferenceRuleParse extends ActorDereferenceRule {
   /**
    * @param args - @defaultNested {{
+   *   "hylar":    "text/hylar",
    *   "ttl":      "text/turtle",
    *   "turtle":   "text/turtle",
    *   "nt":       "application/n-triples",

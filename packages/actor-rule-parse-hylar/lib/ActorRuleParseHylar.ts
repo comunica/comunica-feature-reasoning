@@ -3,13 +3,12 @@ import type {
   IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs,
 } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
-import type { IActorTest } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap } from 'asynciterator';
 import { termAsQuad } from 'is-quad';
-import { DataFactory } from 'n3';
+import { DataFactory, DefaultGraph } from 'n3';
 import { stringToTerm } from 'rdf-string';
 
 const { quad, variable } = DataFactory;
@@ -22,18 +21,16 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
    * TODO: Check this
    * @param args -
    *   \ @defaultNested {{
-   *       "text/hylar": 1.0
+   *       "application/hylar": 1.0,
+   *       "text/hylar": 0.9
    *     }} mediaTypePriorities
    *   \ @defaultNested {{
-   *       "text/hylar": "http://www.w3.org/ns/formats/Hylar"
+   *       "text/hylar": "http://www.w3.org/ns/formats/Hylar",
+   *       "application/hylar": "http://www.w3.org/ns/formats/Hylar"
    *     }} mediaTypeFormats
    */
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
-  }
-
-  public async testHandle(action: IActionRuleParse, mediaType: string, context: IActionContext): Promise<IActorTest> {
-    return true;
   }
 
   public async runHandle(action: IActionRuleParse, mediaType: string, context: IActionContext):
@@ -94,7 +91,7 @@ export function parseTriples(triples: string[]): RDF.Quad[] {
 export function parseTriple(triple: string): RDF.Quad {
   const [ subject, predicate, object ] = triple.split(' ');
   return termAsQuad(
-    quad<RDF.BaseQuad>(myStringToTerm(subject), myStringToTerm(predicate), myStringToTerm(object), variable('?g')),
+    quad<RDF.BaseQuad>(myStringToTerm(subject), myStringToTerm(predicate), myStringToTerm(object), new DefaultGraph()),
   );
 }
 
