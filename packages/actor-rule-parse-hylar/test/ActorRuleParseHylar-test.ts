@@ -4,11 +4,12 @@ import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediaty
 import type { IActionRuleParse } from '@comunica/bus-rule-parse';
 import { ActionContext, Bus } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
-const arrayifyStream = require('arrayify-stream');
 import { DataFactory, DefaultGraph } from 'n3';
-const streamifyString = require('streamify-string');
 import { ActorRuleParseHylar } from '../lib';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
+
+const arrayifyStream = require('arrayify-stream');
+const streamifyString = require('streamify-string');
 
 const { variable, quad, namedNode } = DataFactory;
 

@@ -5,11 +5,12 @@ import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfParse } from '@comunica/reasoning-mocks';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
-const arrayifyStream = require('arrayify-stream');
 import { DataFactory } from 'n3';
-const streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
+
+const arrayifyStream = require('arrayify-stream');
+const streamifyString = require('streamify-string');
 
 const { namedNode, quad, variable } = DataFactory;
 

@@ -11,8 +11,9 @@ import { emptyReadable } from '@comunica/bus-dereference';
 import { KeysCore, KeysInitQuery } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
 import { LoggerVoid } from '@comunica/logger-void';
-const arrayifyStream = require('arrayify-stream');
 import { ActorDereferenceRuleParse } from '../lib';
+
+const arrayifyStream = require('arrayify-stream');
 
 describe('ActorDereferenceRuleParse', () => {
   let context: ActionContext;
