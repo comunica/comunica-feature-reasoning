@@ -2,7 +2,7 @@ import { ActionContext, Bus } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { mediatorDereferenceRule } from '@comunica/reasoning-mocks';
 import type { IActionContext } from '@comunica/types';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
 import { ActorRuleResolveHypermedia } from '../lib';
 import { MediatedRuleSource } from '../lib/MediatedRuleSource';
 

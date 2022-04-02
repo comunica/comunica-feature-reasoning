@@ -7,7 +7,7 @@ import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import {
   mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRdfUpdateQuads, mediatorRuleResolve,
 } from '@comunica/reasoning-mocks';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
 import type { IReasonGroup } from '@comunica/reasoning-types';
 import { Store, DataFactory } from 'n3';
 import { ActorRdfReasonRuleRestriction } from '../lib';
