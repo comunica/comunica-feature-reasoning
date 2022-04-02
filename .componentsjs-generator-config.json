@@ -3,14 +3,21 @@
   "ignorePackagePaths": [
     "packages/reasoning-mocks",
     "packages/reasoning-types",
-    "packages/reasoning-context-entries"
+    "packages/reasoning-context-entries",
+    "engines/query-sparql-reasoning",
+    "engines/query-sparql-file-reasoning"
   ],
   "ignoreComponents": [
+    "IActionRdfResolveQuadPattern",
+    "IActorRdfResolveQuadPatternOutput",
+    "IActionRdfUpdateQuads",
+    "IActorRdfUpdateQuadsOutput",
+    "MediateMediaTyped",
     "NodeJS.ReadableStream",
     "Headers",
     "Readable",
     "LRUCache",
-    "RDF.ResultStream"
+    "RuleStream"
   ],
   "modulePrefix": {
     "@comunica/bus-dereference-rule": "cbdrl"

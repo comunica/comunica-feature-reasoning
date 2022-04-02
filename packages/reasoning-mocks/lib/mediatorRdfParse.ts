@@ -2,7 +2,7 @@ import type {
   IActionRdfParseHandle, IActorOutputRdfParseHandle, IActorTestRdfParseHandle, MediatorRdfParseHandle,
 } from '@comunica/bus-rdf-parse';
 import type { Actor, IActorReply } from '@comunica/core';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
 import { StreamParser } from 'n3';
 
 export const mediatorRdfParse = <MediatorRdfParseHandle>{

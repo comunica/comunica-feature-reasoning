@@ -5,10 +5,11 @@ import type { IActionRuleParse } from '@comunica/bus-rule-parse';
 import { ActionContext, Bus } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
 import arrayifyStream from 'arrayify-stream';
-import { DataFactory } from 'n3';
-import streamifyString = require('streamify-string');
+import 'jest-rdf';
+import { DataFactory, DefaultGraph } from 'n3';
 import { ActorRuleParseHylar } from '../lib';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+
+const streamifyString = require('streamify-string');
 
 const { variable, quad, namedNode } = DataFactory;
 
@@ -24,6 +25,7 @@ function createMediaTypedAction(file: string, isFile = true): IActionAbstractMed
   return {
     handle: createAction(file, isFile),
     context: new ActionContext(),
+    handleMediaType: 'text/hylar',
   };
 }
 
@@ -38,7 +40,7 @@ describe('ActorRuleParseHyLAR', () => {
     let actor: ActorRuleParseHylar;
 
     beforeEach(() => {
-      actor = new ActorRuleParseHylar(<any> { name: 'actor', bus });
+      actor = new ActorRuleParseHylar(<any> { name: 'actor', bus, mediaTypePriorities: { 'text/hylar': 1 }});
     });
 
     it('should test', async() => {
@@ -60,14 +62,14 @@ describe('ActorRuleParseHyLAR', () => {
       expect(rules).toHaveLength(1);
       expect(rules[0].ruleType).toEqual('rdfs');
       expect((<any> rules[0]).premise).toBeRdfIsomorphic([
-        quad(variable('uuu'), variable('aaa'), variable('yyy'), variable('?g')),
+        quad(variable('uuu'), variable('aaa'), variable('yyy'), new DefaultGraph()),
       ]);
       expect((<any> rules[0]).conclusion).toBeRdfIsomorphic([
         quad(
           variable('aaa'),
           namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
           namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'),
-          variable('?g'),
+          new DefaultGraph(),
         ),
       ]);
     });

@@ -6,7 +6,6 @@ import type { IActorTest } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { IActionContext } from '@comunica/types';
 import LRUCache = require('lru-cache');
-import type { IMediatedRuleSourceArgs } from './MediatedRuleSource';
 import { MediatedRuleSource } from './MediatedRuleSource';
 
 /**
@@ -60,7 +59,7 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
   }
 }
 
-interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs, IMediatedRuleSourceArgs {
+export interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs {
   /**
    * The maximum number of entries in the LRU cache, set to 0 to disable.
    * @range {integer}
@@ -74,4 +73,5 @@ interface IActorRuleResolveHypermediaArgs extends IActorRuleResolveArgs, IMediat
    */
   httpInvalidator: ActorHttpInvalidateListenable;
   /* eslint-enable max-len */
+  mediatorDereferenceRule: MediatorDereferenceRule;
 }

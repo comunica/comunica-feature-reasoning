@@ -1,7 +1,7 @@
 {
   "@context": [
     "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/config-query-sparql/^2.0.0/components/context.jsonld",
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/config-query-sparql-reasoning/^1.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/config-reasoning/^1.0.0/components/context.jsonld"
   ],
   "import": [
     "ccqs:config/context-preprocess/actors.json",
@@ -27,6 +27,8 @@
     "ccqs:config/dereference-rdf/mediators.json",
     "ccqs:config/rdf-join/actors.json",
     "ccqs:config/rdf-join/mediators.json",
+    "ccqs:config/rdf-join-entries-sort/actors.json",
+    "ccqs:config/rdf-join-entries-sort/mediators.json",
     "ccqs:config/rdf-join-selectivity/actors.json",
     "ccqs:config/rdf-join-selectivity/mediators.json",
     "ccqs:config/rdf-metadata/actors.json",
@@ -51,17 +53,6 @@
     "ccqs:config/rdf-update-quads/actors.json",
     "ccqs:config/rdf-update-quads/mediators.json",
 
-    "ccr:config/dereference-rule/actors.json",
-    "ccr:config/dereference-rule/mediators.json",
-    "ccr:config/normalize-rule/actors.json",
-    "ccr:config/normalize-rule/mediators.json",
-    "ccr:config/optimize-rule/actors.json",
-    "ccr:config/optimize-rule/mediators.json",
-    "ccr:config/dereference-rule/actors.json",
-    "ccr:config/dereference-rule/mediators.json",
-    "ccr:config/rdf-reason/actors.json",
-    "ccr:config/rdf-reason/mediators.json",
-    "ccr:config/rule-parse/actors.json",
-    "ccr:config/rule-parse/mediators.json"
+    "ccr:config/reasoning-default.json"
   ]
 }

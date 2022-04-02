@@ -7,7 +7,7 @@ import {
 } from '@comunica/reasoning-mocks';
 import type { IPartialReasonedStatus, IReasonGroup, IReasonStatus } from '@comunica/reasoning-types';
 import { fromArray } from 'asynciterator';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
 import { DataFactory, Store } from 'n3';
 import { Factory } from 'sparqlalgebrajs';
 import { ActorRdfReasonMediated } from '../lib';

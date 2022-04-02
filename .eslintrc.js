@@ -121,6 +121,9 @@ module.exports = {
     'import/no-extraneous-dependencies': 'error',
     'import/group-exports': 'off',
     'import/exports-last': 'off',
+    'import/no-commonjs': 'off',
+    'import/extensions': 'off',
+    'import/no-unassigned-import': 'off',
 
     // TODO: Try to re-enable the following rules in the future
     'global-require': 'off',

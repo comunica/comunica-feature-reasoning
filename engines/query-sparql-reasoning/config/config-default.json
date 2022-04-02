@@ -1,8 +1,8 @@
 {
   "@context": [
-    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/config-query-sparql-reasoning/^1.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/config-reasoning/^1.0.0/components/context.jsonld"
   ],
   "import": [
-    "ccqss:config/config-default.json"
+    "ccr:config/config-default.json"
   ]
 }

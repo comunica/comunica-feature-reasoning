@@ -1,7 +1,7 @@
 import { ActionContext } from '@comunica/core';
 import { mediatorDereferenceRule } from '@comunica/reasoning-mocks';
 import type { IActionContext } from '@comunica/types';
-import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
+import 'jest-rdf';
 import { MediatedRuleSource } from '../lib';
 
 describe('MediatedRuleSource', () => {

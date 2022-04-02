@@ -85,7 +85,10 @@ export function setReasoningStatus(context: IActionContext, status: IReasonGroup
  * @see IActorRdfReasonOutput
  */
 export abstract class ActorRdfReason extends Actor<IActionRdfReason, IActorTest, IActorRdfReasonOutput> {
-  public constructor(args: IActorArgs<IActionRdfReason, IActorTest, IActorRdfReasonOutput>) {
+  /**
+   * @param args - @defaultNested {<default_bus> a <cc:components/Bus.jsonld#Bus>} bus
+   */
+  public constructor(args: IActorRdfReasonArgs) {
     super(args);
   }
 }
@@ -116,3 +119,5 @@ export interface IActorRdfReasonOutput extends IActorOutput {
 }
 
 export type MediatorRdfReason = Mediate<IActionRdfReason, IActorRdfReasonOutput>;
+
+export type IActorRdfReasonArgs = IActorArgs<IActionRdfReason, IActorTest, IActorRdfReasonOutput>;

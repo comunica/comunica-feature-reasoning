@@ -95,7 +95,7 @@ export class ActorRdfUpdateQuadsInterceptReasoned extends ActorRdfUpdateQuadsInt
   }
 }
 
-interface IActorRdfUpdateQuadsInterceptReasonedArgs extends IActorRdfUpdateQuadsInterceptArgs {
+export interface IActorRdfUpdateQuadsInterceptReasonedArgs extends IActorRdfUpdateQuadsInterceptArgs {
   mediatorRdfReason: MediatorRdfReason;
   mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
 }

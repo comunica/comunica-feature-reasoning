@@ -1,10 +1,10 @@
 import type {
   IActionRdfUpdateQuads,
-  IActorRdfUpdateQuadsArgs,
   IActorRdfUpdateQuadsOutput,
   MediatorRdfUpdateQuads,
 } from '@comunica/bus-rdf-update-quads';
-import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import type { IActorArgs, IActorTest, Mediate } from '@comunica/core';
+import { Actor } from '@comunica/core';
 
 // TODO: Remove this module my using something like 'reasoning groups'
 
@@ -19,9 +19,13 @@ import { ActorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
  * @see IActionRdfUpdateQuadsIntercept
  * @see IActorRdfUpdateQuadsInterceptOutput
  */
-export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
+export abstract class ActorRdfUpdateQuadsIntercept extends
+  Actor<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput> {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 
+  /**
+   * @param args - @defaultNested {<default_bus> a <cc:components/Bus.jsonld#Bus>} bus
+   */
   public constructor(args: IActorRdfUpdateQuadsInterceptArgs) {
     super(args);
   }
@@ -44,10 +48,13 @@ export abstract class ActorRdfUpdateQuadsIntercept extends ActorRdfUpdateQuads {
   // }
 }
 
-export interface IActorRdfUpdateQuadsInterceptArgs extends IActorRdfUpdateQuadsArgs {
+export interface IActorRdfUpdateQuadsInterceptArgs extends
+  IActorArgs<IActionRdfUpdateQuadsIntercept, IActorTest, IActorRdfUpdateQuadsInterceptOutput> {
   mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 }
 
-export type IActionRdfUpdateQuadsIntercept = IActionRdfUpdateQuads;
-export type IActorRdfUpdateQuadsInterceptOutput = IActorRdfUpdateQuadsOutput;
-export type MediatorRdfUpdateQuadsIntercept = MediatorRdfUpdateQuads;
+// Revert to type = pattern once https://github.com/LinkedSoftwareDependencies/Components.js/issues/90 is fixed
+export interface IActionRdfUpdateQuadsIntercept extends IActionRdfUpdateQuads {}
+export interface IActorRdfUpdateQuadsInterceptOutput extends IActorRdfUpdateQuadsOutput {}
+export type MediatorRdfUpdateQuadsIntercept =
+Mediate<IActionRdfUpdateQuadsIntercept, IActorRdfUpdateQuadsInterceptOutput>;

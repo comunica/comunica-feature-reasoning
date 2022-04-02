@@ -1,5 +1,4 @@
-import type { IActorArgsMediaTypedFixed } from '@comunica/actor-abstract-mediatyped';
-import { ActorAbstractMediaTypedFixed } from '@comunica/actor-abstract-mediatyped';
+import { type IActorArgsMediaTypedFixed, ActorAbstractMediaTypedFixed } from '@comunica/actor-abstract-mediatyped';
 import type { IActorTest } from '@comunica/core';
 import type { IActionRuleParse, IActorRuleParseOutput } from './ActorRuleParse';
 
@@ -15,11 +14,15 @@ import type { IActionRuleParse, IActorRuleParseOutput } from './ActorRuleParse';
  */
 export abstract class ActorRuleParseFixedMediaTypes extends ActorAbstractMediaTypedFixed<
 IActionRuleParse, IActorTest, IActorRuleParseOutput> implements IActorRuleParseFixedMediaTypesArgs {
-  // TODO: See if we need the JSDoc from
-  // https://github.com/comunica/comunica/blob/master/packages/bus-rdf-parse/lib/ActorRdfParseFixedMediaTypes.ts
+  /* eslint-disable max-len */
+  /**
+   * TODO: rm this (and eslint-disable) once we remove the abstract media typed actor
+   * @param args - @defaultNested {<cbrp:components/ActorRuleParse.jsonld#ActorRuleParse_default_bus> a <cc:components/Bus.jsonld#Bus>} bus
+   */
   public constructor(args: IActorRuleParseFixedMediaTypesArgs) {
     super(args);
   }
+  /* eslint-enable max-len */
 
   public async testHandleChecked(action: IActionRuleParse): Promise<boolean> {
     return true;

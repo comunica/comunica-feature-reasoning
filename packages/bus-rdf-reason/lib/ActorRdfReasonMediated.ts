@@ -16,7 +16,7 @@ import {
   getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
 } from './ActorRdfReason';
 
-export abstract class ActorRdfReasonMediated extends ActorRdfReason implements IActorRdfReasonMediatedArgs {
+export abstract class ActorRdfReasonMediated extends ActorRdfReason {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 
   public readonly mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
@@ -115,7 +115,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason implements I
             }
           }
         }
-
+        this.logInfo(action.context, 'Starting reasoning ...');
         const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
 
         if (pattern) {
