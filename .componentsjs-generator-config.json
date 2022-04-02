@@ -4,7 +4,8 @@
     "packages/reasoning-mocks",
     "packages/reasoning-types",
     "packages/reasoning-context-entries",
-    "engines/query-sparql-reasoning"
+    "engines/query-sparql-reasoning",
+    "engines/query-sparql-file-reasoning"
   ],
   "ignoreComponents": [
     "IActionRdfResolveQuadPattern",
