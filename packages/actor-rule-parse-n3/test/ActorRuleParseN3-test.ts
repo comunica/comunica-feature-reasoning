@@ -5,9 +5,9 @@ import type { IActionRuleParse, IActorRuleParseOutput } from '@comunica/bus-rule
 import { ActionContext, Bus } from '@comunica/core';
 import { mediatorRdfParse } from '@comunica/reasoning-mocks';
 import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
-import arrayifyStream from 'arrayify-stream';
+const arrayifyStream = require('arrayify-stream');
 import { DataFactory } from 'n3';
-import streamifyString = require('streamify-string');
+const streamifyString = require('streamify-string');
 import { ActorRuleParseN3 } from '../lib';
 import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 

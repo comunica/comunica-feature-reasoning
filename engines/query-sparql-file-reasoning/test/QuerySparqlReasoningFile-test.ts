@@ -35,7 +35,11 @@ describe('System test: QuerySparqlReasoning', () => {
           [KeysRdfReason.implicitDatasetFactory.name]: () => new Store(),
           [KeysRdfReason.rules.name]: path.join(__dirname, './data/empty-rule.hylar'),
           sources: [ new Store([
-            DF.quad(DF.namedNode('http://example.org/s'), DF.namedNode('http://example.org/p'), DF.namedNode('http://example.org/o')),
+            DF.quad(
+              DF.namedNode('http://example.org/s'),
+              DF.namedNode('http://example.org/p'),
+              DF.namedNode('http://example.org/o'),
+            ),
           ]) ],
         });
         expect(await result.toArray()).toHaveLength(1);
@@ -46,8 +50,16 @@ describe('System test: QuerySparqlReasoning', () => {
           [KeysRdfReason.implicitDatasetFactory.name]: () => new Store(),
           [KeysRdfReason.rules.name]: path.join(__dirname, './data/subclass-rule.hylar'),
           sources: [ new Store([
-            DF.quad(DF.namedNode('http://example.org/Person'), DF.namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'), DF.namedNode('http://example.org/Thing')),
-            DF.quad(DF.namedNode('http://example.org/Jesse'), DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), DF.namedNode('http://example.org/Person')),
+            DF.quad(
+              DF.namedNode('http://example.org/Person'),
+              DF.namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
+              DF.namedNode('http://example.org/Thing'),
+            ),
+            DF.quad(
+              DF.namedNode('http://example.org/Jesse'),
+              DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+              DF.namedNode('http://example.org/Person'),
+            ),
           ]) ],
         });
         expect(await result.toArray()).toHaveLength(2);

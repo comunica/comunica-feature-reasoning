@@ -13,6 +13,7 @@ export class CliArgsHandlerReasoning implements ICliArgsHandler {
           alias: 'r',
           type: 'string',
           describe: 'The rules to reason with',
+          // eslint-disable-next-line max-len
           default: 'https://gist.githubusercontent.com/jeswr/e914df85df0b3d39cfc42f462770ed87/raw/ffd9f5bd6638d8db3d57d2cf4f96e6d003328ac5/rdfs.hylar',
           group: 'Required options:',
         },

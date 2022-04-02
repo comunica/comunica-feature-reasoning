@@ -4,9 +4,9 @@ import type { IActionAbstractMediaTyped } from '@comunica/actor-abstract-mediaty
 import type { IActionRuleParse } from '@comunica/bus-rule-parse';
 import { ActionContext, Bus } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
-import arrayifyStream from 'arrayify-stream';
+const arrayifyStream = require('arrayify-stream');
 import { DataFactory, DefaultGraph } from 'n3';
-import streamifyString = require('streamify-string');
+const streamifyString = require('streamify-string');
 import { ActorRuleParseHylar } from '../lib';
 import 'jest-rdf'; // eslint-disable-line import/no-unassigned-import
 

@@ -36,9 +36,10 @@ describe('System test: QuerySparqlReasoning', () => {
           [KeysRdfReason.rules.name]: 'https://gist.githubusercontent.com/jeswr/e914df85df0b3d39cfc42f462770ed87/raw/ffd9f5bd6638d8db3d57d2cf4f96e6d003328ac5/rdfs.hylar',
           sources: [ new Store([
             DF.quad(
-              DF.namedNode('http://example.org/s'), 
+              DF.namedNode('http://example.org/s'),
               DF.namedNode('http://example.org/p'),
-              DF.namedNode('http://example.org/o')),
+              DF.namedNode('http://example.org/o'),
+            ),
           ]) ],
         });
         expect((await result.toArray()).length).toEqual(15);
