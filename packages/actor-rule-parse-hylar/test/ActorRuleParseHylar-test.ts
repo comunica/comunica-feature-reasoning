@@ -8,7 +8,7 @@ import { DataFactory, DefaultGraph } from 'n3';
 import { ActorRuleParseHylar } from '../lib';
 import 'jest-rdf';
 
-const arrayifyStream = require('arrayify-stream');
+import arrayifyStream from 'arrayify-stream';
 const streamifyString = require('streamify-string');
 
 const { variable, quad, namedNode } = DataFactory;

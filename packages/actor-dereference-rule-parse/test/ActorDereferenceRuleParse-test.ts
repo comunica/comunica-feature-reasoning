@@ -13,7 +13,7 @@ import { ActionContext, Bus } from '@comunica/core';
 import { LoggerVoid } from '@comunica/logger-void';
 import { ActorDereferenceRuleParse } from '../lib';
 
-const arrayifyStream = require('arrayify-stream');
+import arrayifyStream from 'arrayify-stream';
 
 describe('ActorDereferenceRuleParse', () => {
   let context: ActionContext;

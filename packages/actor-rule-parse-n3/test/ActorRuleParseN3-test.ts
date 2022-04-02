@@ -8,8 +8,8 @@ import type { IPremiseConclusionRule } from '@comunica/reasoning-types';
 import { DataFactory } from 'n3';
 import { ActorRuleParseN3 } from '../lib';
 import 'jest-rdf';
+import arrayifyStream from 'arrayify-stream';
 
-const arrayifyStream = require('arrayify-stream');
 const streamifyString = require('streamify-string');
 
 const { namedNode, quad, variable } = DataFactory;
