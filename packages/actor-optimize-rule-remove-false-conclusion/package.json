@@ -1,22 +1,23 @@
 {
-  "name": "@comunica/bus-optimize-rule",
+  "name": "@comunica/actor-optimize-rule-remove-false-conclusion",
   "version": "1.0.0",
-  "description": "A comunica bus for optimizing rules given a context",
+  "description": "A remove-false-conclusion optimize-rule actor",
   "lsd:module": true,
   "main": "lib/index.js",
   "typings": "lib/index",
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica/comunica-feature-reasoning.git",
-    "directory": "packages/bus-optimize-rule"
+    "directory": "packages/actor-optimize-rule-remove-false-conclusion"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
     "comunica",
-    "bus",
-    "optimize-rule"
+    "actor",
+    "optimize-rule",
+    "remove-false-conclusion"
   ],
   "license": "MIT",
   "bugs": {
@@ -29,11 +30,8 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/core": "^2.0.1",
-    "@comunica/reasoning-types": "^1.0.0",
-    "@comunica/types": "^2.0.1",
-    "asynciterator": "^3.4.0",
-    "sparqlalgebrajs": "^4.0.2"
+    "@comunica/bus-optimize-rule": "^1.0.0",
+    "@comunica/core": "^2.0.1"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

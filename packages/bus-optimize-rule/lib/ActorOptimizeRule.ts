@@ -39,6 +39,6 @@ export interface IActorOptimizeRuleOutput extends IActorOutput {
   context: IActionContext;
 }
 
-export type MediatorOptimizeRule = Mediate<IActionOptimizeRule, IActorOptimizeRuleOutput>;
-
 export type IActorOptimizeRuleArgs = IActorArgs<IActionOptimizeRule, IActorTest, IActorOptimizeRuleOutput>;
+
+export type MediatorOptimizeRule = Mediate<IActionOptimizeRule, IActorOptimizeRuleOutput>;

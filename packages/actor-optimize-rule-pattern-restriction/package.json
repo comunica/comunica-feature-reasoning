@@ -1,26 +1,27 @@
 {
-  "name": "@comunica/bus-optimize-rule",
+  "name": "@comunica/actor-optimize-rule-pattern-restriction",
   "version": "1.0.0",
-  "description": "A comunica bus for optimizing rules given a context",
+  "description": "A pattern-restriction optimize-rule actor",
   "lsd:module": true,
   "main": "lib/index.js",
   "typings": "lib/index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/comunica/comunica-feature-reasoning.git",
-    "directory": "packages/bus-optimize-rule"
+    "url": "https://github.com/comunica/comunica.git",
+    "directory": "packages/actor-optimize-rule-pattern-restriction"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
     "comunica",
-    "bus",
-    "optimize-rule"
+    "actor",
+    "optimize-rule",
+    "pattern-restriction"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/comunica/comunica-feature-reasoning/issues"
+    "url": "https://github.com/comunica/comunica/issues"
   },
   "homepage": "https://comunica.dev/",
   "files": [
@@ -29,10 +30,12 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/core": "^2.0.1",
+    "@comunica/bus-optimize-rule": "^1.0.0",
     "@comunica/reasoning-types": "^1.0.0",
-    "@comunica/types": "^2.0.1",
+    "@comunica/core": "^2.0.1",
+    "@rdfjs/types": "*",
     "asynciterator": "^3.4.0",
+    "rdf-terms": "^1.7.1",
     "sparqlalgebrajs": "^4.0.2"
   },
   "scripts": {

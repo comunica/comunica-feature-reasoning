@@ -23,9 +23,9 @@ export interface INestedPremiseConclusionRule extends INestedPremiseConclusionRu
   ruleType: 'nested-premise-conclusion';
 }
 
-export interface IOWL2RLRule extends IBaseRule {
-  ruleType: 'owl2rl';
-}
+// Export interface IOWL2RLRule extends IBaseRule {
+//   ruleType: 'owl2rl';
+// }
 
 export interface IPremiseConclusionRule extends IBaseRule {
   ruleType: 'premise-conclusion';
@@ -33,6 +33,6 @@ export interface IPremiseConclusionRule extends IBaseRule {
   conclusion: Quad[];
 }
 
-export type Rule = IRDFSRule | IOWL2RLRule | IPremiseConclusionRule | INestedPremiseConclusionRule;
+export type Rule = IRDFSRule | IPremiseConclusionRule | INestedPremiseConclusionRule;
 
 export type RuleStream = ResultStream<Rule>;
