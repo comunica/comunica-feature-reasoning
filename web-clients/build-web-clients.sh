@@ -7,7 +7,7 @@ set -e
 cwd=$(pwd)
 mkdir -p $cwd/web-clients/builds
 pushd engines/query-sparql-reasoning >/dev/null
-for config in ../config-query-sparql-reasoning/config/*.json; do
+for config in ../config-reasoning/config/*.json; do
   id=$(echo $config | sed "s/.*config\/config-\(.*\)\.json/\1/")
 
   if [ "$id" = "base" ] || [ "$id" = "solid-base" ]; then
@@ -15,7 +15,7 @@ for config in ../config-query-sparql-reasoning/config/*.json; do
   fi
 
   cat $cwd/web-clients/settings.json | \
-    sed "s/__SUBTITLE__/Using $id config/; s~__SUBTITLE_HREF__~https://github.com/comunica/comunica-feature-reasoning/blob/$GITHUB_SHA/engines/config-query-sparql-reasoning/config/config-$id.json~" \
+    sed "s/__SUBTITLE__/Using $id config/; s~__SUBTITLE_HREF__~https://github.com/comunica/comunica-feature-reasoning/blob/$GITHUB_SHA/engines/config-reasoning/config/config-$id.json~" \
     > $cwd/web-clients/settings.custom.json
 
   # Build web client
