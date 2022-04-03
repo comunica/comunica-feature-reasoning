@@ -37,9 +37,9 @@
     "@comunica/reasoning-context-entries": "^1.0.0",
     "@comunica/reasoning-types": "^1.0.0",
     "@comunica/types": "^2.0.0",
-    "@types/lru-cache": "^5.1.0",
+    "@types/lru-cache": "^7.0.0",
     "asynciterator": "^3.4.0",
-    "lru-cache": "^6.0.0"
+    "lru-cache": "^7.0.0"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",
