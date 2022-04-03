@@ -1,6 +1,6 @@
 {
   "name": "@comunica/config-reasoning",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "default configuration files for Comunica Reasoning",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -39,5 +39,6 @@
   },
   "dependencies": {
     "@comunica/config-query-sparql": "^2.0.1"
-  }
+  },
+  "gitHead": "67a52385d0bd8ecaaa405a2a087652a58156b571"
 }
