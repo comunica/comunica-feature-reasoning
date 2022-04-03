@@ -23,3 +23,4 @@ earl.ttl
 componentsjs-error-state.json
 engines/*/components
 packages/*/components
+.vscode
