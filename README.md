@@ -16,17 +16,13 @@
 
 **[Learn more about Comunica on our website](https://comunica.dev/).**
 
-:construction: This package is in early stages of development
-
 This is a monorepo that contains packages for allowing [Comunica](https://github.com/comunica/comunica) to reason over sources.
 
-<!-- If you want to _use_ an Reasoning-enabled Comunica engine, have a look at [Comunica SPARQL Reasoning](https://github.com/comunica/comunica-feature-reasoning/tree/master/packages/actor-init-sparql-reasoning). -->
+Concretely, reasoning is enabled with the following engines:
 
-<!-- Concretely, this monorepo adds reasoning support to Comunica using the following packages:
-
-TODO: Write this section after developing alpha versions of packages -->
-
-**Warning: All packages in this repo should be considered unstable, and breaking changes may occur at any time.**
+* Query engine configurations:
+  * [Comunica SPARQL Reasoning](https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-reasoning): A Comunica query engine that includes all Reasoning packages.
+  * [Comunica SPARQL Reasoning File](https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-link-traversal-solid): A Comunica query engine that includes all Reasoning packages, and supports sources with local files.
 
 ## Development Setup
 
