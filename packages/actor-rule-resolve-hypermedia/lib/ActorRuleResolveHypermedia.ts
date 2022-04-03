@@ -25,7 +25,7 @@ export class ActorRuleResolveHypermedia extends ActorRuleResolveSource
       undefined;
     if (cache) {
       this.httpInvalidator.addInvalidateListener(
-        ({ url }: IActionHttpInvalidate) => url ? cache.del(url) : cache.reset(),
+        ({ url }: IActionHttpInvalidate) => url ? cache.delete(url) : cache.clear(),
       );
     }
   }
