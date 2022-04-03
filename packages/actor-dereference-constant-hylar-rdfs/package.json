@@ -1,0 +1,44 @@
+{
+  "name": "@comunica/actor-dereference-constant-hylar-rdfs",
+  "version": "1.0.0",
+  "description": "A constant-hylar-rdfs dereference actor",
+  "lsd:module": true,
+  "main": "lib/index.js",
+  "typings": "lib/index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/comunica/comunica.git",
+    "directory": "packages/actor-dereference-constant-hylar-rdfs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "comunica",
+    "actor",
+    "dereference",
+    "constant-hylar-rdfs"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/comunica/comunica/issues"
+  },
+  "homepage": "https://comunica.dev/",
+  "files": [
+    "components",
+    "lib/**/*.d.ts",
+    "lib/**/*.js"
+  ],
+  "dependencies": {
+    "@comunica/bus-dereference": "^2.0.2",
+    "@comunica/core": "^2.0.1",
+    "@comunica/reasoning-context-entries": "^1.0.0",
+    "streamify-string": "^1.0.1"
+  },
+  "scripts": {
+    "build": "npm run build:ts && npm run build:components",
+    "build:ts": "node \"../../node_modules/typescript/bin/tsc\"",
+    "build:components": "componentsjs-generator"
+  }
+}
