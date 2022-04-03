@@ -102,12 +102,14 @@ IPremiseConclusionRule[] {
 export function matchPatternMappings(pattern: RDF.Quad | Algebra.Pattern, quad: Algebra.Pattern | RDF.Quad): boolean {
   const mapping: Record<string, RDF.Term> = {};
   const res = everyTerms(pattern, (term, key) => {
-    if (quad[key].termType === 'Variable')
+    if (quad[key].termType === 'Variable') {
       return true;
-    if (term.termType !== "Variable")
+    }
+    if (term.termType !== 'Variable') {
       return term.equals(quad[key]);
+    }
     // eslint-disable-next-line no-return-assign
-    return (term.value in mapping ? mapping[term.value].equals(quad[key]) : (mapping[term.value] = quad[key]) && true);
+    return term.value in mapping ? mapping[term.value].equals(quad[key]) : (mapping[term.value] = quad[key]) && true;
   });
   return res;
 }
