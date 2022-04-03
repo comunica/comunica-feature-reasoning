@@ -101,7 +101,7 @@ IPremiseConclusionRule[] {
  */
 export function matchPatternMappings(pattern: RDF.Quad | Algebra.Pattern, quad: Algebra.Pattern | RDF.Quad): boolean {
   const mapping: Record<string, RDF.Term> = {};
-  const res = everyTerms(pattern, (term, key) => {
+  return everyTerms(pattern, (term, key) => {
     if (quad[key].termType === 'Variable') {
       return true;
     }
@@ -111,5 +111,4 @@ export function matchPatternMappings(pattern: RDF.Quad | Algebra.Pattern, quad: 
     // eslint-disable-next-line no-return-assign
     return term.value in mapping ? mapping[term.value].equals(quad[key]) : (mapping[term.value] = quad[key]) && true;
   });
-  return res;
 }
