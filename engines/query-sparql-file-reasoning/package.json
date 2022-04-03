@@ -28,9 +28,9 @@
   ],
   "license": "MIT",
   "bin": {
-    "comunica-dynamic-sparql": "bin/query-dynamic.js",
-    "comunica-sparql": "bin/query.js",
-    "comunica-sparql-http": "bin/http.js"
+    "comunica-dynamic-sparql-file-reasoning": "bin/query-dynamic.js",
+    "comunica-sparql-file-reasoning": "bin/query.js",
+    "comunica-sparql-file-reasoning-http": "bin/http.js"
   },
   "bugs": {
     "url": "https://github.com/comunica/comunica-feature-reasoning/issues"
