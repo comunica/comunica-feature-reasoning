@@ -5,6 +5,7 @@
   "import": [
     "ccr:config/normalize-rule/mediators.json",
     "ccr:config/optimize-rule/mediators.json",
+    "ccr:config/optimize-rule/actors.json",
     "ccr:config/rule-parse/actors.json",
     "ccr:config/rule-parse/mediators.json",
     "ccr:config/dereference-rule/actors.json",
@@ -16,6 +17,8 @@
     "ccr:config/rdf-resolve-quad-pattern-intercept/actors.json",
     "ccr:config/rdf-resolve-quad-pattern-intercept/mediators.json",
     "ccr:config/rdf-update-quads-intercept/actors.json",
-    "ccr:config/rdf-update-quads-intercept/mediators.json"
+    "ccr:config/rdf-update-quads-intercept/mediators.json",
+
+    "ccr:config/dereference/actors.json"
   ]
 }

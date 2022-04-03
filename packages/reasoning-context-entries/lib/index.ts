@@ -15,3 +15,8 @@ export const KeysRdfReason = {
    */
   implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
 };
+
+export const KeysRdfDereferenceConstantHylar = {
+  rdfs: '@comunica/bus-rdf-dereference:constant-hylar-rdfs',
+  owl2rl: '@comunica/bus-rdf-dereference:constant-hylar-owl2rl',
+};

@@ -186,5 +186,71 @@ describe('ActorOptimizeRulePatternRestriction', () => {
         ) });
       expect(await rules.toArray()).toHaveLength(2);
     });
+
+    it('should work with default graph rule', async() => {
+      const { rules } = await actor.run({ context: new ActionContext(),
+        rules: fromArray<Rule>([
+          {
+            ruleType: 'premise-conclusion',
+            premise: [ DF.quad(
+              DF.variable('s'),
+              DF.namedNode('a'),
+              DF.variable('o'),
+              DF.defaultGraph(),
+            ), DF.quad(
+              DF.variable('o'),
+              DF.namedNode('subClassOf'),
+              DF.variable('o2'),
+              DF.defaultGraph(),
+            ) ],
+            conclusion: [ DF.quad(
+              DF.variable('s'),
+              DF.namedNode('a'),
+              DF.variable('o2'),
+              DF.defaultGraph(),
+            ) ],
+          },
+        ]),
+        pattern: factory.createPattern(
+          DF.variable('s'),
+          DF.variable('p'),
+          DF.variable('o'),
+          DF.variable('g'),
+        ) });
+      expect(await rules.toArray()).toHaveLength(1);
+    });
+
+    it('should work with default graph rule and using restricted pattern', async() => {
+      const { rules } = await actor.run({ context: new ActionContext(),
+        rules: fromArray<Rule>([
+          {
+            ruleType: 'premise-conclusion',
+            premise: [ DF.quad(
+              DF.variable('s'),
+              DF.namedNode('a'),
+              DF.variable('o'),
+              DF.defaultGraph(),
+            ), DF.quad(
+              DF.variable('o'),
+              DF.namedNode('subClassOf'),
+              DF.variable('o2'),
+              DF.defaultGraph(),
+            ) ],
+            conclusion: [ DF.quad(
+              DF.variable('s'),
+              DF.namedNode('a'),
+              DF.variable('o2'),
+              DF.defaultGraph(),
+            ) ],
+          },
+        ]),
+        pattern: factory.createPattern(
+          DF.namedNode('Jesse'),
+          DF.namedNode('a'),
+          DF.variable('o'),
+          DF.variable('g'),
+        ) });
+      expect(await rules.toArray()).toHaveLength(1);
+    });
   });
 });

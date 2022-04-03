@@ -6,6 +6,33 @@ import { DataFactory } from 'n3';
 const { quad, variable, namedNode } = DataFactory;
 
 export const RULES: Record<string, Rule[]> = {
+  'multi-conclusion-rules': [
+    {
+      ruleType: 'premise-conclusion',
+      premise: [
+        quad(
+          variable('?s'),
+          variable('?p'),
+          variable('?o'),
+          variable('?g'),
+        ),
+      ],
+      conclusion: [
+        quad(
+          variable('?s'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Thing1'),
+          variable('?g'),
+        ),
+        quad(
+          variable('?s'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Thing2'),
+          variable('?g'),
+        ),
+      ],
+    },
+  ],
   'my-unnested-rules': [
     {
       ruleType: 'premise-conclusion',

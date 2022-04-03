@@ -18,8 +18,6 @@ export class ActorOptimizeRulePatternRestriction extends ActorOptimizeRule {
   }
 
   public async test(action: IActionOptimizeRule): Promise<IActorTest> {
-    // Console.log(action)
-
     const { pattern } = action;
 
     if (!pattern) {
@@ -101,16 +99,16 @@ IPremiseConclusionRule[] {
  * @param pattern A pattern - possibly containing variables
  * @param quad A quad - possibly containing variables
  */
-export function matchPatternMappings(pattern: RDF.Quad | Algebra.Pattern, quad: RDF.Quad): boolean {
+export function matchPatternMappings(pattern: RDF.Quad | Algebra.Pattern, quad: Algebra.Pattern | RDF.Quad): boolean {
   const mapping: Record<string, RDF.Term> = {};
-  const res = everyTerms(pattern, (term, key) => {
+  return everyTerms(pattern, (term, key) => {
+    if (quad[key].termType === 'Variable') {
+      return true;
+    }
     if (term.termType !== 'Variable') {
       return term.equals(quad[key]);
     }
     // eslint-disable-next-line no-return-assign
-    return quad[key].termType === 'Variable' || (term.value in mapping ?
-      mapping[term.value].equals(quad[key]) :
-      (mapping[term.value] = quad[key]) && true);
+    return term.value in mapping ? mapping[term.value].equals(quad[key]) : (mapping[term.value] = quad[key]) && true;
   });
-  return res;
 }

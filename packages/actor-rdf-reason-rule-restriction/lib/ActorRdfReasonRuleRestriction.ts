@@ -104,7 +104,10 @@ AsyncIterator<RDF.Quad> {
       done();
     },
   }).map(({ mappings, conclusion }) => new UnionIterator(
-    conclusion.map(quad => mappings.map(mapping => substituteQuad(quad, mapping))), { autoStart: false },
+    conclusion.map(
+      quad => (conclusion.length > 1 ? mappings.clone() : mappings).map(mapping => substituteQuad(quad, mapping)),
+    ),
+    { autoStart: false },
   ));
   return new UnionIterator(iterators, { autoStart: false });
 }

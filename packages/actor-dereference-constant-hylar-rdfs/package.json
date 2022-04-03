@@ -1,27 +1,28 @@
 {
-  "name": "@comunica/actor-rule-parse-hylar",
+  "name": "@comunica/actor-dereference-constant-hylar-rdfs",
   "version": "1.0.0",
-  "description": "A hylar rule-parse actor",
+  "description": "A constant-hylar-rdfs dereference actor",
   "lsd:module": true,
   "main": "lib/index.js",
   "typings": "lib/index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/comunica/comunica-feature-reasoning.git",
-    "directory": "packages/actor-rule-parse-hylar"
+    "url": "https://github.com/comunica/comunica.git",
+    "directory": "packages/actor-dereference-constant-hylar-rdfs"
   },
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "keywords": [
     "comunica",
     "actor",
-    "rule-parse",
-    "hylar"
+    "dereference",
+    "constant-hylar-rdfs"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/comunica/comunica-feature-reasoning/issues"
+    "url": "https://github.com/comunica/comunica/issues"
   },
   "homepage": "https://comunica.dev/",
   "files": [
@@ -30,14 +31,10 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-rule-parse": "^1.0.0",
-    "@comunica/reasoning-types": "^1.0.0",
-    "@comunica/types": "^2.0.1",
-    "@rdfjs/types": "*",
-    "asynciterator": "^3.4.0",
-    "is-quad": "^1.1.0",
-    "n3": "^1.11.2",
-    "rdf-string": "^1.6.0"
+    "@comunica/bus-dereference": "^2.0.2",
+    "@comunica/core": "^2.0.1",
+    "@comunica/reasoning-context-entries": "^1.0.0",
+    "streamify-string": "^1.0.1"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

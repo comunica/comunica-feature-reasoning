@@ -405,5 +405,39 @@ describe('ActorRdfReasonRuleRestriction', () => {
         ]);
       });
     });
+
+    describe('Using rules with multiple conclusions', () => {
+      beforeEach(() => {
+        action.context = action.context.set(KeysRdfReason.rules, 'multi-conclusion-rules');
+      });
+
+      it('should run with with the fact Jesse a Human and produce implicit data', async() => {
+        source.addQuad(
+          quad(
+            namedNode('http://example.org#Jesse'),
+            namedNode('http://example.org#a'),
+            namedNode('http://example.org#Human'),
+          ),
+        );
+
+        const { execute } = await actor.run(action);
+        await execute();
+        expect(source).toBeRdfIsomorphic([ quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Human'),
+        ) ]);
+        expect(destination).toBeRdfIsomorphic([]);
+        expect(data.dataset).toBeRdfIsomorphic([ quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Thing1'),
+        ), quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#a'),
+          namedNode('http://example.org#Thing2'),
+        ) ]);
+      });
+    });
   });
 });

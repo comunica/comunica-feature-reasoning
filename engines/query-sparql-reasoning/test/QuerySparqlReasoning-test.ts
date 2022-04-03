@@ -1,7 +1,7 @@
 /** @jest-environment setup-polly-jest/jest-environment-node */
 
 // Needed to undo automock from actor-http-native, cleaner workarounds do not appear to be working.
-import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import { KeysRdfDereferenceConstantHylar, KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { Store } from 'n3';
 import { DataFactory } from 'rdf-data-factory';
 import { QueryEngine } from '../lib/QueryEngine';
@@ -43,6 +43,34 @@ describe('System test: QuerySparqlReasoning', () => {
           ]) ],
         });
         expect((await result.toArray()).length).toEqual(15);
+      });
+      it('rdfs rules on timbl and foaf', async() => {
+        const result = await engine.queryBindings(
+          'SELECT * WHERE { <https://www.w3.org/People/Berners-Lee/card#i> a ?o }', {
+            [KeysRdfReason.implicitDatasetFactory.name]: () => new Store(),
+
+            [KeysRdfReason.rules.name]: KeysRdfDereferenceConstantHylar.rdfs,
+            sources: [
+              'https://www.w3.org/People/Berners-Lee/card',
+              'http://xmlns.com/foaf/spec/index.rdf',
+            ],
+          },
+        );
+        expect((await result.toArray()).length).toEqual(9);
+      });
+      it('owl2rl on timbl and foaf', async() => {
+        const result = await engine.queryBindings(
+          'SELECT * WHERE { <https://www.w3.org/People/Berners-Lee/card#i> a ?o }', {
+            [KeysRdfReason.implicitDatasetFactory.name]: () => new Store(),
+
+            [KeysRdfReason.rules.name]: KeysRdfDereferenceConstantHylar.owl2rl,
+            sources: [
+              'https://www.w3.org/People/Berners-Lee/card',
+              'http://xmlns.com/foaf/spec/index.rdf',
+            ],
+          },
+        );
+        expect((await result.toArray()).length).toEqual(8);
       });
     });
   });
