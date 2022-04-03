@@ -81,13 +81,15 @@
 						<a href="https://gitter.im/comunica/Lobby"><img src="https://badges.gitter.im/comunica.png" alt="Gitter chat"></a>
 					</p>
 					<p><strong><a href="https://comunica.dev/">Learn more about Comunica on our website</a>.</strong></p>
-					<p>:construction: This package is in early stages of development</p>
 					<p>This is a monorepo that contains packages for allowing <a href="https://github.com/comunica/comunica">Comunica</a> to reason over sources.</p>
-					<!-- If you want to _use_ an Reasoning-enabled Comunica engine, have a look at [Comunica SPARQL Reasoning](https://github.com/comunica/comunica-feature-reasoning/tree/master/packages/actor-init-sparql-reasoning). -->
-					<!-- Concretely, this monorepo adds reasoning support to Comunica using the following packages:
-
-TODO: Write this section after developing alpha versions of packages -->
-					<p><strong>Warning: All packages in this repo should be considered unstable, and breaking changes may occur at any time.</strong></p>
+					<p>Concretely, reasoning is enabled with the following engines:</p>
+					<ul>
+						<li>Query engine configurations:<ul>
+								<li><a href="https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-reasoning">Comunica SPARQL Reasoning</a>: A Comunica query engine that includes all Reasoning packages.</li>
+								<li><a href="https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-link-traversal-solid">Comunica SPARQL Reasoning File</a>: A Comunica query engine that includes all Reasoning packages, and supports sources with local files.</li>
+							</ul>
+						</li>
+					</ul>
 					<a href="#development-setup" id="development-setup" style="color: inherit; text-decoration: none;">
 						<h2>Development Setup</h2>
 					</a>
@@ -155,7 +157,7 @@ TODO: Write this section after developing alpha versions of packages -->
 					<div class="tsd-signature tsd-kind-icon">IActor<wbr>Rule<wbr>Resolve<wbr>Args<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IActorArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/bus_rule_resolve.IActionRuleResolve.html" class="tsd-signature-type" data-tsd-kind="Interface">IActionRuleResolve</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">IActorTest</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/bus_rule_resolve.IActorRuleResolveOutput.html" class="tsd-signature-type" data-tsd-kind="Interface">IActorRuleResolveOutput</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/fbf4dfd/packages/bus-rule-resolve/lib/ActorRuleResolve.ts#L35">packages/bus-rule-resolve/lib/ActorRuleResolve.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/d7f11d3/packages/bus-rule-resolve/lib/ActorRuleResolve.ts#L35">packages/bus-rule-resolve/lib/ActorRuleResolve.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -165,7 +167,7 @@ TODO: Write this section after developing alpha versions of packages -->
 					<div class="tsd-signature tsd-kind-icon">Mediator<wbr>Rule<wbr>Resolve<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Mediate</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/bus_rule_resolve.IActionRuleResolve.html" class="tsd-signature-type" data-tsd-kind="Interface">IActionRuleResolve</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/bus_rule_resolve.IActorRuleResolveOutput.html" class="tsd-signature-type" data-tsd-kind="Interface">IActorRuleResolveOutput</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/fbf4dfd/packages/bus-rule-resolve/lib/ActorRuleResolve.ts#L36">packages/bus-rule-resolve/lib/ActorRuleResolve.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/d7f11d3/packages/bus-rule-resolve/lib/ActorRuleResolve.ts#L36">packages/bus-rule-resolve/lib/ActorRuleResolve.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
