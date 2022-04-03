@@ -17,10 +17,7 @@
     "Headers",
     "Readable",
     "LRUCache",
-    "RuleStream",
-    "IActionContext",
-    "Algebra.Pattern",
-    "AsyncIterator"
+    "RuleStream"
   ],
   "modulePrefix": {
     "@comunica/bus-dereference-rule": "cbdrl"

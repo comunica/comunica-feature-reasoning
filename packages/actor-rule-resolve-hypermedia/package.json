@@ -31,12 +31,12 @@
   ],
   "dependencies": {
     "@comunica/bus-dereference-rule": "^1.0.0",
-    "@comunica/reasoning-types": "^1.0.0",
     "@comunica/bus-http-invalidate": "^2.0.0",
     "@comunica/bus-rule-resolve": "^1.0.0",
     "@comunica/core": "^2.0.0",
-    "@comunica/types": "^2.0.0",
     "@comunica/reasoning-context-entries": "^1.0.0",
+    "@comunica/reasoning-types": "^1.0.0",
+    "@comunica/types": "^2.0.0",
     "@types/lru-cache": "^5.1.0",
     "asynciterator": "^3.4.0",
     "lru-cache": "^6.0.0"

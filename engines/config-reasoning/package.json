@@ -39,7 +39,5 @@
   },
   "dependencies": {
     "@comunica/config-query-sparql": "^2.0.1"
-  },
-  "devDependencies": {
   }
 }

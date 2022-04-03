@@ -5,6 +5,7 @@
   "import": [
     "ccr:config/normalize-rule/mediators.json",
     "ccr:config/optimize-rule/mediators.json",
+    "ccr:config/optimize-rule/actors.json",
     "ccr:config/rule-parse/actors.json",
     "ccr:config/rule-parse/mediators.json",
     "ccr:config/dereference-rule/actors.json",
