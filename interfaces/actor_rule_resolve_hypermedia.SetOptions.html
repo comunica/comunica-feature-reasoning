@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MediatedRuleSource | Comunica Reasoning</title>
+	<title>SetOptions | Comunica Reasoning</title>
 	<meta name="description" content="Documentation for Comunica Reasoning">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,155 +58,108 @@
 					<a href="../modules/actor_rule_resolve_hypermedia.html">actor-rule-resolve-hypermedia</a>
 				</li>
 				<li>
-					<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html">MediatedRuleSource</a>
+					<a href="actor_rule_resolve_hypermedia.SetOptions.html">SetOptions</a>
 				</li>
 			</ul>
-			<h1>Class MediatedRuleSource</h1>
+			<h1>Interface SetOptions&lt;K, V&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>A lazy rule source</p>
-					</div>
-				</div>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>K</h4>
+					</li>
+					<li>
+						<h4>V</h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MediatedRuleSource</span>
+						<span class="target">SetOptions</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/bus_rule_resolve.IRuleSource.html" class="tsd-signature-type" data-tsd-kind="Interface">IRuleSource</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#cache" class="tsd-kind-icon">cache</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#context" class="tsd-kind-icon">context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#mediators" class="tsd-kind-icon">mediators</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#url" class="tsd-kind-icon">url</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="actor_rule_resolve_hypermedia.SetOptions.html#noDisposeOnSet" class="tsd-kind-icon">no<wbr>Dispose<wbr>OnSet</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="actor_rule_resolve_hypermedia.SetOptions.html#noUpdateTTL" class="tsd-kind-icon">no<wbr>UpdateTTL</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="actor_rule_resolve_hypermedia.SetOptions.html#size" class="tsd-kind-icon">size</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="actor_rule_resolve_hypermedia.SetOptions.html#sizeCalculation" class="tsd-kind-icon">size<wbr>Calculation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="actor_rule_resolve_hypermedia.SetOptions.html#ttl" class="tsd-kind-icon">ttl</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Mediated<wbr>Rule<wbr>Source<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IActionContext</span>, url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, mediators<span class="tsd-signature-symbol">: </span><a href="../interfaces/actor_rule_resolve_hypermedia.IMediatedRuleSourceArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">IMediatedRuleSourceArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html" class="tsd-signature-type" data-tsd-kind="Class">MediatedRuleSource</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/acef1eb/packages/actor-rule-resolve-hypermedia/lib/MediatedRuleSource.ts#L14">packages/actor-rule-resolve-hypermedia/lib/MediatedRuleSource.ts:14</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>context: <span class="tsd-signature-type">IActionContext</span></h5>
-								</li>
-								<li>
-									<h5>url: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>mediators: <a href="../interfaces/actor_rule_resolve_hypermedia.IMediatedRuleSourceArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">IMediatedRuleSourceArgs</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html" class="tsd-signature-type" data-tsd-kind="Class">MediatedRuleSource</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="cache" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cache</h3>
-					<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="" class="tsd-signature-type" data-tsd-kind="Type alias">Rule</a><span class="tsd-signature-symbol">[]</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="noDisposeOnSet" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> no<wbr>Dispose<wbr>OnSet</h3>
+					<div class="tsd-signature tsd-kind-icon">no<wbr>Dispose<wbr>OnSet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/acef1eb/packages/actor-rule-resolve-hypermedia/lib/MediatedRuleSource.ts#L12">packages/actor-rule-resolve-hypermedia/lib/MediatedRuleSource.ts:12</a></li>
+							<li>Defined in packages/actor-rule-resolve-hypermedia/node_modules/@types/lru-cache/index.d.ts:397</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="context" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IActionContext</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="noUpdateTTL" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> no<wbr>UpdateTTL</h3>
+					<div class="tsd-signature tsd-kind-icon">no<wbr>UpdateTTL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in packages/actor-rule-resolve-hypermedia/node_modules/@types/lru-cache/index.d.ts:398</li>
+						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="mediators" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> mediators</h3>
-					<div class="tsd-signature tsd-kind-icon">mediators<span class="tsd-signature-symbol">:</span> <a href="../interfaces/actor_rule_resolve_hypermedia.IMediatedRuleSourceArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">IMediatedRuleSourceArgs</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="size" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> size</h3>
+					<div class="tsd-signature tsd-kind-icon">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in packages/actor-rule-resolve-hypermedia/node_modules/@types/lru-cache/index.d.ts:394</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A value for the size of the entry, prevents calls to <code>sizeCalculation</code> function</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="sizeCalculation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> size<wbr>Calculation</h3>
+					<div class="tsd-signature tsd-kind-icon">size<wbr>Calculation<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type" data-tsd-kind="Type alias">SizeCalculator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in packages/actor-rule-resolve-hypermedia/node_modules/@types/lru-cache/index.d.ts:395</li>
+						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="url" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> url</h3>
-					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="ttl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ttl</h3>
+					<div class="tsd-signature tsd-kind-icon">ttl<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in packages/actor-rule-resolve-hypermedia/node_modules/@types/lru-cache/index.d.ts:396</li>
+						</ul>
 					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="get" class="tsd-anchor"></a>
-					<h3>get</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="" class="tsd-signature-type" data-tsd-kind="Type alias">Rule</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/bus_rule_resolve.IRuleSource.html">IRuleSource</a>.<a href="../interfaces/bus_rule_resolve.IRuleSource.html#get">get</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/comunica/comunica-feature-reasoning/blob/acef1eb/packages/actor-rule-resolve-hypermedia/lib/MediatedRuleSource.ts#L22">packages/actor-rule-resolve-hypermedia/lib/MediatedRuleSource.ts:22</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a (possibly lazy) stream that processes all quads matching the pattern.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="" class="tsd-signature-type" data-tsd-kind="Type alias">Rule</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -259,72 +212,69 @@
 						<a href="../modules/actor_rule_resolve_hypermedia.html" class="tsd-kind-icon">actor-<wbr>rule-<wbr>resolve-<wbr>hypermedia</a>
 						<ul>
 							<li class=" tsd-kind-class tsd-parent-kind-module">
-								<a href="actor_rule_resolve_hypermedia.ActorRuleResolveHypermedia.html" class="tsd-kind-icon">Actor<wbr>Rule<wbr>Resolve<wbr>Hypermedia</a>
+								<a href="../classes/actor_rule_resolve_hypermedia.ActorRuleResolveHypermedia.html" class="tsd-kind-icon">Actor<wbr>Rule<wbr>Resolve<wbr>Hypermedia</a>
 							</li>
-							<li class="current tsd-kind-class tsd-parent-kind-module">
-								<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html" class="tsd-kind-icon">Mediated<wbr>Rule<wbr>Source</a>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/actor_rule_resolve_hypermedia.MediatedRuleSource.html" class="tsd-kind-icon">Mediated<wbr>Rule<wbr>Source</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
+								<a href="../classes/actor_rule_resolve_hypermedia.export_.html" class="tsd-kind-icon">export&#61;</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.DeprecatedOptions.html" class="tsd-kind-icon">Deprecated<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.Entry.html" class="tsd-kind-icon">Entry</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.FetchOptions.html" class="tsd-kind-icon">Fetch<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.FetcherOptions.html" class="tsd-kind-icon">Fetcher<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.GetOptions.html" class="tsd-kind-icon">Get<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="actor_rule_resolve_hypermedia.IActorRuleResolveHypermediaArgs.html" class="tsd-kind-icon">IActor<wbr>Rule<wbr>Resolve<wbr>Hypermedia<wbr>Args</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="actor_rule_resolve_hypermedia.IMediatedRuleSourceArgs.html" class="tsd-kind-icon">IMediated<wbr>Rule<wbr>Source<wbr>Args</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.LimitedByCount.html" class="tsd-kind-icon">Limited<wbr>ByCount</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.LimitedBySize.html" class="tsd-kind-icon">Limited<wbr>BySize</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.LimitedByTTL.html" class="tsd-kind-icon">Limited<wbr>ByTTL</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.PeekOptions.html" class="tsd-kind-icon">Peek<wbr>Options</a>
+							</li>
+							<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
+								<a href="actor_rule_resolve_hypermedia.SetOptions.html" class="tsd-kind-icon">Set<wbr>Options</a>
 								<ul>
-									<li class=" tsd-kind-constructor tsd-parent-kind-class">
-										<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#constructor" class="tsd-kind-icon">constructor</a>
+									<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+										<a href="actor_rule_resolve_hypermedia.SetOptions.html#noDisposeOnSet" class="tsd-kind-icon">no<wbr>Dispose<wbr>OnSet</a>
 									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-										<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#cache" class="tsd-kind-icon">cache</a>
+									<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+										<a href="actor_rule_resolve_hypermedia.SetOptions.html#noUpdateTTL" class="tsd-kind-icon">no<wbr>UpdateTTL</a>
 									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class">
-										<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#context" class="tsd-kind-icon">context</a>
+									<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+										<a href="actor_rule_resolve_hypermedia.SetOptions.html#size" class="tsd-kind-icon">size</a>
 									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class">
-										<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#mediators" class="tsd-kind-icon">mediators</a>
+									<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+										<a href="actor_rule_resolve_hypermedia.SetOptions.html#sizeCalculation" class="tsd-kind-icon">size<wbr>Calculation</a>
 									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class">
-										<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#url" class="tsd-kind-icon">url</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-class">
-										<a href="actor_rule_resolve_hypermedia.MediatedRuleSource.html#get" class="tsd-kind-icon">get</a>
+									<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+										<a href="actor_rule_resolve_hypermedia.SetOptions.html#ttl" class="tsd-kind-icon">ttl</a>
 									</li>
 								</ul>
 							</li>
-							<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="actor_rule_resolve_hypermedia.export_.html" class="tsd-kind-icon">export&#61;</a>
-							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.DeprecatedOptions.html" class="tsd-kind-icon">Deprecated<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.Entry.html" class="tsd-kind-icon">Entry</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.FetchOptions.html" class="tsd-kind-icon">Fetch<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.FetcherOptions.html" class="tsd-kind-icon">Fetcher<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.GetOptions.html" class="tsd-kind-icon">Get<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.IActorRuleResolveHypermediaArgs.html" class="tsd-kind-icon">IActor<wbr>Rule<wbr>Resolve<wbr>Hypermedia<wbr>Args</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.IMediatedRuleSourceArgs.html" class="tsd-kind-icon">IMediated<wbr>Rule<wbr>Source<wbr>Args</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.LimitedByCount.html" class="tsd-kind-icon">Limited<wbr>ByCount</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.LimitedBySize.html" class="tsd-kind-icon">Limited<wbr>BySize</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.LimitedByTTL.html" class="tsd-kind-icon">Limited<wbr>ByTTL</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.PeekOptions.html" class="tsd-kind-icon">Peek<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.SetOptions.html" class="tsd-kind-icon">Set<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-external">
-								<a href="../interfaces/actor_rule_resolve_hypermedia.SharedOptions.html" class="tsd-kind-icon">Shared<wbr>Options</a>
+								<a href="actor_rule_resolve_hypermedia.SharedOptions.html" class="tsd-kind-icon">Shared<wbr>Options</a>
 							</li>
 							<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-external">
 								<a href="../modules/actor_rule_resolve_hypermedia.html#DisposeReason" class="tsd-kind-icon">Dispose<wbr>Reason</a>
@@ -430,16 +380,10 @@
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 			</ul>
 		</div>
 	</div>
