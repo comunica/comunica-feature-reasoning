@@ -6,7 +6,7 @@ import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } f
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { single, UnionIterator } from 'asynciterator';
-import { promisifyEventEmitter } from 'event-emitter-promisify/dist';
+import { promisifyEventEmitter } from 'event-emitter-promisify';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
