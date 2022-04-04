@@ -101,8 +101,12 @@ jobs:
           key: ${{ runner.os }}-webclients-modules-v1-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         run: yarn install --pure-lockfile
+      - name: Give permission to build web clients
+        run: chmod u+x ./web-clients/build-web-clients.sh
       - name: Build web clients
         run: ./web-clients/build-web-clients.sh
+      - name: Give permission to deploy web clients
+        run: chmod u+x ./web-clients/deploy-web-clients.sh
       - name: Deploy web clients
         if: startsWith(github.ref, 'refs/heads/master')
         run: ./web-clients/deploy-web-clients.sh
