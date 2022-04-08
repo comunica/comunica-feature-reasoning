@@ -1,4 +1,6 @@
 import { Actor, IAction, IActorArgs, IActorOutput, IActorTest, Mediate } from '@comunica/core';
+import * as RDF from '@rdfjs/types';
+import { AsyncIterator } from 'asynciterator';
 
 /**
  * A comunica actor for rdf-filter-existing-quads events.
@@ -18,11 +20,16 @@ export abstract class ActorRdfFilterExistingQuads extends Actor<IActionRdfFilter
 }
 
 export interface IActionRdfFilterExistingQuads extends IAction {
-
+  filterSource: boolean
+  filterDestination: boolean
+  quadStream: AsyncIterator<RDF.Quad>
 }
 
 export interface IActorRdfFilterExistingQuadsOutput extends IActorOutput {
-
+  /**
+   * Executes to produce the filtered quad stream
+   */
+  execute(): Promise<{ quadStream: AsyncIterator<RDF.Quad> }>
 }
 
 export type IActorRdfFilterExistingQuadsArgs = IActorArgs<

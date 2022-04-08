@@ -10,9 +10,6 @@ export class ActorRdfUpdateQuadsInfoRdfjsStore extends ActorRdfUpdateQuadsInfo {
   }
 
   public async test(action: IActionRdfUpdateQuadsInfo): Promise<IActorTest> {
-    if (action.)
-    
-    
     return true; // TODO implement
   }
 

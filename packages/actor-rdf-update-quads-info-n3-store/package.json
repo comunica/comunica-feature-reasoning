@@ -1,14 +1,14 @@
 {
-  "name": "@comunica/bus-rdf-update-quads-info",
+  "name": "@comunica/actor-rdf-update-quads-info-n3-store",
   "version": "1.0.0",
-  "description": "A comunica bus for rdf-update-quads-info events.",
+  "description": "A n3-store rdf-update-quads-info actor",
   "lsd:module": true,
   "main": "lib/index.js",
   "typings": "lib/index",
   "repository": {
     "type": "git",
     "url": "https://github.com/comunica/comunica.git",
-    "directory": "packages/bus-rdf-update-quads-info"
+    "directory": "packages/actor-rdf-update-quads-info-n3-store"
   },
   "publishConfig": {
     "access": "public"
@@ -16,8 +16,9 @@
   "sideEffects": false,
   "keywords": [
     "comunica",
-    "bus",
-    "rdf-update-quads-info"
+    "actor",
+    "rdf-update-quads-info",
+    "n3-store"
   ],
   "license": "MIT",
   "bugs": {
@@ -29,12 +30,7 @@
     "lib/**/*.d.ts",
     "lib/**/*.js"
   ],
-  "dependencies": {
-    "@comunica/bus-rdf-update-quads": "^2.0.1",
-    "@comunica/core": "^2.0.1",
-    "@rdfjs/types": "*",
-    "asynciterator": "^3.4.0"
-  },
+  "dependencies": {},
   "scripts": {
     "build": "npm run build:ts && npm run build:components",
     "build:ts": "node \"../../node_modules/typescript/bin/tsc\"",
