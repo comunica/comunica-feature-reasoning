@@ -10,7 +10,7 @@ pushd engines/query-sparql-reasoning >/dev/null
 for config in ../config-reasoning/config/*.json; do
   id=$(echo $config | sed "s/.*config\/config-\(.*\)\.json/\1/")
 
-  if [ "$id" = "base" ] || [ "$id" = "solid-base" ]; then
+  if [ "$id" = "base" ] || [ "$id" = "solid-base" || "$id" = "file" ]; then
     continue;
   fi
 
