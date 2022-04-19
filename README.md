@@ -22,7 +22,7 @@ Concretely, reasoning is enabled with the following engines:
 
 * Query engine configurations:
   * [Comunica SPARQL Reasoning](https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-reasoning): A Comunica query engine that includes all Reasoning packages.
-  * [Comunica SPARQL Reasoning File](https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-link-traversal-solid): A Comunica query engine that includes all Reasoning packages, and supports sources with local files.
+  * [Comunica SPARQL Reasoning File](https://github.com/comunica/comunica-feature-reasoning/tree/master/engines/query-sparql-file-reasoning): A Comunica query engine that includes all Reasoning packages, and supports sources with local files.
 
 ## Development Setup
 
