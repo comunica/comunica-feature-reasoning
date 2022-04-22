@@ -9,6 +9,7 @@
     "node": ">=8.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
     "@comunica/actor-abstract-parse": "^2.0.1",
     "@comunica/bus-http-invalidate": "^2.0.1",
     "@comunica/config-query-sparql": "^2.0.1",

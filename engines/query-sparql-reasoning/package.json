@@ -45,6 +45,7 @@
     "engine-default.js"
   ],
   "dependencies": {
+    "@comunica/query-sparql": "^2.1.0",
     "@comunica/actor-context-preprocess-source-to-destination": "^2.0.1",
     "@comunica/actor-dereference-constant-hylar-owl2rl": "0.0.0",
     "@comunica/actor-dereference-constant-hylar-rdfs": "0.0.0",
