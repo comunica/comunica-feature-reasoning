@@ -8,13 +8,23 @@ import { INestedPremiseConclusionRule, IPremiseConclusionRule, Rule } from '@com
 import { maybeIterator } from './util'
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import * as RDF from '@rdfjs/types';
+import { forEachTerms } from 'rdf-terms';
 
 interface IRuleNode {
   rule: Rule;
   next: { rule: IRuleNode, index: number }[];
 }
 
-function maybeSubstitute(rule: { rule: IRuleNode, index: number }, quad: Quad): IRuleNode {
+interface IConsequenceData {
+  quads: AsyncIterator<Quad>;
+  rule: IRuleNode;
+}
+
+function maybeSubstitute({ rule: { rule }, index }: { rule: IRuleNode, index: number }, quad: Quad): IRuleNode {
+  const mapping: Record<string, RDF.Term> = {};
+  const term = rule.premise[index];
+
   throw new Error('not implemented')
 }
 
@@ -47,7 +57,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     let results: AsyncIterator<{
       quads: AsyncIterator<Quad>;
       rule: IRuleNode;
-    }>| null = await this.evaluateInsert(_rule, context);
+    }> | null = await this.evaluateInsert(_rule, context);
 
     while ((results = await maybeIterator(results)) !== null) {
       results = union(results.map(({ quads, rule }) => {

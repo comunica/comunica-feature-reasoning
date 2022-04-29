@@ -2,7 +2,7 @@ import { ActorRuleEvaluate, IActionRuleEvaluate, IActorRuleEvaluateArgs, IActorR
 import { MediatorQueryOperation, ActorQueryOperation } from '@comunica/bus-query-operation';
 import { IActorTest } from '@comunica/core';
 import { Factory, Algebra } from 'sparqlalgebrajs';
-import { empty } from 'asynciterator';
+import { ArrayIterator, EmptyIterator } from 'asynciterator';
 import * as RDF from '@rdfjs/types';
 const factory = new Factory();
 
@@ -16,20 +16,23 @@ function quadToPattern(quad: RDF.Quad): Algebra.Pattern {
 export class ActorRuleEvaluateConstructQuery extends ActorRuleEvaluate {
   public readonly mediatorQueryOperation: MediatorQueryOperation;
 
-  public constructor(args: IActorRuleEvaluateArgs) {
+  public constructor(args: IActorRuleEvaluateConstructQueryArgs) {
     super(args);
   }
 
   public async test(action: IActionRuleEvaluate): Promise<IActorTest> {
     // Must be a premise-conclusion styled rule
-    return ["rdfs", "premise-conclusion", "nested-premise-conclusion"].includes(action.rule.ruleType)
-      // Does not support using existing bindings
-      && !action.quadStream
+    if(!["rdfs", "premise-conclusion", "nested-premise-conclusion"].includes(action.rule.ruleType))
+      throw new Error(`${this.name}: Cannot handle rule type ${action.rule.ruleType}`);
+    // Does not support using existing bindings
+    if (action.quadStream)
+      throw new Error(`${this.name}: Cannot handle existing bindings`);
+    return true;
   }
 
-  public async run({ rule: { premise, conclusion }, context }: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
+  public async run({ rule: { premise, conclusion }, context }: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {    
     if (!conclusion)
-      return { results: empty() }
+      return { results: new ArrayIterator([], { autoStart: false }) }
     const operation = factory.createConstruct(
       factory.createBgp(premise.map(quadToPattern)),
       conclusion.map(quadToPattern)

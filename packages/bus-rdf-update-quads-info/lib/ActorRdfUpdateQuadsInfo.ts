@@ -21,11 +21,15 @@ export abstract class ActorRdfUpdateQuadsInfo extends Actor<IActionRdfUpdateQuad
 }
 
 export interface IActionRdfUpdateQuadsInfo extends IAction, IActionRdfUpdateQuads {
+  // /**
+  //  * By default, the 'quadStreamUpdate' will be filtered with respect to the sources
+  //  * so only new data within the scope is returned
+  //  */
+  // quadStreamUpdate: boolean;
   /**
-   * By default, the 'quadStreamUpdate' will be filtered with respect to the sources
-   * so only new data within the scope is returned
+   * Whether to filter out quads that were in any of the sources before the update.
    */
-  ignoreSourceComparison: boolean;
+   filterSource: boolean;
 }
 
 export interface IActorRdfUpdateQuadsInfoOutput extends IActorOutput {
