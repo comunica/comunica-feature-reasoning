@@ -1,12 +1,13 @@
-import { Bus } from '@comunica/core';
+import { ActionContext, Bus } from '@comunica/core';
 import { ActorRdfUpdateQuadsInfoDelegated } from '../lib/ActorRdfUpdateQuadsInfoDelegated';
-import { MediatorRdfUpdateQuads, IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput } from '@comunica/bus-rdf-update-quads';
+import { MediatorRdfUpdateQuads, IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, getContextDestination } from '@comunica/bus-rdf-update-quads';
 import { MediatorRdfFilterExistingQuads, IActionRdfFilterExistingQuads, IActorRdfFilterExistingQuadsOutput } from '@comunica/bus-rdf-filter-existing-quads';
 import { Store } from 'n3';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
 import {} from '@comunica/bus-rdf-filter-existing-quads'
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { IActionContext } from '@comunica/types';
+import { empty } from 'asynciterator';
 
 describe('ActorRdfUpdateQuadsInfoDelegated', () => {
   let bus: any;
@@ -27,19 +28,23 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
     beforeEach(() => {
       destination = new Store();
 
+      context = new ActionContext();
+
       // @ts-ignore
       mediatorRdfUpdateQuads = {
-        async mediate(action: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
+        async mediate({ quadStreamInsert, context }: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
           return {
             async execute() {
-              return promisifyEventEmitter(destination.import(action.quadStreamInsert));
+              const dest: Store = getContextDestination(context) as Store;
+              if (quadStreamInsert)
+                return promisifyEventEmitter(dest.import(quadStreamInsert));
             }
           }
         }
       }
 
       // @ts-ignore
-      mediatorFilterExistingQuads = {
+      mediatorRdfFilterExistingQuads = {
         async mediate(action: IActionRdfFilterExistingQuads): Promise<IActorRdfFilterExistingQuadsOutput> {
           return {
             async execute() {
@@ -48,15 +53,17 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
               let source: Store | undefined = action.context.get(KeysRdfResolveQuadPattern.source);
               let sources: Store[] | undefined = action.context.get(KeysRdfResolveQuadPattern.sources);
 
+              // TODO: Remove the 3 '?' operators in this section, they should not be necessary since we are already checking
+              // that things are not defined
               if (action.filterSource && (source || sources)) {
                 if (source)
-                  quadStream = quadStream.filter(quad => !source.has(quad));
+                  quadStream = quadStream.filter(quad => !source?.has(quad));
                 else if (sources)
-                  quadStream = quadStream.filter(quad => !sources.some(source => source.has(quad)));
+                  quadStream = quadStream.filter(quad => !sources?.some(src => src.has(quad)));
               }
 
               if (action.filterDestination && destination) {
-                quadStream = quadStream.filter(quad => !destination.has(quad));
+                quadStream = quadStream.filter(quad => !destination?.has(quad));
               }
 
               return {
@@ -76,11 +83,17 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
     });
 
     it('should test', () => {
-      return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
+      expect(actor.test({ context, filterSource: true })).resolves.toEqual(true);
+      expect(actor.test({ context, filterSource: false })).resolves.toEqual(true);
+    });
+
+    it('Should error on non insertion operations', () => {
+      expect(async () => actor.test({ context, filterSource: false, quadStreamDelete: empty() })).rejects.toThrowError();
+      expect(async () => actor.test({ context, filterSource: false, deleteGraphs: { graphs: [], requireExistence: true, dropGraphs: true } })).rejects.toThrowError();
     });
 
     it('should run', () => {
-      return expect(actor.run({ todo: true })).resolves.toMatchObject({ todo: true }); // TODO
+      // return expect(actor.run({ todo: true })).resolves.toMatchObject({ todo: true }); // TODO
     });
   });
 });
