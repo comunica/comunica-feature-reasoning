@@ -1,11 +1,11 @@
 import { ActorRdfReason, IActionRdfReason, IActorRdfReasonOutput, IActorRdfReasonArgs, ActorRdfReasonMediated, IActorRdfReasonMediatedArgs, IActionRdfReasonExecute } from '@comunica/bus-rdf-reason';
 import { IActorArgs, IActorTest } from '@comunica/core';
 import { MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate'
-import { union, AsyncIterator, single, empty, fromArray } from 'asynciterator';
+import { union, AsyncIterator, single, empty, fromArray, EmptyIterator, ArrayIterator, UnionIterator } from 'asynciterator';
 import { Quad } from '@rdfjs/types';
 import { IActionContext } from '@comunica/types';
 import { INestedPremiseConclusionRule, IPremiseConclusionRule, Rule } from '@comunica/reasoning-types';
-import { maybeIterator } from './util'
+import { maybeIterator, WrappingIterator } from './util'
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import * as RDF from '@rdfjs/types';
@@ -44,32 +44,51 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   }
 
   // This should probably be a mediator of its own
-  private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<{ quads: AsyncIterator<Quad>, rule: IRuleNode }>> {
+  private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<RDF.Quad>> {
     const { results } = await this.mediatorRuleEvaluate.mediate({ rule: rule.rule, context });
     const { execute } = await this.mediatorRdfUpdateQuadsInfo.mediate({
       context, quadStreamInsert: results, filterSource: true
     });
     const { quadStreamInsert } = await execute();
-    return quadStreamInsert ? single({ quads: quadStreamInsert, rule }) : empty();
+    return quadStreamInsert ?? new ArrayIterator([], { autoStart: false });
   }
 
+  private evaluteInsertRule(rule: IRuleNode, context: IActionContext): IConsequenceData {
+    const quads: AsyncIterator<RDF.Quad> = new WrappingIterator(this.evaluateInsert(rule, context));
+    return { quads, rule };
+  }
+
+  // private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<IConsequenceData>> {
+  //   const { results } = await this.mediatorRuleEvaluate.mediate({ rule: rule.rule, context });
+  //   const { execute } = await this.mediatorRdfUpdateQuadsInfo.mediate({
+  //     context, quadStreamInsert: results, filterSource: true
+  //   });
+  //   const { quadStreamInsert } = await execute();
+  //   return quadStreamInsert ? single({ quads: quadStreamInsert, rule }) : empty();
+  // }
+
   private async fullyEvaluateRule(_rule: IRuleNode, context: IActionContext) {
-    let results: AsyncIterator<{
-      quads: AsyncIterator<Quad>;
-      rule: IRuleNode;
-    }> | null = await this.evaluateInsert(_rule, context);
+    let results: AsyncIterator<IConsequenceData> | null;
+    results = single<IConsequenceData>(this.evaluteInsertRule(_rule, context));
 
     while ((results = await maybeIterator(results)) !== null) {
       results = union(results.map(({ quads, rule }) => {
-        const newRules = union(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))));
+        const newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false });
         // TODO: Wrap this once the wrap promise is available
-        return newRules.map(rule => this.evaluateInsert(rule, context))
-        
-        // return this.evaluateInsert(rule, );
-
-        // return union(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstute(rule, quad))))
-        //   .map(rule => this.evaluateInsert(rule, ));
+        return newRules.map(rule => this.evaluteInsertRule(rule, context));
       }));
+      
+      
+      // results = union(results.map(({ quads, rule }) => {
+      //   const newRules = union(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))));
+      //   // TODO: Wrap this once the wrap promise is available
+      //   return newRules.map(rule => this.evaluateInsert(rule, context))
+        
+      //   // return this.evaluateInsert(rule, );
+
+      //   // return union(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstute(rule, quad))))
+      //   //   .map(rule => this.evaluateInsert(rule, ));
+      // }));
     }
   }
 

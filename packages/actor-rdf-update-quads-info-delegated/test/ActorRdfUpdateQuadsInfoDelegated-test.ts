@@ -28,7 +28,9 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
     beforeEach(() => {
       destination = new Store();
 
-      context = new ActionContext();
+      context = new ActionContext({
+        [KeysRdfUpdateQuads.destination.name]: destination
+      });
 
       // @ts-ignore
       mediatorRdfUpdateQuads = {
@@ -84,12 +86,12 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
 
     it('should test', () => {
       expect(actor.test({ context, filterSource: true })).resolves.toEqual(true);
-      // expect(actor.test({ context, filterSource: false })).resolves.toEqual(true);
+      expect(actor.test({ context, filterSource: false })).resolves.toEqual(true);
     });
 
     it('Should error on non insertion operations', () => {
-      // expect(actor.test({ context, filterSource: false, quadStreamDelete: empty() })).rejects.toThrow();
-      // expect(actor.test({ context, filterSource: false, deleteGraphs: { graphs: [], requireExistence: true, dropGraphs: true } })).rejects.toThrow();
+      expect(actor.test({ context, filterSource: false, quadStreamDelete: empty() })).rejects.toThrow();
+      expect(actor.test({ context, filterSource: false, deleteGraphs: { graphs: [], requireExistence: true, dropGraphs: true } })).rejects.toThrow();
     });
 
     it('should run', () => {

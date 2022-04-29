@@ -12,6 +12,7 @@ export class ActorRdfFilterExistingQuadsRdfjsSource extends ActorRdfFilterExisti
   }
 
   public async test(action: IActionRdfFilterExistingQuads): Promise<IActorTest> {
+    action.filterDestination
     return true; // TODO implement
   }
 
