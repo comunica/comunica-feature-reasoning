@@ -34,7 +34,7 @@ export class ActorRdfUpdateQuadsInfoFederated extends ActorRdfUpdateQuadsInfo {
         let { quadStreamInsert } = await (await this.mediatorRdfUpdateQuadsInfo.mediate({ ...action, context: action.context.delete(KeysRdfResolveQuadPattern.source).delete(KeysRdfResolveQuadPattern.sources) })).execute();
 
         // Filter the quad stream if ignoreSourceComparison is disabled
-        if (quadStreamInsert && !action.ignoreSourceComparison) {
+        if (quadStreamInsert && action.filterSource) {
           quadStreamInsert = (await (await this.mediatorFilterExistingQuads.mediate({ filterSource: true, filterDestination: false, context: action.context, quadStream: quadStreamInsert })).execute()).quadStream;
         }
 

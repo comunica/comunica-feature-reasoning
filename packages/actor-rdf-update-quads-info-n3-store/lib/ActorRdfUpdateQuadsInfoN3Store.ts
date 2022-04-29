@@ -1,31 +1,10 @@
-import { ActorRdfUpdateQuadsInfo, IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoOutput, IActorRdfUpdateQuadsInfoArgs } from '@comunica/bus-rdf-update-quads-info';
-import { IActorArgs, IActorTest } from '@comunica/core';
-import { AsyncIterator } from 'asynciterator';
-import * as RDF from '@rdfjs/types';
-import { IActionRdfUpdateQuads, } from '@comunica/bus-rdf-update-quads';
-import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
-import { FederatedQuadSource } from '@comunica/actor-rdf-resolve-quad-pattern-federated'
+import { FederatedQuadSource } from '@comunica/actor-rdf-resolve-quad-pattern-federated';
 import { getContextDestination } from '@comunica/bus-rdf-update-quads';
+import { ActorRdfUpdateQuadsInfo, IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoArgs, IActorRdfUpdateQuadsInfoOutput } from '@comunica/bus-rdf-update-quads-info';
+import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
+import { IActorTest } from '@comunica/core';
+import { IDataSource } from '@comunica/types';
 import { Store } from 'n3';
-
-// TODO: Remove these once https://github.com/comunica/comunica/pull/974 is merged
-export function deskolemizeStream(stream: AsyncIterator<RDF.Quad> | undefined, id: string):
-AsyncIterator<RDF.Quad> | undefined {
-  return stream?.map(quad => FederatedQuadSource.deskolemizeQuad(quad, id));
-}
-
-export function deskolemize(action: IActionRdfUpdateQuads): IActionRdfUpdateQuads {
-  const destination = action.context.get(KeysRdfUpdateQuads.destination);
-  const id = action.context.get<Map<any, string>>(KeysRdfResolveQuadPattern.sourceIds)?.get(destination);
-  if (!id) {
-    return action;
-  }
-  return {
-    ...action,
-    quadStreamInsert: deskolemizeStream(action.quadStreamInsert, id),
-    quadStreamDelete: deskolemizeStream(action.quadStreamDelete, id),
-  };
-}
 
 /**
  * A comunica N3 Store RDF Update Quads Info Actor.
@@ -54,15 +33,24 @@ export class ActorRdfUpdateQuadsInfoN3Store extends ActorRdfUpdateQuadsInfo {
     return true;
   }
 
-  
-  public async run(action: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
-    const store: Store = getContextDestination(action.context) as Store;
+
+  public async run({ quadStreamInsert, context }: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
     return {
       async execute() {
-        return {
-          // TODO: Remove type casting when https://github.com/rdfjs/N3.js/issues/276 is resolved
-          quadStreamInsert: action.quadStreamInsert?.filter(quad => store.addQuad(quad) as unknown as boolean)
+        if (quadStreamInsert) {
+          const store: Store = getContextDestination(context) as Store;
+          const sourceIds: Map<IDataSource, string> | undefined = context.get(KeysRdfResolveQuadPattern.sourceIds);
+          const id = sourceIds?.get(store);
+
+          if (id === undefined) {
+            quadStreamInsert = quadStreamInsert.filter(quad => store.addQuad(quad) as unknown as boolean);
+          } else {
+            quadStreamInsert = quadStreamInsert.filter(quad => store.addQuad(FederatedQuadSource.deskolemizeQuad(quad, id)) as unknown as boolean);
+          }
         }
+
+        // TODO: Remove type casting when https://github.com/rdfjs/N3.js/issues/276 is resolved
+        return { quadStreamInsert }
       }
     }
   }

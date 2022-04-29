@@ -38,7 +38,9 @@
     "@comunica/types": "^2.2.0",
     "@rdfjs/types": "*",
     "asynciterator": "^3.4.0",
-    "rdf-terms": "^1.8.0"
+    "rdf-terms": "^1.8.0",
+    "@comunica/bus-rule-evaluate": "^0.0.0",
+    "@comunica/bus-rdf-update-quads-info": "^0.0.0"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

@@ -47,7 +47,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<{ quads: AsyncIterator<Quad>, rule: IRuleNode }>> {
     const { results } = await this.mediatorRuleEvaluate.mediate({ rule: rule.rule, context });
     const { execute } = await this.mediatorRdfUpdateQuadsInfo.mediate({
-      context, quadStreamInsert: results, ignoreSourceComparison: false
+      context, quadStreamInsert: results, filterSource: true
     });
     const { quadStreamInsert } = await execute();
     return quadStreamInsert ? single({ quads: quadStreamInsert, rule }) : empty();
