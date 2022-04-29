@@ -28,7 +28,7 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/types": "^2.0.1",
+    "@comunica/types": "^2.2.0",
     "@rdfjs/types": "*"
   },
   "scripts": {

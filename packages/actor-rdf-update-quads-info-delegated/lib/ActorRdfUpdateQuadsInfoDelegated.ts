@@ -50,6 +50,8 @@ export class ActorRdfUpdateQuadsInfoDelegated extends ActorRdfUpdateQuadsInfo {
     // Tests around sources and destinations
     if (!action.context.has(KeysRdfUpdateQuads.destination))
       throw new Error('A destination is required')
+
+    // TODO: We can probably get rid of this condition
     if (action.context.has(KeysRdfResolveQuadPattern.source) || action.context.has(KeysRdfResolveQuadPattern.source))
       throw new Error('A source or source(s) are not allowed')
 
