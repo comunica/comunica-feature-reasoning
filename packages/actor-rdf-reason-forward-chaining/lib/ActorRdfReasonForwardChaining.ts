@@ -9,7 +9,7 @@ import { maybeIterator, WrappingIterator } from './util'
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import * as RDF from '@rdfjs/types';
-import { forEachTerms } from 'rdf-terms';
+import { forEachTerms, mapTerms } from 'rdf-terms';
 
 interface IRuleNode {
   rule: Rule;
@@ -21,11 +21,55 @@ interface IConsequenceData {
   rule: IRuleNode;
 }
 
-function maybeSubstitute({ rule: { rule }, index }: { rule: IRuleNode, index: number }, quad: Quad): IRuleNode {
-  const mapping: Record<string, RDF.Term> = {};
-  const term = rule.premise[index];
+// TODO: Use similar functions already developed
+function substitute(quad: RDF.Quad, map:  Record<string, RDF.Term>): RDF.Quad {
+  return mapTerms(quad, (term) => {
+    if (term.termType === 'Variable' && term.value in map) {
+      return map[term.value];
+    }
+    return term;
+  });
+}
 
-  throw new Error('not implemented')
+function maybeSubstitute({ rule: { rule, next }, index }: { rule: IRuleNode, index: number }, quad: Quad): IRuleNode | null {
+  let mapping: Record<string, RDF.Term> | null = {};
+  const pattern = rule.premise[index];
+
+  forEachTerms(pattern, (term, name) => {
+    if (term.termType === 'Variable' && mapping) {
+      if (term.value in mapping) {
+        if (!quad[name].equals(mapping[term.value])) {
+          mapping = null;
+        }
+      } else {
+        mapping[term.value] = quad[name];
+      }
+    }
+  });
+
+  if (mapping === null) {
+    return null;
+  }
+
+  const premise: RDF.Quad[] = [];
+
+  for (let i = 0; i < rule.premise.length; i++) {
+    if (i !== index) {
+      premise.push(substitute(rule.premise[i], mapping));
+    }
+  }
+
+  const conclusion = rule.conclusion && rule.conclusion.map(conclusion => substitute(conclusion, mapping!));
+
+  return {
+    rule: {
+      // TODO: See if we can just use the existing rule type
+      ruleType: 'rdfs',
+      premise,
+      conclusion
+    },
+    next
+  }
 }
 
 /**
@@ -58,67 +102,26 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     return { quads, rule };
   }
 
-  // private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<IConsequenceData>> {
-  //   const { results } = await this.mediatorRuleEvaluate.mediate({ rule: rule.rule, context });
-  //   const { execute } = await this.mediatorRdfUpdateQuadsInfo.mediate({
-  //     context, quadStreamInsert: results, filterSource: true
-  //   });
-  //   const { quadStreamInsert } = await execute();
-  //   return quadStreamInsert ? single({ quads: quadStreamInsert, rule }) : empty();
-  // }
-
-  private async fullyEvaluateRule(_rule: IRuleNode, context: IActionContext) {
-    let results: AsyncIterator<IConsequenceData> | null;
-    results = single<IConsequenceData>(this.evaluteInsertRule(_rule, context));
+  private async fullyEvaluateRules(_rule: IRuleNode[], context: IActionContext): Promise<void> {
+    let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(rule => this.evaluteInsertRule(rule, context));
 
     while ((results = await maybeIterator(results)) !== null) {
-      results = union(results.map(({ quads, rule }) => {
-        const newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false });
-        // TODO: Wrap this once the wrap promise is available
-        return newRules.map(rule => this.evaluteInsertRule(rule, context));
-      }));
-      
-      
-      // results = union(results.map(({ quads, rule }) => {
-      //   const newRules = union(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))));
-      //   // TODO: Wrap this once the wrap promise is available
-      //   return newRules.map(rule => this.evaluateInsert(rule, context))
+      results = new UnionIterator(results.map(({ quads, rule }) => {
+        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false })
+        // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged  
+        .filter((rule): rule is IRuleNode => rule !== null)
         
-      //   // return this.evaluateInsert(rule, );
-
-      //   // return union(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstute(rule, quad))))
-      //   //   .map(rule => this.evaluateInsert(rule, ));
-      // }));
+        return newRules.map(rule => this.evaluteInsertRule(rule, context));
+      }), { autoStart: false });
     }
   }
 
-  private evaluateRules(rules: Rule[], context: IActionContext, quadStream?: AsyncIterator<Quad>): AsyncIterator<Quad> {
-    return union(rules.map(
-      rule => this.mediatorRuleEvaluate.mediate(({ rule, context, quadStream })).then(res => res.results)
-    ));
-  }
-
   public async execute({ rules, context }: IActionRdfReasonExecute): Promise<void> {
-    // Get the initial stream of reasoning results
-    const quadStream = this.evaluateInsert(rules, context);
-    // Continue to apply reasoning using only the new results
     
-    
-    maybeIterator()
-    quadStream.filter()
   }
-
-  // public async execute({ rules, context }: IActionRdfReasonExecute): Promise<void> {
-  //   // Get the initial stream of reasoning results
-  //   const quadStream = this.evaluateRules(rules, context);
-  //   // Continue to apply reasoning using only the new results
-    
-    
-  //   maybeIterator()
-  //   quadStream.filter()
-  // }
 }
 
 export interface IActorRdfReasonForwardChainingArgs extends IActorRdfReasonMediatedArgs {
   mediatorRuleEvaluate: MediatorRuleEvaluate;
+  mediatorRdfUpdateQuadsInfo: MediatorRdfUpdateQuadsInfo;
 }
