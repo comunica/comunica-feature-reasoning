@@ -1,20 +1,19 @@
 import type { MediatorOptimizeRule } from '@comunica/bus-optimize-rule';
 import type { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type {
-  IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads,
+  IActionRdfUpdateQuads, IActorRdfUpdateQuadsOutput, MediatorRdfUpdateQuads
 } from '@comunica/bus-rdf-update-quads';
 import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import type { Rule, IReasonStatus } from '@comunica/reasoning-types';
+import type { IReasonStatus, Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
-import { everyTerms } from 'rdf-terms';
+// TODO: FIx after https://github.com/rubensworks/rdf-terms.js/pull/45 is merged
+import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
-import {
-  getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
-} from './ActorRdfReason';
+import { ActorRdfReason, getSafeData, setImplicitDestination, setReasoningStatus, setUnionSource } from './ActorRdfReason';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
@@ -68,6 +67,10 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
     return wrap<Rule>(getRules());
   }
 
+
+  // TODO [FUTURE]: Put this method in an *intermediary* class between the empty
+  // base actor, and the mediated actor. An example of an actor that would benefit from
+  // this is 'actor-rdf-reason-forward-chaining'.
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
       execute: async(): Promise<void> => {
@@ -84,33 +87,11 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
           return status.done;
         }
 
-        // TODO: Import from rdf-terms.js once https://github.com/rubensworks/rdf-terms.js/pull/42 is merged
-        /* istanbul ignore next  */
-        function matchBaseQuadPattern(__pattern: RDF.BaseQuad, quad: RDF.BaseQuad): boolean {
-          const mapping: Record<string, RDF.Term> = {};
-          function match(_pattern: RDF.BaseQuad, _quad: RDF.BaseQuad): boolean {
-            return everyTerms(_pattern, (term, key) => {
-              switch (term.termType) {
-                case 'Quad':
-                  return _quad[key].termType === 'Quad' && match(term, <RDF.BaseQuad> _quad[key]);
-                case 'Variable':
-                  // eslint-disable-next-line no-return-assign
-                  return term.value in mapping ?
-                    mapping[term.value].equals(_quad[key]) :
-                    (mapping[term.value] = _quad[key]) && true;
-                default:
-                  return term.equals(_quad[key]);
-              }
-            });
-          }
-          return match(__pattern, quad);
-        }
-
         // If we have already done partial reasoning and are only interested in a certain
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
           for (const [ key, value ] of status.patterns) {
-            if (value.reasoned && matchBaseQuadPattern(key, pattern)) {
+            if (value.reasoned && matchPatternMappings(pattern, key)) {
               return value.done;
             }
           }

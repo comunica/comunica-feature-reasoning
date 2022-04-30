@@ -1,4 +1,4 @@
-import { ActorRdfReasonMediated, IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
+import { ActorRdfReasonMediated, IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs, setImplicitDestination, setUnionSource } from '@comunica/bus-rdf-reason';
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate';
 import { IActorTest } from '@comunica/core';
@@ -97,13 +97,20 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     return quadStreamInsert ?? new ArrayIterator([], { autoStart: false });
   }
 
-  private evaluteInsertRule(rule: IRuleNode, context: IActionContext): IConsequenceData {
+  private evaluateInsertRule(rule: IRuleNode, context: IActionContext): IConsequenceData {
     const quads: AsyncIterator<RDF.Quad> = new WrappingIterator(this.evaluateInsert(rule, context));
     return { quads, rule };
   }
 
   private async fullyEvaluateRules(_rule: IRuleNode[], context: IActionContext): Promise<void> {
-    let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(rule => this.evaluteInsertRule(rule, context));
+    // On the first evaluation of the rules we only need to apply reasoning with respect to the base source
+    // NOTE: This particular function should *not* be used for reasoning after some implicit results have already
+    // been materialized
+    let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(rule => this.evaluateInsertRule(rule, context));
+
+    // For the remainder of the reasoning we then need to evaluate new rules that emerge with respect to the union of
+    // sources
+    const unionContext = setUnionSource(context);
 
     while ((results = await maybeIterator(results)) !== null) {
       results = new UnionIterator(results.map(({ quads, rule }) => {
@@ -111,7 +118,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged  
         .filter((rule): rule is IRuleNode => rule !== null)
         
-        return newRules.map(rule => this.evaluteInsertRule(rule, context));
+        return newRules.map(rule => this.evaluateInsertRule(rule, unionContext));
       }), { autoStart: false });
     }
   }
@@ -119,6 +126,8 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   public async execute({ rules, context }: IActionRdfReasonExecute): Promise<void> {
     // TODO: Refactor this - I've already written something similar somewhere
     const nodes: IRuleNode[] = rules.map(rule => ({ rule, next: [] }));
+    
+    // Creating rule dependencies
     for (const n1 of nodes) {
       for (const n2 of nodes) {
 
@@ -141,7 +150,12 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     }
 
     // TODO: Context manipulations to set the correct destination
-    return this.fullyEvaluateRules(nodes, context);
+    // there is also likely a problem around the fact that we need the
+    // base to be the union for everything except the first iteration (when it just needs to be the sources) - we need
+    // to make sure that this is handled properly
+
+    // Set the destination to the implicit dataset for reasoning
+    return this.fullyEvaluateRules(nodes, setImplicitDestination(context));
   }
 }
 
