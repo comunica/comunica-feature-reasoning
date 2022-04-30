@@ -6,14 +6,15 @@ import { ActionContext, Bus } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { IReasonGroup } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
-import type * as RDF from '@rdfjs/types';
-import { UnionIterator, single, AsyncIterator } from 'asynciterator';
-import { Store } from 'n3';
+import * as RDF from '@rdfjs/types';
+import { UnionIterator, single, AsyncIterator, wrap } from 'asynciterator';
+import { Store, DataFactory } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { Algebra } from 'sparqlalgebrajs';
 import { ActorRdfReasonForwardChaining } from '../lib/ActorRdfReasonForwardChaining';
 import { hasContextSingleSource, getContextSources } from '@comunica/bus-rdf-resolve-quad-pattern';
 import { mediatorRuleResolve, mediatorOptimizeRule } from '@comunica/reasoning-mocks';
+const { quad, namedNode } = DataFactory
 
 describe('ActorRdfReasonForwardChaining', () => {
   let bus: any;
@@ -62,7 +63,7 @@ describe('ActorRdfReasonForwardChaining', () => {
             (iterator, premise) => new UnionIterator(iterator.map(
               mapping => {
                 const cause = substituteQuad(premise, mapping);
-                return match(cause).map(quad => {
+                return wrap<RDF.Quad>(match(cause)).map((quad: RDF.Quad) => {
                   let localMapping: Record<string, RDF.Term> | undefined = {};
 
                   forEachTerms(cause, (term, key) => {
@@ -144,10 +145,20 @@ describe('ActorRdfReasonForwardChaining', () => {
       // return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
     });
 
-    it('should run', async () => {
+    it('should run with empty data', async () => {
       const { execute } = await actor.run({ context });
       await execute();
-      // return expect(actor.run({ todo: true })).resolves.toMatchObject({ todo: true }); // TODO
+      expect(store.size).toEqual(0);
+      expect(implicitDestination.size).toEqual(0);
+    });
+
+    it('should run with data', async () => {
+      store.add(quad(namedNode('s'), namedNode('p'), namedNode('o')));
+      const { execute } = await actor.run({ context });
+      await execute();
+      expect(store.size).toEqual(1);
+      // TODO: Fix this - it should not be zero
+      expect(implicitDestination.size).toEqual(0);
     });
   });
 });
