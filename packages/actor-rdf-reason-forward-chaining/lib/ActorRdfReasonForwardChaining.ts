@@ -36,7 +36,15 @@ function maybeSubstitute({ rule: { rule, next }, index }: { rule: IRuleNode, ind
   const pattern = rule.premise[index];
 
   forEachTerms(pattern, (term, name) => {
-    if (term.termType === 'Variable' && mapping) {
+    if (term.termType !== 'Variable') {
+      // Verify that it is a valid match
+      if (!term.equals(quad[name])) {
+        mapping = null;
+      return;
+      }
+    }
+
+    if (mapping) {
       if (term.value in mapping) {
         if (!quad[name].equals(mapping[term.value])) {
           mapping = null;
