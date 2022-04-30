@@ -13,6 +13,7 @@ import { forEachTerms, mapTerms } from 'rdf-terms';
 import { Algebra } from 'sparqlalgebrajs';
 import { ActorRdfReasonForwardChaining } from '../lib/ActorRdfReasonForwardChaining';
 import { hasContextSingleSource, getContextSources } from '@comunica/bus-rdf-resolve-quad-pattern';
+import { mediatorRuleResolve, mediatorOptimizeRule } from '@comunica/reasoning-mocks';
 
 describe('ActorRdfReasonForwardChaining', () => {
   let bus: any;
@@ -39,7 +40,7 @@ describe('ActorRdfReasonForwardChaining', () => {
 
       // @ts-ignore
       mediatorRuleEvaluate = {
-        mediate(action: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
+        async mediate(action: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
           function substituteQuad(term: RDF.Quad, mapping: Record<string, RDF.Term>): RDF.Quad {
             return mapTerms(term, elem => elem.termType === 'Variable' && elem.value in mapping ? mapping[elem.value] : elem);
           }
@@ -52,7 +53,7 @@ describe('ActorRdfReasonForwardChaining', () => {
               // @ts-ignore
               return source.match(unvar(cause.subject) as any, unvar(cause.predicate) as any, unvar(cause.object) as any, unvar(cause.graph) as any);
             } else {
-              const res = getContextSources(action.context).map((source: any) => source.match(unvar(cause.subject) as any, unvar(cause.predicate) as any, unvar(cause.object) as any, unvar(cause.graph) as any));
+              const res = getContextSources(action.context)!.map((source: any) => source.match(unvar(cause.subject) as any, unvar(cause.predicate) as any, unvar(cause.object) as any, unvar(cause.graph) as any));
               return new UnionIterator(res);
             }
           }
@@ -80,6 +81,23 @@ describe('ActorRdfReasonForwardChaining', () => {
             ), { autoStart: false }),
             single<Record<string, RDF.Term>>({}) as AsyncIterator<Record<string, RDF.Term>>,
           )
+
+          const { conclusion } = action.rule;
+
+          if (!conclusion) {
+            throw new Error('unexpected false conclusion');
+          }
+
+          const result = new UnionIterator(
+            conclusion.map(
+              quad => (conclusion.length > 1 ? mappings.clone() : mappings).map(mapping => substituteQuad(quad, mapping)),
+            ),
+            { autoStart: false },
+          );
+
+          return {
+            results: result,
+          }
         }
       }
 
@@ -106,7 +124,11 @@ describe('ActorRdfReasonForwardChaining', () => {
 
       actor = new ActorRdfReasonForwardChaining({
         name: 'actor',
-        bus
+        bus,
+        mediatorRuleEvaluate,
+        mediatorRdfUpdateQuadsInfo,
+        mediatorRuleResolve,
+        mediatorOptimizeRule
         // TODO: Remove this once we do not require unecessary mediators
       } as any);
       store = new Store();
@@ -114,15 +136,18 @@ describe('ActorRdfReasonForwardChaining', () => {
       context = new ActionContext({
         [KeysRdfResolveQuadPattern.source.name]: store,
         [KeysRdfReason.data.name]: reasoningGroup,
+        [KeysRdfReason.rules.name]: 'my-unnested-rules'
       })
     });
 
     it('should test', () => {
-      return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
+      // return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
     });
 
-    it('should run', () => {
-      return expect(actor.run({ todo: true })).resolves.toMatchObject({ todo: true }); // TODO
+    it('should run', async () => {
+      const { execute } = await actor.run({ context });
+      await execute();
+      // return expect(actor.run({ todo: true })).resolves.toMatchObject({ todo: true }); // TODO
     });
   });
 });
