@@ -1,15 +1,15 @@
-import { ActorRdfReason, IActionRdfReason, IActorRdfReasonOutput, IActorRdfReasonArgs, ActorRdfReasonMediated, IActorRdfReasonMediatedArgs, IActionRdfReasonExecute } from '@comunica/bus-rdf-reason';
-import { IActorArgs, IActorTest } from '@comunica/core';
-import { MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate'
-import { union, AsyncIterator, single, empty, fromArray, EmptyIterator, ArrayIterator, UnionIterator } from 'asynciterator';
-import { Quad } from '@rdfjs/types';
-import { IActionContext } from '@comunica/types';
-import { INestedPremiseConclusionRule, IPremiseConclusionRule, Rule } from '@comunica/reasoning-types';
-import { maybeIterator, WrappingIterator } from './util'
+import { ActorRdfReasonMediated, IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
-import { MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
+import { MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate';
+import { IActorTest } from '@comunica/core';
+import { Rule } from '@comunica/reasoning-types';
+import { IActionContext } from '@comunica/types';
 import * as RDF from '@rdfjs/types';
+import { Quad } from '@rdfjs/types';
+import { ArrayIterator, AsyncIterator, fromArray, UnionIterator } from 'asynciterator';
 import { forEachTerms, mapTerms } from 'rdf-terms';
+import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
+import { maybeIterator, WrappingIterator } from './util';
 
 interface IRuleNode {
   rule: Rule;
@@ -117,7 +117,31 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   }
 
   public async execute({ rules, context }: IActionRdfReasonExecute): Promise<void> {
-    
+    // TODO: Refactor this - I've already written something similar somewhere
+    const nodes: IRuleNode[] = rules.map(rule => ({ rule, next: [] }));
+    for (const n1 of nodes) {
+      for (const n2 of nodes) {
+
+        if (n1.rule.conclusion === false) {
+          continue;
+        }
+
+        for (const conclusion of n1.rule.conclusion) {
+
+          for (let i = 0; i < n2.rule.premise.length; i++) {
+            const pattern = n2.rule.premise[i];
+            if (matchPatternMappings(conclusion, pattern)) {
+              n1.next.push({ rule: n2, index: i });
+            }
+
+          }
+
+        }
+      }
+    }
+
+    // TODO: Context manipulations to set the correct destination
+    return this.fullyEvaluateRules(nodes, context);
   }
 }
 
