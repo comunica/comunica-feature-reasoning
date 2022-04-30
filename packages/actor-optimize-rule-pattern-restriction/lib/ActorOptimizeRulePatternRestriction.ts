@@ -88,6 +88,7 @@ IPremiseConclusionRule[] {
   return allRules;
 }
 
+// TODO: Use an existing function from rdf-terms or move this logic into that package
 /**
  * Check if the base quad matches against all terms in the pattern.
  *

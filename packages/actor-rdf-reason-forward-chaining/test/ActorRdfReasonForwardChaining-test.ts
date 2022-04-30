@@ -28,7 +28,7 @@ describe('ActorRdfReasonForwardChaining', () => {
       // @ts-ignore
       mediatorRuleEvaluate = {
         mediate(action: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
-
+          // TODO: Implement this
         }
       }
 
