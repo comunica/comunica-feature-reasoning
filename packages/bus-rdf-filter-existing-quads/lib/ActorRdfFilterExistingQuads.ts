@@ -20,9 +20,9 @@ export abstract class ActorRdfFilterExistingQuads extends Actor<IActionRdfFilter
 }
 
 export interface IActionRdfFilterExistingQuads extends IAction {
-  filterSource: boolean
-  filterDestination: boolean
-  quadStream: AsyncIterator<RDF.Quad>
+  filterSource: boolean;
+  filterDestination: boolean;
+  quadStream: AsyncIterator<RDF.Quad>;
 }
 
 export interface IActorRdfFilterExistingQuadsOutput extends IActorOutput {

@@ -1,11 +1,19 @@
-import { Bus } from '@comunica/core';
+import { ActionContext, Bus } from '@comunica/core';
 import { ActorRdfFilterExistingQuadsRdfjsSource } from '../lib/ActorRdfFilterExistingQuadsRdfjsSource';
+import { Store } from 'n3';
+import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 
 describe('ActorRdfFilterExistingQuadsRdfjsSource', () => {
   let bus: any;
+  let store: Store;
+  let context: ActionContext;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
+    store = new Store();
+    context = new ActionContext({
+      [KeysRdfResolveQuadPattern.source.name]: store,
+    });
   });
 
   describe('An ActorRdfFilterExistingQuadsRdfjsSource instance', () => {
