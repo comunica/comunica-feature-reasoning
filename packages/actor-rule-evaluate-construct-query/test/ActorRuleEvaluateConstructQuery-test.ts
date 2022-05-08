@@ -26,7 +26,6 @@ describe('ActorRuleEvaluateConstructQuery', () => {
       // @ts-ignore
       mediatorQueryOperation = {
         async mediate(args: IActionQueryOperation): Promise<IQueryOperationResultQuads> {
-          console.log(args)
           const patterns: Algebra.Pattern[] = args.operation.template;
           return {
             type: 'quads',
