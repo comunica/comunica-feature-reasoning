@@ -1,4 +1,4 @@
-import { AsyncIterator, ArrayIterator, BufferedIterator, IntegerIterator, scheduleTask, fromArray, wrap } from 'asynciterator';
+import { AsyncIterator, ArrayIterator, BufferedIterator, IntegerIterator, scheduleTask } from 'asynciterator';
 import { EventEmitter } from 'events';
 
 // Determines whether the given object is a promise
@@ -17,8 +17,7 @@ function isPromise<T>(object: any): object is Promise<T> {
  export class WrappingIterator<T> extends AsyncIterator<T> {
   protected _source?: any;
 
-  constructor(sourceOrPromise: Promise<AsyncIterator<T>>, options: WrapOptions = {}) {
-    return wrap(sourceOrPromise as any) as any
+  constructor(sourceOrPromise?: WrapSource<T> | Promise<WrapSource<T>> | null, options: WrapOptions = {}) {
     super();
     this._onSourceEnd = this._onSourceEnd.bind(this);
     this._onSourceError = this._onSourceError.bind(this);
@@ -94,11 +93,6 @@ export type WrapSource<T> = AsyncIterator<T> | T[] | EventEmitter | Iterator<T> 
  * @returns The AsyncIterator if it is not empty, otherwise undefined
  */
 export async function maybeIterator<T>(source: AsyncIterator<T>): Promise<null | AsyncIterator<T>> {
-  const arr = await source.toArray();
-
-  return arr.length === 0 ? null : fromArray(arr);
-  
-  
   // Avoid creating a new iterator where possible
   // if ((source instanceof ArrayIterator || source instanceof BufferedIterator) && (source as any)._buffer.length > 0) {
   //    return source
@@ -107,45 +101,21 @@ export async function maybeIterator<T>(source: AsyncIterator<T>): Promise<null |
   //    return source;
   // }
 
-  // console.log('a')
-
-  // const l = await source.take(1).toArray();
-  // console.log('b')
-
-  // if (l.length === 1) {
-  //   console.log('c')
-  //   return source.append(l)
-  // }
-
-  // console.log('d')
-
-  // return null;
-
-  console.log('starting maybe iterator')
-
   let item;
   do {
-    if ((item = source.read()) !== null) {
-      console.log('returning maybeIterator with 1 elem')
+    if ((item = source.read()) !== null)
       return source.append([item]);
-    }
     await awaitReadable(source);
   } while (!source.done);
-
-  console.log('returning null from maybeiterator')
   return null;
 }
 
 function awaitReadable<T>(source: AsyncIterator<T>): Promise<void> {
-  console.log('inside awaitReadable', source.done, source.readable, source.ended, source.closed, source.destroyed,)
   return new Promise<void>((res, rej) => {
-    if (source.readable || source.done) {
-      console.log('await readable quick finish')
+    if (source.readable || source.done)
       res();
-    }
 
     function done() {
-      console.log('done with awaitRedable')
       cleanup();
       res();
     }
@@ -164,10 +134,5 @@ function awaitReadable<T>(source: AsyncIterator<T>): Promise<void> {
     source.on('readable', done);
     source.on('end', done);
     source.on('error', err);
-
-    if (source.readable || source.done) {
-      console.log('quick done')
-      done();
-    }
   });
 }

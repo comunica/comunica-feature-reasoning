@@ -47,8 +47,6 @@ describe('ActorRdfReasonForwardChaining', () => {
           return {
             execute: async () => {
               const dest: Store = action.context.getSafe<Store>(KeysRdfUpdateQuads.destination);
-              console.log(dest.size)
-
               // TODO: Remove type casting once https://github.com/rdfjs/N3.js/issues/286 is merged
               let quadStreamInsert = action.quadStreamInsert?.filter(quad => dest.addQuad(quad) as unknown as boolean);
 
@@ -64,8 +62,6 @@ describe('ActorRdfReasonForwardChaining', () => {
                 }
                 
               }
-
-              console.log('done', dest.size)
 
               return { quadStreamInsert };
             }

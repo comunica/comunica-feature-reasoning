@@ -30,6 +30,9 @@ import { DatasetCore } from '@rdfjs/types';
     if (action.quadStreamDelete || action.createGraphs || action.deleteGraphs) {
       throw new Error('Only QuadStreamInsert is implemented on this actor');
     }
+    if (action.filterSource)
+      throw new Error('Cannot filter source');
+
     return true;
   }
 

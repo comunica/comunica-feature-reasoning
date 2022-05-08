@@ -18,9 +18,11 @@ export class ActorRdfUpdateQuadsInfoN3Store extends ActorRdfUpdateQuadsInfo {
   }
 
   public async test(action: IActionRdfUpdateQuadsInfo): Promise<IActorTest> {
-    if (action.context.has(KeysRdfResolveQuadPattern.source) || action.context.has(KeysRdfResolveQuadPattern.sources))
-      throw new Error('The N3 store rdf-update-quads-info actor cannot run if there are source(s) defined')
-    const destination = getContextDestination(action.context);
+    // TODO: See if this is needed
+    // if (action.context.has(KeysRdfResolveQuadPattern.source) || action.context.has(KeysRdfResolveQuadPattern.sources))
+    //   throw new Error('The N3 store rdf-update-quads-info actor cannot run if there are source(s) defined')
+    
+      const destination = getContextDestination(action.context);
     if (!destination) {
       throw new Error('There is no destination defined')
     }
@@ -30,6 +32,9 @@ export class ActorRdfUpdateQuadsInfoN3Store extends ActorRdfUpdateQuadsInfo {
     if (action.quadStreamDelete || action.createGraphs || action.deleteGraphs) {
       throw new Error('Only QuadStreamInsert is implemented on this actor');
     }
+    if (action.filterSource)
+      throw new Error('Cannot filter source');
+
     return true;
   }
 
