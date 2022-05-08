@@ -1,4 +1,4 @@
-import { AsyncIterator, ArrayIterator, BufferedIterator, IntegerIterator, scheduleTask } from 'asynciterator';
+import { AsyncIterator, ArrayIterator, BufferedIterator, IntegerIterator, scheduleTask, fromArray, wrap } from 'asynciterator';
 import { EventEmitter } from 'events';
 
 // Determines whether the given object is a promise
@@ -17,7 +17,8 @@ function isPromise<T>(object: any): object is Promise<T> {
  export class WrappingIterator<T> extends AsyncIterator<T> {
   protected _source?: any;
 
-  constructor(sourceOrPromise?: WrapSource<T> | Promise<WrapSource<T>> | null, options: WrapOptions = {}) {
+  constructor(sourceOrPromise: Promise<AsyncIterator<T>>, options: WrapOptions = {}) {
+    return wrap(sourceOrPromise as any) as any
     super();
     this._onSourceEnd = this._onSourceEnd.bind(this);
     this._onSourceError = this._onSourceError.bind(this);
@@ -93,6 +94,11 @@ export type WrapSource<T> = AsyncIterator<T> | T[] | EventEmitter | Iterator<T> 
  * @returns The AsyncIterator if it is not empty, otherwise undefined
  */
 export async function maybeIterator<T>(source: AsyncIterator<T>): Promise<null | AsyncIterator<T>> {
+  const arr = await source.toArray();
+
+  return arr.length === 0 ? null : fromArray(arr);
+  
+  
   // Avoid creating a new iterator where possible
   // if ((source instanceof ArrayIterator || source instanceof BufferedIterator) && (source as any)._buffer.length > 0) {
   //    return source
