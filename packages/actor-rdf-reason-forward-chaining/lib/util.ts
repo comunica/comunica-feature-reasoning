@@ -94,28 +94,52 @@ export type WrapSource<T> = AsyncIterator<T> | T[] | EventEmitter | Iterator<T> 
  */
 export async function maybeIterator<T>(source: AsyncIterator<T>): Promise<null | AsyncIterator<T>> {
   // Avoid creating a new iterator where possible
-  if ((source instanceof ArrayIterator || source instanceof BufferedIterator) && (source as any)._buffer.length > 0) {
-     return source
-  }
-  if (source instanceof IntegerIterator && (source as any).step >= 0 ? (source as any).next > (source as any).last : (source as any).next < (source as any).last) {
-     return source;
-  }
+  // if ((source instanceof ArrayIterator || source instanceof BufferedIterator) && (source as any)._buffer.length > 0) {
+  //    return source
+  // }
+  // if (source instanceof IntegerIterator && (source as any).step >= 0 ? (source as any).next > (source as any).last : (source as any).next < (source as any).last) {
+  //    return source;
+  // }
+
+  // console.log('a')
+
+  // const l = await source.take(1).toArray();
+  // console.log('b')
+
+  // if (l.length === 1) {
+  //   console.log('c')
+  //   return source.append(l)
+  // }
+
+  // console.log('d')
+
+  // return null;
+
+  console.log('starting maybe iterator')
 
   let item;
   do {
-    if ((item = source.read()) !== null)
+    if ((item = source.read()) !== null) {
+      console.log('returning maybeIterator with 1 elem')
       return source.append([item]);
+    }
     await awaitReadable(source);
   } while (!source.done);
+
+  console.log('returning null from maybeiterator')
   return null;
 }
 
 function awaitReadable<T>(source: AsyncIterator<T>): Promise<void> {
+  console.log('inside awaitReadable', source.done, source.readable, source.ended, source.closed, source.destroyed,)
   return new Promise<void>((res, rej) => {
-    if (source.readable || source.done)
+    if (source.readable || source.done) {
+      console.log('await readable quick finish')
       res();
+    }
 
     function done() {
+      console.log('done with awaitRedable')
       cleanup();
       res();
     }
@@ -134,5 +158,10 @@ function awaitReadable<T>(source: AsyncIterator<T>): Promise<void> {
     source.on('readable', done);
     source.on('end', done);
     source.on('error', err);
+
+    if (source.readable || source.done) {
+      console.log('quick done')
+      done();
+    }
   });
 }

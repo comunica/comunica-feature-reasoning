@@ -5,7 +5,8 @@ import type {
 } from '@comunica/bus-rdf-update-quads';
 import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import type { IReasonStatus, Rule } from '@comunica/reasoning-types';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import type { IReasonGroup, IReasonStatus, Rule } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
@@ -13,7 +14,7 @@ import { wrap, type AsyncIterator } from 'asynciterator';
 import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
-import { ActorRdfReason, getSafeData, setImplicitDestination, setReasoningStatus, setUnionSource } from './ActorRdfReason';
+import { ActorRdfReason, setImplicitDestination, setReasoningStatus, setUnionSource } from './ActorRdfReason';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason {
   public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
@@ -80,7 +81,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
           setReasoningStatus(action.context, { type: 'full', reasoned: false });
         }
 
-        const { status } = getSafeData(action.context);
+        const { status } = action.context.getSafe<IReasonGroup>(KeysRdfReason.data);
 
         // If full reasoning is already being applied then just use the data from that
         if (status.type === 'full' && status.reasoned) {

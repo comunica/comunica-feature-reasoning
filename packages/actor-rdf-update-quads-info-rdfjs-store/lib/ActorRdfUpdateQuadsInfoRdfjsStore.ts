@@ -7,11 +7,12 @@ import { IDataSource } from '@comunica/types';
 import { DatasetCore } from '@rdfjs/types';
 
 // TODO: Refactor common logic with n3 store into an abstract class
+// TODO: Double check name casing
 
 /**
  * A comunica RDFjs Store RDF Update Quads Info Actor.
  */
- export class ActorRdfUpdateQuadsInfoN3Store extends ActorRdfUpdateQuadsInfo {
+ export class ActorRdfUpdateQuadsInfoRdfjsStore extends ActorRdfUpdateQuadsInfo {
   public constructor(args: IActorRdfUpdateQuadsInfoArgs) {
     super(args);
   }

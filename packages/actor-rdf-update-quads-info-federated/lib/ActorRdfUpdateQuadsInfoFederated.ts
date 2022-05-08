@@ -19,12 +19,13 @@ export class ActorRdfUpdateQuadsInfoFederated extends ActorRdfUpdateQuadsInfo {
     // Tests around sources and destinations
     if (!action.context.has(KeysRdfUpdateQuads.destination))
       throw new Error('A destination is required')
-    if (!action.context.has(KeysRdfResolveQuadPattern.source) && !action.context.has(KeysRdfResolveQuadPattern.source))
-      throw new Error('A source or source(s) are required')
+    // if (!action.context.has(KeysRdfResolveQuadPattern.source) && !action.context.has(KeysRdfResolveQuadPattern.source))
+    //   throw new Error('A source or source(s) are required')
 
     // Tests around what has currently been implemented
     if (action.createGraphs || action.deleteGraphs || action.quadStreamDelete)
       throw new Error('Currently only quadStreamInsert is supported');
+
     return true;
   }
 
@@ -34,6 +35,7 @@ export class ActorRdfUpdateQuadsInfoFederated extends ActorRdfUpdateQuadsInfo {
         let { quadStreamInsert } = await (await this.mediatorRdfUpdateQuadsInfo.mediate({ ...action, context: action.context.delete(KeysRdfResolveQuadPattern.source).delete(KeysRdfResolveQuadPattern.sources) })).execute();
 
         // Filter the quad stream if ignoreSourceComparison is disabled
+        // TODO: Either do not run if no sources - *or* have a filter empty actor
         if (quadStreamInsert && action.filterSource) {
           quadStreamInsert = (await (await this.mediatorFilterExistingQuads.mediate({ filterSource: true, filterDestination: false, context: action.context, quadStream: quadStreamInsert })).execute()).quadStream;
         }

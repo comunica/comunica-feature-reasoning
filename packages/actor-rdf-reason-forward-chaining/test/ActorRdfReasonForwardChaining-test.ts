@@ -33,6 +33,8 @@ describe('ActorRdfReasonForwardChaining', () => {
     let actor: ActorRdfReasonForwardChaining;
 
     beforeEach(() => {
+      implicitDestination = new Store();
+
       reasoningGroup = {
         status: { type: 'full', reasoned: false },
         dataset: implicitDestination,
@@ -107,14 +109,23 @@ describe('ActorRdfReasonForwardChaining', () => {
         async mediate(action: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
           return {
             execute: async () => {
-              const dest: Store = action.context.getSafe(KeysRdfUpdateQuads.destination);
+              const dest: Store = action.context.getSafe<Store>(KeysRdfUpdateQuads.destination);
+              console.log(dest.size)
 
               // TODO: Remove type casting once https://github.com/rdfjs/N3.js/issues/286 is merged
               let quadStreamInsert = action.quadStreamInsert?.filter(quad => dest.addQuad(quad) as unknown as boolean);
 
+              hasContextSingleSource(action.context)
+
               if (action.filterSource) {
-                const source: Store = getContextSource(action.context) as Store;
-                quadStreamInsert = quadStreamInsert?.filter(quad => !source.has(quad));
+                if (hasContextSingleSource(action.context)) {
+                  const source: Store = getContextSource(action.context) as Store;
+                  quadStreamInsert = quadStreamInsert?.filter(quad => !source.has(quad));
+                } else {
+                  const sources = getContextSources(action.context) as Store[];
+                  quadStreamInsert = quadStreamInsert?.filter(quad => sources.every(store => !store.has(quad)));
+                }
+                
               }
 
               return { quadStreamInsert };
@@ -133,7 +144,6 @@ describe('ActorRdfReasonForwardChaining', () => {
         // TODO: Remove this once we do not require unecessary mediators
       } as any);
       store = new Store();
-      implicitDestination = new Store();
       context = new ActionContext({
         [KeysRdfResolveQuadPattern.source.name]: store,
         [KeysRdfReason.data.name]: reasoningGroup,
@@ -141,24 +151,25 @@ describe('ActorRdfReasonForwardChaining', () => {
       })
     });
 
-    it('should test', () => {
-      // return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
-    });
+    // it('should test', () => {
+    //   // return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
+    // });
 
-    it('should run with empty data', async () => {
-      const { execute } = await actor.run({ context });
-      await execute();
-      expect(store.size).toEqual(0);
-      expect(implicitDestination.size).toEqual(0);
-    });
+    // it('should run with empty data', async () => {
+    //   const { execute } = await actor.run({ context });
+    //   await execute();
+    //   expect(store.size).toEqual(0);
+    //   expect(implicitDestination.size).toEqual(0);
+    // });
 
     it('should run with data', async () => {
-      store.add(quad(namedNode('s'), namedNode('p'), namedNode('o')));
+      store.add(quad(namedNode('s'), namedNode('http://example.org#a'), namedNode('o')));
+      store.add(quad(namedNode('o'), namedNode('http://example.org#subsetOf'), namedNode('o2')));
       const { execute } = await actor.run({ context });
       await execute();
-      expect(store.size).toEqual(1);
+      expect(store.size).toEqual(2);
       // TODO: Fix this - it should not be zero
-      expect(implicitDestination.size).toEqual(0);
+      expect(implicitDestination.size).toEqual(2);
     });
   });
 });
