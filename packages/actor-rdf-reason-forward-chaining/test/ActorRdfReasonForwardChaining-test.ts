@@ -1,20 +1,16 @@
-import { getContextSource } from '@comunica/bus-rdf-resolve-quad-pattern';
-import { IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoOutput, MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
-import { IActionRuleEvaluate, IActorRuleEvaluateOutput, MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate';
-import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
+import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import { 
+  mediatorOptimizeRule,
+  mediatorRdfUpdateQuadsInfo,
+  mediatorRuleEvaluate,
+  mediatorRuleResolve
+} from '@comunica/reasoning-mocks';
 import { IReasonGroup } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
-import * as RDF from '@rdfjs/types';
-import { UnionIterator, single, AsyncIterator, wrap, fromArray } from 'asynciterator';
-import { Store, DataFactory } from 'n3';
-import { forEachTerms, mapTerms } from 'rdf-terms';
-import { Algebra } from 'sparqlalgebrajs';
+import { DataFactory, Store } from 'n3';
 import { ActorRdfReasonForwardChaining } from '../lib/ActorRdfReasonForwardChaining';
-import { hasContextSingleSource, getContextSources } from '@comunica/bus-rdf-resolve-quad-pattern';
-import { mediatorRuleResolve, mediatorOptimizeRule, mediatorRdfResolveQuadPattern, mediatorRuleEvaluate } from '@comunica/reasoning-mocks';
-import { ActorRuleEvaluateRestriction } from '@comunica/actor-rule-evaluate-restriction';
 const { quad, namedNode } = DataFactory
 
 describe('ActorRdfReasonForwardChaining', () => {
@@ -23,7 +19,6 @@ describe('ActorRdfReasonForwardChaining', () => {
   let implicitDestination: Store;
   let reasoningGroup: IReasonGroup;
   let context: IActionContext;
-  let mediatorRdfUpdateQuadsInfo: MediatorRdfUpdateQuadsInfo;
 
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
@@ -39,34 +34,6 @@ describe('ActorRdfReasonForwardChaining', () => {
         status: { type: 'full', reasoned: false },
         dataset: implicitDestination,
         context: new ActionContext()
-      }
-
-      // @ts-ignore
-      mediatorRdfUpdateQuadsInfo = {
-        async mediate(action: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
-          return {
-            execute: async () => {
-              const dest: Store = action.context.getSafe<Store>(KeysRdfUpdateQuads.destination);
-              // TODO: Remove type casting once https://github.com/rdfjs/N3.js/issues/286 is merged
-              let quadStreamInsert = action.quadStreamInsert?.filter(quad => dest.addQuad(quad) as unknown as boolean);
-
-              hasContextSingleSource(action.context)
-
-              if (action.filterSource) {
-                if (hasContextSingleSource(action.context)) {
-                  const source: Store = getContextSource(action.context) as Store;
-                  quadStreamInsert = quadStreamInsert?.filter(quad => !source.has(quad));
-                } else {
-                  const sources = getContextSources(action.context) as Store[];
-                  quadStreamInsert = quadStreamInsert?.filter(quad => sources.every(store => !store.has(quad)));
-                }
-                
-              }
-
-              return { quadStreamInsert };
-            }
-          }
-        }
       }
 
       actor = new ActorRdfReasonForwardChaining({
