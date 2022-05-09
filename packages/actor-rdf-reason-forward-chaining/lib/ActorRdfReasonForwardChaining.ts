@@ -5,12 +5,10 @@ import { IActorTest } from '@comunica/core';
 import { Rule } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
 import * as RDF from '@rdfjs/types';
-import { ArrayIterator, AsyncIterator, EmptyIterator, fromArray, UnionIterator } from 'asynciterator';
+import { ArrayIterator, AsyncIterator, fromArray, UnionIterator } from 'asynciterator';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
 import { maybeIterator, WrappingIterator } from './util';
-import { DataFactory } from 'n3';
-const { quad, namedNode } = DataFactory;
 
 interface IRuleNode {
   rule: Rule;
