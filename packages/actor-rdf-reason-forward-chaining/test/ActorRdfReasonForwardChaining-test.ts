@@ -40,30 +40,30 @@ describe('ActorRdfReasonForwardChaining', () => {
       })
     });
 
-    // it('should test', () => {
-    //   // return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
-    // });
+    it('should test', () => {
+      // return expect(actor.test({ todo: true })).resolves.toEqual({ todo: true }); // TODO
+    });
 
-    // it('should run with empty data', async () => {
-    //   const { execute } = await actor.run({ context });
-    //   await execute();
-    //   expect(store.size).toEqual(0);
-    //   expect(implicitDestination.size).toEqual(0);
-    // });
+    it('should run with empty data', async () => {
+      const { execute } = await actor.run({ context });
+      await execute();
+      expect(store.size).toEqual(0);
+      expect(implicitDestination.size).toEqual(0);
+    });
 
-    // it('should run with data', async () => {
-    //   store.add(quad(namedNode('s'), namedNode('http://example.org#a'), namedNode('o')));
-    //   store.add(quad(namedNode('o'), namedNode('http://example.org#subsetOf'), namedNode('o2')));
-    //   const { execute } = await actor.run({ context });
-    //   await execute();
-    //   expect(store.size).toEqual(2);
-    //   expect(implicitDestination.size).toEqual(4);
-    //   expect(implicitDestination.has(quad(
-    //     namedNode('http://example.org#Class'),
-    //     namedNode('http://example.org#a'),
-    //     namedNode('http://example.org#Class'),
-    //   ))).toBe(true);
-    // });
+    it('should run with data', async () => {
+      store.add(quad(namedNode('s'), namedNode('http://example.org#a'), namedNode('o')));
+      store.add(quad(namedNode('o'), namedNode('http://example.org#subsetOf'), namedNode('o2')));
+      const { execute } = await actor.run({ context });
+      await execute();
+      expect(store.size).toEqual(2);
+      expect(implicitDestination.size).toEqual(4);
+      expect(implicitDestination.has(quad(
+        namedNode('http://example.org#Class'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      ))).toBe(true);
+    });
 
     it('should run with nested relation data', async () => {
       store.add(quad(namedNode('s'), namedNode('http://example.org#a'), namedNode('o')));
@@ -73,11 +73,6 @@ describe('ActorRdfReasonForwardChaining', () => {
       store.add(quad(namedNode('o4'), namedNode('http://example.org#subsetOf'), namedNode('o5')));
       const { execute } = await actor.run({ context });
       await execute();
-      // console.log([...implicitDestination.match(
-      //   namedNode('s'),
-      //   namedNode('http://example.org#a'),
-      //   null
-      // )])
       expect(implicitDestination.has(quad(
         namedNode('s'),
         namedNode('http://example.org#a'),
