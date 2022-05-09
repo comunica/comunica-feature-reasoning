@@ -2,8 +2,8 @@ import { ActorRuleEvaluate, IActionRuleEvaluate, IActorRuleEvaluateArgs, IActorR
 import { IActorTest } from '@comunica/core';
 import { INestedPremiseConclusionRule, Rule, IPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
 import * as RDF from '@rdfjs/types';
-import { AsyncIterator, single, UnionIterator, wrap, fromArray } from '../../actor-rdf-reason-forward-chaining/lib/asynciterator';
-import { WrappingIterator } from '../../actor-rdf-reason-forward-chaining/lib/util';
+import { AsyncIterator, single, UnionIterator, fromArray } from '../../actor-rdf-reason-forward-chaining/lib/asynciterator';
+import { WrappingIterator, wrap } from '../../actor-rdf-reason-forward-chaining/lib/util';
 import { DataFactory } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
@@ -35,10 +35,10 @@ export class ActorRuleEvaluateRestriction extends ActorRuleEvaluate {
         mapping => {
           const cause = substituteQuad(premise, mapping);
 
-          return new WrappingIterator<RDF.Quad>(this.mediatorRdfResolveQuadPattern.mediate({
+          return wrap<RDF.Quad>(this.mediatorRdfResolveQuadPattern.mediate({
             pattern: cause as any,
             context: action.context
-          }).then(elem => elem.data), { letIteratorThrough: true }).map(quad => {
+          }).then(elem => elem.data), { letIteratorThrough: true, prioritizeIterable: true }).map(quad => {
             let localMapping: Mapping | null = {};
 
             forEachTerms(cause, (term, key) => {

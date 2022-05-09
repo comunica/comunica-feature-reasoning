@@ -10,7 +10,7 @@ import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import { IActionRuleEvaluate, IActorRuleEvaluateOutput } from '@comunica/bus-rule-evaluate';
-import { WrappingIterator } from '../../actor-rdf-reason-forward-chaining/lib/util';
+import { wrap } from '../../actor-rdf-reason-forward-chaining/lib/util';
 
 /**
  * A comunica actor that
@@ -35,10 +35,10 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
         mapping => {
           const cause = substituteQuad(premise, mapping);
 
-          return new WrappingIterator<RDF.Quad>(this.mediatorRdfResolveQuadPattern.mediate({
+          return wrap<RDF.Quad>(this.mediatorRdfResolveQuadPattern.mediate({
             pattern: cause as any,
             context: action.context
-          }).then(elem => elem.data), { letIteratorThrough: true }).map(quad => {
+          }).then(elem => elem.data), { letIteratorThrough: true, prioritizeIterable: true }).map(quad => {
             let localMapping: Mapping | null = {};
 
             forEachTerms(cause, (term, key) => {

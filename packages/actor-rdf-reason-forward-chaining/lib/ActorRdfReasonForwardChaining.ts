@@ -2,15 +2,13 @@ import { ActorRdfReasonMediated, IActionRdfReason, IActionRdfReasonExecute, IAct
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate';
 import { IActorTest } from '@comunica/core';
-import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { IReasonGroup, Rule } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
 import * as RDF from '@rdfjs/types';
 import { ArrayIterator, AsyncIterator, fromArray, UnionIterator } from './asynciterator';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
-import { getQuads } from 'rdf-terms/lib/TermUtil';
-import { maybeIterator, WrappingIterator } from './util';
+import { maybeIterator, wrap } from './util';
 
 interface IRuleNode {
   rule: Rule;
@@ -113,7 +111,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   }
 
   private evaluateInsertRule(rule: IRuleNode, context: IActionContext): IConsequenceData {
-    const quads: AsyncIterator<RDF.Quad> = new WrappingIterator(this.evaluateInsert(rule, context), { letIteratorThrough: true });
+    const quads: AsyncIterator<RDF.Quad> = wrap(this.evaluateInsert(rule, context), { letIteratorThrough: true, prioritizeIterable: true });
     return { quads, rule };
   }
 
@@ -130,9 +128,13 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged - use null
         // TODO: Work out why errors are being suppressed - such as store not being in the context
           // .filter((rule): rule is IRuleNode => rule !== false)
-        
+              
         return newRules.map(rule => this.evaluateInsertRule(rule, unionContext));
       }), { autoStart: false });
+      
+      // Pull everything thorough
+      // TODO: remove this
+      // results = fromArray(await results.toArray())
     }
   }
 

@@ -2090,7 +2090,7 @@ type AsyncIteratorOrArray<T> =
   T[] |
   AsyncIterator<T>;
 
-type SourceExpression<T> =
+export type SourceExpression<T> =
   MaybePromise<AsyncIterator<T>> |
   (() => MaybePromise<AsyncIterator<T>>);
 
