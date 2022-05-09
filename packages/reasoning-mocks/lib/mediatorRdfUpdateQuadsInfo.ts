@@ -3,7 +3,7 @@ import { IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoOutput } from '@comu
 import { KeysRdfUpdateQuads } from '@comunica/context-entries';
 import { DataFactory, Store } from 'n3';
 
-export const mediatorRdfUpdateQuadsInfo = {
+export const mediatorRdfUpdateQuadsInfo = <any> {
   async mediate(action: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
     return {
       execute: async () => {

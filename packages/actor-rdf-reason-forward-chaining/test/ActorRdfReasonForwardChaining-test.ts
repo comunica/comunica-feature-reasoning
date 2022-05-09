@@ -1,12 +1,7 @@
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
-import { 
-  mediatorOptimizeRule,
-  mediatorRdfUpdateQuadsInfo,
-  mediatorRuleEvaluate,
-  mediatorRuleResolve
-} from '@comunica/reasoning-mocks';
+import { mediators } from '@comunica/reasoning-mocks';
 import { IReasonGroup } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
 import { DataFactory, Store } from 'n3';
@@ -36,15 +31,7 @@ describe('ActorRdfReasonForwardChaining', () => {
         context: new ActionContext()
       }
 
-      actor = new ActorRdfReasonForwardChaining({
-        name: 'actor',
-        bus,
-        mediatorRuleEvaluate,
-        mediatorRdfUpdateQuadsInfo,
-        mediatorRuleResolve,
-        mediatorOptimizeRule
-        // TODO: Remove this once we do not require unecessary mediators
-      } as any);
+      actor = new ActorRdfReasonForwardChaining({ name: 'actor', bus, ...mediators });
       store = new Store();
       context = new ActionContext({
         [KeysRdfResolveQuadPattern.source.name]: store,
@@ -71,6 +58,11 @@ describe('ActorRdfReasonForwardChaining', () => {
       await execute();
       expect(store.size).toEqual(2);
       expect(implicitDestination.size).toEqual(4);
+      expect(implicitDestination.has(quad(
+        namedNode('http://example.org#Class'),
+        namedNode('http://example.org#a'),
+        namedNode('http://example.org#Class'),
+      ))).toBe(true);
     });
   });
 });

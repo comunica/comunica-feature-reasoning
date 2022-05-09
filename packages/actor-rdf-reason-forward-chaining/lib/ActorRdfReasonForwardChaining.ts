@@ -117,25 +117,29 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     // On the first evaluation of the rules we only need to apply reasoning with respect to the base source
     // NOTE: This particular function should *not* be used for reasoning after some implicit results have already
     // been materialized
-    // TODO: uncomments this
     let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(rule => this.evaluateInsertRule(rule, context));
-    // let results: AsyncIterator<RDF.Quad> | null = await this.insert(context, fromArray([ quad(namedNode('?s'), namedNode('?p'), namedNode('?o')) ]))
+
+    const resarray = await results.toArray();
+    console.log('results array', resarray)
+
+    results = fromArray(resarray);
 
     // For the remainder of the reasoning we then need to evaluate new rules that emerge with respect to the union of
     // sources
     const unionContext = setUnionSource(context);
 
     while ((results = await maybeIterator(results)) !== null) {
+      console.log('iter 1 of results')
       // results = await this.insert(context, fromArray([ quad(namedNode('?s'), namedNode('?p'), namedNode('?o')) ]))
       
       
       // results = new EmptyIterator()
       
       results = new UnionIterator(results.map(({ quads, rule }) => {
-        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad) || false)), { autoStart: false })
+        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false })
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged - use null
         // TODO: Work out why errors are being suppressed - such as store not being in the context
-          .filter((rule): rule is IRuleNode => rule !== false)
+          .filter((rule): rule is IRuleNode => rule !== null)
         
         return newRules.map(rule => this.evaluateInsertRule(rule, unionContext));
       }), { autoStart: false });
@@ -161,7 +165,6 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
             if (matchPatternMappings(conclusion, pattern)) {
               n1.next.push({ rule: n2, index: i });
             }
-
           }
 
         }
@@ -174,6 +177,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     // to make sure that this is handled properly
 
     // Set the destination to the implicit dataset for reasoning
+    console.log(nodes, nodes[0], nodes[0].next)
     return this.fullyEvaluateRules(nodes, setImplicitDestination(context));
   }
 }

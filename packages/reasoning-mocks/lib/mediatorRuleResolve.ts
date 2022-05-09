@@ -139,6 +139,27 @@ export const RULES: Record<string, Rule[]> = {
       ],
     },
   ],
+  'type-inference': [{
+    ruleType: 'premise-conclusion',
+    premise: [quad(
+      variable('?s'),
+      namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+      variable('?o'),
+      variable('?g'),
+    ),
+    quad(
+      variable('?o'),
+      namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
+      variable('?o2'),
+    )],
+    conclusion: [
+        quad(
+        variable('?s'),
+        namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+        variable('?o2'),
+      ),
+    ]
+  }]
 };
 
 export const mediatorRuleResolve = <any> {
