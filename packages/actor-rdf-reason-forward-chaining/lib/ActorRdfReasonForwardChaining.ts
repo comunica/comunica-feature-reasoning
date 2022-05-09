@@ -2,12 +2,14 @@ import { ActorRdfReasonMediated, IActionRdfReason, IActionRdfReasonExecute, IAct
 import { MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { MediatorRuleEvaluate } from '@comunica/bus-rule-evaluate';
 import { IActorTest } from '@comunica/core';
-import { Rule } from '@comunica/reasoning-types';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import { IReasonGroup, Rule } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
 import * as RDF from '@rdfjs/types';
 import { ArrayIterator, AsyncIterator, fromArray, UnionIterator } from 'asynciterator';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
+import { getQuads } from 'rdf-terms/lib/TermUtil';
 import { maybeIterator, WrappingIterator } from './util';
 
 interface IRuleNode {
@@ -31,6 +33,9 @@ function substitute(quad: RDF.Quad, map:  Record<string, RDF.Term>): RDF.Quad {
 }
 
 function maybeSubstitute({ rule: { rule, next }, index }: { rule: IRuleNode, index: number }, quad: RDF.Quad): IRuleNode | null {
+  // console.log('running maybe substitution for', quad)
+  
+  
   let mapping: Record<string, RDF.Term> | null = {};
   const pattern = rule.premise[index];
 
@@ -55,6 +60,7 @@ function maybeSubstitute({ rule: { rule, next }, index }: { rule: IRuleNode, ind
   });
 
   if (mapping === null) {
+    // console.log('returning null')
     return null;
   }
 
@@ -68,7 +74,7 @@ function maybeSubstitute({ rule: { rule, next }, index }: { rule: IRuleNode, ind
 
   const conclusion = rule.conclusion && rule.conclusion.map(conclusion => substitute(conclusion, mapping!));
 
-  return {
+  const res: IRuleNode = {
     rule: {
       // TODO: See if we can just use the existing rule type
       ruleType: 'rdfs',
@@ -77,6 +83,10 @@ function maybeSubstitute({ rule: { rule, next }, index }: { rule: IRuleNode, ind
     },
     next
   }
+
+  // console.log('returning res', res, JSON.stringify(res.rule, null, 2))
+
+  return res;
 }
 
 /**
@@ -95,17 +105,28 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   }
 
   private async insert(context: IActionContext, results: AsyncIterator<RDF.Quad>): Promise<AsyncIterator<RDF.Quad>> {
+    // console.log('existing dat', (<any> (context.get<IReasonGroup>(KeysRdfReason.data)?.dataset))?.getQuads())
+    
     const { execute } = await this.mediatorRdfUpdateQuadsInfo.mediate({
       context, quadStreamInsert: results, filterSource: true
     });
-    const { quadStreamInsert } = await execute();
+    let { quadStreamInsert } = await execute();
+
+    const x = await quadStreamInsert?.toArray()
+
+    // console.log('inserted ', x, console.log((<any> (context.get<IReasonGroup>(KeysRdfReason.data)?.dataset))?.getQuads()));
+
+    quadStreamInsert = x ? new ArrayIterator<RDF.Quad>(x, { autoStart: false }) : undefined;
+
     return quadStreamInsert ?? new ArrayIterator<RDF.Quad>([], { autoStart: false });
   }
 
   // This should probably be a mediator of its own
   private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<RDF.Quad>> {
     const { results } = await this.mediatorRuleEvaluate.mediate({ rule: rule.rule, context });
-    return this.insert(context, results);
+    const x = await results.toArray();
+    // console.log('results from ', rule, x);
+    return this.insert(context, fromArray(x));
   }
 
   private evaluateInsertRule(rule: IRuleNode, context: IActionContext): IConsequenceData {
@@ -120,7 +141,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(rule => this.evaluateInsertRule(rule, context));
 
     const resarray = await results.toArray();
-    console.log('results array', resarray)
+    // console.log('results array', resarray)
 
     results = fromArray(resarray);
 
@@ -128,22 +149,29 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     // sources
     const unionContext = setUnionSource(context);
 
+    // console.log('------ Start ---------')
     while ((results = await maybeIterator(results)) !== null) {
-      console.log('iter 1 of results')
+      // console.log('iter 1 of results')
       // results = await this.insert(context, fromArray([ quad(namedNode('?s'), namedNode('?p'), namedNode('?o')) ]))
       
       
       // results = new EmptyIterator()
       
       results = new UnionIterator(results.map(({ quads, rule }) => {
-        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false })
+        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad) || false)), { autoStart: false })
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged - use null
         // TODO: Work out why errors are being suppressed - such as store not being in the context
-          .filter((rule): rule is IRuleNode => rule !== null)
+          .filter((rule): rule is IRuleNode => rule !== false)
         
         return newRules.map(rule => this.evaluateInsertRule(rule, unionContext));
       }), { autoStart: false });
+
+
+      const asArr: IConsequenceData[] = await results.toArray();
+      // console.log(asArr);
+      results = fromArray(asArr);
     }
+    // console.log('------- END --------')
   }
 
   public async execute({ rules, context }: IActionRdfReasonExecute): Promise<void> {
@@ -177,7 +205,7 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     // to make sure that this is handled properly
 
     // Set the destination to the implicit dataset for reasoning
-    console.log(nodes, nodes[0], nodes[0].next)
+    // console.log(nodes, nodes[0], nodes[0].next)
     return this.fullyEvaluateRules(nodes, setImplicitDestination(context));
   }
 }

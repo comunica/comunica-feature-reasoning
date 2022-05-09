@@ -64,7 +64,7 @@ async function deepTaxonomy() {
     await run(context, TITLE);
 
     console.log(destination.size, store.size);
-    console.log(destination.getQuads())
+    // console.log(destination.getQuads())
     console.log(destination.has(
       quad(
         namedNode('http://eulersharp.sourceforge.net/2009/12dtb/test#ind'),

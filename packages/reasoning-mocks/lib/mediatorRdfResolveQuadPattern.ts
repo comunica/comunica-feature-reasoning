@@ -24,8 +24,10 @@ class MyActor extends ActorRdfResolveQuadPatternRdfJsSource {
       source => super.run({ ...action, context: action.context.set(KeysRdfResolveQuadPattern.source, source) }),
     );
 
+    // console.log('resolving quad pattern on', sources.length, sources[0]?.size, sources[1]?.size)
+
     return {
-      data: new UnionIterator<RDF.Quad>((await Promise.all(its)).map(it => it.data), { autoStart: false }),
+      data: new UnionIterator<RDF.Quad>(its.map(it => it.then(x => x.data)), { autoStart: false }),
     };
   }
 }
