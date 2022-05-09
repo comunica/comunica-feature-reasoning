@@ -1,6 +1,5 @@
 import { ActorRdfUpdateQuadsInfo, IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoOutput, IActorRdfUpdateQuadsInfoArgs, MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
-import { IActorArgs, IActorTest } from '@comunica/core';
-import {} from '@comunica/bus-rdf-update-quads-info';
+import { IActorTest } from '@comunica/core';
 import { KeysRdfUpdateQuads, KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { MediatorRdfFilterExistingQuads } from '@comunica/bus-rdf-filter-existing-quads';
 
@@ -11,7 +10,7 @@ export class ActorRdfUpdateQuadsInfoFederated extends ActorRdfUpdateQuadsInfo {
   public readonly mediatorRdfUpdateQuadsInfo: MediatorRdfUpdateQuadsInfo;
   public readonly mediatorFilterExistingQuads: MediatorRdfFilterExistingQuads;
 
-  public constructor(args: IActorArgs<IActionRdfUpdateQuadsInfo, IActorTest, IActorRdfUpdateQuadsInfoOutput>) {
+  public constructor(args: IActorRdfUpdateQuadsInfoFederatedArgs) {
     super(args);
   }
 
@@ -19,6 +18,7 @@ export class ActorRdfUpdateQuadsInfoFederated extends ActorRdfUpdateQuadsInfo {
     // Tests around sources and destinations
     if (!action.context.has(KeysRdfUpdateQuads.destination))
       throw new Error('A destination is required')
+
     // if (!action.context.has(KeysRdfResolveQuadPattern.source) && !action.context.has(KeysRdfResolveQuadPattern.source))
     //   throw new Error('A source or source(s) are required')
 
