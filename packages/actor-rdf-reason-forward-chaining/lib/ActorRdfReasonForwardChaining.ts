@@ -6,7 +6,7 @@ import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { IReasonGroup, Rule } from '@comunica/reasoning-types';
 import { IActionContext } from '@comunica/types';
 import * as RDF from '@rdfjs/types';
-import { ArrayIterator, AsyncIterator, fromArray, UnionIterator } from 'asynciterator';
+import { ArrayIterator, AsyncIterator, fromArray, UnionIterator } from './asynciterator';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { matchPatternMappings } from 'rdf-terms/lib/QuadTermUtil';
 import { getQuads } from 'rdf-terms/lib/TermUtil';
@@ -100,20 +100,20 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
 
   private async insert(context: IActionContext, results: AsyncIterator<RDF.Quad>): Promise<AsyncIterator<RDF.Quad>> {  
     const { execute } = await this.mediatorRdfUpdateQuadsInfo.mediate({
-      context, quadStreamInsert: results, filterSource: true
+      context, quadStreamInsert: results as any, filterSource: true
     });
     const { quadStreamInsert } = await execute();
-    return quadStreamInsert ?? new ArrayIterator<RDF.Quad>([], { autoStart: false });
+    return quadStreamInsert ?? new ArrayIterator<RDF.Quad>([], { autoStart: false }) as any;
   }
 
   // This should probably be a mediator of its own
   private async evaluateInsert(rule: IRuleNode, context: IActionContext): Promise<AsyncIterator<RDF.Quad>> {
     const { results } = await this.mediatorRuleEvaluate.mediate({ rule: rule.rule, context });
-    return this.insert(context, results);
+    return this.insert(context, results as any);
   }
 
   private evaluateInsertRule(rule: IRuleNode, context: IActionContext): IConsequenceData {
-    const quads: AsyncIterator<RDF.Quad> = new WrappingIterator(this.evaluateInsert(rule, context));
+    const quads: AsyncIterator<RDF.Quad> = new WrappingIterator(this.evaluateInsert(rule, context), { letIteratorThrough: true });
     return { quads, rule };
   }
 
@@ -126,10 +126,10 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     const unionContext = setUnionSource(context);
     while ((results = await maybeIterator(results)) !== null) {
       results = new UnionIterator(results.map(({ quads, rule }) => {
-        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad) || false)), { autoStart: false })
+        let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false })
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged - use null
         // TODO: Work out why errors are being suppressed - such as store not being in the context
-          .filter((rule): rule is IRuleNode => rule !== false)
+          // .filter((rule): rule is IRuleNode => rule !== false)
         
         return newRules.map(rule => this.evaluateInsertRule(rule, unionContext));
       }), { autoStart: false });

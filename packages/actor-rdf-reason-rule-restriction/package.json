@@ -37,7 +37,7 @@
     "@rdfjs/types": "*",
     "asynciterator": "3.4.0",
     "event-emitter-promisify": "^1.1.0",
-    "n3": "^1.16.0",
+    "n3": "^1.16.1",
     "rdf-terms": "^1.7.1",
     "sparqlalgebrajs": "^4.0.2"
   },

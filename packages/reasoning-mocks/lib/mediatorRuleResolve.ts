@@ -1,6 +1,6 @@
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { Rule } from '@comunica/reasoning-types';
-import { fromArray } from 'asynciterator';
+import { fromArray } from '../../actor-rdf-reason-forward-chaining/lib/asynciterator';
 import { DataFactory } from 'n3';
 
 const { quad, variable, namedNode } = DataFactory;
@@ -145,18 +145,20 @@ export const RULES: Record<string, Rule[]> = {
       variable('?s'),
       namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
       variable('?o'),
-      variable('?g'),
+      // variable('?g'),
     ),
     quad(
       variable('?o'),
       namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
       variable('?o2'),
+      // variable('?g'),
     )],
     conclusion: [
         quad(
         variable('?s'),
         namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
         variable('?o2'),
+        // variable('?g'),
       ),
     ]
   }]

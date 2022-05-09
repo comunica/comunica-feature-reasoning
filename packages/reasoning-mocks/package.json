@@ -39,7 +39,7 @@
     "@comunica/reasoning-types": "^0.0.0",
     "@rdfjs/types": "*",
     "asynciterator": "^3.4.0",
-    "n3": "^1.16.0"
+    "n3": "^1.16.1"
   },
   "scripts": {
     "build": "node \"../../node_modules/typescript/bin/tsc\""

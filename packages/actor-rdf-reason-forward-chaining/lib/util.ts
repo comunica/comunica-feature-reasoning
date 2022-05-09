@@ -1,4 +1,4 @@
-import { AsyncIterator, ArrayIterator, BufferedIterator, IntegerIterator, scheduleTask } from 'asynciterator';
+import { AsyncIterator, ArrayIterator, BufferedIterator, IntegerIterator, scheduleTask } from './asynciterator';
 import { EventEmitter } from 'events';
 
 // Determines whether the given object is a promise

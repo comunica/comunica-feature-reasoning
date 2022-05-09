@@ -1,7 +1,7 @@
 import { ActorRdfResolveQuadPatternRdfJsSource } from '@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type * as RDF from '@rdfjs/types';
-import { UnionIterator } from 'asynciterator';
+import { UnionIterator } from '../../actor-rdf-reason-forward-chaining/lib/asynciterator';
 import type { Store } from 'n3';
 import { createMediator } from './util';
 // Const federatedActor = new ActorRdfResolveQuadPatternFederated({
@@ -27,7 +27,7 @@ class MyActor extends ActorRdfResolveQuadPatternRdfJsSource {
     // console.log('resolving quad pattern on', sources.length, sources[0]?.size, sources[1]?.size)
 
     return {
-      data: new UnionIterator<RDF.Quad>(its.map(it => it.then(x => x.data)), { autoStart: false }),
+      data: new UnionIterator<RDF.Quad>(its.map(it => it.then(x => x.data) as any), { autoStart: false }),
     };
   }
 }

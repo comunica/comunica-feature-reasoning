@@ -1,5 +1,5 @@
 import type { Rule } from '@comunica/reasoning-types';
-import { fromArray } from 'asynciterator';
+import { fromArray } from '../../actor-rdf-reason-forward-chaining/lib/asynciterator';
 import { RULES } from './mediatorRuleResolve';
 
 export const mediatorDereferenceRule = <any> {

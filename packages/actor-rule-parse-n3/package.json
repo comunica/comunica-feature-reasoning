@@ -41,7 +41,7 @@
     "@comunica/types": "^2.2.0",
     "asynciterator": "^3.4.0",
     "event-emitter-promisify": "^1.1.0",
-    "n3": "^1.16.0"
+    "n3": "^1.16.1"
   },
   "devDependencies": {
     "@comunica/bus-rdf-resolve-quad-pattern": "^2.2.0"
