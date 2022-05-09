@@ -24,10 +24,29 @@ function load(filename, store) {
   })
 }
 
-async function run(context, name) {
+async function run(name, rule, data) {
+  const store = new Store();
+  const destination = new Store();
+  
   const actor = new ActorRdfReasonForwardChaining({ name: 'actor', bus: new Bus({ name: 'bus' }), ...mediators });
   
-  console.log(`actor initialized for ${name}...\n`)
+  for (const d of data) {
+    console.time(`Load ${d}`);  
+    await load(d, store);
+    console.timeEnd(`Load ${d}`);
+  }
+
+  const context = new ActionContext({
+    [KeysRdfResolveQuadPattern.source.name]: store,
+    [KeysRdfReason.data.name]: {
+      status: { type: 'full', reasoned: false },
+      dataset: destination,
+      context: new ActionContext()
+    },
+    [KeysRdfReason.rules.name]: rule,
+  });
+
+  // console.log(`actor initialized for ${name}...\n`)
   
   const TITLE = `Reasoning ${name} with ${context.get(KeysRdfReason.rules)}`
   console.time(TITLE);
@@ -36,35 +55,14 @@ async function run(context, name) {
   await execute();
 
   console.timeEnd(TITLE);
+
+  return destination;
 }
 
 async function deepTaxonomy() {
   for (let i = 1; i <= 6; i++) {
-    const store = new Store();
-    const destination = new Store();
+    const destination = await run('Deep Taxonomy', 'type-inference', [`deep-taxonomy/test-dl-${10 ** i}.n3`]);
 
-    const TITLE = `test-dl-${10 ** i}.n3`;
-
-    console.time(`Load ${TITLE}`);  
-    await load(`deep-taxonomy/${TITLE}`, store);
-    console.timeEnd(`Load ${TITLE}`);
-
-    console.log(store.size);
-
-    const context = new ActionContext({
-      [KeysRdfResolveQuadPattern.source.name]: store,
-      [KeysRdfReason.data.name]: {
-        status: { type: 'full', reasoned: false },
-        dataset: destination,
-        context: new ActionContext()
-      },
-      [KeysRdfReason.rules.name]: 'type-inference',
-    });
-
-    await run(context, TITLE);
-
-    console.log(destination.size, store.size);
-    // console.log(destination.getQuads())
     console.log(destination.has(
       quad(
         namedNode('http://eulersharp.sourceforge.net/2009/12dtb/test#ind'),
@@ -72,13 +70,17 @@ async function deepTaxonomy() {
         namedNode('http://eulersharp.sourceforge.net/2009/12dtb/test#A2'),
       ),
     ))
-
-
     console.log()
   }
 }
 
-deepTaxonomy();
+(async () => {
+  const dest = await run('TimBL + FOAF', 'full-rdfs', ['./timbl.ttl', './foaf.ttl'])
+  console.log(dest.size)
+  console.log()
+
+  await deepTaxonomy();
+})();
 
 // const context = new ActionContext({
 //   [KeysRdfResolveQuadPattern.source.name]: new Store(),

@@ -317,94 +317,94 @@ describe('ActorRdfReasonRuleRestriction', () => {
       });
     });
 
-    describe('Using nested rules', () => {
-      beforeEach(() => {
-        action.context = action.context.set(KeysRdfReason.rules, 'my-nested-rules');
-      });
+    // describe('Using nested rules', () => {
+    //   beforeEach(() => {
+    //     action.context = action.context.set(KeysRdfReason.rules, 'my-nested-rules');
+    //   });
 
-      it('should run with with the fact Jesse a Human and produce implicit data', async() => {
-        source.addQuad(
-          quad(
-            namedNode('http://example.org#Jesse'),
-            namedNode('http://example.org#a'),
-            namedNode('http://example.org#Human'),
-          ),
-        );
+    //   it('should run with with the fact Jesse a Human and produce implicit data', async() => {
+    //     source.addQuad(
+    //       quad(
+    //         namedNode('http://example.org#Jesse'),
+    //         namedNode('http://example.org#a'),
+    //         namedNode('http://example.org#Human'),
+    //       ),
+    //     );
 
-        const { execute } = await actor.run(action);
-        await execute();
-        expect(source).toBeRdfIsomorphic([ quad(
-          namedNode('http://example.org#Jesse'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Human'),
-        ) ]);
-        expect(destination).toBeRdfIsomorphic([]);
-        expect(data.dataset).toBeRdfIsomorphic([ quad(
-          namedNode('http://example.org#Human'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Class'),
-        ), quad(
-          namedNode('http://example.org#Class'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Class'),
-        ) ]);
-      });
+    //     const { execute } = await actor.run(action);
+    //     await execute();
+    //     expect(source).toBeRdfIsomorphic([ quad(
+    //       namedNode('http://example.org#Jesse'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Human'),
+    //     ) ]);
+    //     expect(destination).toBeRdfIsomorphic([]);
+    //     expect(data.dataset).toBeRdfIsomorphic([ quad(
+    //       namedNode('http://example.org#Human'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Class'),
+    //     ), quad(
+    //       namedNode('http://example.org#Class'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Class'),
+    //     ) ]);
+    //   });
 
-      it('should run with with the facts Jesse a Human / human subset of thing and produce implicit data', async() => {
-        source.addQuad(
-          quad(
-            namedNode('http://example.org#Jesse'),
-            namedNode('http://example.org#a'),
-            namedNode('http://example.org#Human'),
-          ),
-        );
+    //   it('should run with with the facts Jesse a Human / human subset of thing and produce implicit data', async() => {
+    //     source.addQuad(
+    //       quad(
+    //         namedNode('http://example.org#Jesse'),
+    //         namedNode('http://example.org#a'),
+    //         namedNode('http://example.org#Human'),
+    //       ),
+    //     );
 
-        source.addQuad(
-          quad(
-            namedNode('http://example.org#Human'),
-            namedNode('http://example.org#subsetOf'),
-            namedNode('http://example.org#Thing'),
-          ),
-        );
+    //     source.addQuad(
+    //       quad(
+    //         namedNode('http://example.org#Human'),
+    //         namedNode('http://example.org#subsetOf'),
+    //         namedNode('http://example.org#Thing'),
+    //       ),
+    //     );
 
-        const { execute } = await actor.run(action);
-        await execute();
+    //     const { execute } = await actor.run(action);
+    //     await execute();
 
-        expect(source).toBeRdfIsomorphic([ quad(
-          namedNode('http://example.org#Jesse'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Human'),
-        ),
-        quad(
-          namedNode('http://example.org#Human'),
-          namedNode('http://example.org#subsetOf'),
-          namedNode('http://example.org#Thing'),
-        ) ]);
-        expect(destination).toBeRdfIsomorphic([]);
-        expect((<any>data.dataset).size).toEqual(4);
-        expect(data.dataset).toBeRdfIsomorphic([ quad(
-          namedNode('http://example.org#Jesse'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Thing'),
-        ),
-        quad(
-          namedNode('http://example.org#Human'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Class'),
-        ),
-        quad(
-          namedNode('http://example.org#Thing'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Class'),
-        ),
-        quad(
-          namedNode('http://example.org#Class'),
-          namedNode('http://example.org#a'),
-          namedNode('http://example.org#Class'),
-        ),
-        ]);
-      });
-    });
+    //     expect(source).toBeRdfIsomorphic([ quad(
+    //       namedNode('http://example.org#Jesse'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Human'),
+    //     ),
+    //     quad(
+    //       namedNode('http://example.org#Human'),
+    //       namedNode('http://example.org#subsetOf'),
+    //       namedNode('http://example.org#Thing'),
+    //     ) ]);
+    //     expect(destination).toBeRdfIsomorphic([]);
+    //     expect((<any>data.dataset).size).toEqual(4);
+    //     expect(data.dataset).toBeRdfIsomorphic([ quad(
+    //       namedNode('http://example.org#Jesse'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Thing'),
+    //     ),
+    //     quad(
+    //       namedNode('http://example.org#Human'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Class'),
+    //     ),
+    //     quad(
+    //       namedNode('http://example.org#Thing'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Class'),
+    //     ),
+    //     quad(
+    //       namedNode('http://example.org#Class'),
+    //       namedNode('http://example.org#a'),
+    //       namedNode('http://example.org#Class'),
+    //     ),
+    //     ]);
+    //   });
+    // });
 
     describe('Using rules with multiple conclusions', () => {
       beforeEach(() => {

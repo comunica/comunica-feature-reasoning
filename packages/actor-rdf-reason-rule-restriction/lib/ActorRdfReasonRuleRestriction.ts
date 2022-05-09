@@ -1,15 +1,16 @@
-import type { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs } from '@comunica/bus-rdf-reason';
+import { IActionRdfReason, IActionRdfReasonExecute, IActorRdfReasonMediatedArgs, setUnionSource } from '@comunica/bus-rdf-reason';
 import { ActorRdfReasonMediated } from '@comunica/bus-rdf-reason';
-import type { IActorTest } from '@comunica/core';
+import type { ActionContext, IActorTest } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
-import type * as RDF from '@rdfjs/types';
-import type { AsyncIterator } from 'asynciterator';
-import { single, UnionIterator } from 'asynciterator';
+import * as RDF from '@rdfjs/types';
+import { single, UnionIterator, AsyncIterator } from '../../actor-rdf-reason-forward-chaining/lib/asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
 import { Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
+import { IActionRuleEvaluate, IActorRuleEvaluateOutput } from '@comunica/bus-rule-evaluate';
+import { WrappingIterator } from '../../actor-rdf-reason-forward-chaining/lib/util';
 
 /**
  * A comunica actor that
@@ -26,15 +27,66 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
     return true;
   }
 
+  public runSingleRule(action: IActionRuleEvaluate): IActorRuleEvaluateOutput {
+    let rule = action.rule as INestedPremiseConclusionRule;
+  
+    const mappings: AsyncIterator<Mapping> = rule.premise.reduce(
+      (iterator: AsyncIterator<Mapping>, premise) => new UnionIterator<Mapping>(iterator.map<AsyncIterator<Mapping>>(
+        mapping => {
+          const cause = substituteQuad(premise, mapping);
+
+          return new WrappingIterator<RDF.Quad>(this.mediatorRdfResolveQuadPattern.mediate({
+            pattern: cause as any,
+            context: action.context
+          }).then(elem => elem.data), { letIteratorThrough: true }).map(quad => {
+            let localMapping: Mapping | null = {};
+
+            forEachTerms(cause, (term, key) => {
+              if (term.termType === 'Variable' && localMapping) {
+                if (term.value in localMapping && !localMapping[term.value].equals(quad[key])) {
+                  localMapping = null;
+                } else {
+                  localMapping[term.value] = quad[key];
+                }
+              }
+            });
+
+            return localMapping && Object.assign(localMapping, mapping);
+          });
+        }
+      )), single<Mapping>({})
+    );
+
+    // const results: any = new UnionIterator(mappings.map(mapping => fromArray(rule.conclusion).map(quad => substituteQuad(quad, mapping))), { autoStart: false });
+    const results: any = new UnionIterator<RDF.Quad>(rule.conclusion.map(quad => (rule.conclusion.length > 1 ? mappings.clone() : mappings).map(mp => substituteQuad(quad, mp))));
+      
+      // mappings.map(mapping => fromArray(rule.conclusion).map(quad => substituteQuad(quad, mapping))), { autoStart: false });
+
+    return { results }
+  }
+
+  evaluateRuleSet(
+    rules: AsyncIterator<INestedPremiseConclusionRule> | INestedPremiseConclusionRule[], context: ActionContext,
+  ): AsyncIterator<RDF.Quad> {
+    // Autostart needs to be false to prevent the iterator from ending before being consumed by rdf-update-quads
+    // https://github.com/comunica/comunica-feature-reasoning/issues/904
+    // https://github.com/RubenVerborgh/AsyncIterator/issues/25
+    return new UnionIterator<RDF.Quad>(
+      rules.map<AsyncIterator<RDF.Quad>>((rule: INestedPremiseConclusionRule): AsyncIterator<RDF.Quad> => this.runSingleRule({ context, rule }).results as any),
+      { autoStart: false },
+    );
+  }
+
   public async execute(action: IActionRdfReasonExecute): Promise<void> {
     const { context, rules } = action;
     const store = new Store();
     let size = 0;
+    const unionContext = setUnionSource(context)
     do {
       size = store.size;
       // TODO: Handle rule assertions better
-      const quadStreamInsert = evaluateRuleSet(<any> rules, this.unionQuadSource(context).match);
-      const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
+      const quadStreamInsert = this.evaluateRuleSet(rules as any, unionContext as any);
+      const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone() as any, context });
       await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
     } while (store.size > size);
   }
