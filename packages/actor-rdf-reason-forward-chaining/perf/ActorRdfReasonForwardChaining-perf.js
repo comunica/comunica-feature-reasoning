@@ -3,7 +3,7 @@ const { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } = require('@comunica/con
 const { KeysRdfReason } = require('@comunica/reasoning-context-entries');
 const { mediators } = require('@comunica/reasoning-mocks');
 const { Store, Parser, DataFactory } = require('n3');
-const { ActorRdfReasonForwardChaining } = require('../lib');
+const { ActorRdfReasonForwardChaining } = require('../lib/ActorRdfReasonForwardChainingStrippedIterator');
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
@@ -26,7 +26,8 @@ function load(filename, store) {
 
 async function run(name, rule, data) {
   const store = new Store();
-  const destination = new Store();
+  const destination = store;
+  // const destination = new Store();
   
   const actor = new ActorRdfReasonForwardChaining({ name: 'actor', bus: new Bus({ name: 'bus' }), ...mediators });
   

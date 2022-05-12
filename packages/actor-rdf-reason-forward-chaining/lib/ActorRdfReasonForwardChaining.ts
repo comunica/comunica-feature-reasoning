@@ -120,11 +120,16 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     // NOTE: This particular function should *not* be used for reasoning after some implicit results have already
     // been materialized
     let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(rule => this.evaluateInsertRule(rule, context));
-
-    const unionContext = setUnionSource(context);
+     const unionContext = setUnionSource(context);
     while ((results = await maybeIterator(results)) !== null) {
       results = new UnionIterator(results.map(({ quads, rule }) => {
+        // We can terminate early if there are no 'nexts' for the current rule
+        // TODO: Check that this early stopping doesn't cause buffers to not be freed
+        if (rule.next.length === 0)
+          return null;
+
         let newRules = new UnionIterator(quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad))), { autoStart: false })
+        // let newRules = new UnionIterator(rule.next.map(r => (rule.next.length > 1 ? quads.clone() : quads).map(quad => maybeSubstitute(r, quad))), { autoStart: false })
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged - use null
         // TODO: Work out why errors are being suppressed - such as store not being in the context
           // .filter((rule): rule is IRuleNode => rule !== false)

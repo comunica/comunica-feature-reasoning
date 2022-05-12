@@ -8,6 +8,15 @@ import { DataFactory } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import { MediatorRdfResolveQuadPattern } from '@comunica/bus-rdf-resolve-quad-pattern';
 import { Algebra } from 'sparqlalgebrajs';
+
+function countVars(quad: RDF.Quad): number {
+  let i = 0;
+  forEachTerms(quad, term => {
+    if (term.termType === 'Variable') i += 1;
+  });
+  return i
+}
+
 /**
  * A comunica Restriction Rule Evaluate Actor.
  */
@@ -29,8 +38,14 @@ export class ActorRuleEvaluateRestriction extends ActorRuleEvaluate {
 
   public async run(action: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
     let rule = action.rule as INestedPremiseConclusionRule;
-  
-    const mappings: AsyncIterator<Mapping> = rule.premise.reduce(
+    
+    
+
+    // TODO: Possible remove this in future
+    let premise = [ ...rule.premise ];
+    premise = premise.sort((a, b) => countVars(a) - countVars(b))
+
+    const mappings: AsyncIterator<Mapping> = premise.reduce(
       (iterator: AsyncIterator<Mapping>, premise) => new UnionIterator<Mapping>(iterator.map<AsyncIterator<Mapping>>(
         mapping => {
           const cause = substituteQuad(premise, mapping);
