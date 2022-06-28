@@ -6839,7 +6839,12 @@ async@^3.2.3:
   resolved "https://registry.yarnpkg.com/async/-/async-3.2.3.tgz#ac53dafd3f4720ee9e8a160628f18ea91df196c9"
   integrity sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==
 
-asynciterator@3.4.0, asynciterator@^3.2.0, asynciterator@^3.3.0, asynciterator@^3.4.0:
+asynciterator@3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/asynciterator/-/asynciterator-3.4.2.tgz#2f82219a0d3ee97f33f9f586f8fb089ed2e6fc15"
+  integrity sha512-/Mz31ZSFJFIFIf2LoOrVlSDyIzBKkXc3F9e5/4mspmvsP1njGK5V1mznLjaugRFhdmTswfJW5yOQqUKkvqH/mg==
+
+asynciterator@^3.2.0, asynciterator@^3.3.0, asynciterator@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/asynciterator/-/asynciterator-3.4.0.tgz#0df3fd1007ef2a8223eda7bc6eac05feaca109c5"
   integrity sha512-jFuvnCHjUAyW33E3zpZhQxBM3SDuyxkDwtjhXD27WKwB/7UrZHaDAia7ZbqL94zLbUGhgxhO0vfopTLi7Jcrig==
