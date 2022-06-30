@@ -22,7 +22,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.18.6.tgz#8b37d24e88e8e21c499d4328db80577d8882fa53"
   integrity sha512-tzulrgDT0QD6U7BJ4TKVk2SDDg7wlP39P9yAx1RfLy7vP/7rsDRlWVfbWxElslu56+r7QOhB2NSDsabYYruoZQ==
 
-"@babel/core@^7.11.6", "@babel/core@^7.12.3":
+"@babel/core@^7.11.6", "@babel/core@^7.12.16", "@babel/core@^7.12.3":
   version "7.18.6"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.18.6.tgz#54a107a3c298aee3fe5e1947a6464b9b6faca03d"
   integrity sha512-cQbWBpxcbbs/IUredIPkHiAGULLV8iwgNRMFzvbhEXISp4f3rUUXE5+TIw6KwUWUR3DwyI6gmBRnmAtYaWehwQ==
@@ -41,6 +41,15 @@
     debug "^4.1.0"
     gensync "^1.0.0-beta.2"
     json5 "^2.2.1"
+    semver "^6.3.0"
+
+"@babel/eslint-parser@^7.12.16":
+  version "7.18.2"
+  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.18.2.tgz#e14dee36c010edfb0153cf900c2b0815e82e3245"
+  integrity sha512-oFQYkE8SuH14+uR51JVAmdqwKYXGRjEXx7s+WiagVjqQ+HPE+nnwyF2qlVG8evUsUHmPcA+6YXMEDbIhEyQc5A==
+  dependencies:
+    eslint-scope "^5.1.1"
+    eslint-visitor-keys "^2.1.0"
     semver "^6.3.0"
 
 "@babel/generator@^7.18.6", "@babel/generator@^7.7.2":
@@ -221,7 +230,7 @@
   dependencies:
     "@babel/types" "^7.18.6"
 
-"@babel/helper-validator-identifier@^7.15.7", "@babel/helper-validator-identifier@^7.18.6":
+"@babel/helper-validator-identifier@^7.14.9", "@babel/helper-validator-identifier@^7.18.6":
   version "7.18.6"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.18.6.tgz#9c97e30d31b2b8c72a1d08984f2ca9b574d7a076"
   integrity sha512-MmetCkz9ej86nJQV+sFCxoGGrUbU3q02kgLciwkrt9QqEB7cP39oKEY0PakknEO0Gu20SskMRi+AYZ3b1TpN9g==
@@ -5557,7 +5566,7 @@ ci-info@^2.0.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
 
-ci-info@^3.2.0, ci-info@^3.3.0:
+ci-info@^3.2.0:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.3.2.tgz#6d2967ffa407466481c6c90b6e16b3098f080128"
   integrity sha512-xmDt/QIAdeZ9+nfdPsaBCpMvHNLFiLdjj59qjqn+6iPe6YmHGQ35sBnQ8uslRBXFmXkiZQOJRjvQeoGppoTjjg==
@@ -6694,22 +6703,23 @@ eslint-plugin-tsdoc@^0.2.16:
     "@microsoft/tsdoc" "0.14.1"
     "@microsoft/tsdoc-config" "0.16.1"
 
-eslint-plugin-unicorn@^42.0.0:
-  version "42.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-42.0.0.tgz#47d60c00c263ad743403b052db689e39acbacff1"
-  integrity sha512-ixBsbhgWuxVaNlPTT8AyfJMlhyC5flCJFjyK3oKE8TRrwBnaHvUbuIkCM1lqg8ryYrFStL/T557zfKzX4GKSlg==
+eslint-plugin-unicorn@^37.0.0:
+  version "37.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-37.0.1.tgz#a2292dc302ffc0be1791e6ebbb4ae93242833f11"
+  integrity sha512-E1jq5u9ojnadisJcPi+hMXTGSiIzkIUMDvWsBudsCGXvKUB2aNSU2TcfyW2/jAS5A4ryBXfzxLykMxX1EdluSQ==
   dependencies:
-    "@babel/helper-validator-identifier" "^7.15.7"
-    ci-info "^3.3.0"
+    "@babel/helper-validator-identifier" "^7.14.9"
+    ci-info "^3.2.0"
     clean-regexp "^1.0.0"
+    eslint-template-visitor "^2.3.2"
     eslint-utils "^3.0.0"
     esquery "^1.4.0"
-    indent-string "^4.0.0"
+    indent-string "4"
     is-builtin-module "^3.1.0"
     lodash "^4.17.21"
     pluralize "^8.0.0"
     read-pkg-up "^7.0.1"
-    regexp-tree "^0.1.24"
+    regexp-tree "^0.1.23"
     safe-regex "^2.1.1"
     semver "^7.3.5"
     strip-indent "^3.0.0"
@@ -6742,6 +6752,17 @@ eslint-scope@^7.1.1:
     esrecurse "^4.3.0"
     estraverse "^5.2.0"
 
+eslint-template-visitor@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/eslint-template-visitor/-/eslint-template-visitor-2.3.2.tgz#b52f96ff311e773a345d79053ccc78275bbc463d"
+  integrity sha512-3ydhqFpuV7x1M9EK52BPNj6V0Kwu0KKkcIAfpUhwHbR8ocRln/oUHgfxQupY8O1h4Qv/POHDumb/BwwNfxbtnA==
+  dependencies:
+    "@babel/core" "^7.12.16"
+    "@babel/eslint-parser" "^7.12.16"
+    eslint-visitor-keys "^2.0.0"
+    esquery "^1.3.1"
+    multimap "^1.1.0"
+
 eslint-utils@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-3.0.0.tgz#8aebaface7345bb33559db0a1f13a1d2d48c3672"
@@ -6749,7 +6770,7 @@ eslint-utils@^3.0.0:
   dependencies:
     eslint-visitor-keys "^2.0.0"
 
-eslint-visitor-keys@^2.0.0:
+eslint-visitor-keys@^2.0.0, eslint-visitor-keys@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz#f65328259305927392c938ed44eb0a5c9b2bd303"
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
@@ -6814,7 +6835,7 @@ esprima@^4.0.0:
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
   integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
 
-esquery@^1.4.0:
+esquery@^1.3.1, esquery@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.4.0.tgz#2148ffc38b82e8c7057dfed48425b3e61f0f24a5"
   integrity sha512-cCDispWt5vHHtwMY2YrAQ4ibFkAL8RbH5YGBnZBc90MolvvfkkQcJro/aZiAQUlQ3qgrYS6D6v8Gc5G5CQsc9w==
@@ -7908,15 +7929,15 @@ imurmurhash@^0.1.4:
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==
 
+indent-string@4, indent-string@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
+  integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
+
 indent-string@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
   integrity sha512-BYqTHXTGUIvg7t1r4sJNKcbDZkL92nkXA8YtRpbjFHRHGDL/NtUeiBJMeE60kIFN/Mg8ESaWQvftaYMGJzQZCQ==
-
-indent-string@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
-  integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
 
 infer-owner@^1.0.4:
   version "1.0.4"
@@ -9717,6 +9738,11 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
+multimap@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/multimap/-/multimap-1.1.0.tgz#5263febc085a1791c33b59bb3afc6a76a2a10ca8"
+  integrity sha512-0ZIR9PasPxGXmRsEF8jsDzndzHDj7tIav+JUmvIFB/WHswliFnquxECT/De7GR4yg99ky/NlRKJT82G1y271bw==
+
 multimatch@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/multimatch/-/multimatch-3.0.0.tgz#0e2534cc6bc238d9ab67e1b9cd5fcd85a6dbf70b"
@@ -11213,7 +11239,7 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexp-tree@^0.1.24, regexp-tree@~0.1.1:
+regexp-tree@^0.1.23, regexp-tree@~0.1.1:
   version "0.1.24"
   resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.24.tgz#3d6fa238450a4d66e5bc9c4c14bb720e2196829d"
   integrity sha512-s2aEVuLhvnVJW6s/iPgEGK6R+/xngd2jNQ+xy4bXNDKxZKJH6jpPHY6kVeVv1IeLCHgswRj+Kl3ELaDjG6V1iw==
