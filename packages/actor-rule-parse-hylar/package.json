@@ -32,11 +32,11 @@
   "dependencies": {
     "@comunica/bus-rule-parse": "^0.0.0",
     "@comunica/reasoning-types": "^0.0.0",
-    "@comunica/types": "^2.0.1",
+    "@comunica/types": "^2.3.0",
     "@rdfjs/types": "*",
-    "asynciterator": "3.4.2",
+    "asynciterator": "^3.4.2",
     "is-quad": "^1.1.0",
-    "n3": "^1.11.2",
+    "n3": "^1.16.2",
     "rdf-string": "^1.6.0"
   },
   "scripts": {
