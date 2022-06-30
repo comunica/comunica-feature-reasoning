@@ -32,7 +32,7 @@
     "@comunica/core": "^2.0.0",
     "@comunica/reasoning-types": "^0.0.0",
     "@comunica/types": "^2.0.0",
-    "asynciterator": "^3.4.0"
+    "asynciterator": "3.4.2"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

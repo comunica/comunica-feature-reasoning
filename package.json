@@ -30,7 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "arrayify-stream": "^2.0.0",
-    "asynciterator": "^3.4.0",
+    "asynciterator": "^3.4.2",
     "babel-loader": "^8.2.3",
     "colors": "^1.4.0",
     "componentsjs-generator": "^3.0.2",

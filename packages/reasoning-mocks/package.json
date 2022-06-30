@@ -38,7 +38,7 @@
     "@comunica/reasoning-context-entries": "^0.0.0",
     "@comunica/reasoning-types": "^0.0.0",
     "@rdfjs/types": "*",
-    "asynciterator": "^3.4.0",
+    "asynciterator": "3.4.2",
     "n3": "^1.16.0"
   },
   "scripts": {
