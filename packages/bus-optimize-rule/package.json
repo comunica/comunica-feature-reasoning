@@ -29,11 +29,11 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/core": "^2.0.1",
+    "@comunica/core": "^2.3.0",
     "@comunica/reasoning-types": "^0.0.0",
-    "@comunica/types": "^2.0.1",
-    "asynciterator": "^3.4.0",
-    "sparqlalgebrajs": "^4.0.2"
+    "@comunica/types": "^2.3.0",
+    "asynciterator": "^3.4.2",
+    "sparqlalgebrajs": "^4.0.3"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",
