@@ -4,9 +4,8 @@ import type {
   IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs,
 } from '@comunica/bus-rule-parse';
 import { ActorRuleParseFixedMediaTypes } from '@comunica/bus-rule-parse';
-import type { ActionContext, IActorTest } from '@comunica/core';
+import type { ActionContext } from '@comunica/core';
 import type { Rule } from '@comunica/reasoning-types';
-import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
@@ -49,14 +48,6 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
    */
   public constructor(args: IActorParseN3Args) {
     super(args);
-  }
-
-  public async testHandle(action: IActionRuleParse, mediaType: string, context: IActionContext): Promise<IActorTest> {
-    return this.mediatorRdfParse.publish({
-      handle: action,
-      context,
-      handleMediaType: mediaType,
-    });
   }
 
   public async runHandle(action: IActionRuleParse, mediaType: string, context: ActionContext):
