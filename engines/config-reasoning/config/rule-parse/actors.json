@@ -10,7 +10,13 @@
     {
       "@id": "urn:comunica:default:rule-parse/actors#hylar",
       "@type": "ActorRuleParseHylar",
-      "priorityScale": 0.9
+      "priorityScale": 1.0
+    },
+    {
+      "@id": "urn:comunica:default:rule-parse/actors#n3",
+      "@type": "ActorRuleParseN3",
+      "priorityScale": 0.9,
+      "mediatorRdfParse": { "@id": "urn:comunica:default:rdf-parse/mediators#parse" }
     }
   ]
 }
