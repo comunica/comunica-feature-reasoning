@@ -17,6 +17,13 @@ export class ActorRdfReasonEye extends ActorRdfReason {
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     const query = action.pattern ? patternToQuery(action.pattern) : `{ ?s ?p ?o } => { ?s ?p ?o }`;
 
+    // The steps here are:
+    // 1. For each source - use resolve-quad-pattern to get all quads for each source,
+    //    convert these quads into a string file format and then pass that into Eye
+    // 2. Run Eye with that and the query
+    // 3. Add any relevant results to the reasoning store
+    // TODO: To me the open question is how to then include the proof in the SPARQL query result. Is this even necessary?
+
     return true; // TODO implement
   }
 }
