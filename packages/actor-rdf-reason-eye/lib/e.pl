@@ -1,4 +1,4 @@
-export const EYE_PL = `% --------------------------------------------
+% --------------------------------------------
 % Euler Yet another proof Engine -- Jos De Roo
 % --------------------------------------------
 %
@@ -11178,4 +11178,3 @@ mf(A) :-
         format(user_error, '*** ~q~n', [A])
     ),
     flush_output(user_error).
-`
