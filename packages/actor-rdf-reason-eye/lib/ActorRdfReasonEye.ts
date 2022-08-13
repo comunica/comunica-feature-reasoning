@@ -5,11 +5,12 @@ import { Algebra, Factory } from 'sparqlalgebrajs';
 import { MediatorRdfResolveQuadPattern, getContextSources, getContextSource, hasContextSingleSource, getDataSourceValue } from '@comunica/bus-rdf-resolve-quad-pattern';
 import { MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import { getEyeIterator, getEyeIteratorUnwrapped } from './eyeiterator';
-import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
+import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import * as RDF from '@rdfjs/types';
-import { Variable } from 'n3';
-import { AsyncIterator } from 'asynciterator';
+import { Variable, Store, StreamParser, Parser, NamedNode, Quad } from 'n3';
+import { AsyncIterator, fromArray } from 'asynciterator';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+// import {} from '@com'
 
 const factory = new Factory();
 
@@ -65,7 +66,72 @@ export class ActorRdfReasonEye extends ActorRdfReason {
 
     // TODO: Use CLI args rather than being hacky with the query here
     const query = action.pattern ? patternToQuery(action.pattern) : `{ ?s ?p ?o } => { ?s ?p ?o }`;
+    // TODO: Map this to a quad stream
     const iterator = await this.contextToEyeIterator(action.context, query);
+
+    // TODO: Do this with streams
+    const parser = new Parser();
+    const quadArray = parser.parse((await iterator.toArray()).join(''));
+    const store = new Store(quadArray);
+    const r = `http://www.w3.org/2000/10/swap/reason#`;
+    const Proof = new NamedNode(`${r}Proof`)
+    const gives = new NamedNode(`${r}gives`)
+    const a = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type');
+    
+    const proofs = [...store.match(null, a, Proof)]
+    if (proofs.length !== 1) {
+      throw new Error('exactly one proof expected');
+    }
+    const [proof] = proofs;
+
+    // TODO: Fix N3 typings here
+    const graphOfResultsarr = [...store.match(proof as any, gives, null)];
+    if (graphOfResultsarr.length !== 1) {
+      throw new Error('Expected graph of results to have length exactly 1');
+    }
+
+    const [graphOfResults] = graphOfResultsarr;
+    const results = [...store.match(null, null, null, graphOfResults as any)]
+      .map(quad => {
+        // Strip the graph from the proof.
+        return new Quad(
+          quad.subject as any,
+          quad.predicate as any,
+          quad.object as any
+        )
+      });
+
+    //
+    // Now do the main insertion (and this is where we need the correct super class to handle blocking for us)
+    //
+    //
+    
+
+
+
+
+    //
+    // Now do the proof insertion
+    //
+    //
+    const quadStreamInsert = fromArray(quadArray);
+
+    // const store = new StreamParser();
+    // store.pipe(iterator)
+    // store.parse
+    // store.
+
+    const proofContext = action.context.set(
+      KeysRdfUpdateQuads.destination,
+      action.context.get(KeysRdfReason.proofDestination)
+    );
+    
+    // Adding the proof to the destination
+    this.mediatorRdfUpdateQuads.mediate({ quadStreamInsert, context: proofContext })
+
+
+    // TODO: Use the store to add to the reasoning destination.
+    // This is where we might need to use the reasoning class that we have already built.
 
     // const quads = await this.mediatorRdfResolveQuadPattern.mediate({ context: action.context, pattern: /* ?s a ?o ?g */ })
 
