@@ -48,15 +48,15 @@ class EyeIterator extends BufferedIterator<string> {
 }
 
 // NOTE: Enable this to run a quick test
-// const iterator = new EyeIterator(SOCH, SOCH_QUERY);
-// iterator.on('data', (d) => {
-//   console.log(d)
-// })
-// iterator.on('end', (d) => {
-//   console.log('end')
-// })
-// iterator.on('error', (d) => {
-//   console.log('--------');
-//   console.log('error', d);
-//   console.log('--------');
-// })
+const iterator = new EyeIterator(SOCH, SOCH_QUERY);
+iterator.on('data', (d) => {
+  console.log(d)
+})
+iterator.on('end', (d) => {
+  console.log('end')
+})
+iterator.on('error', (d) => {
+  console.log('--------');
+  console.log('error', d);
+  console.log('--------');
+})
