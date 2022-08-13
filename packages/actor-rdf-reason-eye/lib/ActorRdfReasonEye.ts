@@ -3,11 +3,13 @@ import { IActorArgs, IActorTest } from '@comunica/core';
 import { IActionContext } from '@comunica/types';
 import { Algebra, Factory } from 'sparqlalgebrajs';
 import { MediatorRdfResolveQuadPattern, getContextSources, getContextSource, hasContextSingleSource, getDataSourceValue } from '@comunica/bus-rdf-resolve-quad-pattern';
+import { MediatorRdfUpdateQuads } from '@comunica/bus-rdf-update-quads';
 import { getEyeIterator, getEyeIteratorUnwrapped } from './eyeiterator';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import * as RDF from '@rdfjs/types';
 import { Variable } from 'n3';
 import { AsyncIterator } from 'asynciterator';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 
 const factory = new Factory();
 
@@ -31,6 +33,7 @@ function contextToContexts(context: IActionContext) {
  */
 export class ActorRdfReasonEye extends ActorRdfReason {
   private mediatorRdfResolveQuadPattern: MediatorRdfResolveQuadPattern;
+  private mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
 
   public constructor(args: IActorRdfReasonArgs) {
     super(args);

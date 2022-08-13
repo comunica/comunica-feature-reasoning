@@ -1,5 +1,5 @@
 import { ActionContextKey } from '@comunica/core';
-import type { IDatasetFactory, IReasonGroup } from '@comunica/reasoning-types';
+import type { IDatasetFactory, IReasonGroup, IProofDestination } from '@comunica/reasoning-types';
 
 export const KeysRdfReason = {
   /**
@@ -14,6 +14,10 @@ export const KeysRdfReason = {
    * A factory to generate new implicit datasets
    */
   implicitDatasetFactory: new ActionContextKey<IDatasetFactory>('@comunica/bus-rdf-reason:implicitDatasetFactory'),
+  /**
+   * A destination for proofs
+   */
+  proofDestination: new ActionContextKey<IProofDestination>('@comunica/bus-rdf-reason:proofDestination')
 };
 
 export const KeysRdfDereferenceConstantHylar = {
