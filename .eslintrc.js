@@ -182,6 +182,7 @@ module.exports = {
         '@typescript-eslint/no-extra-parens': 'off',
         '@typescript-eslint/restrict-plus-operands': 'off',
         'import/no-extraneous-dependencies': 'off',
+        '@typescript-eslint/require-array-sort-compare': 'off'
       }
     }
   ],
