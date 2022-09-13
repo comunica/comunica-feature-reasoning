@@ -58,7 +58,7 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
         }
         done();
       },
-      autoStart: false
+      autoStart: false,
     });
 
     return { data: <any> ruleStrings.map(ruleString => parseRule(ruleString)) };
