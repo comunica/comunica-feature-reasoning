@@ -61,8 +61,11 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
   // TODO [FUTURE]: Push this into a specific abstract interface for language agnostic reasoners.
   public getRules(action: IActionRdfReason): AsyncIterator<Rule> {
     const getRules = async(): Promise<AsyncIterator<Rule>> => {
+      console.log('resolving rule')
       const { data } = await this.mediatorRuleResolve.mediate(action);
+      console.log('optimising rule')
       const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
+      console.log('returning rule')
       return rules;
     };
     return wrap<Rule>(getRules());
@@ -71,6 +74,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {
     return {
       execute: async(): Promise<void> => {
+        console.log('--------------------------------------------------------------------- beginning reasoning execution 0')
         const { updates, pattern } = action;
         if (updates) {
           // If there is an update - forget everything we know about the current status of reasoning
@@ -116,7 +120,13 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
           }
         }
         this.logInfo(action.context, 'Starting reasoning ...');
-        const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
+        console.log('------------------------------------------------------------------------------------- a')
+        const rules = await this.getRules(action).toArray()
+        console.log('------------------------------------------------------------------------------------- b')
+
+        const reasoningLock = this.execute({ ...action, rules });
+
+        console.log('------------------------------------------------------------------------------------- c')
 
         if (pattern) {
           // Set reasoning whole
@@ -128,6 +138,8 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
         } else {
           setReasoningStatus(action.context, { type: 'full', reasoned: true, done: reasoningLock });
         }
+
+        console.log('--------------------------------------------------------------------- ending reasoning execution 2')
 
         return reasoningLock;
       },

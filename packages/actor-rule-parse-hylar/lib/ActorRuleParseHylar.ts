@@ -1,4 +1,3 @@
-import type { Readable } from 'stream';
 import type {
   IActionRuleParse, IActorRuleParseOutput, IActorRuleParseFixedMediaTypesArgs,
 } from '@comunica/bus-rule-parse';
@@ -59,9 +58,10 @@ export class ActorRuleParseHylar extends ActorRuleParseFixedMediaTypes {
         }
         done();
       },
+      autoStart: false
     });
 
-    return { data: <RDF.ResultStream<Rule> & Readable> <unknown> ruleStrings.map(ruleString => parseRule(ruleString)) };
+    return { data: <any> ruleStrings.map(ruleString => parseRule(ruleString)) };
   }
 }
 
