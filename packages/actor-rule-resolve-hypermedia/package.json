@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rule-resolve-hypermedia",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "A hypermedia rule-resolve actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,12 +30,12 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-dereference-rule": "^0.0.0",
+    "@comunica/bus-dereference-rule": "^0.0.2",
     "@comunica/bus-http-invalidate": "^2.4.0",
-    "@comunica/bus-rule-resolve": "^0.0.0",
+    "@comunica/bus-rule-resolve": "^0.0.2",
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-context-entries": "^0.0.0",
-    "@comunica/reasoning-types": "^0.0.0",
+    "@comunica/reasoning-context-entries": "^0.0.2",
+    "@comunica/reasoning-types": "^0.0.2",
     "@comunica/types": "^2.4.0",
     "@types/lru-cache": "^7.10.9",
     "asynciterator": "^3.7.0",

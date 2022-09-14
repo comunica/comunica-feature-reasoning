@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-dereference-rule-parse",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "An actor that dereferences and parses a rule.",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -32,8 +32,8 @@
   ],
   "dependencies": {
     "@comunica/bus-dereference": "^2.4.2",
-    "@comunica/bus-dereference-rule": "^0.0.0",
-    "@comunica/bus-rule-parse": "^0.0.0"
+    "@comunica/bus-dereference-rule": "^0.0.2",
+    "@comunica/bus-rule-parse": "^0.0.2"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

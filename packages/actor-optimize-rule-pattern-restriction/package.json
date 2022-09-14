@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-optimize-rule-pattern-restriction",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "A pattern-restriction optimize-rule actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,9 +30,9 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-optimize-rule": "^0.0.0",
+    "@comunica/bus-optimize-rule": "^0.0.2",
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-types": "^0.0.0",
+    "@comunica/reasoning-types": "^0.0.2",
     "@rdfjs/types": "*",
     "asynciterator": "^3.7.0",
     "rdf-terms": "^1.9.0",

@@ -1,6 +1,6 @@
 {
   "name": "@comunica/bus-dereference-rule",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "A comunica bus for dereferencing a path or URL into a stream of rules.",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,9 +30,9 @@
   ],
   "dependencies": {
     "@comunica/bus-dereference": "^2.4.2",
-    "@comunica/bus-rule-parse": "^0.0.0",
+    "@comunica/bus-rule-parse": "^0.0.2",
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-types": "^0.0.0"
+    "@comunica/reasoning-types": "^0.0.2"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

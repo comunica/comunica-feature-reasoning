@@ -1,6 +1,6 @@
 {
   "name": "@comunica/reasoning-context-entries",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "A collection of reusable Comunica Reasoning context key definitions.",
   "main": "lib/index.js",
   "typings": "lib/index",
@@ -32,7 +32,7 @@
   ],
   "dependencies": {
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-types": "^0.0.0"
+    "@comunica/reasoning-types": "^0.0.2"
   },
   "scripts": {
     "build": "node \"../../node_modules/typescript/bin/tsc\""
