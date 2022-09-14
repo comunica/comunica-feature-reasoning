@@ -179,6 +179,7 @@
     "@comunica/reasoning-context-entries": "^0.1.0",
     "@comunica/runner": "^2.4.0",
     "@comunica/runner-cli": "^2.4.0",
+    "@comunica/actor-context-preprocess-reasoning-defaults": "^0.0.0",
     "n3": "^1.16.2"
   },
   "scripts": {

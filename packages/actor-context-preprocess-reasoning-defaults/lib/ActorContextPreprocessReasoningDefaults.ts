@@ -1,5 +1,6 @@
-import { ActorContextPreprocess, IActorContextPreprocessOutput, IActorContextPreprocessArgs } from '@comunica/bus-context-preprocess';
-import { IActorArgs, IActorTest, IAction } from '@comunica/core';
+import type { IActorContextPreprocessOutput, IActorContextPreprocessArgs } from '@comunica/bus-context-preprocess';
+import { ActorContextPreprocess } from '@comunica/bus-context-preprocess';
+import type { IActorTest, IAction } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { Store } from 'n3';
 
@@ -18,7 +19,7 @@ export class ActorContextPreprocessReasoningDefaults extends ActorContextPreproc
   public async run(action: IAction): Promise<IActorContextPreprocessOutput> {
     return {
       context: action.context
-        .setDefault(KeysRdfReason.implicitDatasetFactory, () => new Store())
-    }
+        .setDefault(KeysRdfReason.implicitDatasetFactory, () => new Store()),
+    };
   }
 }

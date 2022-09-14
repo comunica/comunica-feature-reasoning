@@ -21,13 +21,13 @@ describe('ActorContextPreprocessReasoningDefaults', () => {
       return expect(actor.test({ context: new ActionContext() })).resolves.toEqual(true);
     });
 
-    it('should use N3Store default when no implicitDatasetFactory is available', async () => {
+    it('should use N3Store default when no implicitDatasetFactory is available', async() => {
       const { context } = await actor.run({ context: new ActionContext() });
       const factory = context.getSafe<() => any>(KeysRdfReason.implicitDatasetFactory)();
       expect(factory).toBeInstanceOf(Store);
     });
 
-    it('should use N3Store when implicitDatasetFactory is store input', async () => {
+    it('should use N3Store when implicitDatasetFactory is store input', async() => {
       const { context } = await actor.run({ context: new ActionContext({
         [KeysRdfReason.implicitDatasetFactory.name]: () => new Store(),
       }) });
@@ -35,7 +35,7 @@ describe('ActorContextPreprocessReasoningDefaults', () => {
       expect(factory).toBeInstanceOf(Store);
     });
 
-    it('should use string when implicitDatasetFactory is string input', async () => {
+    it('should use string when implicitDatasetFactory is string input', async() => {
       const { context } = await actor.run({ context: new ActionContext({
         [KeysRdfReason.implicitDatasetFactory.name]: () => 'http://example.org',
       }) });
