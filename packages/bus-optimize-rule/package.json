@@ -1,6 +1,6 @@
 {
   "name": "@comunica/bus-optimize-rule",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A comunica bus for optimizing rules given a context",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-types": "^0.1.0",
+    "@comunica/reasoning-types": "^0.2.0",
     "@comunica/types": "^2.4.0",
     "asynciterator": "^3.7.0",
     "sparqlalgebrajs": "^4.0.3"

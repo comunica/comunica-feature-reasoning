@@ -1,5 +1,11 @@
 # Changelog
 
+`<a name="v0.2.0"></a>`
+
+## [v0.2.0](https://github.com/comunica/comunica-feature-reasoning/compare/v0.1.0...v0.2.0) - 2022-09-14
+
+* [feat: add default for implicitDatasetFactory](https://github.com/comunica/comunica-feature-reasoning/commit/bf0f3973ebe7d3c74dcca7ce5022c4cfb24c6a9d)
+
 `<a name="v0.1.0"></a>`
 
 ## [v0.1.0](https://github.com/comunica/comunica-feature-reasoning/compare/v0.0.4...v0.1.0) - 2022-09-14
