@@ -115,28 +115,28 @@ describe('System test: QuerySparqlReasoning', () => {
         ].sort());
       });
 
-      // It('owl2rl on timbl and foaf - using rules shortcut and no implicit dataset factory', async() => {
-      //   const result = await engine.queryBindings(
-      //     'SELECT DISTINCT * WHERE { <https://www.w3.org/People/Berners-Lee/card#i> a ?o }', {
-      //       rules: KeysRdfDereferenceConstantHylar.owl2rl,
-      //       sources: [
-      //         'https://www.w3.org/People/Berners-Lee/card',
-      //         // 'http://xmlns.com/foaf/spec/index.rdf',
-      //         'https://web.archive.org/web/20220614105937if_/http://xmlns.com/foaf/spec/20140114.rdf',
-      //       ],
-      //     },
-      //   );
-      //   expect((await result.toArray()).map(x => x.get('o')?.value).sort()).toEqual([
-      //     'http://purl.org/dc/terms/Agent',
-      //     'http://schema.org/Person',
-      //     'http://www.w3.org/2000/10/swap/pim/contact#Male',
-      //     'http://www.w3.org/2000/10/swap/pim/contact#Person',
-      //     'http://www.w3.org/2002/07/owl#Thing',
-      //     'http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing',
-      //     'http://xmlns.com/foaf/0.1/Agent',
-      //     'http://xmlns.com/foaf/0.1/Person',
-      //   ].sort());
-      // });
+      it('owl2rl on timbl and foaf - using rules shortcut and no implicit dataset factory', async() => {
+        const result = await engine.queryBindings(
+          'SELECT DISTINCT * WHERE { <https://www.w3.org/People/Berners-Lee/card#i> a ?o }', {
+            rules: KeysRdfDereferenceConstantHylar.owl2rl,
+            sources: [
+              'https://www.w3.org/People/Berners-Lee/card',
+              // 'http://xmlns.com/foaf/spec/index.rdf',
+              'https://web.archive.org/web/20220614105937if_/http://xmlns.com/foaf/spec/20140114.rdf',
+            ],
+          },
+        );
+        expect((await result.toArray()).map(x => x.get('o')?.value).sort()).toEqual([
+          'http://purl.org/dc/terms/Agent',
+          'http://schema.org/Person',
+          'http://www.w3.org/2000/10/swap/pim/contact#Male',
+          'http://www.w3.org/2000/10/swap/pim/contact#Person',
+          'http://www.w3.org/2002/07/owl#Thing',
+          'http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing',
+          'http://xmlns.com/foaf/0.1/Agent',
+          'http://xmlns.com/foaf/0.1/Person',
+        ].sort());
+      });
     });
   });
 });

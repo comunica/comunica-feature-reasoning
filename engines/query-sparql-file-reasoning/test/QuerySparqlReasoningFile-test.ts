@@ -120,25 +120,25 @@ describe('System test: QuerySparqlReasoning', () => {
         expect(await result.toArray()).toHaveLength(2);
       });
 
-      // It(`should correctly apply subclasses with subclass rule serialised in n3 -
-      //     using rules shortcut and no implicit dataset factory`, async() => {
-      //   const result = await engine.queryBindings('SELECT * WHERE { <http://example.org/Jesse> a ?o }', {
-      //     rules: path.join(__dirname, './data/subclass-rule.n3'),
-      //     sources: [ new Store([
-      //       DF.quad(
-      //         DF.namedNode('http://example.org/Person'),
-      //         DF.namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
-      //         DF.namedNode('http://example.org/Thing'),
-      //       ),
-      //       DF.quad(
-      //         DF.namedNode('http://example.org/Jesse'),
-      //         DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-      //         DF.namedNode('http://example.org/Person'),
-      //       ),
-      //     ]) ],
-      //   });
-      //   expect(await result.toArray()).toHaveLength(2);
-      // });
+      it(`should correctly apply subclasses with subclass rule serialised in n3 -
+          using rules shortcut and no implicit dataset factory`, async() => {
+        const result = await engine.queryBindings('SELECT * WHERE { <http://example.org/Jesse> a ?o }', {
+          rules: path.join(__dirname, './data/subclass-rule.n3'),
+          sources: [ new Store([
+            DF.quad(
+              DF.namedNode('http://example.org/Person'),
+              DF.namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
+              DF.namedNode('http://example.org/Thing'),
+            ),
+            DF.quad(
+              DF.namedNode('http://example.org/Jesse'),
+              DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+              DF.namedNode('http://example.org/Person'),
+            ),
+          ]) ],
+        });
+        expect(await result.toArray()).toHaveLength(2);
+      });
     });
   });
 });
