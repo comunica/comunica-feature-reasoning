@@ -1,6 +1,6 @@
 {
   "name": "@comunica/config-reasoning",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "default configuration files for Comunica Reasoning",
   "lsd:module": true,
   "main": "lib/index.js",

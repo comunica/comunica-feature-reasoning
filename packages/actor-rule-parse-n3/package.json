@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rule-parse-n3",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A n3 rule-parse actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@comunica/bus-rdf-parse": "^2.4.0",
-    "@comunica/bus-rule-parse": "^0.0.2",
+    "@comunica/bus-rule-parse": "^0.0.3",
     "@comunica/core": "^2.4.0",
     "asynciterator": "^3.7.0",
     "event-emitter-promisify": "^1.1.0",

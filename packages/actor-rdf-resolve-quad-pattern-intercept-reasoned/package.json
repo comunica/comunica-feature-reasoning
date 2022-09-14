@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rdf-resolve-quad-pattern-intercept-reasoned",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A reasoned rdf-resolve-quad-pattern-intercept actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,8 +30,8 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-rdf-reason": "^0.0.2",
-    "@comunica/bus-rdf-resolve-quad-pattern-intercept": "^0.0.2"
+    "@comunica/bus-rdf-reason": "^0.0.3",
+    "@comunica/bus-rdf-resolve-quad-pattern-intercept": "^0.0.3"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

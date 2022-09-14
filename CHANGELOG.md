@@ -1,5 +1,14 @@
 # Changelog
 
+`<a name="v0.0.3"></a>`
+
+## [v0.0.3](https://github.com/comunica/comunica-feature-reasoning/compare/v0.0.2...v0.0.3) - 2022-09-14
+
+### Breaking: Remove `getSafeData` function and use built in `.getSafe` context functionality
+
+* [fix: use built in .getSafe context functionality](https://github.com/comunica/comunica-feature-reasoning/commit/55051375c3f282ee1adec2ec42f3531426c3e06e)
+* [chore: create 0.0.2 release](https://github.com/comunica/comunica-feature-reasoning/commit/b970512256fcbb36e28e63383df62681ae49e787)
+
 All notable changes to this project will be documented in this file.
 
 `<a name="v0.0.2"></a>`
