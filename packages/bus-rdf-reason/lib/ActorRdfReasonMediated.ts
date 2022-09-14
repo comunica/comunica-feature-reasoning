@@ -43,6 +43,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
     return {
       match: (pattern: Algebra.Pattern): AsyncIterator<RDF.Quad> => wrap(
         this.mediatorRdfResolveQuadPattern.mediate({ context, pattern }).then(({ data }) => data),
+        { autoStart: false },
       ),
     };
   }
@@ -65,7 +66,8 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
       const { rules } = await this.mediatorOptimizeRule.mediate({ rules: data, ...action });
       return rules;
     };
-    return wrap<Rule>(getRules());
+    // Ok - so the problem is here with the autoStarting behavior
+    return wrap<Rule>(getRules(), { autoStart: false });
   }
 
   public async run(action: IActionRdfReason): Promise<IActorRdfReasonOutput> {

@@ -76,6 +76,7 @@ export class ActorRuleParseN3 extends ActorRuleParseFixedMediaTypes {
         }
         done();
       },
+      autoStart: false,
     });
 
     return { data: <any> rules };

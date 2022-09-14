@@ -14,6 +14,8 @@ const streamifyString = require('streamify-string');
 
 const { namedNode, quad, variable } = DataFactory;
 
+const emptyRule = '';
+
 const rule1 = `
 @prefix : <dpe#>.
 
@@ -112,6 +114,14 @@ describe('ActorRuleParseN3', () => {
           variable('g'),
         ),
       ]);
+    });
+
+    it('should handle empty rules', async() => {
+      const { data } = <IActorRuleParseOutput> (<any> await actor.run(createMediaTypedAction(emptyRule, false))).handle;
+
+      const arr = await arrayifyStream(data);
+
+      expect(arr).toHaveLength(0);
     });
   });
 });

@@ -38,7 +38,7 @@
     "build:engine:sparql-reasoning": "comunica-package -c config/config-default.json"
   },
   "dependencies": {
-    "@comunica/config-query-sparql": "^2.0.1"
+    "@comunica/config-query-sparql": "^2.2.0"
   },
   "gitHead": "67a52385d0bd8ecaaa405a2a087652a58156b571"
 }
