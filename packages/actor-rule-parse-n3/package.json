@@ -44,5 +44,6 @@
   },
   "devDependencies": {
     "@comunica/bus-rdf-resolve-quad-pattern": "^2.4.0"
-  }
+  },
+  "gitHead": "17b61cff21721451c6cc822377f59e34c53fe9e8"
 }

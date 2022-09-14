@@ -47,5 +47,6 @@
   "devDependencies": {
     "@comunica/bus-rdf-update-quads": "^2.4.0",
     "@types/n3": "^1.10.4"
-  }
+  },
+  "gitHead": "17b61cff21721451c6cc822377f59e34c53fe9e8"
 }

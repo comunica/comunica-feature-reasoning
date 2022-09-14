@@ -204,5 +204,5 @@
   "browser": {
     "./lib/index.js": "./lib/index-browser.js"
   },
-  "gitHead": "67a52385d0bd8ecaaa405a2a087652a58156b571"
+  "gitHead": "17b61cff21721451c6cc822377f59e34c53fe9e8"
 }

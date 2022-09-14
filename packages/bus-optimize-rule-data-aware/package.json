@@ -35,5 +35,6 @@
     "build": "npm run build:ts && npm run build:components",
     "build:ts": "node \"../../node_modules/typescript/bin/tsc\"",
     "build:components": "componentsjs-generator"
-  }
+  },
+  "gitHead": "17b61cff21721451c6cc822377f59e34c53fe9e8"
 }

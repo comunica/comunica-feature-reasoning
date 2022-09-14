@@ -47,5 +47,6 @@
   "devDependencies": {
     "@types/n3": "^1.10.4",
     "jest-rdf": "^1.7.0"
-  }
+  },
+  "gitHead": "17b61cff21721451c6cc822377f59e34c53fe9e8"
 }

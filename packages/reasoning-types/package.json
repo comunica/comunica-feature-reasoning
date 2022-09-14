@@ -33,5 +33,6 @@
   },
   "scripts": {
     "build": "node \"../../node_modules/typescript/bin/tsc\""
-  }
+  },
+  "gitHead": "17b61cff21721451c6cc822377f59e34c53fe9e8"
 }
