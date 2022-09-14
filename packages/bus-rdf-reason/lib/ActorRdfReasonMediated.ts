@@ -118,9 +118,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
           }
         }
         this.logInfo(action.context, 'Starting reasoning ...');
-        const rules = await this.getRules(action).toArray();
-
-        const reasoningLock = this.execute({ ...action, rules });
+        const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
 
         if (pattern) {
           // Set reasoning whole
