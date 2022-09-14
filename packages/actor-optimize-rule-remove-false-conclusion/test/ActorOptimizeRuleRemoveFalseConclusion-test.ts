@@ -18,7 +18,7 @@ describe('ActorOptimizeRuleRemoveFalseConclusion', () => {
     });
 
     it('should test', () => {
-      return expect(actor.test({ rules: fromArray<Rule>([]), context: new ActionContext() })).resolves.toEqual(true);
+      return expect(actor.test({ rules: fromArray([]), context: new ActionContext() })).resolves.toEqual(true);
     });
 
     it('should run on an empty ruleset', async() => {
