@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-optimize-rule-remove-false-conclusion",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A remove-false-conclusion optimize-rule actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,7 +30,7 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-optimize-rule": "^0.0.3",
+    "@comunica/bus-optimize-rule": "^0.0.4",
     "@comunica/core": "^2.4.0"
   },
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@comunica/reasoning-types",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Typings module for Reasoning in Comunica",
   "lsd:module": true,
   "main": "lib/index.js",

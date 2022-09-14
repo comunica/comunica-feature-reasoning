@@ -1,5 +1,12 @@
 # Changelog
 
+<a name="v0.0.4"></a>
+## [v0.0.4](https://github.com/comunica/comunica-feature-reasoning/compare/v0.0.3...v0.0.4) - 2022-09-14
+
+### TODO: categorize commits, choose titles from: Added, Changed, Deprecated, Removed, Fixed, Security.
+* [fix: fix missing engine dependencies](https://github.com/comunica/comunica-feature-reasoning/commit/e55cae1331be70f3c266e28655fc80ef99764282)
+* [fix: update engine dependencies](https://github.com/comunica/comunica-feature-reasoning/commit/4e16a531174ee5d4f0081963a8de0b86138927b2)
+
 `<a name="v0.0.3"></a>`
 
 ## [v0.0.3](https://github.com/comunica/comunica-feature-reasoning/compare/v0.0.2...v0.0.3) - 2022-09-14

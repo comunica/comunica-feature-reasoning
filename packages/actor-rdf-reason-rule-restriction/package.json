@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rdf-reason-rule-restriction",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A rule-restriction rdf-reason actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,10 +30,10 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-rdf-reason": "^0.0.3",
+    "@comunica/bus-rdf-reason": "^0.0.4",
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-context-entries": "^0.0.3",
-    "@comunica/reasoning-types": "^0.0.3",
+    "@comunica/reasoning-context-entries": "^0.0.4",
+    "@comunica/reasoning-types": "^0.0.4",
     "@rdfjs/types": "*",
     "asynciterator": "^3.7.0",
     "event-emitter-promisify": "^1.1.0",
