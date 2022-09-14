@@ -6,7 +6,7 @@ import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory, Store } from 'n3';
 import {
-  getExplicitSources, getSafeData, setImplicitSource, getContextWithImplicitDataset,
+  getExplicitSources, setImplicitSource, getContextWithImplicitDataset,
 } from '../lib/ActorRdfReason';
 
 const { namedNode, quad } = DataFactory;
@@ -103,15 +103,6 @@ describe('getContextWithImplicitDataset', () => {
       expect(newContext.get<IReasonGroup>(KeysRdfReason.data)?.dataset).toBeRdfDatasetContaining(indicatorQuad);
       expect(newContext.get(KeysRdfResolveQuadPattern.source)).toBeRdfDatasetContaining(indicatorQuad);
       expect(newContext.has(KeysRdfResolveQuadPattern.sources)).toEqual(false);
-    });
-  });
-
-  describe('getSafeData', () => {
-    it('Should run if the data is available', () => {
-      expect(getSafeData(new ActionContext({ [KeysRdfReason.data.name]: data }))).toEqual(data);
-    });
-    it('Should eror if the data is available', () => {
-      expect(() => getSafeData(new ActionContext())).toThrowError();
     });
   });
 

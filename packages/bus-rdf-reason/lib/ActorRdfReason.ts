@@ -24,17 +24,8 @@ export function implicitGroupFactory(context: IActionContext): IReasonGroup {
   };
 }
 
-// TODO: Clean up after https://github.com/comunica/comunica-feature-reasoning/issues/945 is closed
-export function getSafeData(context: IActionContext): IReasonGroup {
-  const data: IReasonGroup | undefined = context.get(KeysRdfReason.data);
-  if (!data) {
-    throw new Error(`Context entry ${KeysRdfReason.data.name} is required but not available`);
-  }
-  return data;
-}
-
 export function getImplicitSource(context: IActionContext): IDataSource & IDataDestination {
-  return getSafeData(context).dataset;
+  return context.getSafe<IReasonGroup>(KeysRdfReason.data).dataset;
 }
 
 export function getExplicitSources(context: IActionContext): IDataSource[] {
@@ -69,7 +60,7 @@ export function getContextWithImplicitDataset(context: IActionContext): IActionC
 }
 
 export function setReasoningStatus(context: IActionContext, status: IReasonGroup['status']): IActionContext {
-  getSafeData(context).status = status;
+  context.getSafe<IReasonGroup>(KeysRdfReason.data).status = status;
   return context;
 }
 

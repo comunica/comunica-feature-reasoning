@@ -5,7 +5,8 @@ import type {
 } from '@comunica/bus-rdf-update-quads';
 import type { MediatorRuleResolve } from '@comunica/bus-rule-resolve';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import type { Rule, IReasonStatus } from '@comunica/reasoning-types';
+import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import type { Rule, IReasonStatus, IReasonGroup } from '@comunica/reasoning-types';
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
@@ -13,7 +14,7 @@ import { everyTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import {
-  getSafeData, setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
+  setReasoningStatus, ActorRdfReason, setImplicitDestination, setUnionSource,
 } from './ActorRdfReason';
 
 export abstract class ActorRdfReasonMediated extends ActorRdfReason {
@@ -79,7 +80,7 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
           setReasoningStatus(action.context, { type: 'full', reasoned: false });
         }
 
-        const { status } = getSafeData(action.context);
+        const { status } = action.context.getSafe<IReasonGroup>(KeysRdfReason.data);
 
         // If full reasoning is already being applied then just use the data from that
         if (status.type === 'full' && status.reasoned) {
