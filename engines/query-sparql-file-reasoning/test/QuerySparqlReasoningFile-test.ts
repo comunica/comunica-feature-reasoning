@@ -120,7 +120,7 @@ describe('System test: QuerySparqlReasoning', () => {
         expect(await result.toArray()).toHaveLength(2);
       });
 
-      // it(`should correctly apply subclasses with subclass rule serialised in n3 -
+      // It(`should correctly apply subclasses with subclass rule serialised in n3 -
       //     using rules shortcut and no implicit dataset factory`, async() => {
       //   const result = await engine.queryBindings('SELECT * WHERE { <http://example.org/Jesse> a ?o }', {
       //     rules: path.join(__dirname, './data/subclass-rule.n3'),

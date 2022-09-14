@@ -115,7 +115,7 @@ describe('System test: QuerySparqlReasoning', () => {
         ].sort());
       });
 
-      // it('owl2rl on timbl and foaf - using rules shortcut and no implicit dataset factory', async() => {
+      // It('owl2rl on timbl and foaf - using rules shortcut and no implicit dataset factory', async() => {
       //   const result = await engine.queryBindings(
       //     'SELECT DISTINCT * WHERE { <https://www.w3.org/People/Berners-Lee/card#i> a ?o }', {
       //       rules: KeysRdfDereferenceConstantHylar.owl2rl,
