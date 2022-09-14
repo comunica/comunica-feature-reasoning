@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-dereference-constant-hylar-rdfs",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A constant-hylar-rdfs dereference actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -33,7 +33,7 @@
   "dependencies": {
     "@comunica/bus-dereference": "^2.4.2",
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-context-entries": "^0.0.4",
+    "@comunica/reasoning-context-entries": "^0.1.0",
     "streamify-string": "^1.0.1"
   },
   "scripts": {

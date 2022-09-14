@@ -1,6 +1,6 @@
 {
   "name": "@comunica/reasoning-mocks",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Mocks for Reasoning  in Comunica",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -32,11 +32,11 @@
     "@comunica/actor-rdf-resolve-quad-pattern-rdfjs-source": "^2.4.0",
     "@comunica/actor-rdf-update-quads-rdfjs-store": "^2.4.0",
     "@comunica/bus-rdf-parse": "^2.4.0",
-    "@comunica/bus-rdf-reason": "^0.0.4",
+    "@comunica/bus-rdf-reason": "^0.1.0",
     "@comunica/context-entries": "^2.4.0",
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-context-entries": "^0.0.4",
-    "@comunica/reasoning-types": "^0.0.4",
+    "@comunica/reasoning-context-entries": "^0.1.0",
+    "@comunica/reasoning-types": "^0.1.0",
     "@rdfjs/types": "*",
     "asynciterator": "^3.7.0",
     "n3": "^1.16.2"

@@ -1,6 +1,6 @@
 {
   "name": "@comunica/bus-normalize-rule",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A comunica bus for normalizing reasoning rules",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-types": "^0.0.4"
+    "@comunica/reasoning-types": "^0.1.0"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",

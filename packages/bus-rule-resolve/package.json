@@ -1,6 +1,6 @@
 {
   "name": "@comunica/bus-rule-resolve",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A comunica bus for resolving rules.",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "@comunica/core": "^2.4.0",
-    "@comunica/reasoning-types": "^0.0.4",
+    "@comunica/reasoning-types": "^0.1.0",
     "@comunica/types": "^2.4.0",
     "asynciterator": "^3.7.0"
   },

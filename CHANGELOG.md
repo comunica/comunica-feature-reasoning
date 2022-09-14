@@ -1,9 +1,16 @@
 # Changelog
 
-<a name="v0.0.4"></a>
+`<a name="v0.1.0"></a>`
+
+## [v0.1.0](https://github.com/comunica/comunica-feature-reasoning/compare/v0.0.4...v0.1.0) - 2022-09-14
+
+* [chore: disable tests for injected dataset factory](https://github.com/comunica/comunica-feature-reasoning/commit/d71795bb96a84ba86c76cecf8975304252659c7e)
+* [feat: enable context shortcuts for rules and implicitDatasetFactory](https://github.com/comunica/comunica-feature-reasoning/commit/d74851deec7431330433a0fc5672bdfb9e6f20b7)
+
+`<a name="v0.0.4"></a>`
+
 ## [v0.0.4](https://github.com/comunica/comunica-feature-reasoning/compare/v0.0.3...v0.0.4) - 2022-09-14
 
-### TODO: categorize commits, choose titles from: Added, Changed, Deprecated, Removed, Fixed, Security.
 * [fix: fix missing engine dependencies](https://github.com/comunica/comunica-feature-reasoning/commit/e55cae1331be70f3c266e28655fc80ef99764282)
 * [fix: update engine dependencies](https://github.com/comunica/comunica-feature-reasoning/commit/4e16a531174ee5d4f0081963a8de0b86138927b2)
 

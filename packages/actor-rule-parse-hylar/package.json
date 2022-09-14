@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rule-parse-hylar",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A hylar rule-parse actor",
   "lsd:module": true,
   "main": "lib/index.js",
@@ -30,8 +30,8 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@comunica/bus-rule-parse": "^0.0.4",
-    "@comunica/reasoning-types": "^0.0.4",
+    "@comunica/bus-rule-parse": "^0.1.0",
+    "@comunica/reasoning-types": "^0.1.0",
     "@comunica/types": "^2.4.0",
     "@rdfjs/types": "*",
     "asynciterator": "^3.7.0",
