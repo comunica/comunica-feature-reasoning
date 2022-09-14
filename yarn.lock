@@ -4346,13 +4346,6 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@strictsoftware/typedoc-plugin-monorepo@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@strictsoftware/typedoc-plugin-monorepo/-/typedoc-plugin-monorepo-0.4.2.tgz#7fbd039b0e2f56f736cc90da207efa7e5eb660f5"
-  integrity sha512-J2YFhz6wrLHKhHjkrzg7906mXQ3TfwbZGtsuyaM+6X4YkvX8kfyj6T3xa5ZoGNW6eBlGBwfwHB3IDg8B29A3dQ==
-  dependencies:
-    find-up "^5.0.0"
-
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
