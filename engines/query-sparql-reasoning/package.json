@@ -175,7 +175,11 @@
     "@comunica/mediator-join-coefficients-fixed": "^2.4.0",
     "@comunica/mediator-number": "^2.4.0",
     "@comunica/mediator-race": "^2.4.0",
-    "@comunica/runner": "^2.4.0"
+    "@comunica/runner": "^2.4.0",
+    "@comunica/reasoning-context-entries": "^0.0.3",
+    "@comunica/runner-cli": "^2.4.0",
+    "@comunica/context-entries": "^2.4.0",
+    "n3": "^1.16.2"
   },
   "scripts": {
     "build": "npm run build:ts",
