@@ -132,7 +132,9 @@
     "depcheck": "lerna-script depcheckTask",
     "depcheck:fix": "lerna-script depfixTask",
     "ncu:all": "lerna-script updateTask",
-    "ncu:major:all": "lerna-script updateTaskMajor"
+    "ncu:major:all": "lerna-script updateTaskMajor",
+    "packager:reasoning": "comunica-package -c engines/query-sparql-reasoning/config/config-default.json",
+    "packager:file-reasoning": "comunica-package -c engines/query-sparql-file-reasoning/config/config-default.json"
   },
   "resolutions": {
     "@rdfjs/types": "1.1.0"
