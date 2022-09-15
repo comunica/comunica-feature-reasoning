@@ -46,7 +46,9 @@ export class ActorRdfReasonEye extends ActorRdfReason {
     const iterators: { [key: string]: AsyncIterator<RDF.Quad> } = {};
     for (const key in contexts) {
       if (typeof key === 'string')
-        iterators[key] = (await this.mediatorRdfResolveQuadPattern.mediate({ context: contexts[key], pattern: factory.createPattern(
+        iterators[key] = (await this.mediatorRdfResolveQuadPattern.mediate({ 
+          context: contexts[key],
+          pattern: factory.createPattern(
           new Variable('s'),
           new Variable('p'),
           new Variable('o'),
