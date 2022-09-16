@@ -6104,11 +6104,12 @@ deep-is@^0.1.3:
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.4.tgz#a6f2dce612fadd2ef1f519b73551f17e85199831"
   integrity sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==
 
-deep-taxonomy-benchmark@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/deep-taxonomy-benchmark/-/deep-taxonomy-benchmark-1.0.0.tgz#de428c9a2425e31b20021b3ce074e241c0909f38"
-  integrity sha512-hOHIorWBsyTFTuAZHWWEz7jkxNbjvZeiW/mxl4BwHdYZxWHnqM95s/3Qs56qHt7Q6+M/cgzu6R9EbQBKWddFcw==
+deep-taxonomy-benchmark@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/deep-taxonomy-benchmark/-/deep-taxonomy-benchmark-1.1.0.tgz#8dff90ed662bfbe6f8a95501a59ac86f780f2fa9"
+  integrity sha512-c9dFilD32BfTtzC5RNxeWSYawV0yQsJrmaYsVqQkC3oMAmAt3tq5sO23CGRgV2JghQiyhABH0trh1Z4ytquF4A==
   dependencies:
+    event-emitter-promisify "^1.1.0"
     n3 "^1.16.2"
 
 deepmerge@^4.2.2:
