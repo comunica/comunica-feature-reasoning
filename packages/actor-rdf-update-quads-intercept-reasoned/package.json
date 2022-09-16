@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-rdf-update-quads-intercept-reasoned",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "A reasoned rdf-update-quads-intercept actor",
   "lsd:module": true,
   "main": "lib/index.js",

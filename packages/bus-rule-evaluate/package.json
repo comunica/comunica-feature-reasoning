@@ -1,6 +1,6 @@
 {
   "name": "@comunica/bus-rule-evaluate",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "A comunica bus for performing single rule evaluations",
   "lsd:module": true,
   "main": "lib/index.js",
