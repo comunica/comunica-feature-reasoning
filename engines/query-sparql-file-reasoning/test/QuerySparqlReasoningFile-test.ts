@@ -8,8 +8,6 @@ import { DataFactory } from 'rdf-data-factory';
 import { QueryEngine } from '../lib/QueryEngine';
 import { mockHttp } from './util';
 
-jest.unmock('follow-redirects');
-
 const DF = new DataFactory();
 
 describe('System test: QuerySparqlReasoning', () => {
