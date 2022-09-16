@@ -25,7 +25,7 @@ class MyActor extends ActorRdfResolveQuadPatternRdfJsSource {
     );
 
     return {
-      data: new UnionIterator<RDF.Quad>((await Promise.all(its)).map(it => it.data), { autoStart: false }),
+      data: new UnionIterator<RDF.Quad>(its.map(it => it.then(x => x.data)), { autoStart: false }),
     };
   }
 }

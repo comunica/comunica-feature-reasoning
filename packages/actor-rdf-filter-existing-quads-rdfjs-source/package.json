@@ -1,0 +1,44 @@
+{
+  "name": "@comunica/actor-rdf-filter-existing-quads-rdfjs-source",
+  "version": "0.0.0",
+  "description": "A rdfjs-source rdf-filter-existing-quads actor",
+  "lsd:module": true,
+  "main": "lib/index.js",
+  "typings": "lib/index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/comunica/comunica.git",
+    "directory": "packages/actor-rdf-filter-existing-quads-rdfjs-source"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "comunica",
+    "actor",
+    "rdf-filter-existing-quads",
+    "rdfjs-source"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/comunica/comunica/issues"
+  },
+  "homepage": "https://comunica.dev/",
+  "files": [
+    "components",
+    "lib/**/*.d.ts",
+    "lib/**/*.js"
+  ],
+  "dependencies": {
+    "@comunica/bus-rdf-filter-existing-quads": "^0.0.0",
+    "@comunica/bus-rdf-resolve-quad-pattern": "^2.4.0",
+    "@comunica/core": "^2.4.0",
+    "n3": "^1.16.2"
+  },
+  "scripts": {
+    "build": "npm run build:ts && npm run build:components",
+    "build:ts": "node \"../../node_modules/typescript/bin/tsc\"",
+    "build:components": "componentsjs-generator"
+  }
+}

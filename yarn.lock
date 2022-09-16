@@ -2235,6 +2235,20 @@
     "@types/lru-cache" "^5.1.0"
     lru-cache "^6.0.0"
 
+"@comunica/actor-rdf-update-quads-intercept-reasoned@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-update-quads-intercept-reasoned/-/actor-rdf-update-quads-intercept-reasoned-0.2.0.tgz#70ca8a37ebce4f5d6a0e94852f69fddbc81d20e0"
+  integrity sha512-ZXJNp6tCKZ1ywLPQIND7r06zVtgc7TdUl1Zw29eiI/oriDw37mdY7DMwYxHvkgGEi+MVdq7E0B0BBur/1OyRTA==
+  dependencies:
+    "@comunica/bus-rdf-reason" "^0.2.0"
+    "@comunica/bus-rdf-resolve-quad-pattern" "^2.4.0"
+    "@comunica/bus-rdf-update-quads-intercept" "^0.2.0"
+    "@comunica/core" "^2.4.0"
+    "@rdfjs/types" "*"
+    asynciterator "^3.7.0"
+    n3 "^1.16.2"
+    sparqlalgebrajs "^4.0.3"
+
 "@comunica/actor-rdf-update-quads-rdfjs-store@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@comunica/actor-rdf-update-quads-rdfjs-store/-/actor-rdf-update-quads-rdfjs-store-2.4.0.tgz#646d364033702a151b14dada69a0ccd6ef9cb6f9"
