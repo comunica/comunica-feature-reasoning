@@ -109,8 +109,8 @@ describe('ActorRdfUpdateQuadsInfoRdfjsStore', () => {
       expect(await q1?.toArray() ?? []).toHaveLength(1);
     });
 
-    it('test should error when a source is defined', () => {
-      expect(() => actor.test({
+    it('test should error when a source is defined', async() => {
+      await expect(() => actor.test({
         quadStreamInsert: <any>fromArray([
           quad(namedNode('s'), namedNode('s'), namedNode('s')),
         ]),
@@ -119,8 +119,8 @@ describe('ActorRdfUpdateQuadsInfoRdfjsStore', () => {
       })).rejects.toThrowError();
     });
 
-    it('test should error when a sources are defined', () => {
-      expect(() => actor.test({
+    it('test should error when a sources are defined', async() => {
+      await expect(() => actor.test({
         quadStreamInsert: <any>fromArray([
           quad(namedNode('s'), namedNode('s'), namedNode('s')),
         ]),

@@ -34,7 +34,7 @@ export class ActorRdfFilterExistingQuadsRdfjsSource extends ActorRdfFilterExisti
   public async run(action: IActionRdfFilterExistingQuads): Promise<IActorRdfFilterExistingQuadsOutput> {
     return {
       async execute() {
-        const store: Store = getContextSource(action.context) as Store;
+        const store: Store = <Store> getContextSource(action.context);
         return {
           quadStream: action.quadStream.filter(quad => !store.has(quad)),
         };

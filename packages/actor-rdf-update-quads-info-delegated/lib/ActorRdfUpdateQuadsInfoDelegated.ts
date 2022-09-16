@@ -45,8 +45,8 @@ function preprocess(context: IActionContext): IActionContext | false {
  * A comunica Delegated RDF Update Quads Info Actor.
  */
 export class ActorRdfUpdateQuadsInfoDelegated extends ActorRdfUpdateQuadsInfo {
-  mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
-  mediatorRdfFilterExistingQuads: MediatorRdfFilterExistingQuads;
+  public readonly mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
+  public readonly mediatorRdfFilterExistingQuads: MediatorRdfFilterExistingQuads;
 
   public constructor(args: IActorRdfUpdateQuadsInfoDelegatedArgs) {
     super(args);
@@ -87,8 +87,15 @@ export class ActorRdfUpdateQuadsInfoDelegated extends ActorRdfUpdateQuadsInfo {
           context: context || action.context,
         })).execute()).quadStream;
 
-        // Need to be very careful here because we are inserting more-or-less at same time as we are deleting (though if we are not could be equally as bad due to duplicates appearing in the stream)
-        await (await this.mediatorRdfUpdateQuads.mediate({ ...action, quadStreamInsert: quadStreamInsert.clone(), context: action.context.delete(KeysRdfResolveQuadPattern.source).delete(KeysRdfResolveQuadPattern.sources) })).execute();
+        // Need to be very careful here because we are inserting more-or-less at same time as we are deleting
+        // (though if we are not could be equally as bad due to duplicates appearing in the stream)
+        await (await this.mediatorRdfUpdateQuads.mediate({
+          ...action,
+          quadStreamInsert: quadStreamInsert.clone(),
+          context: action.context
+            .delete(KeysRdfResolveQuadPattern.source)
+            .delete(KeysRdfResolveQuadPattern.sources),
+        })).execute();
         return { quadStreamInsert: quadStreamInsert.clone() };
       },
     };

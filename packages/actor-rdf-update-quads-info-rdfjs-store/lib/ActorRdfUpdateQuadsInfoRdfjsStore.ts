@@ -1,6 +1,10 @@
 import { FederatedQuadSource } from '@comunica/actor-rdf-resolve-quad-pattern-federated';
 import { getContextDestination } from '@comunica/bus-rdf-update-quads';
-import type { IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoArgs, IActorRdfUpdateQuadsInfoOutput } from '@comunica/bus-rdf-update-quads-info';
+import type {
+  IActionRdfUpdateQuadsInfo,
+  IActorRdfUpdateQuadsInfoArgs,
+  IActorRdfUpdateQuadsInfoOutput,
+} from '@comunica/bus-rdf-update-quads-info';
 import { ActorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IActorTest } from '@comunica/core';
@@ -45,9 +49,9 @@ export class ActorRdfUpdateQuadsInfoRdfjsStore extends ActorRdfUpdateQuadsInfo {
     return {
       async execute() {
         if (quadStreamInsert) {
-          const store: DatasetCore = getContextDestination(context) as unknown as DatasetCore;
+          const store: DatasetCore = <DatasetCore> <unknown> getContextDestination(context);
           const sourceIds: Map<IDataSource, string> | undefined = context.get(KeysRdfResolveQuadPattern.sourceIds);
-          const id = sourceIds?.get(store as any);
+          const id = sourceIds?.get(<any> store);
 
           if (id === undefined) {
             quadStreamInsert = quadStreamInsert.filter(quad => !store.has(quad) && (store.add(quad), true));

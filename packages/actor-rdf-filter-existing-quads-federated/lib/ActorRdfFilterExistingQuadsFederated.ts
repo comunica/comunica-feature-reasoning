@@ -36,7 +36,8 @@ export class ActorRdfFilterExistingQuadsFederated extends ActorRdfFilterExisting
     return true;
   }
 
-  public async run({ quadStream, context }: IActionRdfFilterExistingQuads): Promise<IActorRdfFilterExistingQuadsOutput> {
+  public async run({ quadStream, context }: IActionRdfFilterExistingQuads):
+  Promise<IActorRdfFilterExistingQuadsOutput> {
     return {
       execute: async() => {
         for (const source of getContextSources(context)!) {
@@ -45,8 +46,12 @@ export class ActorRdfFilterExistingQuadsFederated extends ActorRdfFilterExisting
             filterDestination: false,
             // TODO: Handle deskolimzation, and reskolemization here
             quadStream,
-            // From https://github.com/comunica/comunica/blob/fb76e4c44a886638ac066fd4db7bfd852eef7915/packages/actor-rdf-resolve-quad-pattern-federated/lib/FederatedQuadSource.ts#L221-L224
-            context: context.set(KeysRdfResolveQuadPattern.source, { type: getDataSourceType(source), value: getDataSourceValue(source) }),
+            // From https://github.com/comunica/comunica/blob/fb76e4c44a886638ac066fd4db7bfd852eef7915/packages
+            // /actor-rdf-resolve-quad-pattern-federated/lib/FederatedQuadSource.ts#L221-L224
+            context: context.set(
+              KeysRdfResolveQuadPattern.source,
+              { type: getDataSourceType(source), value: getDataSourceValue(source) },
+            ),
           })).execute()).quadStream;
         }
 

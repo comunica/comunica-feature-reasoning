@@ -21,16 +21,19 @@ describe('ActorRdfFilterExistingQuadsFederated', () => {
       async mediate(action) {
         return {
           async execute() {
-            const { value: store } = getContextSource(action.context) as { value: Store };
+            const { value: store } = <{ value: Store }> getContextSource(action.context);
 
-            return { quadStream: action.quadStream.filter(quad => !store.has(quad)) };
+            return { quadStream: action.quadStream.filter(_quad => !store.has(_quad)) };
           },
         };
       },
     };
 
     context = new ActionContext({
-      [KeysRdfResolveQuadPattern.sources.name]: [ new Store([ quad(namedNode('s'), namedNode('p'), namedNode('o')) ]), new Store() ],
+      [KeysRdfResolveQuadPattern.sources.name]: [
+        new Store([ quad(namedNode('s'), namedNode('p'), namedNode('o')) ]),
+        new Store(),
+      ],
     });
   });
 
@@ -89,7 +92,7 @@ describe('ActorRdfFilterExistingQuadsFederated', () => {
         context,
       });
 
-      expect((await r.execute()).quadStream.toArray()).resolves.toBeRdfIsomorphic([
+      await expect((await r.execute()).quadStream.toArray()).resolves.toBeRdfIsomorphic([
         quad(namedNode('s'), namedNode('p'), namedNode('o2')),
       ]);
     });

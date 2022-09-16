@@ -44,7 +44,7 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
         async mediate({ quadStreamInsert, context }: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
           return {
             async execute() {
-              const dest: Store = getContextDestination(context) as Store;
+              const dest: Store = <Store> getContextDestination(context);
               if (quadStreamInsert)
               { return promisifyEventEmitter(dest.import(quadStreamInsert)); }
             },
@@ -62,7 +62,8 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
               const source: Store | undefined = action.context.get(KeysRdfResolveQuadPattern.source);
               const sources: Store[] | undefined = action.context.get(KeysRdfResolveQuadPattern.sources);
 
-              // TODO: Remove the 3 '?' operators in this section, they should not be necessary since we are already checking
+              // TODO: Remove the 3 '?' operators in this section,
+              // they should not be necessary since we are already checking
               // that things are not defined
               if (action.filterSource && (source || sources)) {
                 if (source)
@@ -91,14 +92,14 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
       });
     });
 
-    it('should test', () => {
-      expect(actor.test({ context, filterSource: true })).resolves.toEqual(true);
-      expect(actor.test({ context, filterSource: false })).resolves.toEqual(true);
+    it('should test', async() => {
+      await expect(actor.test({ context, filterSource: true })).resolves.toEqual(true);
+      await expect(actor.test({ context, filterSource: false })).resolves.toEqual(true);
     });
 
-    it('Should error on non insertion operations', () => {
-      expect(actor.test({ context, filterSource: false, quadStreamDelete: empty() })).rejects.toThrow();
-      expect(actor.test({
+    it('Should error on non insertion operations', async() => {
+      await expect(actor.test({ context, filterSource: false, quadStreamDelete: empty() })).rejects.toThrow();
+      await expect(actor.test({
         context,
         filterSource: false,
         deleteGraphs: { graphs: [], requireExistence: true, dropGraphs: true },

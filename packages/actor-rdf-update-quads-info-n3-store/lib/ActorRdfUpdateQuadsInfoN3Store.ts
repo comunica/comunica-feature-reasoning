@@ -1,6 +1,10 @@
 import { FederatedQuadSource } from '@comunica/actor-rdf-resolve-quad-pattern-federated';
 import { getContextDestination } from '@comunica/bus-rdf-update-quads';
-import type { IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoArgs, IActorRdfUpdateQuadsInfoOutput } from '@comunica/bus-rdf-update-quads-info';
+import type {
+  IActionRdfUpdateQuadsInfo,
+  IActorRdfUpdateQuadsInfoArgs,
+  IActorRdfUpdateQuadsInfoOutput,
+} from '@comunica/bus-rdf-update-quads-info';
 import { ActorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IActorTest } from '@comunica/core';
@@ -20,7 +24,8 @@ export class ActorRdfUpdateQuadsInfoN3Store extends ActorRdfUpdateQuadsInfo {
 
   public async test(action: IActionRdfUpdateQuadsInfo): Promise<IActorTest> {
     // TODO: See if this is needed
-    // if (action.context.has(KeysRdfResolveQuadPattern.source) || action.context.has(KeysRdfResolveQuadPattern.sources))
+    // if (action.context.has(KeysRdfResolveQuadPattern.source)
+    // || action.context.has(KeysRdfResolveQuadPattern.sources))
     //   throw new Error('The N3 store rdf-update-quads-info actor cannot run if there are source(s) defined')
 
     const destination = getContextDestination(action.context);
@@ -44,14 +49,16 @@ export class ActorRdfUpdateQuadsInfoN3Store extends ActorRdfUpdateQuadsInfo {
     return {
       async execute() {
         if (quadStreamInsert) {
-          const store: Store = getContextDestination(context) as Store;
+          const store: Store = <Store> getContextDestination(context);
           const sourceIds: Map<IDataSource, string> | undefined = context.get(KeysRdfResolveQuadPattern.sourceIds);
           const id = sourceIds?.get(store);
 
           if (id === undefined) {
-            quadStreamInsert = quadStreamInsert.filter(quad => store.addQuad(quad) as unknown as boolean);
+            quadStreamInsert = quadStreamInsert.filter(quad => <boolean> <unknown> store.addQuad(quad));
           } else {
-            quadStreamInsert = quadStreamInsert.filter(quad => store.addQuad(FederatedQuadSource.deskolemizeQuad(quad, id)) as unknown as boolean);
+            quadStreamInsert = quadStreamInsert.filter(
+              quad => <boolean> <unknown> store.addQuad(FederatedQuadSource.deskolemizeQuad(quad, id)),
+            );
           }
         }
 

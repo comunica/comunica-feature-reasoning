@@ -76,7 +76,7 @@ describe('ActorRdfFilterExistingQuadsRdfjsSource', () => {
         context,
       });
 
-      expect((await r.execute()).quadStream.toArray()).resolves.toBeRdfIsomorphic([
+      await expect((await r.execute()).quadStream.toArray()).resolves.toBeRdfIsomorphic([
         quad(namedNode('s'), namedNode('p'), namedNode('o2')),
       ]);
     });

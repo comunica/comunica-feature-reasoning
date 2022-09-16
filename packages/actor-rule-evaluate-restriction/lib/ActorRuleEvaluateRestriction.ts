@@ -6,7 +6,7 @@ import type {
 } from '@comunica/bus-rule-evaluate';
 import { ActorRuleEvaluate } from '@comunica/bus-rule-evaluate';
 import type { IActorTest } from '@comunica/core';
-import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
+import type { INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { single, UnionIterator, wrap } from 'asynciterator';
@@ -34,7 +34,7 @@ export class ActorRuleEvaluateRestriction extends ActorRuleEvaluate {
   }
 
   public async run(action: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
-    const nestedRule = action.rule as INestedPremiseConclusionRule;
+    const nestedRule = action.rule;
 
     const iterators = single(nestedRule).transform<{ mappings: AsyncIterator<Mapping>; conclusion: RDF.Quad[] }>({
       autoStart: false,

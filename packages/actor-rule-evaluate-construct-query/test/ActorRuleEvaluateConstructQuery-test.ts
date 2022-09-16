@@ -54,33 +54,33 @@ describe('ActorRuleEvaluateConstructQuery', () => {
       context = new ActionContext();
     });
 
-    it('should test true on valid rule types', () => {
-      expect(actor.test({
+    it('should test true on valid rule types', async() => {
+      await expect(actor.test({
         context,
         rule: { ruleType: 'premise-conclusion', premise: [], conclusion: []},
       })).resolves.toBeTruthy();
 
-      expect(actor.test({
+      await expect(actor.test({
         context,
         rule: { ruleType: 'rdfs', premise: [], conclusion: []},
       })).resolves.toBeTruthy();
 
-      expect(actor.test({
+      await expect(actor.test({
         context,
         rule: { ruleType: 'nested-premise-conclusion', premise: [], conclusion: []},
       })).resolves.toBeTruthy();
     });
 
-    it('should error on invalid rule types', () => {
-      expect(() => actor.test({
+    it('should error on invalid rule types', async() => {
+      await expect(() => actor.test({
         context,
         // @ts-expect-error This is a bad rule type
         rule: { ruleType: 'bad-rule', premise: [], conclusion: []},
       })).rejects.toThrow();
     });
 
-    it('should error on existing bindings', () => {
-      expect(() => actor.test({
+    it('should error on existing bindings', async() => {
+      await expect(() => actor.test({
         context,
         rule: { ruleType: 'rdfs', premise: [], conclusion: []},
         quadStream: empty(),
@@ -95,7 +95,7 @@ describe('ActorRuleEvaluateConstructQuery', () => {
       expect(await results.results.toArray()).toEqual([]);
     });
 
-    it('should run with empty premise and conclusion', async() => {
+    it('should run with empty premise and conclusion [premise-conclusion]', async() => {
       const results = await actor.run({
         context,
         rule: {
@@ -111,7 +111,7 @@ describe('ActorRuleEvaluateConstructQuery', () => {
       ]);
     });
 
-    it('should run with empty premise and false conclusion', async() => {
+    it('should run with empty premise and false conclusion [rdfs]', async() => {
       const results = await actor.run({
         context,
         rule: {
@@ -136,7 +136,9 @@ describe('ActorRuleEvaluateConstructQuery', () => {
           ],
         },
       });
-      expect(await results.results.toArray()).toEqual([ DF.quad(DF.namedNode('?s'), DF.namedNode('?p'), DF.namedNode('?o')) ]);
+      expect(await results.results.toArray()).toEqual([
+        DF.quad(DF.namedNode('?s'), DF.namedNode('?p'), DF.namedNode('?o')),
+      ]);
     });
   });
 });
