@@ -149,7 +149,7 @@ module.exports = {
     },
     {
       // Specific rules for test files
-      files: ['**/test/**/*.ts'],
+      files: ['**/test/**/*.ts', '**/perf/**/*.ts'],
       env: {
         'jest/globals': true,
       },
