@@ -88,6 +88,9 @@ IPremiseConclusionRule[] {
   return allRules;
 }
 
+// TODO: Use an existing function from rdf-terms or move this logic into that package
+// TODO: See why this needs to be different from matchPatternMappings in rdf-term package
+// this may indicate a bug in other modules that use that export
 /**
  * Check if the base quad matches against all terms in the pattern.
  *

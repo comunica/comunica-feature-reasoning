@@ -10,7 +10,7 @@ import type { Rule, IReasonStatus, IReasonGroup } from '@comunica/reasoning-type
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
-import { everyTerms } from 'rdf-terms';
+import { matchPatternMappings } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import {
@@ -87,33 +87,11 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
           return status.done;
         }
 
-        // TODO: Import from rdf-terms.js once https://github.com/rubensworks/rdf-terms.js/pull/42 is merged
-        /* istanbul ignore next  */
-        function matchBaseQuadPattern(__pattern: RDF.BaseQuad, quad: RDF.BaseQuad): boolean {
-          const mapping: Record<string, RDF.Term> = {};
-          function match(_pattern: RDF.BaseQuad, _quad: RDF.BaseQuad): boolean {
-            return everyTerms(_pattern, (term, key) => {
-              switch (term.termType) {
-                case 'Quad':
-                  return _quad[key].termType === 'Quad' && match(term, <RDF.BaseQuad> _quad[key]);
-                case 'Variable':
-                  // eslint-disable-next-line no-return-assign
-                  return term.value in mapping ?
-                    mapping[term.value].equals(_quad[key]) :
-                    (mapping[term.value] = _quad[key]) && true;
-                default:
-                  return term.equals(_quad[key]);
-              }
-            });
-          }
-          return match(__pattern, quad);
-        }
-
         // If we have already done partial reasoning and are only interested in a certain
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
           for (const [ key, value ] of status.patterns) {
-            if (value.reasoned && matchBaseQuadPattern(key, pattern)) {
+            if (value.reasoned && matchPatternMappings(pattern, key)) {
               return value.done;
             }
           }
