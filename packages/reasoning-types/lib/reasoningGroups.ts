@@ -27,3 +27,5 @@ export interface IReasonGroup {
   status: IReasonStatus | IPartialReasonedStatus;
   context: IActionContext;
 }
+
+export type IProofDestination = IDataDestination;

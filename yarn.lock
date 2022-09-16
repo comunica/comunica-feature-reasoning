@@ -2515,7 +2515,7 @@
     jsonld-context-parser "^2.1.5"
     sparqlalgebrajs "^4.0.2"
 
-"@comunica/core@^2.0.1", "@comunica/core@^2.4.0":
+"@comunica/core@^2.0.1", "@comunica/core@^2.3.0", "@comunica/core@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@comunica/core/-/core-2.4.0.tgz#529c619fb43411d5052b4ffc395d81dddf886c6c"
   integrity sha512-2nrrCzkycunRTVyCmevLvhSB1dxVv16aXEn0uH9BUXVl/l+JCKS9YyaYWRWpbxnMpz9R+rp6DRkaXR20yMmTjg==
@@ -4183,7 +4183,7 @@
     qs "^6.10.1"
     url-parse "^1.5.3"
 
-"@rdfjs/types@*", "@rdfjs/types@1.1.0", "@rdfjs/types@^1.1.0":
+"@rdfjs/types@*", "@rdfjs/types@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rdfjs/types/-/types-1.1.0.tgz#098f180b7cccb03bb416c7b4d03baaa9d480e36b"
   integrity sha512-5zm8bN2/CC634dTcn/0AhTRLaQRjXDZs3QfcAsQKNturHT7XVWcKy/8p3P5gXl+YkZTAmy7T5M/LyiT/jbkENw==
@@ -12148,6 +12148,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+swipl-wasm@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/swipl-wasm/-/swipl-wasm-1.1.0.tgz#7c1707d26e837016fe0aab8575bd283ce3d371ea"
+  integrity sha512-1spHLLB0wZOKFKgkdpV2gf/6rKDyPzIZY5QejwfJsycW9GpEH4WfiPj9tYqlxt87fzx1qLvVklTLuHqbxDu1VQ==
 
 synckit@^0.8.3:
   version "0.8.4"
