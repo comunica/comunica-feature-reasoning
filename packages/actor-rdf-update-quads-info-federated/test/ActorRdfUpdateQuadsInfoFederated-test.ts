@@ -26,7 +26,7 @@ describe('ActorRdfUpdateQuadsInfoFederated', () => {
       async mediate(action: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
         return {
           async execute() {
-            const store = action.context.get(KeysRdfUpdateQuads.destination)!;
+            const store = action.context.get<Store>(KeysRdfUpdateQuads.destination)!;
             let { quadStreamInsert } = action;
             if (quadStreamInsert)
             { quadStreamInsert = quadStreamInsert.filter(quad => store.addQuad(quad) as unknown as boolean); }
@@ -40,7 +40,7 @@ describe('ActorRdfUpdateQuadsInfoFederated', () => {
       async mediate(action) {
         return {
           async execute() {
-            const store = action.context.get(KeysRdfResolveQuadPattern.source)!;
+            const store = action.context.get<Store>(KeysRdfResolveQuadPattern.source)!;
             let { quadStream } = action;
             if (quadStream && action.filterSource)
             { quadStream = quadStream.filter(quad => !store.has(quad)); }

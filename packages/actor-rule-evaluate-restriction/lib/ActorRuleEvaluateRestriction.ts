@@ -6,7 +6,7 @@ import type {
 } from '@comunica/bus-rule-evaluate';
 import { ActorRuleEvaluate } from '@comunica/bus-rule-evaluate';
 import type { IActorTest } from '@comunica/core';
-import type { INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
+import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase, IPremiseConclusionRule } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
 import type { AsyncIterator } from 'asynciterator';
 import { single, UnionIterator, wrap } from 'asynciterator';
@@ -34,7 +34,8 @@ export class ActorRuleEvaluateRestriction extends ActorRuleEvaluate {
   }
 
   public async run(action: IActionRuleEvaluate): Promise<IActorRuleEvaluateOutput> {
-    const nestedRule = action.rule;
+    // We can make this assumption thanks to the `.test` method
+    const nestedRule = action.rule as IPremiseConclusionRule | INestedPremiseConclusionRule;
 
     const iterators = single(nestedRule).transform<{ mappings: AsyncIterator<Mapping>; conclusion: RDF.Quad[] }>({
       autoStart: false,
@@ -72,7 +73,7 @@ export class ActorRuleEvaluateRestriction extends ActorRuleEvaluate {
             conclusion: rule.conclusion,
             // The only time the mappings shouldn't be cloned is if the rules is
             // not nested at all
-            mappings: nestedRule.next ? mappings.clone() : mappings,
+            mappings: ('next' in nestedRule && nestedRule.next) ? mappings.clone() : mappings,
           });
           // eslint-disable-next-line no-cond-assign
           if (rule = rule.next) {
