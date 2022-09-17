@@ -5,7 +5,7 @@ import type {
   MediatorRdfFilterExistingQuads,
 } from '@comunica/bus-rdf-filter-existing-quads';
 import { ActorRdfFilterExistingQuads } from '@comunica/bus-rdf-filter-existing-quads';
-import { getContextSources, getDataSourceType, getDataSourceValue } from '@comunica/bus-rdf-resolve-quad-pattern';
+import { getContextSource, getContextSources, getDataSourceType, getDataSourceValue } from '@comunica/bus-rdf-resolve-quad-pattern';
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import type { IActorTest } from '@comunica/core';
 
@@ -33,6 +33,10 @@ export class ActorRdfFilterExistingQuadsFederated extends ActorRdfFilterExisting
       throw new Error(`Actor ${this.name} can only filter quads against a sources array.`);
     }
 
+    if (getContextSource(action.context)) {
+      throw new Error(`Actor ${this.name} can only execute when no single source is present`)
+    }
+
     return true;
   }
 
@@ -40,11 +44,14 @@ export class ActorRdfFilterExistingQuadsFederated extends ActorRdfFilterExisting
   Promise<IActorRdfFilterExistingQuadsOutput> {
     return {
       execute: async() => {
-        for (const source of getContextSources(context)!) {
+        const sources = getContextSources(context)!
+        context = context.delete(KeysRdfResolveQuadPattern.sources);
+
+        for (const source of sources) {
           quadStream = (await (await this.mediatorRdfFilterExistingQuads.mediate({
             filterSource: true,
             filterDestination: false,
-            // TODO: Handle deskolimzation, and reskolemization here
+            // TODO: See if we need to handle deskolimzation, and reskolemization here
             quadStream,
             // From https://github.com/comunica/comunica/blob/fb76e4c44a886638ac066fd4db7bfd852eef7915/packages
             // /actor-rdf-resolve-quad-pattern-federated/lib/FederatedQuadSource.ts#L221-L224

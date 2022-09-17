@@ -5,7 +5,8 @@ import {
 } from '@comunica/bus-rdf-filter-existing-quads';
 import { hasContextSingleSourceOfType, getContextSource } from '@comunica/bus-rdf-resolve-quad-pattern';
 import type { IActorArgs, IActorTest } from '@comunica/core';
-import type { Store } from 'n3';
+// import type { Store } from 'n3';
+import * as RDF from '@rdfjs/types';
 
 /**
  * A comunica RDFjs Source RDF Filter Existing Quads Actor.
@@ -15,6 +16,9 @@ export class ActorRdfFilterExistingQuadsRdfjsSource extends ActorRdfFilterExisti
     super(args);
   }
 
+  // TODO: Get this working properly by adding the checks in
+  // https://github.com/comunica/comunica/blob/146b41da2135033be72a6342ecf2313b381daff9/packages
+  // /actor-rdf-update-quads-rdfjs-store/lib/ActorRdfUpdateQuadsRdfJsStore.ts#L19
   public async test(action: IActionRdfFilterExistingQuads): Promise<IActorTest> {
     if (action.filterDestination) {
       throw new Error(`${this.name} does not handle filtering destinations`);
@@ -34,7 +38,7 @@ export class ActorRdfFilterExistingQuadsRdfjsSource extends ActorRdfFilterExisti
   public async run(action: IActionRdfFilterExistingQuads): Promise<IActorRdfFilterExistingQuadsOutput> {
     return {
       async execute() {
-        const store: Store = <Store> getContextSource(action.context);
+        const store: RDF.DatasetCore = <RDF.DatasetCore> <unknown> getContextSource(action.context);
         return {
           quadStream: action.quadStream.filter(quad => !store.has(quad)),
         };
