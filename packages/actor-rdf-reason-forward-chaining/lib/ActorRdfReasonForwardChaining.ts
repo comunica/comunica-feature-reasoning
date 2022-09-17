@@ -38,7 +38,7 @@ IRuleNode | null {
   const pattern = rule.premise[index];
 
   forEachTerms(pattern, (term, name) => {
-     // Verify that it is a valid match
+    // Verify that it is a valid match
     if (term.termType !== 'Variable' &&
       !term.equals(quad[name])) {
       mapping = null;
@@ -68,7 +68,7 @@ IRuleNode | null {
     }
   }
 
-  const conclusion = rule.conclusion && rule.conclusion.map(conclusion => substitute(conclusion, mapping!));
+  const conclusion = rule.conclusion && rule.conclusion.map(_conclusion => substitute(_conclusion, mapping!));
 
   const res: IRuleNode = {
     rule: {
@@ -95,7 +95,8 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
   }
 
   public async test(action: IActionRdfReason): Promise<IActorTest> {
-    return true; // TODO implement
+    // TODO implement
+    return true;
   }
 
   private async insert(context: IActionContext, results: AsyncIterator<RDF.Quad>): Promise<AsyncIterator<RDF.Quad>> {
@@ -122,21 +123,22 @@ export class ActorRdfReasonForwardChaining extends ActorRdfReasonMediated {
     // NOTE: This particular function should *not* be used for reasoning after some implicit results have already
     // been materialized
     let results: AsyncIterator<IConsequenceData> | null = fromArray(_rule).map(
-      rule => this.evaluateInsertRule(rule, context),
+      ruleToInsert => this.evaluateInsertRule(ruleToInsert, context),
     );
 
     const unionContext = setUnionSource(context);
+    // eslint-disable-next-line no-cond-assign
     while ((results = await maybeIterator(results)) !== null) {
       results = new UnionIterator(results.map(({ quads, rule }) => {
         const newRules = new UnionIterator(
-          quads.map(quad => fromArray(rule.next).map(rule => maybeSubstitute(rule, quad) || false)),
+          quads.map(quad => fromArray(rule.next).map(__rule => maybeSubstitute(__rule, quad) || false)),
           { autoStart: false },
         )
         // TODO: Remove this line once https://github.com/RubenVerborgh/AsyncIterator/pull/59 is merged - use null
         // TODO: Work out why errors are being suppressed - such as store not being in the context
-          .filter((rule): rule is IRuleNode => rule !== false);
+          .filter((__rule): __rule is IRuleNode => __rule !== false);
 
-        return newRules.map(_rule => this.evaluateInsertRule(_rule, unionContext));
+        return newRules.map(__rule => this.evaluateInsertRule(__rule, unionContext));
       }), { autoStart: false });
     }
   }

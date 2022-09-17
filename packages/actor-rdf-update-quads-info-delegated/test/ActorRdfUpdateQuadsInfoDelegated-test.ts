@@ -20,7 +20,6 @@ import { ActorRdfUpdateQuadsInfoDelegated } from '../lib/ActorRdfUpdateQuadsInfo
 describe('ActorRdfUpdateQuadsInfoDelegated', () => {
   let bus: any;
   let destination: Store;
-  let source: Store;
   let mediatorRdfUpdateQuads: MediatorRdfUpdateQuads;
   let mediatorRdfFilterExistingQuads: MediatorRdfFilterExistingQuads;
   let context: IActionContext;
@@ -41,10 +40,11 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
 
       // @ts-expect-error
       mediatorRdfUpdateQuads = {
-        async mediate({ quadStreamInsert, context }: IActionRdfUpdateQuads): Promise<IActorRdfUpdateQuadsOutput> {
+        async mediate({ quadStreamInsert, context: _context }: IActionRdfUpdateQuads):
+        Promise<IActorRdfUpdateQuadsOutput> {
           return {
             async execute() {
-              const dest: Store = <Store> getContextDestination(context);
+              const dest: Store = <Store> getContextDestination(_context);
               if (quadStreamInsert)
               { return promisifyEventEmitter(dest.import(quadStreamInsert)); }
             },
@@ -58,7 +58,7 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
           return {
             async execute() {
               let quadStream = action.quadStream;
-              const destination: Store | undefined = action.context.get(KeysRdfUpdateQuads.destination);
+              const _destination: Store | undefined = action.context.get(KeysRdfUpdateQuads.destination);
               const source: Store | undefined = action.context.get(KeysRdfResolveQuadPattern.source);
               const sources: Store[] | undefined = action.context.get(KeysRdfResolveQuadPattern.sources);
 
@@ -72,8 +72,8 @@ describe('ActorRdfUpdateQuadsInfoDelegated', () => {
                 { quadStream = quadStream.filter(quad => !sources?.some(src => src.has(quad))); }
               }
 
-              if (action.filterDestination && destination) {
-                quadStream = quadStream.filter(quad => !destination?.has(quad));
+              if (action.filterDestination && _destination) {
+                quadStream = quadStream.filter(quad => !_destination?.has(quad));
               }
 
               return {

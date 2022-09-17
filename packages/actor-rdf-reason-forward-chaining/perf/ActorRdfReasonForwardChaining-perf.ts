@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint no-console: 0 */
 import { KeysRdfResolveQuadPattern } from '@comunica/context-entries';
 import { ActionContext, Bus } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';

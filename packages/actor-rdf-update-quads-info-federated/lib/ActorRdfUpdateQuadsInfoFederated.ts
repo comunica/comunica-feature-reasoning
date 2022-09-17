@@ -26,7 +26,8 @@ export class ActorRdfUpdateQuadsInfoFederated extends ActorRdfUpdateQuadsInfo {
       throw new Error('A destination is required');
     }
 
-    // If (!action.context.has(KeysRdfResolveQuadPattern.source) && !action.context.has(KeysRdfResolveQuadPattern.source))
+    // If (!action.context.has(KeysRdfResolveQuadPattern.source)
+    // && !action.context.has(KeysRdfResolveQuadPattern.source))
     //   throw new Error('A source or source(s) are required')
 
     // Tests around what has currently been implemented

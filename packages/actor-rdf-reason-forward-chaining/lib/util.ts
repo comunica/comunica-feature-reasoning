@@ -6,15 +6,18 @@ import type { AsyncIterator } from 'asynciterator';
  */
 export async function maybeIterator<T>(source: AsyncIterator<T>): Promise<null | AsyncIterator<T>> {
   // Avoid creating a new iterator where possible
-  // if ((source instanceof ArrayIterator || source instanceof BufferedIterator) && (source as any)._buffer.length > 0) {
+  // if ((source instanceof ArrayIterator
+  // || source instanceof BufferedIterator) && (source as any)._buffer.length > 0) {
   //    return source
   // }
-  // if (source instanceof IntegerIterator && (source as any).step >= 0 ? (source as any).next > (source as any).last : (source as any).next < (source as any).last) {
+  // if (source instanceof IntegerIterator && (source as any).step >= 0 ?
+  // (source as any).next > (source as any).last : (source as any).next < (source as any).last) {
   //    return source;
   // }
 
   let item;
   do {
+    // eslint-disable-next-line no-cond-assign
     if ((item = source.read()) !== null) {
       return source.append([ item ]);
     }
@@ -29,17 +32,17 @@ function awaitReadable<T>(source: AsyncIterator<T>): Promise<void> {
       res();
     }
 
-    function done() {
+    function done(): void {
       cleanup();
       res();
     }
 
-    function err() {
+    function err(error: Error): void {
       cleanup();
-      rej();
+      rej(error);
     }
 
-    function cleanup() {
+    function cleanup(): void {
       source.removeListener('readable', done);
       source.removeListener('end', done);
       source.removeListener('error', err);

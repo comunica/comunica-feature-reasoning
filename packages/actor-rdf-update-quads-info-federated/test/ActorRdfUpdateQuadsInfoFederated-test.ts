@@ -1,5 +1,9 @@
 import type { MediatorRdfFilterExistingQuads } from '@comunica/bus-rdf-filter-existing-quads';
-import type { IActionRdfUpdateQuadsInfo, IActorRdfUpdateQuadsInfoOutput, MediatorRdfUpdateQuadsInfo } from '@comunica/bus-rdf-update-quads-info';
+import type {
+  IActionRdfUpdateQuadsInfo,
+  IActorRdfUpdateQuadsInfoOutput,
+  MediatorRdfUpdateQuadsInfo,
+} from '@comunica/bus-rdf-update-quads-info';
 import { KeysRdfResolveQuadPattern, KeysRdfUpdateQuads } from '@comunica/context-entries';
 import { Bus, ActionContext } from '@comunica/core';
 import { empty, fromArray } from 'asynciterator';
@@ -26,10 +30,10 @@ describe('ActorRdfUpdateQuadsInfoFederated', () => {
       async mediate(action: IActionRdfUpdateQuadsInfo): Promise<IActorRdfUpdateQuadsInfoOutput> {
         return {
           async execute() {
-            const store = action.context.get<Store>(KeysRdfUpdateQuads.destination)!;
+            const _store = action.context.get<Store>(KeysRdfUpdateQuads.destination)!;
             let { quadStreamInsert } = action;
             if (quadStreamInsert)
-            { quadStreamInsert = quadStreamInsert.filter(quad => store.addQuad(quad) as unknown as boolean); }
+            { quadStreamInsert = quadStreamInsert.filter(_quad => <boolean> <unknown> _store.addQuad(_quad)); }
             return { quadStreamInsert };
           },
         };
@@ -40,10 +44,10 @@ describe('ActorRdfUpdateQuadsInfoFederated', () => {
       async mediate(action) {
         return {
           async execute() {
-            const store = action.context.get<Store>(KeysRdfResolveQuadPattern.source)!;
+            const _store = action.context.get<Store>(KeysRdfResolveQuadPattern.source)!;
             let { quadStream } = action;
             if (quadStream && action.filterSource)
-            { quadStream = quadStream.filter(quad => !store.has(quad)); }
+            { quadStream = quadStream.filter(_quad => !_store.has(_quad)); }
 
             if (action.filterDestination)
             { throw new Error('Cannot filter destination'); }
