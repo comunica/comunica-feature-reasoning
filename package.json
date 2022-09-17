@@ -71,6 +71,7 @@
     "streamify-array": "^1.0.1",
     "streamify-string": "^1.0.1",
     "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
     "tslint": "^6.0.0",
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "0.21.0",
@@ -136,7 +137,10 @@
     "ncu:all": "lerna-script updateTask",
     "ncu:major:all": "lerna-script updateTaskMajor",
     "packager:reasoning": "comunica-package -c engines/query-sparql-reasoning/config/config-default.json",
-    "packager:file-reasoning": "comunica-package -c engines/query-sparql-file-reasoning/config/config-default.json"
+    "packager:file-reasoning": "comunica-package -c engines/query-sparql-file-reasoning/config/config-default.json",
+    "perf:deep-taxonomy": "ts-node engines/query-sparql-file-reasoning/perf/deep-taxonomy-benchmark 2",
+    "perf:timbl-foaf": "ts-node engines/query-sparql-file-reasoning/perf/timbl-foaf",
+    "perf": "npm run perf:timbl-foaf && npm run perf:deep-taxonomy"
   },
   "resolutions": {
     "@rdfjs/types": "1.1.0"

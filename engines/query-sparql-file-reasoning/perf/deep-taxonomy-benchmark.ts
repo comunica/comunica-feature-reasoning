@@ -3,8 +3,10 @@ import { generateDeepTaxonomy, TARGET_RESULT } from 'deep-taxonomy-benchmark';
 import { Factory } from 'sparqlalgebrajs';
 import { QueryEngine } from '../lib';
 
+const rounds = Number(process.argv[2])
+
 async function deepTaxonomy(extended = false) {
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= (rounds ?? 6); i++) {
     const engine = new QueryEngine();
     const factory = new Factory();
 
