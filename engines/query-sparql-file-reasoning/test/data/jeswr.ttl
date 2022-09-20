@@ -1,0 +1,6 @@
+@prefix inrupt: <https://id.inrupt.com/> .
+@prefix ex: <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+inrupt:jeswr ex:parent inrupt:jeswr_sr .
+ex:parent rdfs:subPropertyOf ex:ancestor .

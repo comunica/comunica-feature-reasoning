@@ -2,7 +2,7 @@
 
 // Needed to undo automock from actor-http-native, cleaner workarounds do not appear to be working.
 import * as path from 'path';
-import { KeysRdfReason } from '@comunica/reasoning-context-entries';
+import { KeysRdfDereferenceConstantHylar, KeysRdfReason } from '@comunica/reasoning-context-entries';
 import { Store } from 'n3';
 import { DataFactory } from 'rdf-data-factory';
 import { QueryEngine } from '../lib/QueryEngine';
@@ -136,6 +136,32 @@ describe('System test: QuerySparqlReasoning', () => {
           ]) ],
         });
         expect(await result.toArray()).toHaveLength(2);
+      });
+
+      // TODO: Name properly - we are testing concurrent query handling
+      it(`should correctly apply subproperty rules in owl2rl`, async() => {
+        const result2 = engine.queryBindings('SELECT * WHERE { <https://id.inrupt.com/jeswr> <http://example.org/parent> ?o }', {
+          rules: KeysRdfDereferenceConstantHylar.owl2rl,
+          sources: [
+            path.join(__dirname, 'data', 'jeswr.ttl')
+          ],
+        });
+
+        const result = await engine.queryBindings('SELECT * WHERE { <https://id.inrupt.com/jeswr> <http://example.org/ancestor> ?o }', {
+          rules: KeysRdfDereferenceConstantHylar.owl2rl,
+          sources: [
+            path.join(__dirname, 'data', 'jeswr.ttl')
+          ],
+        });
+
+        const res = await result.toArray();
+        expect(res).toHaveLength(1);
+        expect(res[0].get('o')).toEqual(DF.namedNode('https://id.inrupt.com/jeswr_sr'));
+
+        const res2 = await (await result2).toArray();
+        expect(res2).toHaveLength(1);
+        expect(res[0].get('o')).toEqual(DF.namedNode('https://id.inrupt.com/jeswr_sr'));
+
       });
     });
   });
