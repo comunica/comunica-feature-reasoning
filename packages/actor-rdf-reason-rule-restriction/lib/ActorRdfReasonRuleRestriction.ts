@@ -4,10 +4,10 @@ import type { IActorTest } from '@comunica/core';
 import { KeysRdfReason } from '@comunica/reasoning-context-entries';
 import type { INestedPremiseConclusionRule, INestedPremiseConclusionRuleBase } from '@comunica/reasoning-types';
 import type * as RDF from '@rdfjs/types';
-import type { AsyncIterator } from 'asynciterator';
+import { AsyncIterator, fromArray } from 'asynciterator';
 import { single, UnionIterator } from 'asynciterator';
 import { promisifyEventEmitter } from 'event-emitter-promisify';
-import { Store } from 'n3';
+import { DataFactory, Store } from 'n3';
 import { forEachTerms, mapTerms } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 
@@ -27,16 +27,36 @@ export class ActorRdfReasonRuleRestriction extends ActorRdfReasonMediated {
   }
 
   public async execute(action: IActionRdfReasonExecute): Promise<void> {
+    console.log(action.pattern?.predicate.value, 'reasoning')
     const { context, rules } = action;
-    const store = new Store();
-    let size = 0;
-    do {
-      size = store.size;
-      // TODO: Handle rule assertions better
-      const quadStreamInsert = evaluateRuleSet(<any> rules, this.unionQuadSource(context).match);
-      const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
-      await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
-    } while (store.size > size);
+    // const store = new Store();
+    // let size = 0;
+    // do {
+    //   size = store.size;
+    //   // TODO: Handle rule assertions better
+    //   const quadStreamInsert = evaluateRuleSet(<any> rules, this.unionQuadSource(context).match);
+      // const { execute } = await this.runImplicitUpdate({ quadStreamInsert: quadStreamInsert.clone(), context });
+      // await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
+    // } while (store.size > size);
+
+      const { execute } = await this.runImplicitUpdate({ quadStreamInsert: fromArray<RDF.Quad>([
+        DataFactory.quad(
+          DataFactory.namedNode('https://id.inrupt.com/jeswr'),
+          DataFactory.namedNode('https://example.org/parent'),
+          DataFactory.namedNode('https://id.inrupt.com/jeswrp'),
+        ),
+        DataFactory.quad(
+          DataFactory.namedNode('https://id.inrupt.com/jeswr'),
+          DataFactory.namedNode('https://example.org/ancestor'),
+          DataFactory.namedNode('https://id.inrupt.com/jeswrp'),
+        )
+      ]), context });
+      
+      
+      await execute();
+      
+      // await Promise.all([ execute(), await promisifyEventEmitter(store.import(quadStreamInsert.clone())) ]);
+    console.log(action.pattern?.predicate.value, 'reasoning completed')
   }
 }
 

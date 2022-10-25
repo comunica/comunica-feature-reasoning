@@ -10,7 +10,7 @@ import type { Rule, IReasonStatus, IReasonGroup } from '@comunica/reasoning-type
 import type { IActionContext } from '@comunica/types';
 import type * as RDF from '@rdfjs/types';
 import { wrap, type AsyncIterator } from 'asynciterator';
-import { matchPatternMappings } from 'rdf-terms';
+import { everyTerms, matchPatternMappings } from 'rdf-terms';
 import type { Algebra } from 'sparqlalgebrajs';
 import type { IActionRdfReason, IActorRdfReasonOutput } from './ActorRdfReason';
 import {
@@ -77,36 +77,77 @@ export abstract class ActorRdfReasonMediated extends ActorRdfReason {
         const { updates, pattern } = action;
         if (updates) {
           // If there is an update - forget everything we know about the current status of reasoning
+          // TODO: Work out if this is ok if there is an update that occurs *after* reasoning has started
+          console.log('updates so clearing status')
           setReasoningStatus(action.context, { type: 'full', reasoned: false });
         }
 
         const { status } = action.context.getSafe<IReasonGroup>(KeysRdfReason.data);
 
+        console.log('the status is', status)
+
         // If full reasoning is already being applied then just use the data from that
         if (status.type === 'full' && status.reasoned) {
+          console.log('reasoning is already fully applied', status)
           return status.done;
         }
+
+
+        // TODO: Import from rdf-terms.js once https://github.com/rubensworks/rdf-terms.js/pull/42 is merged
+        /* istanbul ignore next  */
+        function matchBaseQuadPattern(__pattern: RDF.BaseQuad, quad: RDF.BaseQuad): boolean {
+          const mapping: Record<string, RDF.Term> = {};
+          function match(_pattern: RDF.BaseQuad, _quad: RDF.BaseQuad): boolean {
+            return everyTerms(_pattern, (term, key) => {
+              switch (term.termType) {
+                case 'Quad':
+                  return _quad[key].termType === 'Quad' && match(term, <RDF.BaseQuad> _quad[key]);
+                case 'Variable':
+                  // eslint-disable-next-line no-return-assign
+                  return term.value in mapping ?
+                    mapping[term.value].equals(_quad[key]) :
+                    (mapping[term.value] = _quad[key]) && true;
+                default:
+                  return term.equals(_quad[key]);
+              }
+            });
+          }
+          return match(__pattern, quad);
+        }
+
+
 
         // If we have already done partial reasoning and are only interested in a certain
         // pattern then maybe we can use that
         if (status.type === 'partial' && pattern) {
           for (const [ key, value ] of status.patterns) {
-            if (value.reasoned && matchPatternMappings(pattern, key)) {
+            if (value.reasoned && matchBaseQuadPattern(key, pattern)) {
+              console.log('the partial pattern is', value);
               return value.done;
             }
           }
         }
         this.logInfo(action.context, 'Starting reasoning ...');
-        const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
+        const reasoningLock = this.getRules(action).toArray().then(rules => {
+          return this.execute({ ...action, rules });
+        });
 
+
+        // const reasoningLock = this.execute({ ...action, rules: await this.getRules(action).toArray() });
+
+        // WARNING: Await *must not* be called prior to setting the reasoning status as we must set the reasoning status
+        // within the same tick that we retrieved the prior status. Otherwise this can result in inconsistent status'
+        // across queries
         if (pattern) {
           // Set reasoning whole
           const patterns: Map<RDF.BaseQuad, IReasonStatus> = status.type === 'partial' ? status.patterns : new Map();
+          console.log('setting partial reasoning status')
           setReasoningStatus(action.context, {
             type: 'partial',
             patterns: patterns.set(pattern, { type: 'full', reasoned: true, done: reasoningLock }),
           });
         } else {
+          console.log('setting full reasoning status')
           setReasoningStatus(action.context, { type: 'full', reasoned: true, done: reasoningLock });
         }
 

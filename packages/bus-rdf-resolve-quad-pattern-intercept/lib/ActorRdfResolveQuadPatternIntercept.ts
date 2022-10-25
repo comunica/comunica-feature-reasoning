@@ -34,7 +34,10 @@ export abstract class ActorRdfResolveQuadPatternIntercept extends
   Promise<IActionRdfResolveQuadPatternIntercept>;
 
   public async run(action: IActionRdfResolveQuadPatternIntercept): Promise<IActorRdfResolveQuadPatternInterceptOutput> {
-    return this.mediatorRdfResolveQuadPattern.mediate(await this.runIntercept(action));
+    console.log('action', action.pattern.predicate.value);
+    const i = await this.runIntercept(action);
+    console.log('intercept completed', i.pattern.predicate.value);
+    return this.mediatorRdfResolveQuadPattern.mediate(i);
   }
 }
 
