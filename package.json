@@ -23,7 +23,7 @@
     "@types/arrayify-stream": "^1.0.1",
     "@types/jest": "^28.1.8",
     "@types/n3": "^1.10.4",
-    "@types/node": "^18.7.18",
+    "@types/node": "^20.0.0",
     "@types/setup-polly-jest": "^0.5.1",
     "@types/streamify-array": "^1.0.0",
     "@types/streamify-string": "^1.0.0",
