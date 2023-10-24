@@ -39,7 +39,7 @@
     "@comunica/types": "^2.4.0",
     "@types/lru-cache": "^7.10.9",
     "asynciterator": "^3.7.0",
-    "lru-cache": "^7.14.0"
+    "lru-cache": "^10.0.0"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:components",
