@@ -35,7 +35,7 @@
     "colors": "^1.4.0",
     "componentsjs-generator": "^3.1.0",
     "cross-fetch": "^4.0.0",
-    "deep-taxonomy-benchmark": "^1.1.1",
+    "deep-taxonomy-benchmark": "^2.0.0",
     "depcheck": "^1.4.3",
     "eslint": "^8.23.1",
     "eslint-config-es": "4.2.0",
