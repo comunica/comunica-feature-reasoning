@@ -139,6 +139,6 @@
     "packager:file-reasoning": "comunica-package -c engines/query-sparql-file-reasoning/config/config-default.json"
   },
   "resolutions": {
-    "@rdfjs/types": "1.1.0"
+    "@rdfjs/types": "1.1.2"
   }
 }
